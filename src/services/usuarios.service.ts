@@ -3,9 +3,9 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ClientesService {
+export class UsuariosService {
 
-    private serviceRef = this.afDB.list<any>('clientes');
+    private serviceRef = this.afDB.list<any>('usuarios');
 
     constructor(private MiAuth: AngularFireAuth,
         public afDB: AngularFireDatabase, ) {

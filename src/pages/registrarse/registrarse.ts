@@ -8,7 +8,7 @@ import { MessageHandler } from './../../services/messageHandler.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 import { ParamsService } from '../../services/params.service';
-import { ClientesService } from './../../services/clientes.service';
+import { UsuariosService } from './../../services/usuarios.service';
 import { HomePage } from './../home/home';
 
 @Component({
@@ -29,7 +29,7 @@ export class RegistrarsePage {
         private messageHandler: MessageHandler,
         private spinnerHandler: SpinnerHandler,
         private barcodeScanner: BarcodeScanner,
-        private clientesService: ClientesService,
+        private clientesService: UsuariosService,
         public paramsService: ParamsService,
     ) {
         if (this.navParams.data.page == 'login') {
