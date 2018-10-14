@@ -6,8 +6,13 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    <ion-list *ngIf="paramsService.isLogged">
+      <button menuClose ion-button block color="third" *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="!paramsService.isLogged">
+      <button menuClose ion-button block color="third" *ngFor="let p of loginPages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>
