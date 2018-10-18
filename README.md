@@ -1,15 +1,19 @@
 # PRACTICA PROFESIONAL SUPERVISADA
 ## Segundo Parcial: La Comanda 
 
-![Screen](https://github.com/camilaiglesiasguerrero/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/master/src/assets/readme/logo.png)
+![Screen](https://github.com/camilaiglesiasguerrero/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/branch_cami/src/assets/readme/logo.png)
 
-##**Integrantes**
-:heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08).
-:heavy_check_mark: Federico Peralta [GitHub](https://github.com/caru08)
-:heavy_check_mark: Camila Iglesias Guerrero [GitHub](https://github.com/camilaiglesiasguerrero)
 
-##**Módulos y objetivos**
-:fork_and_knife: __**Federico Peralta**__
+## **Integrantes** &nbsp &nbsp
+
+:heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08) &nbsp
+
+:heavy_check_mark: Federico Peralta [GitHub](https://github.com/caru08) &nbsp
+
+:heavy_check_mark: Camila Iglesias Guerrero [GitHub](https://github.com/camilaiglesiasguerrero) &nbsp &nbsp
+
+## **Módulos y objetivos**
+:fork_and_knife: __**Federico Peralta**__ Branch: branch_fede &nbsp 
 *Funcionalidades*
 - Alta de dueño/supervisor
 - Alta de empleados
@@ -19,11 +23,12 @@
 - Push notification para pedido de platos y bebidas
 - Mapa de ruta hasta el domicilio de entrega
 - Juego 10% de descuento
+
 *Responsabilidades*
 - Responsable de los sonidos de la app
 
 
-:fork_and_knife: __**Camila Iglesias Guerrero**__ Branch: *branch_cami*
+:fork_and_knife: __**Camila Iglesias Guerrero**__ Branch: *branch_cami* &nbsp
 *Funcionalidades*
 - Alta de platos y bebidas
 - Alta de mesa
@@ -36,7 +41,7 @@
 - Primer responsable del mergeado
 - Responsable de animaciones
 
-:fork_and_knife: __**Carina Muñoz**__  Branch: *branch_cari*
+:fork_and_knife: __**Carina Muñoz**__  Branch: *branch_cari* &nbsp
 *Funcionalidades*
 - Alta de clientes
 - Código QR de ingreso al local
