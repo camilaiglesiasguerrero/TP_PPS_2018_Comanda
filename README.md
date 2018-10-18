@@ -1,19 +1,21 @@
 # PRACTICA PROFESIONAL SUPERVISADA
 ## Segundo Parcial: La Comanda 
 
-![Screen](https://github.com/camilaiglesiasguerrero/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/branch_cami/src/assets/readme/logo.png)
+![Screen](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/branch_cami/src/assets/readme/logo.png)
 
 
-## **Integrantes** &nbsp &nbsp
+## **Integrantes** 
 
-:heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08) &nbsp
+:heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08) 
 
-:heavy_check_mark: Federico Peralta [GitHub](https://github.com/caru08) &nbsp
+:heavy_check_mark: Federico Peralta [GitHub](https://github.com/caru08) 
 
-:heavy_check_mark: Camila Iglesias Guerrero [GitHub](https://github.com/camilaiglesiasguerrero) &nbsp &nbsp
+:heavy_check_mark: Camila Iglesias Guerrero [GitHub](https://github.com/camilaiglesiasguerrero)      
 
 ## **Módulos y objetivos**
-:fork_and_knife: __**Federico Peralta**__ Branch: branch_fede &nbsp 
+:fork_and_knife: __**Federico Peralta**__ Branch: branch_fede 
+
+
 *Funcionalidades*
 - Alta de dueño/supervisor
 - Alta de empleados
@@ -28,7 +30,9 @@
 - Responsable de los sonidos de la app
 
 
-:fork_and_knife: __**Camila Iglesias Guerrero**__ Branch: *branch_cami* &nbsp
+:fork_and_knife: __**Camila Iglesias Guerrero**__ Branch: *branch_cami* 
+
+
 *Funcionalidades*
 - Alta de platos y bebidas
 - Alta de mesa
@@ -37,11 +41,14 @@
 - Pedir platos y bebidas
 - Push notification pedir mesa
 - Juego para bebida gratis -> juego elegido: tateti
+
 *Responsabilidades*
 - Primer responsable del mergeado
 - Responsable de animaciones
 
-:fork_and_knife: __**Carina Muñoz**__  Branch: *branch_cari* &nbsp
+:fork_and_knife: __**Carina Muñoz**__  Branch: *branch_cari* 
+
+
 *Funcionalidades*
 - Alta de clientes
 - Código QR de ingreso al local
@@ -50,6 +57,7 @@
 - Push notification de reservas agendadas
 - Realizar pedido por GPS o dirección
 - Juego para un postre gratis
+
 *Responsabilidades*
 - Login y registro
 - Splash e ícono de la aplicación
