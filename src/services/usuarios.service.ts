@@ -3,9 +3,9 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ClientesService {
+export class UsuariosService {
 
-    private serviceRef = this.afDB.list<any>('clientes');
+    private serviceRef = this.afDB.list<any>('usuarios');
 
     constructor(private MiAuth: AngularFireAuth,
         public afDB: AngularFireDatabase, ) {
@@ -21,6 +21,10 @@ export class ClientesService {
 
     public obtenerLista() {
         return this.serviceRef;
+    }
+
+    public getByUserId(){
+       return this.afDB.list('/usuarios', ref => ref.orderByChild('uid').equalTo(this.MiAuth.auth.currentUser.uid))        
     }
 
 }

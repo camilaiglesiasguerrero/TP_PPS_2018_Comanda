@@ -6,6 +6,7 @@ export class Cliente {
     dni:number;
     mail:string;
     foto:string;
+    rol:string = "cliente";
 
     constructor(nombre, apellido, dni, foto){
         this.nombre = nombre;

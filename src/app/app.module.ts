@@ -30,7 +30,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { MessageHandler } from '../services/messageHandler.service';
 import { SpinnerHandler } from '../services/spinnerHandler.service';
 import { ParamsService } from '../services/params.service';
-import { ClientesService } from './../services/clientes.service';
+import { UsuariosService } from './../services/usuarios.service';
 
 
 @NgModule({
@@ -68,7 +68,7 @@ import { ClientesService } from './../services/clientes.service';
     AuthenticationService,
     MessageHandler,
     SpinnerHandler,
-    ClientesService,
+    UsuariosService,
     
   ]
 })
