@@ -1,7 +1,7 @@
 # PRACTICA PROFESIONAL SUPERVISADA
 ## Segundo Parcial: La Comanda 
 
-![Screen](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/branch_cami/src/assets/readme/logo.png)
+![Screen](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/branch_cami/src/assets/readme/logoFondo.png)
 
 
 ## **Integrantes** 
@@ -13,8 +13,9 @@
 :heavy_check_mark: Camila Iglesias Guerrero: [GitHub](https://github.com/camilaiglesiasguerrero)      
 
 ## **Módulos y objetivos**
-:fork_and_knife: __**Federico Peralta**__
-##### Branch: *branch_fede* 
+:fork_and_knife: __**Federico Peralta**__  
+
+Branch: *branch_fede* 
 
 
 *Funcionalidades*
@@ -31,8 +32,9 @@
 - Responsable de los sonidos de la app
 
 
-:fork_and_knife: __**Camila Iglesias Guerrero**__   
-##### Branch: *branch_cami* 
+:fork_and_knife: __**Camila Iglesias Guerrero**__  
+
+Branch: *branch_cami* 
 
 
 *Funcionalidades*
@@ -49,7 +51,8 @@
 - Responsable de animaciones
 
 :fork_and_knife: __**Carina Muñoz**__  
-##### Branch: *branch_cari* 
+
+Branch: *branch_cari* 
 
 
 *Funcionalidades*
