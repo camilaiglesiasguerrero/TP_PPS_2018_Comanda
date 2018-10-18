@@ -1,7 +1,7 @@
 # PRACTICA PROFESIONAL SUPERVISADA
 ## Segundo Parcial: La Comanda 
 
-![Screen](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/branch_cami/src/assets/readme/logoFondo.png)
+![Screen](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/master/src/assets/readme/logoFondo.png)
 
 
 ## **Integrantes** 
@@ -11,6 +11,16 @@
 :heavy_check_mark: Federico Peralta: [GitHub](https://github.com/caru08) 
 
 :heavy_check_mark: Camila Iglesias Guerrero: [GitHub](https://github.com/camilaiglesiasguerrero)      
+
+
+## ¿En qué consiste el proyecto?
+
+### ¿Cómo se usa la aplicación? 
+
+**Perfiles de usuario**
+
+**Uso del sistema**
+
 
 ## **Módulos y objetivos**
 :fork_and_knife: __**Federico Peralta**__  
@@ -68,3 +78,4 @@ Branch: *branch_cari*
 - Login y registro
 - Splash e ícono de la aplicación
 - Responsable de estilos
+
