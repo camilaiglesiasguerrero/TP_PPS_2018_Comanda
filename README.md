@@ -1,25 +1,38 @@
-# PRACTICA PROFESIONAL SUPERVISADA
+# PRÁCTICA PROFESIONAL SUPERVISADA
 ## Segundo Parcial: La Comanda 
 
-![Screen](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/tree/master/src/assets/readme/logoFondo.png)
-
+![Logo](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/blob/master/src/assets/readme/logoFondo.png)
 
 ## **Integrantes** 
 
 :heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08) 
 
-:heavy_check_mark: Federico Peralta: [GitHub](https://github.com/caru08) 
+:heavy_check_mark: Federico Peralta: [GitHub](https://github.com/fepe15) 
 
 :heavy_check_mark: Camila Iglesias Guerrero: [GitHub](https://github.com/camilaiglesiasguerrero)      
 
 
 ## ¿En qué consiste el proyecto?
+La aplicación permitirá la gestión de las comandas de un restaurante. Fundamentalmente, dará la posibilidad, tanto al cliente como a los empleados, de tener la trazabilidad del pedido en todo momento.
 
 ### ¿Cómo se usa la aplicación? 
-
 **Perfiles de usuario**
+1. Supervisor:
+2. Empleado: es miembro del restaurante e interactuará con la aplicación según el rol que tenga asignado. Hay funcionalidades transversales a todos los empleados, como ser por ejemplo, la encuesta.
+     - Mozo
+     - Metre
+     - Cocinero
+     - Bartender
+     - Cajero
+     - Delivery
+3. Cliente: es quién interactuará con la aplicación sin ser miembro del restaurante, por lo que puede estar registrado o ingresar como anónimo. 
+     - Anónimo
+     - Registrado
+4. Dueño: rol superior, tiene acceso a todas las funcionalidades del sistema.
 
 **Uso del sistema**
+
+El usuario debe ingresar en la aplicación e iniciar sesión. Eso le habilitará diversos módulos acorde al alcance de su usuario, tal lo descripto en el punto *"Perfiles de usuario"*.
 
 
 ## **Módulos y objetivos**
@@ -58,6 +71,7 @@ Branch: *branch_cami*
 
 *Responsabilidades*
 - Primer responsable del mergeado
+- Readme
 - Responsable de animaciones
 
 :fork_and_knife: __**Carina Muñoz**__  
