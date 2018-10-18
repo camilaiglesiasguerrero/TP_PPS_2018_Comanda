@@ -8,16 +8,17 @@
 
 :heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08) 
 
-:heavy_check_mark: Federico Peralta [GitHub](https://github.com/caru08) 
+:heavy_check_mark: Federico Peralta: [GitHub](https://github.com/caru08) 
 
-:heavy_check_mark: Camila Iglesias Guerrero [GitHub](https://github.com/camilaiglesiasguerrero)      
+:heavy_check_mark: Camila Iglesias Guerrero: [GitHub](https://github.com/camilaiglesiasguerrero)      
 
 ## **Módulos y objetivos**
-:fork_and_knife: __**Federico Peralta**__ Branch: branch_fede 
+:fork_and_knife: __**Federico Peralta**__
+##### Branch: *branch_fede* 
 
 
 *Funcionalidades*
-- Alta de dueño/supervisor
+- Alta de dueño/supervisor*
 - Alta de empleados
 - Código QR de propina
 - Encuesta con estadística para el supervisor
@@ -30,7 +31,8 @@
 - Responsable de los sonidos de la app
 
 
-:fork_and_knife: __**Camila Iglesias Guerrero**__ Branch: *branch_cami* 
+:fork_and_knife: __**Camila Iglesias Guerrero**__   
+##### Branch: *branch_cami* 
 
 
 *Funcionalidades*
@@ -46,7 +48,8 @@
 - Primer responsable del mergeado
 - Responsable de animaciones
 
-:fork_and_knife: __**Carina Muñoz**__  Branch: *branch_cari* 
+:fork_and_knife: __**Carina Muñoz**__  
+##### Branch: *branch_cari* 
 
 
 *Funcionalidades*
