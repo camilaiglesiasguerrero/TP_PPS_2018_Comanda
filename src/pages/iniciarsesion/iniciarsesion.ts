@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs';
+//import { NgForm } from '@angular/forms';
 
 import { AuthenticationService } from './../../services/authentication.service';
 import { MessageHandler } from './../../services/messageHandler.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { RegistrarsePage } from '../registrarse/registrarse';
 import { ParamsService } from './../../services/params.service';
-import { UsuariosService } from './../../services/usuarios.service';
-
-import { HomePage } from './../home/home';
 
 
 @Component({
@@ -24,15 +21,12 @@ export class IniciarsesionPage {
   spiner: any = null;
   userSelect: string = "";
   selectUserOptions = { title: '' };
-  allUsersData: any;
-  userData: Observable<any[]>
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private autenticationService: AuthenticationService,
-    private messageHandler: MessageHandler,
+    private errorHandler: MessageHandler,
     private spinnerHandler: SpinnerHandler,
-    private usuariosService: UsuariosService,
     public paramsService: ParamsService) {
     this.selectUserOptions.title = "Usuarios disponibles";
   }
@@ -54,35 +48,26 @@ export class IniciarsesionPage {
       this.spiner.present();
       this.autenticationService.singIn(this.user.name, this.user.pass)
         .then(response => {
-          if(this.user.name != 'administrador@gmail.com'){
-            this.allUsersData = this.usuariosService.getByUserId();
-            this.userData = this.allUsersData.snapshotChanges();
-            this.userData.subscribe(response => {
-              this.onLogged(response[0].payload.val());
-              
-            })
+          this.spiner.dismiss();
+          this.paramsService.isLogged = true;
+          if(response.email == "admin@gmail.com"){
+            this.paramsService.usuarioAdmin = true;
           }else{
-            this.onLogged({email: this.user.name, rol:'admin'});
-          }    
+            this.paramsService.usuarioAdmin = false;
+          }
+          this.autenticationService.logInFromDataBase();  
+         // this.navCtrl.setRoot(PartidosPage);
+          console.log("Se logueo correctamente");
         })
         .catch(error => {
           this.spiner.dismiss();
-          this.messageHandler.mostrarError(error, "Error al iniciar sesión");
+          this.errorHandler.mostrarError(error, "Error al iniciar sesión");
         })
     }
   }
 
-  onLogged(user){
-    this.paramsService.user = user;
-    this.spiner.dismiss();
-    this.paramsService.isLogged = true;
-    this.autenticationService.logInFromDataBase();
-    this.navCtrl.setRoot(HomePage)
-    console.log("Se logueo correctamente");
-  }
-
   registerUser() {
-    this.navCtrl.setRoot(RegistrarsePage, { page: 'login' });
+    this.navCtrl.setRoot(RegistrarsePage, {page:'login'});
   }
 
   userSelectChange() {
@@ -119,7 +104,7 @@ export class IniciarsesionPage {
     if (this.user.pass && this.user.pass) {
       return true;
     }
-    this.messageHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
+    this.errorHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
     return false;
   }
 

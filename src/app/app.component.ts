@@ -26,7 +26,8 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private paramsService: ParamsService, private messageHandler: MessageHandler, private authenticationService: AuthenticationService) {
     this.initializeApp();
-    this.paramsService.isLogged = false;
+
+    // used for an example of ngFor and navigation
     this.loginPages = [
       { title: 'Iniciar Sesión', component: IniciarsesionPage },
       { title: 'Registrarse', component: RegistrarsePage }
@@ -53,7 +54,6 @@ export class MyApp {
           this.cerrarSesion();
         }
       });
-    }else{
       this.nav.setRoot(page.component, { 'fromApp': true });
     }
   }
