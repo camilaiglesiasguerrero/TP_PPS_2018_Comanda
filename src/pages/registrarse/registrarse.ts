@@ -18,11 +18,12 @@ import { HomePage } from './../home/home';
 
 export class RegistrarsePage {
 
-    user = { email: '', pass: '', secondPass: '', dni: '', nombre: '', apellido: '', foto: '' };
+    user = { email: '', pass: '', secondPass: '', dni: '', nombre: '', apellido: '', foto: '', rol: '' };
     title = "Registrarse";
     miScan = {};
     fromLogin = false;
-
+    isEmpleado:boolean;
+    
     constructor(public navCtrl: NavController,
         private navParams: NavParams,
         private autenticationService: AuthenticationService,
@@ -34,6 +35,12 @@ export class RegistrarsePage {
     ) {
         if (this.navParams.data.page == 'login') {
             this.fromLogin = true;
+        }
+        if(this.navParams.data.rol == 'empleado'){
+            this.title = "Empleado";
+            this.isEmpleado = true;
+            this.user['cuil'] = "";
+            this.user['subRol'] = "";
         }
     }
 
@@ -109,6 +116,8 @@ export class RegistrarsePage {
     }
 
     private crearUsuario() {
+        debugger;
+        var lala = this.user;
 
     }
 

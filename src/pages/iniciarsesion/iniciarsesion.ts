@@ -72,8 +72,9 @@ export class IniciarsesionPage {
     }
   }
 
-  onLogged(user){
+  onLogged(user:any){
     this.paramsService.user = user;
+    this.paramsService.rol = user.rol;
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
     this.autenticationService.logInFromDataBase();

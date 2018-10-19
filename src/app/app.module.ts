@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoPlayer } from '@ionic-native/video-player';
 
 import { configs } from './globalConfigs';
@@ -23,7 +23,10 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
-
+import { MesasPage } from '../pages/mesas/mesas';
+import { BebidasPage } from '../pages/bebidas/bebidas';
+import { ComidasPage } from '../pages/comidas/comidas';
+import { EmpeladosPage } from '../pages/empleados/empleados';
 
 //Services
 import { AuthenticationService } from '../services/authentication.service';
@@ -33,13 +36,18 @@ import { ParamsService } from '../services/params.service';
 import { UsuariosService } from './../services/usuarios.service';
 
 
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     IniciarsesionPage,
-    RegistrarsePage
+    RegistrarsePage,
+    MesasPage,
+    BebidasPage,
+    ComidasPage,
+    EmpeladosPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +62,11 @@ import { UsuariosService } from './../services/usuarios.service';
     HomePage,
     ListPage,
     IniciarsesionPage,
-    RegistrarsePage
+    RegistrarsePage,
+    MesasPage,
+    BebidasPage,
+    ComidasPage,
+    EmpeladosPage
   ],
   providers: [
     StatusBar,

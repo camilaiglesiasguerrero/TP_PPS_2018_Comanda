@@ -15,23 +15,43 @@
                 <ion-col>
                     <ion-item>
                         <ion-label floating>Nombre</ion-label>
-                        <ion-input type="text" name="dni" [(ngModel)]="user.nombre"></ion-input>
+                        <ion-input type="text" name="Nombre" [(ngModel)]="user.nombre"></ion-input>
                     </ion-item>
                 </ion-col>
                 <ion-col>
                     <ion-item>
                         <ion-label floating>Apellido</ion-label>
-                        <ion-input type="text" name="dni" [(ngModel)]="user.apellido"></ion-input>
+                        <ion-input type="text" name="Apellido" [(ngModel)]="user.apellido"></ion-input>
                     </ion-item>
                 </ion-col>
-            </ion-row>
-            <ion-row>
             </ion-row>
             <ion-row>
                 <ion-col>
                     <ion-item>
                         <ion-label floating>DNI</ion-label>
-                        <ion-input type="text" name="dni" [(ngModel)]="user.dni"></ion-input>
+                        <ion-input type="number" name="dni" [(ngModel)]="user.dni"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="isEmpleado">
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>CUIL</ion-label>
+                        <ion-input type="number" name="cuil" [(ngModel)]="user.cuil"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="isEmpleado">
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Tipo de Empleado</ion-label>
+                        <ion-select [(ngModel)]="user.subRol">
+                            <ion-option value="mozo">Mozo</ion-option>
+                            <ion-option value="cocinero">Cocinero</ion-option>
+                            <ion-option value="bartender">Bartender</ion-option>
+                            <ion-option value="metre">Metre</ion-option>
+                            <ion-option value="supervisor">Supervisor</ion-option>
+                        </ion-select>
                     </ion-item>
                 </ion-col>
             </ion-row>
