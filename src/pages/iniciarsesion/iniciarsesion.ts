@@ -83,7 +83,7 @@ export class IniciarsesionPage {
   }
 
   registerUser() {
-    this.navCtrl.setRoot(RegistrarsePage, { page: 'login' });
+    this.navCtrl.setRoot(RegistrarsePage, {page:'login'});
   }
 
   userSelectChange() {

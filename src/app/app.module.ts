@@ -38,50 +38,50 @@ import { UsuariosService } from './../services/usuarios.service';
 
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    IniciarsesionPage,
-    RegistrarsePage,
-    MesasPage,
-    BebidasPage,
-    ComidasPage,
-    EmpeladosPage
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    IniciarsesionPage,
-    RegistrarsePage,
-    MesasPage,
-    BebidasPage,
-    ComidasPage,
-    EmpeladosPage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Camera,
-    BarcodeScanner,
-    ParamsService,
-    MediaCapture,
-    VideoPlayer,
-    AuthenticationService,
-    MessageHandler,
-    SpinnerHandler,
-    UsuariosService,
-    
-  ]
+    declarations: [
+        MyApp,
+        HomePage,
+        ListPage,
+        IniciarsesionPage,
+        RegistrarsePage,
+        MesasPage,
+        BebidasPage,
+        ComidasPage,
+        EmpeladosPage
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp),
+        AngularFireModule.initializeApp(configs.firebaseConfig),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage,
+        ListPage,
+        IniciarsesionPage,
+        RegistrarsePage,
+        MesasPage,
+        BebidasPage,
+        ComidasPage,
+        EmpeladosPage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        Camera,
+        BarcodeScanner,
+        ParamsService,
+        MediaCapture,
+        VideoPlayer,
+        AuthenticationService,
+        MessageHandler,
+        SpinnerHandler,
+        UsuariosService,
+
+    ]
 })
 export class AppModule {}

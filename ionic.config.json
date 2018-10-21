@@ -1,5 +1,8 @@
 {
-    "name": "appComanda",
-    "integrations": {},
-    "type": "ionic-angular"
-  }
+  "name": "appComanda",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "typescript": true
+}
