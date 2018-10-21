@@ -8,7 +8,7 @@ import { MessageHandler } from './../../services/messageHandler.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 import { ParamsService } from '../../services/params.service';
-import { ClientesService } from './../../services/clientes.service';
+import { UsuariosService } from './../../services/usuarios.service';
 import { HomePage } from './../home/home';
 
 @Component({
@@ -18,23 +18,30 @@ import { HomePage } from './../home/home';
 
 export class RegistrarsePage {
 
-    user = { email: '', pass: '', secondPass: '', dni: '', nombre: '', apellido: '', foto: '' };
+    user = { email: '', pass: '', secondPass: '', dni: '', nombre: '', apellido: '', foto: '', rol: '' };
     title = "Registrarse";
     miScan = {};
     fromLogin = false;
+    isEmpleado:boolean;
     options : any;
-    
+
     constructor(public navCtrl: NavController,
-        private navParams: NavParams,
-        private autenticationService: AuthenticationService,
-        private messageHandler: MessageHandler,
-        private spinnerHandler: SpinnerHandler,
-        private barcodeScanner: BarcodeScanner,
-        private clientesService: ClientesService,
-        public paramsService: ParamsService,
+                private navParams: NavParams,
+                private autenticationService: AuthenticationService,
+                private messageHandler: MessageHandler,
+                private spinnerHandler: SpinnerHandler,
+                private barcodeScanner: BarcodeScanner,
+                private usuarioService: UsuariosService,
+                public paramsService: ParamsService,
     ) {
         if (this.navParams.data.page == 'login') {
             this.fromLogin = true;
+        }
+        if(this.navParams.data.rol == 'empleado'){
+            this.title = "Empleado";
+            this.isEmpleado = true;
+            this.user['cuil'] = "";
+            this.user['subRol'] = "";
         }
     }
 
@@ -61,41 +68,16 @@ export class RegistrarsePage {
     }
 
     escanearDni() {
-        /*    this.qrScanner.prepare()
-                .then((status: QRScannerStatus) => {
-                    if (status.authorized) {
-                        let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-                            console.log('Scanned something', text);
-    
-                            this.qrScanner.hide(); // hide camera preview
-                            scanSub.unsubscribe(); // stop scanning
-                        });
-    
-                    } else if (status.denied) {
-                        this.messageHandler.mostrarErrorLiteral("No se puede continuar si no se habilita el permiso");
-                    } else {
-                        // permission was denied, but not permanently. You can ask for permission again at a later time.
-                        this.messageHandler.mostrarErrorLiteral("No se puede continuar si no se habilita el permiso");
-                        
-                    }
-                })
-                .catch((e: any) => console.log('Error is', e));*/
-      
-             //try {
-                this.options = { prompt : "Escaneá el DNI", formats: "PDF_417" }
-                 this.barcodeScanner.scan(this.options).then((barcodeData) => {
-                    this.miScan = (barcodeData.text).split('@'); 
-                    this.user.apellido = this.miScan[1];
-                    this.user.nombre = this.miScan[2];
-                    this.user.dni = this.miScan[4];
-                   
-                 }, (error) => {
-                   //this.errorHandler.mostrarErrorLiteral(error);
-                 });
-             //  } catch (error) {
-                 //this.errorHandler.mostrarErrorLiteral("catch" + error);
-             //  }
+        this.options = { prompt : "Escaneá el DNI", formats: "PDF_417" }
+        this.barcodeScanner.scan(this.options).then((barcodeData) => {
+            this.miScan = (barcodeData.text).split('@');
+            this.user.apellido = this.miScan[1];
+            this.user.nombre = this.miScan[2];
+            this.user.dni = this.miScan[4];
 
+        }, (error) => {
+            //this.errorHandler.mostrarErrorLiteral(error);
+        });
     }
 
     private validForm() {
@@ -125,7 +107,7 @@ export class RegistrarsePage {
             .then(response => {
                 let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto);
                 cliente.uid = this.autenticationService.getUID();
-                this.clientesService.guardar(cliente)            
+                this.usuarioService.guardar(cliente)
                     .then(response => {
                         spiner.dismiss();
                         this.messageHandler.mostrarMensaje("Bienvenido!!");

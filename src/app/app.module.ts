@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoPlayer } from '@ionic-native/video-player';
 
 import { configs } from './globalConfigs';
@@ -23,53 +23,65 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
-
+import { MesasPage } from '../pages/mesas/mesas';
+import { BebidasPage } from '../pages/bebidas/bebidas';
+import { ComidasPage } from '../pages/comidas/comidas';
+import { EmpeladosPage } from '../pages/empleados/empleados';
 
 //Services
 import { AuthenticationService } from '../services/authentication.service';
 import { MessageHandler } from '../services/messageHandler.service';
 import { SpinnerHandler } from '../services/spinnerHandler.service';
 import { ParamsService } from '../services/params.service';
-import { ClientesService } from './../services/clientes.service';
+import { UsuariosService } from './../services/usuarios.service';
+
 
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    IniciarsesionPage,
-    RegistrarsePage
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    IniciarsesionPage,
-    RegistrarsePage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Camera,
-    BarcodeScanner,
-    ParamsService,
-    MediaCapture,
-    VideoPlayer,
-    AuthenticationService,
-    MessageHandler,
-    SpinnerHandler,
-    ClientesService,
-    
-  ]
+    declarations: [
+        MyApp,
+        HomePage,
+        ListPage,
+        IniciarsesionPage,
+        RegistrarsePage,
+        MesasPage,
+        BebidasPage,
+        ComidasPage,
+        EmpeladosPage
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp),
+        AngularFireModule.initializeApp(configs.firebaseConfig),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage,
+        ListPage,
+        IniciarsesionPage,
+        RegistrarsePage,
+        MesasPage,
+        BebidasPage,
+        ComidasPage,
+        EmpeladosPage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        Camera,
+        BarcodeScanner,
+        ParamsService,
+        MediaCapture,
+        VideoPlayer,
+        AuthenticationService,
+        MessageHandler,
+        SpinnerHandler,
+        UsuariosService,
+
+    ]
 })
 export class AppModule {}

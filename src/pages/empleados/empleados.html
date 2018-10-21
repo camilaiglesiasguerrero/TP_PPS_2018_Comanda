@@ -1,0 +1,37 @@
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle color="secondary">
+            <ion-icon color="secondary" name="menu"></ion-icon>
+        </button>
+        <ion-title>Empleados</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="flex-v">
+        <ul class="flex-container center-horizontal">
+            <!-- [ngClass]="{'last-item': i == totalItems }" -->
+            <li class="flex-item" *ngFor="let empleado of empleadosDisplay; let i=index" (click)="listaClick(empleado)">
+                <div class="flex-h height-100">
+                    <div class="fila-image-container width-30" *ngIf="!empleado.payload.val().foto">
+                        <img class="fila-image" src="assets/imgs/user.png">
+                    </div>
+                    <div class="fila-image-container width-30" *ngIf="empleado.payload.val().foto">
+                        <img class="fila-image jugador-image" src="{{empleado.payload.val().foto}}">
+                    </div>
+                    <div class="fila-description width-50">
+                        {{jugador.payload.val().nombre}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <ion-fab right bottom>
+        <button ion-fab color="dark" (click)="agregarEmpleado()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+
+
+</ion-content>
