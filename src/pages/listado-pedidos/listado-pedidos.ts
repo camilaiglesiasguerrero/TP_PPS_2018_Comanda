@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Pedido } from '../../models/pedido';
+import { AltaMenuPage } from '../alta-menu/alta-menu';
+import { ListadoMenuPage } from '../listado-menu/listado-menu';
+import { ParamsService } from '../../services/params.service';
 
 /**
  * Generated class for the ListadoPedidosPage page.
@@ -15,11 +20,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ListadoPedidosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  esCocina : boolean;
+
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public db:AngularFireDatabase,
+              public params:ParamsService) {
+
+    this.params.emplPuesto == 'bartender' ? this.esCocina = false : this.esCocina = true;
+
+    db.list<any>('pedidos/').valueChanges()
+      .subscribe(snapshotPedidos=>{
+        console.log(snapshotPedidos);
+    })
+    
+    
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ListadoPedidosPage');
+    //console.log('ionViewDidLoad ListadoPedidosPage');
+  }
+
+  irA(donde: string){
+    switch(donde){
+      case 'Nuevo':
+        this.navCtrl.push(AltaMenuPage);
+        break;
+      case 'Todos':
+        this.navCtrl.push(ListadoMenuPage);
+        break;
+    }
   }
 
 }

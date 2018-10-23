@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ListadoMenuPage } from '../listado-menu/listado-menu';
 import { ParamsService } from '../../services/params.service';
+import { AltaMenuPage } from '../alta-menu/alta-menu';
 
 /**
- * Generated class for the AltaMenuPage page.
+ * Generated class for the ListadoMenuPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,10 +12,10 @@ import { ParamsService } from '../../services/params.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-alta-menu',
-  templateUrl: 'alta-menu.html',
+  selector: 'page-listado-menu',
+  templateUrl: 'listado-menu.html',
 })
-export class AltaMenuPage {
+export class ListadoMenuPage {
 
   menu:string;
 
@@ -23,21 +23,21 @@ export class AltaMenuPage {
               public navParams: NavParams,
               public params: ParamsService) {
 
-    this.navParams.get('listado') ? this.navCtrl.remove(1,1) : null;
     this.params.rol == 'bartender' ? this.menu = 'Bebidas' : this.menu = 'Platos';
-
+    this.navParams.get('alta') ? this.navCtrl.remove(1,1) : null;
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad AltaMenuPage');
+    //console.log('ionViewDidLoad ListadoMenuPage');
   }
 
   irA(donde: string){
     switch(donde){
-      case 'Todos':
-        this.navCtrl.push(ListadoMenuPage,{alta:true});
+      case 'Nuevo':
+        this.navCtrl.push(AltaMenuPage,{listado:true});
         break;
     }
   }
+
 
 }
