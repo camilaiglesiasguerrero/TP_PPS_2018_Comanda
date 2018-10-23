@@ -27,6 +27,11 @@ import { MesasPage } from '../pages/mesas/mesas';
 import { BebidasPage } from '../pages/bebidas/bebidas';
 import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
+import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
+import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
+import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
+import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
+import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
 
 //Services
 import { AuthenticationService } from '../services/authentication.service';
@@ -47,7 +52,12 @@ import { UsuariosService } from './../services/usuarios.service';
         MesasPage,
         BebidasPage,
         ComidasPage,
-        EmpeladosPage
+        EmpeladosPage,
+        EncuestaEmpleadoPage,
+        ListadoPedidosPage,
+        AltaMenuPage,
+        ListadoMenuPage,
+        AltaPedidoPage
     ],
     imports: [
         BrowserModule,
@@ -66,7 +76,12 @@ import { UsuariosService } from './../services/usuarios.service';
         MesasPage,
         BebidasPage,
         ComidasPage,
-        EmpeladosPage
+        EmpeladosPage,
+        EncuestaEmpleadoPage,
+        ListadoPedidosPage,
+        AltaMenuPage,
+        ListadoMenuPage,
+        AltaPedidoPage
     ],
     providers: [
         StatusBar,

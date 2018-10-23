@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ParamsService } from '../../services/params.service';
+import { ListadoPedidosPage } from '../listado-pedidos/listado-pedidos';
+import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 
 /**
  * Generated class for the EncuestaEmpleadoPage page.
@@ -15,11 +18,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EncuestaEmpleadoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public paramsService: ParamsService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EncuestaEmpleadoPage');
+    //console.log('ionViewDidLoad EncuestaEmpleadoPage');
   }
 
+  irA(){
+    switch(this.paramsService.emplPuesto){
+      case 'bartender':
+      case 'cocinero':
+        this.navCtrl.setRoot(ListadoPedidosPage);
+        break;
+      case 'mozo':
+        this.navCtrl.setRoot(AltaPedidoPage);
+        break;
+    }
+    
+  }
 }
