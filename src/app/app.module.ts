@@ -32,7 +32,8 @@ import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
 import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
-
+import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
+import { DashboardPage } from '../pages/dashboard/dashboard';
 //Services
 import { AuthenticationService } from '../services/authentication.service';
 import { MessageHandler } from '../services/messageHandler.service';
@@ -57,7 +58,9 @@ import { UsuariosService } from './../services/usuarios.service';
         ListadoPedidosPage,
         AltaMenuPage,
         ListadoMenuPage,
-        AltaPedidoPage
+        AltaPedidoPage,
+        AnagramaPage,
+        DashboardPage
     ],
     imports: [
         BrowserModule,
@@ -81,7 +84,9 @@ import { UsuariosService } from './../services/usuarios.service';
         ListadoPedidosPage,
         AltaMenuPage,
         ListadoMenuPage,
-        AltaPedidoPage
+        AltaPedidoPage,
+        AnagramaPage,
+        DashboardPage
     ],
     providers: [
         StatusBar,
