@@ -19,11 +19,28 @@
   <h2>Si es mozo, permite levantar el qr de la mesa</h2>
 
 
-  <button (click)="escanearQR()" [hidden]=esMozo> Escanear código QR de la mesa </button>  
-  <button (click)="activarGPS()" [hidden]=!esMozo> Tomar dirección actual  </button>  
-  <div [hidden]=!esMozo>
+  <button (click)="escanearQR()" [hidden]=!esMozo> Escanear código QR de la mesa </button>  
+  
+  <div [hidden]=esMozo>
+    <button (click)="activarGPS()" [hidden]=esMozo> Tomar dirección actual  </button>  
     <input type="text" placeholder="Cargar dirección">
-    <input type="text" placeholder="Cargar hs de entrega">
+    <input type="text" placeholder="Cargar hora de entrega">
+    <ion-fab center bottom>
+      <button ion-fab  style="background-color:rgb(175,44,245);" (click)="irA('Todos')" ><ion-icon name="list-box"></ion-icon></button>
+    </ion-fab>
+
+    <ion-fab center bottom>
+        <button ion-fab color="danger"><ion-icon name="game-controller-b"></ion-icon></button>
+        <ion-fab-list side="top">
+          <button ion-fab color="warning" (click)="irA('bebida')"><ion-icon name="wine"></ion-icon></button>
+        </ion-fab-list>
+        <ion-fab-list side="left">
+          <button ion-fab color="light"><img src="../../assets/imgs/postre.png" alt="Postre"></button>
+        </ion-fab-list>
+        <ion-fab-list side="right">
+          <button ion-fab color="dark"><img src="../../assets/imgs/discount.png" alt="Descuento"></button>
+        </ion-fab-list>
+      </ion-fab>
   </div>
 </ion-content>
 
