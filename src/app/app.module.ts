@@ -12,6 +12,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 //LectorQR
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
+//GeneradorQR
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -21,19 +24,26 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+    //Autenticación
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
+    //Listados
 import { MesasPage } from '../pages/mesas/mesas';
 import { BebidasPage } from '../pages/bebidas/bebidas';
 import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
-import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
-import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
+    //ABM
+import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
+import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
+    //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
+    //Otros
+import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+
 //Services
 import { AuthenticationService } from '../services/authentication.service';
 import { MessageHandler } from '../services/messageHandler.service';
@@ -60,7 +70,8 @@ import { UsuariosService } from './../services/usuarios.service';
         ListadoMenuPage,
         AltaPedidoPage,
         AnagramaPage,
-        DashboardPage
+        DashboardPage,
+        AltaMesaPage
     ],
     imports: [
         BrowserModule,
@@ -68,6 +79,7 @@ import { UsuariosService } from './../services/usuarios.service';
         AngularFireModule.initializeApp(configs.firebaseConfig),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
+        NgxQRCodeModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -86,7 +98,8 @@ import { UsuariosService } from './../services/usuarios.service';
         ListadoMenuPage,
         AltaPedidoPage,
         AnagramaPage,
-        DashboardPage
+        DashboardPage,
+        AltaMesaPage
     ],
     providers: [
         StatusBar,
