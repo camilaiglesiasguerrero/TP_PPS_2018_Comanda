@@ -67,7 +67,7 @@ Branch: *branch_cami*
 - Encuesta con estadística para los empleados
 - Pedir platos y bebidas
 - Push notification pedir mesa
-- Juego para bebida gratis -> juego elegido: tateti
+- Juego para bebida gratis -> juego elegido: anagrama
 
 *Responsabilidades*
 - Primer responsable del mergeado
