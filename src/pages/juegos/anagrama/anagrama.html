@@ -1,0 +1,44 @@
+<!--
+  Generated template for the AnagramaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>¡Participá por una bebida!</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1>Reglas del juego:</h1>
+  <h2>El juego consiste en reordenar las letras para formar una palabra. ¡Apurate, que sólo tenés 1 minuto!</h2>
+
+  <p id='timer' class="tiempo" readonly >{{cronometro}}<i class="mili">{{cronoMili}}</i></p> 
+  <button type="button" class="mi-btn btn-success" (click)='generarPalabra()'>Comenzar</button>
+  <div [hidden]='!empiezaElJuego'> 
+      <ion-col  *ngFor="let letra of anagrama.palabraAMostrar">
+        <b> {{letra}} </b>           
+      </ion-col>
+    
+      <br>
+    <div [hidden]='anagrama.gano'>
+      <input [(ngModel)]='anagrama.palabraResultado' autofocus [hidden]='seRindio' class='txt' style="width:50%" type="text">
+      <input [(ngModel)]='laPalabra' [hidden]='!seRindio' class='txt' readonly style="width:50%; background-color:firebrick" type="text">
+      <i [hidden]='!seRindio' class="fa fa-times" style="color:red; font-size:36px"></i>
+    </div>
+    <div [hidden]='!anagrama.gano'>
+      <input [(ngModel)]='laPalabra' [hidden]='seRindio'  class='txt' readonly style="width:50%; background-color:forestgreen" type="text">
+      <i  class="fa fa-check" style="color:green; font-size:36px"></i>
+    </div>
+    <br>
+    <div [hidden]='anagrama.gano'>
+      <button type="button" class="mi-btn2 btn-warning" [hidden]='seRindio' (click)='Mezclar()'>Mezclar letras</button>
+      <button type="button" class="mi-btn2 btn-success" [hidden]='seRindio' (click)='Verificar()'>Comprobar</button>
+      <button type="button" class="mi-btn2 btn-danger" [hidden]='seRindio'(click)='Rendirse()'>Rendirse</button>
+    </div>
+  </div>
+</ion-content>

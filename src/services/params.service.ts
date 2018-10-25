@@ -8,6 +8,7 @@ export class ParamsService {
     usuarioAdmin:boolean;
     rol:string;
     user:any;
+    emplPuesto:string;
 
     
 

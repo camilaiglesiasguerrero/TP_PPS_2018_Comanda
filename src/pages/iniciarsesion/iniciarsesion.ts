@@ -10,6 +10,9 @@ import { ParamsService } from './../../services/params.service';
 import { UsuariosService } from './../../services/usuarios.service';
 
 import { HomePage } from './../home/home';
+import { EncuestaEmpleadoPage } from '../encuesta-empleado/encuesta-empleado';
+import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
+import { DashboardPage } from '../dashboard/dashboard';
 
 
 @Component({
@@ -56,6 +59,10 @@ export class IniciarsesionPage {
         .then(response => {
           if(this.user.name != 'administrador@gmail.com'){
             this.allUsersData = this.usuariosService.getByUserId();
+            if(this.allUsersData == null){
+              this.allUsersData = this.usuariosService.getEmpleados();
+            }
+
             this.userData = this.allUsersData.snapshotChanges();
             this.userData.subscribe(response => {
               this.onLogged(response[0].payload.val());
@@ -75,10 +82,26 @@ export class IniciarsesionPage {
   onLogged(user:any){
     this.paramsService.user = user;
     this.paramsService.rol = user.rol;
+    this.paramsService.rol == 'empleado' ? this.paramsService.emplPuesto = user.puesto : '';
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
     this.autenticationService.logInFromDataBase();
-    this.navCtrl.setRoot(HomePage)
+    
+    switch(this.paramsService.rol){
+      case 'empleado':
+        this.navCtrl.setRoot(EncuestaEmpleadoPage);    
+        break;
+      case 'cliente':
+        this.navCtrl.setRoot(AltaPedidoPage);
+        break;
+      case 'dueño':
+        this.navCtrl.setRoot(DashboardPage);
+        break;
+      default:
+        this.navCtrl.setRoot(HomePage);
+        break;
+    }
+    
     console.log("Se logueo correctamente");
   }
 
@@ -100,7 +123,7 @@ export class IniciarsesionPage {
       }
       case "usuario": {
         this.user.name = "usuario@gmail.com";
-        this.user.pass = "333333";
+        this.user.pass = "123456";
         break;
       }
       case "anonimo": {
@@ -108,9 +131,9 @@ export class IniciarsesionPage {
         this.user.pass = "44";
         break;
       }
-      case "tester" : {
+      case "tester" : {//tiene rol de empleado
         this.user.name = "tester@gmail.com";
-        this.user.pass = "55";
+        this.user.pass = "123456";
         break;
       }
     }
