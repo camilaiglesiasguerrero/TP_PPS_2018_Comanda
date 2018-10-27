@@ -62,12 +62,12 @@ Branch: *branch_cami*
 
 *Funcionalidades*
 - Alta de platos y bebidas
-- Alta de mesa
+#c9510c- Alta de mesa
 - Código QR de la mesa
 - Encuesta con estadística para los empleados
 - Pedir platos y bebidas
 - Push notification pedir mesa
-- Juego para bebida gratis -> juego elegido: anagrama
+#6cc644- Juego para bebida gratis -> juego elegido: anagrama
 
 *Responsabilidades*
 - Primer responsable del mergeado
@@ -89,7 +89,7 @@ Branch: *branch_cari*
 - Juego para un postre gratis
 
 *Responsabilidades*
-- Login y registro
-- Splash e ícono de la aplicación
+#6cc644 - Login y registro
+#6cc644 - Splash e ícono de la aplicación
 - Responsable de estilos
 
