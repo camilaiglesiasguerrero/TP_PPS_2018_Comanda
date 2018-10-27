@@ -43,7 +43,7 @@ Branch: *branch_fede*
 
 *Funcionalidades*
 - Alta de dueño/supervisor*
-- Alta de empleados
+- Alta de empleados      ( OK - 26/10  )
 - Código QR de propina
 - Encuesta con estadística para el supervisor
 - Tomar pedido
