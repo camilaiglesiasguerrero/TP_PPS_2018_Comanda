@@ -44,14 +44,17 @@ Branch: *branch_cami*
 
 *Funcionalidades*
 
-- Alta de platos y bebidas
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de platos y bebidas`
 
 ![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Alta de mesa` [ Inicio semana del 22/10 ]
 
-- Código QR de la mesa
-- Encuesta con estadística para los empleados
-- Pedir platos y bebidas
-- Push notification pedir mesa
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de la mesa`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los empleados`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Pedir platos y bebidas`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification pedir mesa`
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego para bebida gratis -> juego elegido: anagrama` [ Mergeado 24/10 Commit  [f33a359](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f33a359f9b90e39135fb82d72fbaaa5583225c69) ]
 
@@ -63,7 +66,7 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Ruteo de módulos asignados` [ Semana del 14/10 ]
 
-- Responsable de animaciones
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de animaciones`
 
 
 
@@ -75,19 +78,27 @@ Branch: *branch_fede*
 
 
 *Funcionalidades*
-- Alta de dueño/supervisor
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de dueño/supervisor`
 
-- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de empleados`  [ Mergeado 27/10 Commit [8574d00](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/8574d005b53a2658dc449106ec588dd7502c52cd) ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de empleados`  [ Mergeado 27/10 Commit [8574d00](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/8574d005b53a2658dc449106ec588dd7502c52cd) ]
 
-- Código QR de propina
-- Encuesta con estadística para el supervisor
-- Tomar pedido
-- Push notification para pedido de platos y bebidas
-- Mapa de ruta hasta el domicilio de entrega
-- Juego 10% de descuento
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de propina`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para el supervisor`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Tomar pedido`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification para pedido de platos y bebidas`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Mapa de ruta hasta el domicilio de entrega`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Juego 10% de descuento`
+
 
 *Responsabilidades*
-- Responsable de los sonidos de la app
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de los sonidos de la app`
+
 
 
 :fork_and_knife: __**Carina Muñoz**__  
@@ -98,13 +109,21 @@ Branch: *branch_cari*
 
 
 *Funcionalidades*
-- Alta de clientes
-- Código QR de ingreso al local
-- Encuesta con estadística para los clientes
-- Hacer reservas agendadas
-- Push notification de reservas agendadas
-- Realizar pedido por GPS o dirección
-- Juego para un postre gratis
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de clientes`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de ingreso al local`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los clientes`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Hacer reservas agendadas`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification de reservas agendadas`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Realizar pedido por GPS o dirección`
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Juego para un postre gratis`
+
 
 *Responsabilidades*
 
@@ -114,8 +133,8 @@ Branch: *branch_cari*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Armado de servicios autenticación, mensajes de error, parámetros generales, spinner`[ Mergeado 12/10 Commit [514d878](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/514d878e6318c6e828c72905fea9af0e15ab8a86) ]
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Esquematizacipon del menú por rol` [ Mergeado 21/10 Commit [45e833c](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/45e833cfe6a5ccf7411bca0930af668120955868) ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Esquematización del menú por rol` [ Mergeado 21/10 Commit [45e833c](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/45e833cfe6a5ccf7411bca0930af668120955868) ]
 
-- Responsable de estilos
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de estilos`
 
 
