@@ -116,23 +116,33 @@ export class IniciarsesionPage {
         this.user.pass = "111111";
         break;
       }
-      case "invitado": {
-        this.user.name = "invitado@gmail.com";
-        this.user.pass = "222222";
-        break;
-      }
-      case "usuario": {
-        this.user.name = "usuario@gmail.com";
+      case "bartender": {
+        this.user.name = "bartender@gmail.com";
         this.user.pass = "123456";
         break;
       }
-      case "anonimo": {
-        this.user.name = "anonimo@gmail.com";
-        this.user.pass = "44";
+      case "cocinero": {
+        this.user.name = "cocinero@gmail.com";
+        this.user.pass = "123456";
         break;
       }
-      case "tester" : {//tiene rol de empleado
-        this.user.name = "tester@gmail.com";
+      case "metre": {
+        this.user.name = "metre@gmail.com";
+        this.user.pass = "123456";
+        break;
+      }
+      case "mozo": {
+        this.user.name = "mozo@gmail.com";
+        this.user.pass = "123456";
+        break;
+      }
+      case "cliente1": {
+        this.user.name = "cliente1@gmail.com";
+        this.user.pass = "123456";
+        break;
+      }
+      case "cliente2": {
+        this.user.name = "cliente2@gmail.com";
         this.user.pass = "123456";
         break;
       }

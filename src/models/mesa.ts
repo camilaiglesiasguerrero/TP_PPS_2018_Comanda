@@ -1,12 +1,12 @@
 export class Mesa {
 
     uid: string;
-    comensales: number;
+    comensales: string;
     tipo: string;
     foto:string;
-    estado:boolean;
+    estado:string;
 
-    constructor(uid,comensales, tipo, foto, estado){
+    constructor(uid?,comensales?, tipo?, foto?, estado?){
         this.uid = uid;
         this.comensales = comensales;
         this.tipo = tipo;
@@ -14,4 +14,8 @@ export class Mesa {
         this.estado = estado;
     }
 
+    armarJson(){
+        
+        return JSON.parse('{"uid":this.uid,"comensales":this.comensales,"tipo":this.tipo,"estado":this.estado}');           
+    }
 }

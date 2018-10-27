@@ -1,9 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoPlayer } from '@ionic-native/video-player';
+import { IonicMultiCameraModule, IonicMultiCamera, Picture, CameraTranslations   } from 'ionic-multi-camera';
+import { File } from '@ionic-native/file';
 
 import { configs } from './globalConfigs';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -50,7 +54,9 @@ import { MessageHandler } from '../services/messageHandler.service';
 import { SpinnerHandler } from '../services/spinnerHandler.service';
 import { ParamsService } from '../services/params.service';
 import { UsuariosService } from './../services/usuarios.service';
-
+import { QrService } from './../services/qr.service';
+import { CameraService } from '../services/camera.service';
+import { DatabaseService } from '../services/database.service';
 
 
 @NgModule({
@@ -76,9 +82,11 @@ import { UsuariosService } from './../services/usuarios.service';
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp),
+        IonicMultiCameraModule.forRoot(),
         AngularFireModule.initializeApp(configs.firebaseConfig),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
+        BrowserAnimationsModule,
         NgxQRCodeModule
     ],
     bootstrap: [IonicApp],
@@ -106,6 +114,8 @@ import { UsuariosService } from './../services/usuarios.service';
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         Camera,
+        IonicMultiCamera,
+        File,
         BarcodeScanner,
         ParamsService,
         MediaCapture,
@@ -114,7 +124,9 @@ import { UsuariosService } from './../services/usuarios.service';
         MessageHandler,
         SpinnerHandler,
         UsuariosService,
-
+        QrService,
+        CameraService,
+        DatabaseService
     ]
 })
 export class AppModule {}

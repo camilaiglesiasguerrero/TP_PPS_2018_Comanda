@@ -6,8 +6,18 @@
   
   
 <ion-content padding>
-    <h1>Acá van todas las mesas</h1><br><br>
     
+    <ion-card *ngFor="let mesa of mesas">
+        <ion-card-header>{{mesa.uid}}</ion-card-header>
+        <ion-card-content>
+            <img src='{{mesa.foto}}' alt="No se puede mostrar la imagen">
+            <ion-row>{{mesa.comensales}}</ion-row> 
+            <ion-row>{{mesa.tipo}}</ion-row> 
+            <ion-row>{{mesa.estado}}</ion-row> 
+        </ion-card-content>
+    </ion-card>
+
+
     <ion-fab center bottom>
         <button ion-fab  style="background-color:rgb(175,44,245);" (click)="irA('Nueva')" ><ion-icon name="add"></ion-icon></button>
     </ion-fab>
