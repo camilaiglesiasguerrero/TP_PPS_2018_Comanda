@@ -36,13 +36,13 @@ El usuario debe ingresar en la aplicación e iniciar sesión. Eso le habilitará
 
 
 ## **Módulos y objetivos**
-:fork_and_knife: __**Camila Iglesias Guerrero**__  
+### :fork_and_knife: __**Camila Iglesias Guerrero**__  
 
 Ingregrante: *alfa*
 
 Branch: *branch_cami* 
 
-*Funcionalidades*
+#### *Funcionalidades*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de platos y bebidas`
 
@@ -58,7 +58,7 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego para bebida gratis -> juego elegido: anagrama` [ Mergeado 24/10 Commit  [f33a359](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f33a359f9b90e39135fb82d72fbaaa5583225c69) ]
 
-*Responsabilidades*
+#### *Responsabilidades*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Readme` [ Dinámico ]
 
@@ -70,14 +70,15 @@ Branch: *branch_cami*
 
 
 
-:fork_and_knife: __**Federico Peralta**__  
+### :fork_and_knife: __**Federico Peralta**__  
 
 Integrante: *Beta*
 
 Branch: *branch_fede* 
 
 
-*Funcionalidades*
+#### *Funcionalidades*
+
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de dueño/supervisor`
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de empleados`  [ Mergeado 27/10 Commit [8574d00](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/8574d005b53a2658dc449106ec588dd7502c52cd) ]
@@ -95,20 +96,20 @@ Branch: *branch_fede*
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Juego 10% de descuento`
 
 
-*Responsabilidades*
+#### *Responsabilidades*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de los sonidos de la app`
 
 
 
-:fork_and_knife: __**Carina Muñoz**__  
+### :fork_and_knife: __**Carina Muñoz**__  
 
 Integrante: *gamma*
 
 Branch: *branch_cari* 
 
 
-*Funcionalidades*
+#### *Funcionalidades*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de clientes`
 
@@ -125,7 +126,7 @@ Branch: *branch_cari*
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Juego para un postre gratis`
 
 
-*Responsabilidades*
+#### *Responsabilidades*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Login y registro`  [ Mergeado 12/10 Commit [514d878](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/514d878e6318c6e828c72905fea9af0e15ab8a86) ]
 
