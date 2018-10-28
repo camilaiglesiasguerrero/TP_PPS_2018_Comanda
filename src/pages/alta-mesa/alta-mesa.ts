@@ -80,7 +80,7 @@ export class AltaMesaPage {
   qrData = null;
   createdCode = null;
   scannedCode = null;
-  ultimoId : number = 1;
+  ultimoId : number =0;
 
   numero = new FormControl('',[
     Validators.required,
@@ -94,8 +94,6 @@ export class AltaMesaPage {
   tipoOpc = new FormControl('',[
     Validators.required
   ]);
-
-
 
   frm = this.formBuilder.group({
     numero: this.numero,
@@ -114,18 +112,17 @@ export class AltaMesaPage {
     
     this.tipoOpc.setValue("Estándar");
     this.comensales.setValue("2");
-    this.numero.setValue("1");
     
     this.camara.storageFirebase = 'mesas/';
 
     this.database.db.list<any>('mesas/').valueChanges()
       .subscribe(snapshots => {
         this.mesas = snapshots;
-        
+            
         if(this.mesas != undefined && this.mesas != null && this.mesas.length != 0){
           this.ultimoId = this.mesas[this.mesas.length-1].uid;
-          this.numero.setValue(this.ultimoId+1);
         }
+        this.numero.setValue(this.ultimoId+1);
       });
   }
 
@@ -144,30 +141,40 @@ export class AltaMesaPage {
   }
 
   newMesa(){
-    
-  if(this.camara.fotoSubir != ''){
+    //if(this.camara.fotoSubir != ''){
       this.mesa.uid = this.frm.get('numero').value;
       this.mesa.comensales = this.frm.get('comensales').value;
       this.mesa.tipo = this.frm.get('tipoOpc').value;
-      this.mesa.foto = this.camara.fotoSubir; 
       this.mesa.estado = 'Libre';
-
-      this.database.jsonPackData = this.mesa;
+      this.mesa.foto = '';
+      //this.mesa.foto = this.camara.fotoMostrar;
       
-      this.camara.SubirFotoStorage().then(respuesta => {  
+        this.database.jsonPackData = this.mesa;
           this.database.SubirDataBase('mesas/').then(r => {
+            
+          this.messageHandler.mostrarMensajeConfimación("Mesa creada con éxito");
+          this.createdCode = this.qr.createCode(this.mesa.uid.toString());
+          //this.qr.descargarQRPDF(this.mesa.uid);
+          
+        });/*
+      this.camara.SubirFotoStorage().then(respuesta => {  
+          this.messageHandler.mostrarError(respuesta);
+          this.mesa.foto = this.camara.fotoMostrar;
+          this.database.jsonPackData = this.mesa;
+          this.database.SubirDataBase('mesas/').then(r => {
+            
           this.messageHandler.mostrarMensajeConfimación("Mesa creada con éxito");
           this.createdCode = this.qr.createCode(this.mesa.uid.toString());
           //this.qr.descargarQRPDF(this.mesa.uid);
         });
       }).catch(e =>{
         this.messageHandler.mostrarError(e,"Se produjo el siguiente error");
-      });
+      });*/
       
-    }
+    /*}
     else
-      this.messageHandler.mostrarErrorLiteral("Falta vincular la foto.");
+      this.messageHandler.mostrarErrorLiteral("Falta vincular la foto.");*/
+   // }
   }
-
   
 }

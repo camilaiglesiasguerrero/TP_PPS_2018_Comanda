@@ -94,7 +94,7 @@ export class CameraService{
         }; 
 
         dbstorage.putString(this.fotoSubir, 'base64', metadata)
-        .then(resultado => {
+        .then(resultado => {  
             dbstorage.getDownloadURL()
             .then(urlResultado =>{
                 this.fotoMostrar = urlResultado;

@@ -1,6 +1,6 @@
 export class Mesa {
 
-    uid: string;
+    uid: number;
     comensales: string;
     tipo: string;
     foto:string;
@@ -14,8 +14,4 @@ export class Mesa {
         this.estado = estado;
     }
 
-    armarJson(){
-        
-        return JSON.parse('{"uid":this.uid,"comensales":this.comensales,"tipo":this.tipo,"estado":this.estado}');           
-    }
 }
