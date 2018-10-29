@@ -67,6 +67,7 @@ export class MyApp {
       { title: 'Comidas', component: ComidasPage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
+    
 
   }
 

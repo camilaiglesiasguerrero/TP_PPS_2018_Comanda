@@ -8,27 +8,27 @@ export class Anagrama {
 
     constructor() {
         this.arrayOrdenado = new Array<any>();
-        this.arrayOrdenado.push({'palabra':'ESCEPTICO','letras':['E','S','C','E','P','T','I','C','O']});
-        this.arrayOrdenado.push({'palabra':'DRAMATURGIA','letras':['D','R','A','M','A','T','U','R','G','I','A']});
-        this.arrayOrdenado.push({'palabra':'BICICLETA','letras':['B','I','C','I','C','L','E','T','A']});
-        this.arrayOrdenado.push({'palabra':'DETONACION','letras':['D','E','T','O','N','A','C','I','O','N']});
-        this.arrayOrdenado.push({'palabra':'PROGRAMADOR','letras':['P','R','O','G','R','A','M','A','D','O','R']});
-        this.arrayOrdenado.push({'palabra':'DISEÑO','letras':['D','I','S','E','Ñ','O']});
-        this.arrayOrdenado.push({'palabra':'LIBERTINAJE','letras':['L','I','B','E','R','T','I','N','A','J','E']});
-        this.arrayOrdenado.push({'palabra':'DOMADOR','letras':['D','O','M','A','D','O','R']});
-        this.arrayOrdenado.push({'palabra':'PEREGRINO','letras':['P','E','R','E','G','R','I','N','O']});
-        this.arrayOrdenado.push({'palabra':'ESPIONAJE','letras':['E','S','P','I','O','N','A','J','E']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
-        this.arrayOrdenado.push({'palabra':'COMIDA','letras':['C','O','M','I','D','A']});
+        this.arrayOrdenado.push({'palabra':'CERVEZA','letras':['C','E','R','V','E','Z','A']});
+        this.arrayOrdenado.push({'palabra':'GRANADINA','letras':['G','R','A','N','A','D','I','N','A']});
+        this.arrayOrdenado.push({'palabra':'GASEOSA','letras':['G','A','S','E','O','S','A']});
+        this.arrayOrdenado.push({'palabra':'CAIPIRINHA','letras':['C','A','I','P','I','R','I','N','H','A']});
+        this.arrayOrdenado.push({'palabra':'WHISKY','letras':['W','H','I','S','K','Y']});
+        this.arrayOrdenado.push({'palabra':'CLERICO','letras':['C','L','E','R','I','C','O']});
+        this.arrayOrdenado.push({'palabra':'DAIQUIRI','letras':['D','A','I','Q','U','I','R','I']});
+        this.arrayOrdenado.push({'palabra':'MARGARITA','letras':['M','A','R','G','A','R','I','T','A']});
+        this.arrayOrdenado.push({'palabra':'COCTELERA','letras':['C','O','C','T','E','L','E','R','A']});
+        this.arrayOrdenado.push({'palabra':'HIELO','letras':['H','I','E','L','O']});
+        this.arrayOrdenado.push({'palabra':'BARTENDER','letras':['B','A','R','T','E','N','D','E','R']});
+        this.arrayOrdenado.push({'palabra':'BRINDIS','letras':['B','R','I','N','D','I','S']});
+        this.arrayOrdenado.push({'palabra':'LICOR','letras':['L','I','C','O','R']});
+        this.arrayOrdenado.push({'palabra':'MARTINI','letras':['M','A','R','T','I','N','I']});
+        this.arrayOrdenado.push({'palabra':'COPAS','letras':['C','O','P','A','S']});
+        this.arrayOrdenado.push({'palabra':'TRAGO','letras':['T','R','A','G','O']});
+        this.arrayOrdenado.push({'palabra':'DESTAPADOR','letras':['D','E','S','T','A','P','A','D','O','R']});
+        this.arrayOrdenado.push({'palabra':'BOTELLA','letras':['B','O','T','E','L','L','A']});
+        this.arrayOrdenado.push({'palabra':'CORCHO','letras':['C','O','R','C','H','O']});
+        this.arrayOrdenado.push({'palabra':'POSAVASOS','letras':['P','O','S','A','V','A','S','O','S']});
+        this.arrayOrdenado.push({'palabra':'BARRA','letras':['B','A','R','R','A']});
       }
 
     Verificar() {

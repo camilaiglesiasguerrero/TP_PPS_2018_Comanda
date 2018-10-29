@@ -1,0 +1,5 @@
+CAMBIOS Y BUGS
+
+- Scroll en 'registrarse'
+- Cambiar el combo de tipos de usuario -> Algo más copado (Octavio y Maxi)
+
