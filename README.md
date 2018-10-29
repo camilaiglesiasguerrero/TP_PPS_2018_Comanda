@@ -46,7 +46,7 @@ Branch: *branch_cami*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de platos y bebidas`
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Alta de mesa` [ Inicio semana del 22/10 ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de mesa` [ Mergeado 28/10 Commit [34a93aa](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de la mesa`
 
