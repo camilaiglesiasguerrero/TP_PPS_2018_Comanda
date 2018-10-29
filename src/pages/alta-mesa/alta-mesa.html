@@ -6,20 +6,19 @@
 -->
 <ion-header>
 
-    <ion-navbar>
-      <ion-title>
-        Alta de Mesa
-      </ion-title>
-    </ion-navbar>
-  
-  </ion-header>
+  <ion-navbar>
+    <ion-title>
+      Alta de Mesa
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
 
 
 <ion-content padding>
   
     <div padding [@flyInBottomFast]="cloudState" id="cloud-layer">
-        <form [formGroup]="frm" (submit)="newMesa()">
-        
+        <form [formGroup]="frm">
              <ion-list inset [@bounceInBottom]="formState" >
                 <br>
                <ion-item>
@@ -33,15 +32,15 @@
                </ion-item>
                <br>
                <ion-item>
-                 <ion-label>Tipo</ion-label>
-                 <ion-select style="text-align: center" formControlName="tipoOpc" required auto >
+                <ion-label>Tipo</ion-label>
+                <ion-select style="text-align: center" formControlName="tipoOpc" required auto >
+                    <ion-option value="">Seleccione</ion-option>  
                     <ion-option value="Barra">Barra</ion-option>  
                     <ion-option value="Estándar">Estándar</ion-option>  
                     <ion-option value="Para discapacitados">Para discapacitados</ion-option>
                     <ion-option value="Sector fumadores">Sector fumadores</ion-option>
                     <ion-option value="Terraza">Terraza</ion-option>
                     <ion-option value="VIP">VIP</ion-option>
-                    
                 </ion-select>
                </ion-item>      
                <br>
@@ -63,27 +62,21 @@
            </ion-list>
        <ion-row>
         <ion-row>
-          <ion-col> 
-            <img [hidden]='camara.fotoMostrar === "" ' [src]=camara.fotoMostrar alt="FotoMesa" style="width:40%"> 
+          <ion-col style="vertical-align: middle;"> 
+            <br>
+            <img [hidden]='camara.fotoMostrar === "" ' [src]=camara.fotoMostrar alt="FotoMesa" style="width:50vw"> 
           </ion-col>
-          <ion-col>
-            <ion-card *ngIf="createdCode">
-                <ngx-qrcode [qrc-value]="createdCode" style="width:20%"></ngx-qrcode>
-            </ion-card>
+          <ion-col >
+            <p *ngIf="createdCode">
+                <ngx-qrcode [qrc-value]="createdCode" style="width:40vw"></ngx-qrcode>
+            </p>
           </ion-col>
         </ion-row>
          <ion-col>
-             <button ion-button  color="dark" block type="submit"  class="login-button" [@fadeIn]="loginState" [disabled]="!frm.valid">Confirmar</button>
+             <button ion-button  color="dark" block type="button" (click)='newUpdateMesa()' class="login-button" [@fadeIn]="loginState" [disabled]="!frm.valid">Confirmar</button>
          </ion-col>
        </ion-row>
        </form>
      </div>
-    
-    
-   
-    <ion-card *ngIf="qr.scannedCode">
-      <ion-card-content>
-        Result from Scan: {{ qr.scannedCode }}
-      </ion-card-content>
-    </ion-card>
 </ion-content>
+

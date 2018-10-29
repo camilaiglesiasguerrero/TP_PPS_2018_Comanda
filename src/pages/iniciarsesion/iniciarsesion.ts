@@ -102,7 +102,7 @@ export class IniciarsesionPage {
         break;
     }
     
-    console.log("Se logueo correctamente");
+    //console.log("Se logueo correctamente");
   }
 
   registerUser() {

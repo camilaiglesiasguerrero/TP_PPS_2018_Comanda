@@ -14,8 +14,13 @@ export class DatabaseService{
         public db:AngularFireDatabase){
     }
 
-    SubirDataBase(ruta:string){
-        return this.db.database.ref().child(ruta)
-            .push(this.jsonPackData);
+    ObtenerKey(ruta:string){
+        return this.db.database.ref().child(ruta).push().key;
     }
+        
+    SubirDataBase(ruta:string){
+        return this.db.database.ref().child(ruta + this.jsonPackData.key)
+            .update(this.jsonPackData);
+    }
+
 }

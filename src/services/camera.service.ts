@@ -12,17 +12,17 @@ import 'rxjs/add/observable/forkJoin';
 @Injectable()
 export class CameraService{
 
-    fotoSubir : string = '';
-    fotoMostrar: string ='';
+    fotoSubir : any;
+    fotoMostrar: any = '';
 
-    storageFirebase: string;
+    storageFirebase: any;
     databaseFirebase: string;
     jsonPackData: JSON;
 
     arrayDeFotos:Array<any>;
     saveError: boolean = false;
 
-    constructor(private Camera: Camera,
+    constructor(public Camera: Camera,
                 private messageHandler: MessageHandler,
                 public multiCamara: IonicMultiCamera,
                 public params: ParamsService,
@@ -54,82 +54,5 @@ export class CameraService{
           }, error => {
             this.messageHandler.mostrarError(error, 'Ocurrió un error');
           });
-    }
-
-    ElegirMuchasFotos(){
-        const pictureOptions: CameraPreviewPictureOptions = {
-            quality: 80,
-            width: 600,
-            height: 600
-          };
-          const translations: CameraTranslations = {
-            cancel: 'Cancelar',
-            finish: 'Listo',
-            auto: 'AUTO',
-            on: 'On',
-            off: 'Off'
-          };
-          this.multiCamara.getPicture(pictureOptions,translations)
-            .then((pictures: Array<Picture>) => {
-              if (pictures.length == 1) {
-                this.fotoSubir = `data:image/jpeg;base64,${pictures[0].base64Data}`;
-                this.SubirFotoStorage();
-              } else if (pictures.length > 0) {
-                this.SubirVariasFotosFirebase(pictures);
-              }
-            })
-            .catch(err => {
-              this.messageHandler.mostrarErrorLiteral(err);
-            });
-    }
-
-    SubirFotoStorage() : Promise<string>{
-        let dbstorage = firebase.storage().ref(this.storageFirebase);
-        var metadata = {
-          contentType: 'image/jpeg',
-          customMetadata: {
-            usuario: this.params.user,
-            fecha: Date.now().toString()
-          }
-        }; 
-
-        dbstorage.putString(this.fotoSubir, 'base64', metadata)
-        .then(resultado => {  
-            dbstorage.getDownloadURL()
-            .then(urlResultado =>{
-                this.fotoMostrar = urlResultado;
-            }).catch(error =>{
-                this.messageHandler.mostrarError(error, 'Ocurrió un error');
-            });
-        });
-        return;
-    }
-
-    private SubirVariasFotosFirebase(fotos){
-        var arrayDePromises = [];
-        this.saveError = false;
-        for (var i = 0; i < fotos.length; i++) {
-          this.fotoSubir = `data:image/jpeg;base64,${fotos[i].base64Data}`;
-          var promesa = this.SubirFotoStorage()
-            .then(response => {
-                this.arrayDeFotos[i].push(this.fotoSubir, this.fotoMostrar);
-            }, error => {
-              this.saveError = true;
-              //this.messageHandler.mostrarErrorLiteral("Error al agregar la foto", "Error!");
-            });
-          arrayDePromises.push(promesa);
-          
-        }
-        this.arrayPromises(arrayDePromises);
-      }
-    
-    private arrayPromises(promises) {
-    Observable.forkJoin(promises).subscribe(() => {
-        if (this.saveError) {
-        this.messageHandler.mostrarErrorLiteral("Ocurrió un error al agregar algunas fotos");
-        } else {
-        //this.messageHandler.mostrarMensaje("Se agregaron las fotos");
-        }
-    });
     }
 }
