@@ -7,6 +7,8 @@ export class QrService{
 
     createdCode = null;
     scannedCode : string;
+    datosDni : {};
+    options: any;
     
     constructor(private barcodeScanner: BarcodeScanner,
                 private messageHandler: MessageHandler){
@@ -31,5 +33,14 @@ export class QrService{
           this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
     }
+
+    escanearDni() {
+      this.options = { prompt : "Escaneá el DNI", formats: "PDF_417" }
+      this.barcodeScanner.scan(this.options).then((barcodeData) => {
+          this.datosDni = (barcodeData.text).split('@');
+      }, (error) => {
+          //this.errorHandler.mostrarErrorLiteral(error);
+      });
+  }
 }
 

@@ -1,0 +1,22 @@
+#circulo {
+	width: 10rem;
+	height: 10rem;
+	border-radius: 50%;
+	background: rgb(190, 99, 13);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+#circulo > p {
+	font-family: sans-serif;
+	color: white;
+	font-size: 2.5rem;
+	font-weight: bold;
+}
+
+.img{
+    border-radius: 50%;
+    width: 6rem;
+	height: 6rem;
+}

@@ -23,7 +23,6 @@ export class MesasPage {
           if(this.mesas != undefined && this.mesas != null && this.mesas.length != 0){
             this.ultimoId = this.mesas[this.mesas.length-1].id;
           }
-
       });     
   }
 
@@ -36,7 +35,7 @@ export class MesasPage {
         this.navCtrl.push(AltaMesaPage,{mesa:mesa});
         break;
       case 'B':
-        mesa.estado = 'Deshabilitada';
+        mesa.estado == 'Libre' ? mesa.estado = 'Deshabilitada' : mesa.estado = 'Libre';
         this.database.jsonPackData = mesa;
         this.database.SubirDataBase('mesas/');
         break;
