@@ -38,7 +38,7 @@ El usuario debe ingresar en la aplicación e iniciar sesión. Eso le habilitará
 ## **Módulos y objetivos**
 ### :fork_and_knife: __**Camila Iglesias Guerrero**__  
 
-Ingregrante: *alfa*
+Integrante: *alfa*
 
 Branch: *branch_cami* 
 
@@ -48,7 +48,7 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de mesa` [ Mergeado 28/10 Commit [34a93aa](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de la mesa`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Código QR de la mesa` [ Comenzado 29/10 ]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los empleados`
 
@@ -62,7 +62,7 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Readme` [ Dinámico ]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Armado de servicios qr, camara, database` [ Inicio semana del 22/10 ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Armado de servicios qr, camara, database` [ Mergeado 29/10 Commit[34a93aa] (https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Ruteo de módulos asignados` [ Semana del 14/10 ]
 
