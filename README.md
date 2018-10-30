@@ -62,7 +62,7 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Readme` [ Dinámico ]
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Armado de servicios qr, camara, database` [ Mergeado 29/10 Commit[34a93aa] (https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Armado de servicios qr, camara, database` [ Mergeado 29/10 Commit [34a93aa](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Ruteo de módulos asignados` [ Semana del 14/10 ]
 
