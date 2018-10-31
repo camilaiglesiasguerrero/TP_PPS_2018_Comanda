@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { UsuariosService } from '../../services/usuarios.service';
-import { RegistrarsePage } from '../registrarse/registrarse';
+import { AltaEmpleadoPage } from '../alta-empleado/alta-empleado';
 
 @Component({
   selector: 'page-empleados',
@@ -25,7 +25,7 @@ export class EmpeladosPage {
   }
 
   agregarEmpleado(){
-    this.navCtrl.setRoot(RegistrarsePage, {'rol': 'empleado'})
+    this.navCtrl.setRoot(AltaEmpleadoPage);
   }
 
   private obtenerEmpleados() {

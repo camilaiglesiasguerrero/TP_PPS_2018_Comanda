@@ -70,6 +70,8 @@ export class IniciarsesionPage {
             })
           }else{
             this.onLogged({email: this.user.name, rol:'admin'});
+            this.paramsService.email = this.user.name;
+            this.paramsService.password = this.user.pass;
           }    
         })
         .catch(error => {

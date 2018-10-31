@@ -38,6 +38,8 @@ import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
 import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
+import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
+
     //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
     //Otros
@@ -71,7 +73,8 @@ import { UsuariosService } from './../services/usuarios.service';
         AltaPedidoPage,
         AnagramaPage,
         DashboardPage,
-        AltaMesaPage
+        AltaMesaPage,
+        AltaEmpleadoPage
     ],
     imports: [
         BrowserModule,
@@ -99,7 +102,8 @@ import { UsuariosService } from './../services/usuarios.service';
         AltaPedidoPage,
         AnagramaPage,
         DashboardPage,
-        AltaMesaPage
+        AltaMesaPage,
+        AltaEmpleadoPage
     ],
     providers: [
         StatusBar,

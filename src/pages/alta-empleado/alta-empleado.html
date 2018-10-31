@@ -1,0 +1,120 @@
+
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle color="secondary">
+            <ion-icon color="secondary" name="menu"></ion-icon>
+        </button>
+        <ion-title>Alta de empleados</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="flex-v center-horizontal">
+        <div class="">
+            <img class="imgperfil" src="../../assets/imgs/fotoperfil.jpg" *ngIf="hayFoto=='no'" width="100" height="160" (click)=tomarFoto()>
+            <img class="imgperfil" [src]="user.foto"  width="100" height="160" *ngIf="hayFoto=='si'" (click)=tomarFoto()>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-item >
+                            <ion-input class="nya" placeholder="Nombre" type="text" name="Nombre" [(ngModel)]="user.nombre"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item >
+                            <ion-input class="nya" placeholder="Apellido" type="text" name="Apellido" [(ngModel)]="user.apellido"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-input placeholder="DNI" type="number" name="dni" [(ngModel)]="user.dni"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row >
+                <ion-col>
+                    <ion-item>
+                        <ion-input placeholder="CUIL" type="number" name="cuil" [(ngModel)]="user.cuil"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                      <ion-label>Tipo de empleado:</ion-label>
+                        <ion-select [(ngModel)]="user.rol" interface="popover">
+                            <ion-option value="mozo">Mozo</ion-option>
+                            <ion-option value="cocinero">Cocinero</ion-option>
+                            <ion-option value="bartender">Bartender</ion-option>
+                            <ion-option value="metre">Metre</ion-option>
+                            <ion-option value="supervisor">Supervisor</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-input placeholder="Correo electronico" type="email" name="email" [(ngModel)]="user.email"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-input placeholder="Contraseña" type="password" name="password" [(ngModel)]="user.pass"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-input placeholder="Repetir contraseña" type="password" name="password" [(ngModel)]="user.secondPass"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                    <button class="btnuser" ion-button round color="light" (click)="escanearDni()">
+                        <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                        Escanear DNI
+                    </button>
+                    <button class="btnuser" ion-button round color="light" (click)="tomarFoto()">
+                      <ion-icon color="secondary" name="camera" style="margin-right:5px;"></ion-icon>
+                      Tomar foto
+                  </button>
+            </ion-row>
+            <ion-row>
+                <ion-col text-center>
+                    <button class="btregistrar" ion-button round color="light" (click)="registerUser()">Registrarse</button>
+                </ion-col>
+            </ion-row>
+            <!-- <ion-row>
+
+                <ion-fab right bottom>
+                    <button ion-fab color="light">
+                        <ion-icon color="secondary" name="arrow-dropright"></ion-icon>
+                    </button>
+                    <ion-fab-list side="left">
+                        <button ion-fab color="light" (click)="escanearDni()">
+                            <ion-icon color="secondary" name="qr-scanner"></ion-icon>
+                        </button>
+                        <button ion-fab color="light" (click)="tomarFoto()">
+                            <ion-icon color="secondary" name="camera"></ion-icon>
+                        </button>
+                        <button ion-fab color="light" (click)="cancel()">
+                            <ion-icon color="secondary" name="arrow-back"></ion-icon>
+                        </button>
+                        <button ion-fab color="light" (click)="cancel()">
+                            <ion-icon color="secondary" name="arrow-back"></ion-icon>
+                        </button>
+                    </ion-fab-list>
+                </ion-fab>
+            </ion-row>
+            -->
+        </div>
+    </div>
+</ion-content>
