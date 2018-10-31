@@ -8,14 +8,14 @@
 
   <ion-navbar>
     <ion-title>
-      Alta de Mesa
+      {{titulo}}
     </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding  class="no-scroll">
   
     <div padding [@flyInBottomFast]="cloudState" id="cloud-layer">
         <form [formGroup]="frm">
@@ -63,7 +63,6 @@
        <ion-row>
         <ion-row>
           <ion-col style="vertical-align: middle;"> 
-            <br>
             <img [hidden]='camara.fotoMostrar === "" ' [src]=camara.fotoMostrar alt="FotoMesa" style="width:50vw"> 
           </ion-col>
           <ion-col >

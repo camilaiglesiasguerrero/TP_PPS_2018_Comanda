@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Camera, CameraOptions} from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { MessageHandler } from "./messageHandler.service";
 import { ParamsService } from "./params.service";
 import { AngularFireDatabase } from "angularfire2/database";
-import firebase from 'firebase';
-import { IonicMultiCamera, Picture, CameraTranslations } from 'ionic-multi-camera';
-import { CameraPreviewPictureOptions } from '@ionic-native/camera-preview';
-import { Observable } from 'rxjs/Observable';
+import { IonicMultiCamera } from 'ionic-multi-camera';
 import 'rxjs/add/observable/forkJoin';
 
 @Injectable()

@@ -11,8 +11,8 @@ import { UsuariosService } from './../../services/usuarios.service';
 
 import { HomePage } from './../home/home';
 import { EncuestaEmpleadoPage } from '../encuesta-empleado/encuesta-empleado';
-import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import { DashboardPage } from '../dashboard/dashboard';
+import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 
 
 @Component({
@@ -92,7 +92,7 @@ export class IniciarsesionPage {
         this.navCtrl.setRoot(EncuestaEmpleadoPage);    
         break;
       case 'cliente':
-        this.navCtrl.setRoot(AltaPedidoPage);
+        this.navCtrl.setRoot(PrincipalClientePage);
         break;
       case 'dueño':
         this.navCtrl.setRoot(DashboardPage);

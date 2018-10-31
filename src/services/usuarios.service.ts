@@ -31,4 +31,7 @@ export class UsuariosService {
         return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('empleado'));
     }
 
+    public getClientes(){
+        return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('cliente'));
+    }
 }

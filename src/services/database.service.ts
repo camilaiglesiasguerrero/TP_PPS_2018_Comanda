@@ -6,7 +6,6 @@ import { AngularFireDatabase } from "angularfire2/database";
 @Injectable()
 export class DatabaseService{
  
-    databaseFirebase: string;
     jsonPackData: any;
 
     constructor(private messageHandler: MessageHandler,

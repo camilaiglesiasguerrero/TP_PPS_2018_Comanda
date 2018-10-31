@@ -7,8 +7,6 @@ import { ParamsService } from './../services/params.service';
 import { MessageHandler } from './../services/messageHandler.service';
 import { AuthenticationService } from './../services/authentication.service';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
 import { MesasPage } from '../pages/mesas/mesas';

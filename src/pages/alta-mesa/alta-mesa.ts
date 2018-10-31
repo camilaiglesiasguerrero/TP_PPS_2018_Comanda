@@ -1,7 +1,7 @@
-import { Component, ViewChild , trigger, state, style, transition, animate, keyframes } from '@angular/core';
+import { Component , trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { QrService } from '../../services/qr.service';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
 import { Mesa } from '../../models/mesa';
 import { CameraService } from '../../services/camera.service';
@@ -74,7 +74,8 @@ export class AltaMesaPage {
 
   mesa : Mesa = new Mesa();
   mesas : any;
-  
+  titulo : string;
+
   qrData = null;
   createdCode = null;
   scannedCode = null;
@@ -113,14 +114,17 @@ export class AltaMesaPage {
 
     if(this.navParams.get('mesa') != undefined)//Implica que estoy editando
     {
+      this.titulo = "Detalles de la mesa";
       this.mesa = this.navParams.get('mesa');
       this.tipoOpc.setValue(this.mesa.tipo);
       this.comensales.setValue(this.mesa.comensales);
       this.numero.setValue(this.mesa.id);
-      this.createdCode = this.qr.createCode(this.mesa.idString);
+      this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
       this.camara.fotoMostrar = this.mesa.foto;
     }else{
+      this.titulo = "Ingresar nueva mesa";
       this.ultimoId = this.navParams.get('ultimoId');
+      this.camara.fotoMostrar = '';
       this.tipoOpc.setValue("");
       this.comensales.setValue("2");
       this.numero.setValue(this.ultimoId+1);
@@ -157,7 +161,7 @@ export class AltaMesaPage {
         this.elSpinner.present();
 
         this.database.SubirDataBase('mesas/').then(r => {          
-          this.messageHandler.mostrarMensaje("Mesa creada con éxito");
+          //this.messageHandler.mostrarMensaje("Mesa creada con éxito");
           this.createdCode = this.qr.createCode(this.mesa.idString);
           this.elSpinner.dismiss();
           this.navCtrl.pop();
