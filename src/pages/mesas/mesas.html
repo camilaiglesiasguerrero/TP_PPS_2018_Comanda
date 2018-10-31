@@ -19,6 +19,10 @@
                                 <br>
                             </p>
                     </div>
+                    <div>
+                        <button class='btn' ion-button *ngIf="mesa.estado !== 'Deshabilitada' " color="dark" type="button" (click)="irA('B',mesa)" >{{mesa.estado | estadoMesa }}</button>
+                        <button class='btn' ion-button *ngIf="mesa.estado === 'Deshabilitada' " color="danger" type="button" (click)="irA('B',mesa)" >{{mesa.estado | estadoMesa }}</button>
+                    </div>
                 </div>
             </div>
         </div>

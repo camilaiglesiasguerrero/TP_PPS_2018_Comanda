@@ -14,13 +14,15 @@
 
 
 <ion-content padding>
-  <h1>Acá va el formulario de alta de pedido</h1><br><br>
-  <h2>Si es cliente, relaciona con GPS</h2><br>
-  <h2>Si es mozo, permite levantar el qr de la mesa</h2>
+    <ion-row [hidden]=!esMozo>
+        <ion-col text-center>
+            <button ion-button round color="light" (click)="escanearQR()">
+                <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                Escanear código QR de la mesa 
+            </button>
+        </ion-col>
+    </ion-row>
 
-
-  <button (click)="escanearQR()" [hidden]=!esMozo> Escanear código QR de la mesa </button>  
-  
   <div [hidden]=esMozo>
     <button (click)="activarGPS()" [hidden]=esMozo> Tomar dirección actual  </button>  
     <input type="text" placeholder="Cargar dirección">
