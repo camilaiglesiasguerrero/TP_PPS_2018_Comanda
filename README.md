@@ -48,13 +48,13 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de mesa` [ Mergeado 28/10 Commit [34a93aa](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Código QR de la mesa` [ Comenzado 29/10 ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de la mesa` [ Comenzado 29/10 Mergeado 31/10 Commit [b3af296](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/b3af29681418925391e14a7bd0e4af8a1d642770) ]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los empleados`
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Pedir platos y bebidas`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification pedir mesa`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Push notification pedir mesa` [ Comenzado 31/10 ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego para bebida gratis -> juego elegido: anagrama` [ Mergeado 24/10 Commit  [f33a359](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f33a359f9b90e39135fb82d72fbaaa5583225c69) ]
 
