@@ -35,18 +35,20 @@ export class OcuparMesaPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public database:DatabaseService,
-              private messageHandler:MessageHandler,
+              public messageHandler:MessageHandler,
               public params: ParamsService,
-              private spinnerH: SpinnerHandler) {
+              private spinnerHandler: SpinnerHandler) {
     
     this.estadoInicial = true;
-    this.id = this.navParams.get('mesa').split(':')[1];
+    if(this.navParams.get('mesa').split(':')[0] != 'Mesa'){
+      this.messageHandler.mostrarError('Ese QR no es de una mesa');
+      this.navCtrl.remove(1,1);
+    }
+    else
+      this.id = this.navParams.get('mesa').split(':')[1];
     this.mesa = new Mesa();
     
     this.display = false;
-    
-    this.spinner = spinnerH.getAllPageSpinner();
-    this.spinner.present();
 
     this.database.db.list<any>('mesas/').valueChanges()
       .subscribe(snapshots => {
@@ -60,9 +62,10 @@ export class OcuparMesaPage {
                                   this.aux[index].estado);
               this.mesa.key = this.aux[index].key;
               this.mostrar = true;
-              this.spinner.dismiss();
+              
         }      
       }
+      this.spinner.dismiss();
       if(this.mesa.estado != 'Libre' && this.estadoInicial){
         this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
         setTimeout(function(){
@@ -93,7 +96,8 @@ export class OcuparMesaPage {
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad OcuparMesaPage');
+    this.spinner = this.spinnerHandler.getAllPageSpinner();
+    this.spinner.present();
   }
 
  

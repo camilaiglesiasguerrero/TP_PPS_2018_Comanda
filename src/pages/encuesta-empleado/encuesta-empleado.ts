@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ParamsService } from '../../services/params.service';
 import { ListadoPedidosPage } from '../listado-pedidos/listado-pedidos';
-import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import { MesasPage } from '../mesas/mesas';
+import { PrincipalMozoPage } from '../principal-mozo/principal-mozo';
 
 /**
  * Generated class for the EncuestaEmpleadoPage page.
@@ -35,7 +35,7 @@ export class EncuestaEmpleadoPage {
         this.navCtrl.setRoot(ListadoPedidosPage);
         break;
       case 'mozo':
-        this.navCtrl.setRoot(AltaPedidoPage);
+        this.navCtrl.setRoot(PrincipalMozoPage);
         break;
       case 'metre':
         this.navCtrl.setRoot(MesasPage);

@@ -31,6 +31,9 @@ import { ListPage } from '../pages/list/list';
     //Autenticación
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
+    //Page Principal por user
+import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
+import { PrincipalMozoPage } from '../pages/principal-mozo/principal-mozo';
     //Listados
 import { MesasPage } from '../pages/mesas/mesas';
 import { BebidasPage } from '../pages/bebidas/bebidas';
@@ -44,10 +47,14 @@ import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
 import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
     //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
-    //Otros
+    //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
+import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
+    //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
+    //Pedido
+import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
 
 //Services
 import { AuthenticationService } from '../services/authentication.service';
@@ -81,7 +88,11 @@ import { PipesModule } from '../pipes/pipes.module';
         AnagramaPage,
         DashboardPage,
         AltaMesaPage,
-        OcuparMesaPage
+        OcuparMesaPage,
+        EstadoPedidoPage,
+        EncuestaClientePage,
+        PrincipalClientePage,
+        PrincipalMozoPage
     ],
     imports: [
         BrowserModule,
@@ -113,7 +124,11 @@ import { PipesModule } from '../pipes/pipes.module';
         AnagramaPage,
         DashboardPage,
         AltaMesaPage,
-        OcuparMesaPage
+        OcuparMesaPage,
+        EstadoPedidoPage,
+        EncuestaClientePage,
+        PrincipalClientePage,
+        PrincipalMozoPage
     ],
     providers: [
         StatusBar,
