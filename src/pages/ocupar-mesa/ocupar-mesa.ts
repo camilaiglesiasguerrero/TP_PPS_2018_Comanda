@@ -4,8 +4,8 @@ import { DatabaseService } from '../../services/database.service';
 import { Mesa } from '../../models/mesa';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
-import { UsuariosService } from '../../services/usuarios.service';
 import { Reserva } from '../../models/reserva';
+import { SpinnerHandler } from '../../services/spinnerHandler.service';
 
 /**
  * Generated class for the OcuparMesaPage page.
@@ -29,19 +29,25 @@ export class OcuparMesaPage {
   searchText:string; 
   display : boolean;
   estadoInicial:boolean;
+  spinner:any;
+  mostrar:boolean=false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public database:DatabaseService,
               private messageHandler:MessageHandler,
               public params: ParamsService,
-              public usuariosS: UsuariosService) {
+              private spinnerH: SpinnerHandler) {
     
     this.estadoInicial = true;
     this.id = this.navParams.get('mesa').split(':')[1];
     this.mesa = new Mesa();
+    
     this.display = false;
-            
+    
+    this.spinner = spinnerH.getAllPageSpinner();
+    this.spinner.present();
+
     this.database.db.list<any>('mesas/').valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -52,13 +58,21 @@ export class OcuparMesaPage {
                                   this.aux[index].tipo,
                                   this.aux[index].foto,
                                   this.aux[index].estado);
+              this.mesa.key = this.aux[index].key;
+              this.mostrar = true;
+              this.spinner.dismiss();
         }      
       }
       if(this.mesa.estado != 'Libre' && this.estadoInicial){
         this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
         setTimeout(function(){
           navCtrl.remove(1,1);
-        },3000);
+        },2000);
+      }else if(this.mesa.estado != 'Libre' && !this.estadoInicial){
+        this.messageHandler.mostrarMensaje("Mesa "+this.mesa.estado);
+        setTimeout(function(){
+          navCtrl.remove(1,1);
+        },2000);
       }
     });
     
@@ -111,11 +125,11 @@ export class OcuparMesaPage {
   }
 
   Confirmar(){
-    this.estadoInicial = false;
     let flag = false;
 
     for (let index = 0; index < this.clientes.length; index++) {
       if(this.clientes[index] == this.searchText){
+        this.estadoInicial = false;
         flag = true;
         break;
       }
@@ -129,18 +143,21 @@ export class OcuparMesaPage {
       reserva.idMesa = this.mesa.id;
       reserva.estado = 'Reserva';
       this.database.jsonPackData = reserva;
-      this.database.SubirDataBase('reservas/');
+      this.database.SubirDataBase('reservas/').then(r=>{
       
-      //Actualizo estado de la mesa
-      this.mesa.estado = 'Reservada';
-      this.database.jsonPackData = this.mesa;
-      this.database.SubirDataBase('mesas/');
-
-      this.messageHandler.mostrarMensaje('Mesa reservada con éxito');
-      
-      setTimeout(function(){
-        this.navCtrl.remove(1,1);
-      },3000);
+        //Actualizo estado de la mesa
+        let aux = new Mesa(this.mesa.id,
+                            this.mesa.comensales,
+                            this.mesa.tipo,
+                            this.mesa.foto,
+                            'Reservada');
+        aux.key = this.mesa.key;
+        console.log(aux);                
+        this.database.jsonPackData = aux;
+        this.database.SubirDataBase('mesas/').then(m=>{
+          this.mesa.estado = 'Reservada';
+        });      
+      });
     }
     else{
       this.messageHandler.mostrarErrorLiteral("Seleccione un cliente válido");

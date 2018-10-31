@@ -14,8 +14,7 @@
 
 
 <ion-content padding>
-    <ion-card>
-      
+    <ion-card *ngIf="mostrar">
       <ion-card-content>
         Se reservará la mesa {{mesa.id}} ({{mesa.tipo}}) para {{mesa.comensales}} comensales.
         <img [src]=mesa.foto alt="FotoMesa" style="width:50vw"> 

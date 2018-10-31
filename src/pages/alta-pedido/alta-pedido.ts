@@ -42,14 +42,16 @@ export class AltaPedidoPage {
 
   escanearQR() {
     this.options = { prompt : "Escaneá el código QR de la mesa" }
-    this.barcodeScanner.scan(this.options)
+    /*this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
            this.mesa = barcodeData.text;
            this.irA('mesa');
       }, (err) => {
           //console.log('Error: ', err);
           this.messageHandler.mostrarError(err, 'Ocurrió un error');
-      });
+      });*/
+      this.mesa = 'Mesa:2';
+      this.irA('mesa');
   }
   
 
