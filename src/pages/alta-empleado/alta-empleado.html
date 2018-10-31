@@ -4,7 +4,7 @@
         <button ion-button menuToggle color="secondary">
             <ion-icon color="secondary" name="menu"></ion-icon>
         </button>
-        <ion-title>Alta de empleados</ion-title>
+        <ion-title>Nuevo {{tipoAlta}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -42,7 +42,7 @@
                     </ion-item>
                 </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row *ngIf="tipoAlta=='empleado'">
                 <ion-col>
                     <ion-item>
                       <ion-label>Tipo de empleado:</ion-label>

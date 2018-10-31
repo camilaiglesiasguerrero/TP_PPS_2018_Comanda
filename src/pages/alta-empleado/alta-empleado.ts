@@ -10,6 +10,7 @@ import { ParamsService } from '../../services/params.service';
 import { UsuariosService } from './../../services/usuarios.service';
 import { EmpeladosPage } from '../empleados/empleados';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { DueñosPage } from '../dueños/dueños';
 
 
 /**
@@ -28,9 +29,11 @@ export class AltaEmpleadoPage {
 
   user = { email: '', pass: '', secondPass: '', dni: '', cuil: '', nombre: '', apellido: '', foto: '', rol: '' };
   miScan = {};
+  titulo:string;
   options : any;
   imagen:string;
   hayFoto:string;
+  tipoAlta:string;
 
   constructor(
     public navCtrl: NavController, 
@@ -44,6 +47,8 @@ export class AltaEmpleadoPage {
     private camera: Camera
     ) {
         this.hayFoto="no";
+        this.tipoAlta=this.navParams.get('tipoAlta');
+        console.log(this.tipoAlta);
   }
 
   ionViewDidLoad() {
@@ -96,6 +101,9 @@ export class AltaEmpleadoPage {
 
   registerUser() {
     if (this.validForm()) {
+        if(this.tipoAlta=='dueño'){
+            this.user.rol='dueño';
+        }
         this.crearUsuario();
       }
   }
@@ -112,7 +120,12 @@ export class AltaEmpleadoPage {
                     spiner.dismiss();
                     this.messageHandler.mostrarMensaje("Carga Exitosa!!");
                     this.autenticationService.singIn(this.paramsService.email, this.paramsService.password);
+                    if(this.tipoAlta==='dueño'){
+                        this.navCtrl.setRoot(DueñosPage);
+                    }
+                    else{
                     this.navCtrl.setRoot(EmpeladosPage);
+                }
                 }, error => {
                     this.autenticationService.deleteUserLogged()
                         .then(response => {

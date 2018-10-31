@@ -34,6 +34,8 @@ import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
+import { DueñosPage } from '../pages/dueños/dueños';
+
     //ABM
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
@@ -74,7 +76,8 @@ import { UsuariosService } from './../services/usuarios.service';
         AnagramaPage,
         DashboardPage,
         AltaMesaPage,
-        AltaEmpleadoPage
+        AltaEmpleadoPage,
+        DueñosPage
     ],
     imports: [
         BrowserModule,
@@ -103,7 +106,8 @@ import { UsuariosService } from './../services/usuarios.service';
         AnagramaPage,
         DashboardPage,
         AltaMesaPage,
-        AltaEmpleadoPage
+        AltaEmpleadoPage,
+        DueñosPage
     ],
     providers: [
         StatusBar,

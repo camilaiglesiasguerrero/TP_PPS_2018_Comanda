@@ -15,6 +15,8 @@ import { MesasPage } from '../pages/mesas/mesas';
 import { BebidasPage } from '../pages/bebidas/bebidas';
 import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
+import { DueñosPage } from '../pages/dueños/dueños';
+
 
 
 @Component({
@@ -46,6 +48,7 @@ export class MyApp {
       { title: 'Cerrar Sesión', component: IniciarsesionPage },
     ];
     this.supervisorPages = [
+      { title: 'Dueños', component: DueñosPage },
       { title: 'Empleados', component: EmpeladosPage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
@@ -92,6 +95,9 @@ export class MyApp {
         this.nav.setRoot(page.component, { 'fromApp': true });
         break;
       case 'Empleados':
+        this.nav.setRoot(page.component, { 'empleado': true });
+        break;
+      case 'Dueños':
         this.nav.setRoot(page.component, { 'empleado': true });
         break;
     }

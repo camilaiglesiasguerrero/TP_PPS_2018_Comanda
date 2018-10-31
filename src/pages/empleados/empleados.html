@@ -5,11 +5,11 @@
             <ion-icon color="secondary" name="menu"></ion-icon>
         </button>
         <ion-title>Empleados</ion-title>
-        <ion-fab right bottom>
-            <button ion-fab color="dark" (click)="agregarEmpleado()">
-                <ion-icon name="add"></ion-icon>
-            </button>
-        </ion-fab>
+        <ion-buttons end>
+        <button class="btnAgregar" ion-button outline (click)="agregarEmpleado()">Nuevo
+            <ion-icon class="iconadd" name="md-person-add"></ion-icon>
+        </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
