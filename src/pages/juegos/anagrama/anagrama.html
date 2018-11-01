@@ -14,8 +14,8 @@
 
 
 <ion-content padding>
-  <h1>Reglas del juego:</h1>
-  <h2>El juego consiste en reordenar las letras para formar una palabra. ¡Apurate, que sólo tenés 1 minuto!</h2>
+  
+  Reordená las letras para formar una palabra. ¡Apurate, que sólo tenés 30 segundos!
 
   <p id='timer' class="tiempo" readonly >{{cronometro}}<i class="mili">{{cronoMili}}</i></p> 
   <button type="button" class="mi-btn btn-success" (click)='generarPalabra()'>Comenzar</button>
@@ -41,4 +41,5 @@
       <button type="button" class="mi-btn2 btn-danger" [hidden]='seRindio'(click)='Rendirse()'>Rendirse</button>
     </div>
   </div>
+
 </ion-content>

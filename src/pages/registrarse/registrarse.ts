@@ -1,4 +1,5 @@
 import { Cliente } from './../../models/cliente';
+
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -18,7 +19,7 @@ import { HomePage } from './../home/home';
 
 export class RegistrarsePage {
 
-    user = { email: '', pass: '', secondPass: '', dni: '', nombre: '', apellido: '', foto: '', rol: '' };
+    user = { email: '', pass: '', secondPass: '', dni: '', cuil: '', nombre: '', apellido: '', foto: '', rol: '' };
     title = "Registrarse";
     miScan = {};
     fromLogin = false;
@@ -54,7 +55,6 @@ export class RegistrarsePage {
             if (this.fromLogin) {
                 this.registrarYLoguear();
             } else {
-                this.crearUsuario();
             }
         }
     }
@@ -94,10 +94,6 @@ export class RegistrarsePage {
             this.messageHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
         }
         return false;
-    }
-
-    private crearUsuario() {
-
     }
 
     private registrarYLoguear() {

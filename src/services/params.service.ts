@@ -7,9 +7,10 @@ export class ParamsService {
     isLogged:boolean;
     usuarioAdmin:boolean;
     rol:string;
-    user:any;
+    user:string;
     emplPuesto:string;
-
+    email:string;
+    password:string;
     
 
 }

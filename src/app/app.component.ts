@@ -7,8 +7,6 @@ import { ParamsService } from './../services/params.service';
 import { MessageHandler } from './../services/messageHandler.service';
 import { AuthenticationService } from './../services/authentication.service';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
 import { AltaPedidoPage } from './../pages/alta-pedido/alta-pedido';
@@ -17,6 +15,8 @@ import { BebidasPage } from '../pages/bebidas/bebidas';
 import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { EncuestaClientePage } from "../pages/encuesta-cliente/encuesta-cliente";
+import { DueñosPage } from '../pages/dueños/dueños';
+
 
 
 @Component({
@@ -80,28 +80,31 @@ export class MyApp {
         });
     }
 
-    openPage(page) {
-        switch (page.title) {
-            case 'Cerrar Sesión':
-                let alertConfirm = this.messageHandler.mostrarMensajeConfimación("¿Quieres cerrar sesión?", "Cerrar sesión");
-                alertConfirm.present();
-                alertConfirm.onDidDismiss((confirm) => {
-                    if (confirm) {
-                        this.cerrarSesion();
-                    }
-                });
-                break;
-            case 'Iniciar Sesión':
-                this.nav.setRoot(page.component, { 'fromApp': true });
-                break;
-            case 'Empleados':
-                this.nav.setRoot(page.component, { 'empleado': true });
-                break;
-            default:
-              this.nav.setRoot(page.component);
-              break;
-        }
+  openPage(page) {
+    switch (page.title) {
+      case 'Cerrar Sesión':
+        let alertConfirm = this.messageHandler.mostrarMensajeConfimación("¿Quieres cerrar sesión?", "Cerrar sesión");
+        alertConfirm.present();
+        alertConfirm.onDidDismiss((confirm) => {
+          if (confirm) {
+            this.cerrarSesion();
+          }
+        });
+        break;
+      case 'Iniciar Sesión':
+        this.nav.setRoot(page.component, { 'fromApp': true });
+        break;
+      case 'Empleados':
+        this.nav.setRoot(page.component, { 'empleado': true });
+        break;
+        case 'Dueños':
+            this.nav.setRoot(page.component, { 'empleado': true });
+            break;
+        default:
+            this.nav.setRoot(page.component);
+            break;
     }
+  }
 
     private cerrarSesion() {
         this.paramsService.isLogged = false;

@@ -11,8 +11,8 @@ import { UsuariosService } from './../../services/usuarios.service';
 
 import { HomePage } from './../home/home';
 import { EncuestaEmpleadoPage } from '../encuesta-empleado/encuesta-empleado';
-import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import { DashboardPage } from '../dashboard/dashboard';
+import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 
 
 @Component({
@@ -68,6 +68,8 @@ export class IniciarsesionPage {
             })
           }else{
             this.onLogged({email: this.user.name, rol:'admin'});
+            this.paramsService.email = this.user.name;
+            this.paramsService.password = this.user.pass;
           }    
         })
         .catch(error => {
@@ -90,7 +92,7 @@ export class IniciarsesionPage {
         this.navCtrl.setRoot(EncuestaEmpleadoPage);    
         break;
       case 'cliente':
-        this.navCtrl.setRoot(AltaPedidoPage);
+        this.navCtrl.setRoot(PrincipalClientePage);
         break;
       case 'dueño':
         this.navCtrl.setRoot(DashboardPage);
@@ -100,7 +102,7 @@ export class IniciarsesionPage {
         break;
     }
     
-    console.log("Se logueo correctamente");
+    //console.log("Se logueo correctamente");
   }
 
   registerUser() {
@@ -114,23 +116,33 @@ export class IniciarsesionPage {
         this.user.pass = "111111";
         break;
       }
-      case "invitado": {
-        this.user.name = "invitado@gmail.com";
-        this.user.pass = "222222";
-        break;
-      }
-      case "usuario": {
-        this.user.name = "usuario@gmail.com";
+      case "bartender": {
+        this.user.name = "bartender@gmail.com";
         this.user.pass = "123456";
         break;
       }
-      case "anonimo": {
-        this.user.name = "anonimo@gmail.com";
-        this.user.pass = "44";
+      case "cocinero": {
+        this.user.name = "cocinero@gmail.com";
+        this.user.pass = "123456";
         break;
       }
-      case "tester" : {//tiene rol de empleado
-        this.user.name = "tester@gmail.com";
+      case "metre": {
+        this.user.name = "metre@gmail.com";
+        this.user.pass = "123456";
+        break;
+      }
+      case "mozo": {
+        this.user.name = "mozo@gmail.com";
+        this.user.pass = "123456";
+        break;
+      }
+      case "cliente1": {
+        this.user.name = "cliente1@gmail.com";
+        this.user.pass = "123456";
+        break;
+      }
+      case "cliente2": {
+        this.user.name = "cliente2@gmail.com";
         this.user.pass = "123456";
         break;
       }
