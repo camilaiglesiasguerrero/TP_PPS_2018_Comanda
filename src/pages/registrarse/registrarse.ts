@@ -10,7 +10,7 @@ import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 import { ParamsService } from '../../services/params.service';
 import { UsuariosService } from './../../services/usuarios.service';
-import { HomePage } from './../home/home';
+import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 
 @Component({
     selector: 'page-registrarse',
@@ -109,7 +109,7 @@ export class RegistrarsePage {
                         this.messageHandler.mostrarMensaje("Bienvenido!!");
                         this.paramsService.isLogged = true;
                         if (this.fromLogin) {
-                            this.navCtrl.setRoot(HomePage)
+                            this.navCtrl.setRoot(PrincipalClientePage)
                         }
                     }, error => {
                         this.autenticationService.deleteUserLogged()
@@ -118,7 +118,7 @@ export class RegistrarsePage {
                                 this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
                                 this.paramsService.isLogged = true;
                                 if (this.fromLogin) {
-                                    this.navCtrl.setRoot(HomePage)
+                                    this.navCtrl.setRoot(IniciarsesionPage)
                                 }
                             }, error => {
                                 console.log("no se puedo eliminar el usuario logueado");
