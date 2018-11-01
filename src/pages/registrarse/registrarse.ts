@@ -1,5 +1,4 @@
 import { Cliente } from './../../models/cliente';
-import { Usuario } from './../../models/usuario';
 
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -56,7 +55,6 @@ export class RegistrarsePage {
             if (this.fromLogin) {
                 this.registrarYLoguear();
             } else {
-                this.crearUsuario();
             }
         }
     }
@@ -97,45 +95,6 @@ export class RegistrarsePage {
         }
         return false;
     }
-
-    private crearUsuario() {
-        let spiner = this.spinnerHandler.getAllPageSpinner();
-        spiner.present();
-        this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
-            .then(response => {
-                let usuario = new Usuario(this.user.nombre, this.user.apellido, this.user.dni, this.user.cuil, this.user.foto, this.user.rol)
-                usuario.uid = this.autenticationService.getUID();
-                this.usuarioService.guardar(usuario)
-                    .then(response => {
-                        spiner.dismiss();
-                        this.messageHandler.mostrarMensaje("Bienvenido!!");
-                        this.paramsService.isLogged = true;
-                        if (this.fromLogin) {
-                            this.navCtrl.setRoot(HomePage)
-                        }
-                    }, error => {
-                        this.autenticationService.deleteUserLogged()
-                            .then(response => {
-                                spiner.dismiss();
-                                this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
-                                this.paramsService.isLogged = true;
-                                if (this.fromLogin) {
-                                    this.navCtrl.setRoot(HomePage)
-                                }
-                            }, error => {
-                                console.log("no se puedo eliminar el usuario logueado");
-                                spiner.dismiss();
-                                this.messageHandler.mostrarErrorLiteral("Hubo un error en el registro");
-                            });
-                    });
-            })
-            .catch(error => {
-                spiner.dismiss();
-                this.messageHandler.mostrarError(error, "Error al registrarse");
-            })
-
-    }
-
 
     private registrarYLoguear() {
         let spiner = this.spinnerHandler.getAllPageSpinner();
