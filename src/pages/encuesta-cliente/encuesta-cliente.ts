@@ -34,8 +34,7 @@ export class EncuestaClientePage {
       .then(response => {
         this.messageHandler.mostrarMensaje("Gracias por completar la encuesta!");
         this.navCtrl.setRoot(PrincipalClientePage);
-      })
-      .catch(error => {
+      }, error => {
         this.messageHandler.mostrarErrorLiteral("Hubo un error a completar la encuesta");
       })
   }
