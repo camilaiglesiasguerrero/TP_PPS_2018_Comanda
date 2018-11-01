@@ -52,6 +52,9 @@ export class IniciarsesionPage {
   }
 
   singIn() {
+    this.user.name = this.paramsService.name;
+    this.user.pass = this.paramsService.pass;
+    console.log(this.user.name);
     if (this.validForm()) {
       this.spiner = this.spinnerHandler.getAllPageSpinner();
       this.spiner.present();

@@ -29,43 +29,43 @@ export class IniciarsesionmenuPage {
   seleccionar(){
     switch (this.user) {
         case "admin": {
-          this.params.user = "administrador@gmail.com";
+          this.params.name = "administrador@gmail.com";
           break;
         }
         case "bartender": {
-          this.params.user = "bartender@gmail.com";
+          this.params.name = "bartender@gmail.com";
           break;
         }
         case "cocinero": {
-          this.params.user = "cocinero@gmail.com";
+          this.params.name = "cocinero@gmail.com";
           break;
         }
         case "metre": {
-          this.params.user = "metre@gmail.com";
+          this.params.name = "metre@gmail.com";
           break;
         }
         case "mozo": {
-          this.params.user = "mozo@gmail.com";
+          this.params.name = "mozo@gmail.com";
           break;
         }
         case "cliente1": {
-          this.params.user = "cliente1@gmail.com";
+          this.params.name = "cliente1@gmail.com";
           break;
         }
         case "cliente2": {
-          this.params.user = "cliente2@gmail.com";
+          this.params.name = "cliente2@gmail.com";
           break;
         }
         case "dueño": {
-          this.params.user = "duenio@gmail.com";
+          this.params.name = "duenio@gmail.com";
           break;
         }
         case "supervisor": {
-          this.params.user = "supervisor@gmail.com";
+          this.params.name = "supervisor@gmail.com";
           break;
       }
       case "delivery": {
-        this.params.user = "delivery@gmail.com";
+        this.params.name = "delivery@gmail.com";
         break;
       }
     }
