@@ -29,7 +29,7 @@ export class EncuestaEmpleadoPage {
   }
 
   irA(){
-    switch(this.paramsService.emplPuesto){
+    switch(this.paramsService.rol){
       case 'bartender':
       case 'cocinero':
         this.navCtrl.setRoot(ListadoPedidosPage);

@@ -8,9 +8,10 @@ export class ParamsService {
     usuarioAdmin:boolean;
     rol:string;
     user:string;
-    emplPuesto:string;
     email:string;
     password:string;
     
+    name:string;
+    pass:string;
 
 }
