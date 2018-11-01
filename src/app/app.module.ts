@@ -42,6 +42,7 @@ import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
     //Otros
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
+import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 
 //Services
@@ -71,7 +72,8 @@ import { UsuariosService } from './../services/usuarios.service';
         AltaPedidoPage,
         AnagramaPage,
         DashboardPage,
-        AltaMesaPage
+        AltaMesaPage,
+        EncuestaClientePage
     ],
     imports: [
         BrowserModule,
@@ -99,7 +101,8 @@ import { UsuariosService } from './../services/usuarios.service';
         AltaPedidoPage,
         AnagramaPage,
         DashboardPage,
-        AltaMesaPage
+        AltaMesaPage,
+        EncuestaClientePage
     ],
     providers: [
         StatusBar,
