@@ -65,11 +65,9 @@ export class IniciarsesionPage {
             if(this.allUsersData == null){
               this.allUsersData = this.usuariosService.getEmpleados();
             }
-
             this.userData = this.allUsersData.snapshotChanges();
             this.userData.subscribe(response => {
               this.onLogged(response[0].payload.val());
-              
             })
           }else{
             this.onLogged({email: this.user.name, rol:'admin'});
