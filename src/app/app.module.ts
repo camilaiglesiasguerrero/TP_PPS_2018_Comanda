@@ -26,8 +26,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //Pages
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+
     //Autenticación
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
@@ -72,13 +71,13 @@ import { DatabaseService } from '../services/database.service';
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 @NgModule({
     declarations: [
         MyApp,
-        HomePage,
-        ListPage,
         IniciarsesionPage,
+        IniciarsesionmenuPage,
         RegistrarsePage,
         MesasPage,
         BebidasPage,
@@ -114,9 +113,8 @@ import { PipesModule } from '../pipes/pipes.module';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        HomePage,
-        ListPage,
         IniciarsesionPage,
+        IniciarsesionmenuPage,
         RegistrarsePage,
         MesasPage,
         BebidasPage,
