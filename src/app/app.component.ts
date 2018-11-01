@@ -16,6 +16,7 @@ import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { EncuestaClientePage } from "../pages/encuesta-cliente/encuesta-cliente";
 import { DueñosPage } from '../pages/dueños/dueños';
+import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
 
 
 
@@ -44,6 +45,7 @@ export class MyApp {
             { title: 'Registrarse', component: RegistrarsePage }
         ];
         this.clientePages = [
+            { title: "Inicio", component: PrincipalClientePage},
             { title: "Hacer Pedido", component: AltaPedidoPage },
             { title: "Encuesta de satisfacción", component: EncuestaClientePage},
             { title: 'Cerrar Sesión', component: IniciarsesionPage },
