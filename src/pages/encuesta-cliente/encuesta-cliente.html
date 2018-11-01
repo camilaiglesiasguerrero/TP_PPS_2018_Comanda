@@ -15,26 +15,7 @@
     </ion-row>
     <ion-row>
         <ion-col>
-          <!-- <ion-list radio-group [(ngModel)]="autoManufacturers">
-                <div class="flex-h">
-                    <ion-label class="width-80 respuesta">Malo</ion-label>
-                    <ion-radio class="width-20 center-horizontal center-vertical" value="malo"></ion-radio>
-                </div>
-                <div class="flex-h">
-                    <ion-label class="width-80 respuesta">Regular</ion-label>
-                    <ion-radio class="width-20 center-horizontal center-vertical" value="regular"></ion-radio>
-                </div>
-                <div class="flex-h">
-                    <ion-label class="width-80 respuesta">Bien</ion-label>
-                    <ion-radio class="width-20 center-horizontal center-vertical" value="bien"></ion-radio>
-                </div>
-                <div class="flex-h">
-                    <ion-label class="width-80 respuesta">Muy Bien</ion-label>
-                    <ion-radio class="width-20 center-horizontal center-vertical" value="muyBien"></ion-radio>
-                </div>
-            </ion-list>
-            -->
-            <ion-list radio-group [(ngModel)]="relationship">
+            <ion-list radio-group [(ngModel)]="resultados.limpieza">
                 <ion-item style="background-color: transparent">
                     <ion-label style="color: beige;">Muy Bien</ion-label>
                     <ion-radio value="muyBien" checked></ion-radio>
@@ -54,5 +35,105 @@
             </ion-list>
         </ion-col>
     </ion-row>
-
+    <ion-row>
+        <ion-col class="pregunta-titulo">
+            ¿Cómo fue la atención recibida por parte del personal?
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-list radio-group [(ngModel)]="resultados.atencion">
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Muy Buena</ion-label>
+                    <ion-radio value="muyBuena" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Buena</ion-label>
+                    <ion-radio value="buena" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Regular</ion-label>
+                    <ion-radio value="regular" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Mala</ion-label>
+                    <ion-radio value="mala" checked></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="pregunta-titulo">
+            ¿Cuál es tu nivel de satisfacción con el sabor de la comida y la bebida?
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-list radio-group [(ngModel)]="resultados.sabor">
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Muy Rica</ion-label>
+                    <ion-radio value="muyRica" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Rica</ion-label>
+                    <ion-radio value="rica" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Regular</ion-label>
+                    <ion-radio value="regular" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Mala</ion-label>
+                    <ion-radio value="mala" checked></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="pregunta-titulo">
+            ¿Cómo fue la velocidad de entrega del pedido?
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-list radio-group [(ngModel)]="resultados.velocidad">
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Rápida</ion-label>
+                    <ion-radio value="rapida" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Demoro un poco</ion-label>
+                    <ion-radio value="demoro" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Tardó mucho</ion-label>
+                    <ion-radio value="tardo" checked></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="pregunta-titulo">
+            ¿Recomendarías el lugar?
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-list radio-group [(ngModel)]="resultados.recomendar">
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">Si</ion-label>
+                    <ion-radio value="si" checked></ion-radio>
+                </ion-item>
+                <ion-item style="background-color: transparent">
+                    <ion-label style="color: beige;">No</ion-label>
+                    <ion-radio value="no" checked></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col text-center>
+            <button ion-button round color="light" (click)="finalizar()">Finalizar encuesta</button>
+        </ion-col>
+    </ion-row>
 </ion-content>

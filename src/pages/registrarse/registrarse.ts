@@ -75,16 +75,16 @@ export class RegistrarsePage {
             destinationType: this.camera.DestinationType.DATA_URL,
             sourceType: this.camera.PictureSourceType.CAMERA,
             correctOrientation: true
-          }
-          this.camera.getPicture(options)
+        }
+        this.camera.getPicture(options)
             .then(imageData => {
-              this.user.foto = `data:image/jpeg;base64,${imageData}`;
+                this.user.foto = `data:image/jpeg;base64,${imageData}`;
             }, error => {
-              if (error == "No Image Selected") {
-                this.messageHandler.mostrarErrorLiteral("No se sacó ninguna foto");
-              } else {
-                this.messageHandler.mostrarErrorLiteral(error);
-              }
+                if (error == "No Image Selected") {
+                    this.messageHandler.mostrarErrorLiteral("No se sacó ninguna foto");
+                } else {
+                    this.messageHandler.mostrarErrorLiteral(error);
+                }
             })
     }
 
@@ -156,6 +156,8 @@ export class RegistrarsePage {
                         spiner.dismiss();
                         this.messageHandler.mostrarMensaje("Bienvenido!!");
                         this.paramsService.isLogged = true;
+                        this.paramsService.user = cliente;
+                        this.paramsService.rol = cliente.rol;
                         if (this.fromLogin) {
                             this.navCtrl.setRoot(PrincipalClientePage)
                         }

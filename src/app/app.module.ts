@@ -68,6 +68,7 @@ import { UsuariosService } from './../services/usuarios.service';
 import { QrService } from './../services/qr.service';
 import { CameraService } from '../services/camera.service';
 import { DatabaseService } from '../services/database.service';
+import { EncuestaClienteService } from '../services/encuestasCliente.service';
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
@@ -153,7 +154,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
         UsuariosService,
         QrService,
         CameraService,
-        DatabaseService
+        DatabaseService,
+        EncuestaClienteService
     ]
 })
 export class AppModule {}
