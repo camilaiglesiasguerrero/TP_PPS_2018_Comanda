@@ -41,10 +41,14 @@ import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
+import { DueñosPage } from '../pages/dueños/dueños';
+
     //ABM
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
 import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
+import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
+
     //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
     //Encuestas
@@ -88,6 +92,8 @@ import { PipesModule } from '../pipes/pipes.module';
         AnagramaPage,
         DashboardPage,
         AltaMesaPage,
+        AltaEmpleadoPage,
+        DueñosPage,
         OcuparMesaPage,
         EstadoPedidoPage,
         EncuestaClientePage,
@@ -124,6 +130,8 @@ import { PipesModule } from '../pipes/pipes.module';
         AnagramaPage,
         DashboardPage,
         AltaMesaPage,
+        AltaEmpleadoPage,
+        DueñosPage,
         OcuparMesaPage,
         EstadoPedidoPage,
         EncuestaClientePage,
