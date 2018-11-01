@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Pedido } from '../../models/pedido';
 import { AltaMenuPage } from '../alta-menu/alta-menu';
 import { ListadoMenuPage } from '../listado-menu/listado-menu';
 import { ParamsService } from '../../services/params.service';

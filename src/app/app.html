@@ -11,7 +11,7 @@
         {{p.title}}
       </button>
     </ion-list>
-    <ion-list *ngIf="paramsService.rol == 'cliente'">
+    <ion-list *ngIf="paramsService.rol == 'cliente' || paramsService.rol == 'empleado'">
       <button menuClose ion-button block color="third" *ngFor="let p of clientePages" (click)="openPage(p)">
         {{p.title}}
       </button>

@@ -42,10 +42,12 @@
         <ion-label floating>Seleccionar Usuario</ion-label>
         <ion-select [(ngModel)]="userSelect" [selectOptions]="selectUserOptions" (ionChange)="userSelectChange()"  >
             <ion-option value="admin">Administrador</ion-option>
-            <ion-option value="invitado">Invitado</ion-option>
-            <ion-option value="usuario">Usuario</ion-option>
-            <ion-option value="anonimo">Anónimo</ion-option>
-            <ion-option value="tester">Tester</ion-option>
+            <ion-option value="metre">Metre</ion-option>
+            <ion-option value="cocinero">Cocinero</ion-option>
+            <ion-option value="bartender">Bartender</ion-option>
+            <ion-option value="mozo">Mozo</ion-option>
+            <ion-option value="cliente1">Cliente1</ion-option>
+            <ion-option value="cliente2">Cliente2</ion-option>
         </ion-select>
       </ion-item>
     </ion-col>
