@@ -5,6 +5,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { AltaEmpleadoPage } from '../alta-empleado/alta-empleado';
 import { Usuario } from '../../models/usuario';
 import { map } from 'rxjs/operators';
+import { MessageHandler } from '../../services/messageHandler.service';
 
 
 @Component({
@@ -16,10 +17,10 @@ export class EmpeladosPage {
   empleadosObs: Observable<Usuario[]>;
   empleadosList:Usuario[];
   totalItems:number;
-  tipoAlta:string;
 
   constructor(public navCtrl: NavController,
     private usuariosService: UsuariosService,
+    public mensajes: MessageHandler,
     ) {
       this.empleadosObs= this.usuariosService.obtenerLista().snapshotChanges().pipe(
         map(changes =>
@@ -41,8 +42,22 @@ export class EmpeladosPage {
   }
 
   modificar(key:string,empleado:Usuario){
-    let modEmpleado = new Usuario(empleado.nombre,empleado.apellido,empleado.dni,empleado.cuil,empleado.foto,empleado.rol);
-    this.usuariosService.obtenerLista().update(key,modEmpleado);
+    this.navCtrl.setRoot(AltaEmpleadoPage,{
+      tipoAlta:'modEmp',
+      key:key,
+      userMod:empleado
+    });
+  }
+
+  borrar(key:string){
+    let alertConfirm = this.mensajes.mostrarMensajeConfimación("¿Esta seguro?", "Eliminar Empleado");
+        alertConfirm.present();
+        alertConfirm.onDidDismiss((confirm) => {
+          if (confirm) {
+            this.usuariosService.obtenerLista().remove(key);
+            this.mensajes.mostrarMensaje("Eliminacion Exitosa");
+          }
+        });
   }
 
 }

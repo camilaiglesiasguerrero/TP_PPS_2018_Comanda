@@ -12,7 +12,6 @@ import { EmpeladosPage } from '../empleados/empleados';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DueñosPage } from '../dueños/dueños';
 
-
 /**
  * Generated class for the AltaEmpleadoPage page.
  *
@@ -34,6 +33,8 @@ export class AltaEmpleadoPage {
   imagen:string;
   hayFoto:string;
   tipoAlta:string;
+  userMod:Usuario;
+  key:string;
 
   constructor(
     public navCtrl: NavController, 
@@ -48,7 +49,18 @@ export class AltaEmpleadoPage {
     ) {
         this.hayFoto="no";
         this.tipoAlta=this.navParams.get('tipoAlta');
-        console.log(this.tipoAlta);
+        if(this.tipoAlta == 'modEmp' || this.tipoAlta == 'modDueño')
+        {
+            this.key=this.navParams.get('key');
+            this.userMod=this.navParams.get('userMod');
+            this.user.nombre=this.userMod.nombre;
+            this.user.apellido=this.userMod.apellido;
+            this.user.dni= this.userMod.dni.toString();
+            this.user.cuil=this.userMod.cuil.toString();
+            this.user.email= this.userMod.mail;
+            this.user.foto=this.userMod.foto;
+            this.user.rol=this.userMod.rol;            
+        }
   }
 
   ionViewDidLoad() {
@@ -113,7 +125,7 @@ export class AltaEmpleadoPage {
     spiner.present();
     this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
         .then(response => {
-            let usuario = new Usuario(this.user.nombre,this.user.apellido,this.user.dni,this.user.cuil,this.user.foto,this.user.rol);
+            let usuario = new Usuario(this.user.nombre,this.user.apellido,this.user.dni,this.user.cuil,this.user.foto,this.user.email,this.user.rol);
             usuario.uid = this.autenticationService.getUID();
             this.usuarioService.guardar(usuario)
                 .then(response => {
@@ -143,6 +155,28 @@ export class AltaEmpleadoPage {
             spiner.dismiss();
             this.messageHandler.mostrarError(error, "Error al registrarse");
         })
+      }
+
+      modificar(){
+          let userModificado = new Usuario(this.user.nombre,this.user.apellido,this.user.dni,this.user.cuil,this.user.foto,this.user.email,this.user.rol);
+          let alertConfirm = this.messageHandler.mostrarMensajeConfimación("¿Esta seguro?", "Modificar");
+          alertConfirm.present();
+          alertConfirm.onDidDismiss((confirm) => {
+            if (confirm) {
+                this.usuarioService.obtenerLista().update(this.key,userModificado);
+                this.messageHandler.mostrarMensaje("Modificación exitosa");
+                this.cancelarMod();
+            }
+          });
+      }
+
+      cancelarMod(){
+        if(this.tipoAlta=='modEmp'){
+            this.navCtrl.setRoot(EmpeladosPage);
+        }
+        else{
+            this.navCtrl.setRoot(DueñosPage);
+        }
       }
 
 }
