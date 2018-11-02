@@ -3,13 +3,13 @@ export class Usuario {
     uid: string;
     nombre:string;
     apellido:string;
-    dni:number;
+    dni:string;
     cuil:number;
-    mail:string;
+    mail:number;
     foto:string;
     rol:string;
 
-    constructor(nombre:string, apellido:string, dni:number, cuil:number, foto:string, rol:string){
+    constructor(nombre, apellido, dni, cuil, foto, rol){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;

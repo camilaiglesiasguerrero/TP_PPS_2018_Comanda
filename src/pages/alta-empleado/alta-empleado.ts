@@ -113,7 +113,7 @@ export class AltaEmpleadoPage {
     spiner.present();
     this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
         .then(response => {
-            let usuario = new Usuario(this.user.nombre, this.user.apellido, this.user.dni, this.user.cuil, this.user.foto, this.user.rol)
+            let usuario = new Usuario(this.user.nombre,this.user.apellido,this.user.dni,this.user.cuil,this.user.foto,this.user.rol);
             usuario.uid = this.autenticationService.getUID();
             this.usuarioService.guardar(usuario)
                 .then(response => {
