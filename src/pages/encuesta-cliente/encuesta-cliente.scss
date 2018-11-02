@@ -2,6 +2,10 @@
 
 page-encuesta-cliente{
 
+  .scroll-content{
+    background-color: $first-detail-color !important;
+  }
+
   .pregunta-titulo{
     color: white;
     text-align: justify;
