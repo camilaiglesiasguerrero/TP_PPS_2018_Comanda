@@ -54,7 +54,6 @@ export class IniciarsesionPage {
   singIn() {
     this.user.name = this.paramsService.name;
     this.user.pass = this.paramsService.pass;
-    console.log(this.user.name);
     if (this.validForm()) {
       this.spiner = this.spinnerHandler.getAllPageSpinner();
       this.spiner.present();
@@ -92,13 +91,20 @@ export class IniciarsesionPage {
     this.autenticationService.logInFromDataBase();
     
     switch(this.paramsService.rol){
-      case 'empleado':
+      case 'mozo':
+      case 'cocinero':
+      case 'bartender':
+      case 'delivery':
+      case 'metre':
         this.navCtrl.setRoot(EncuestaEmpleadoPage);    
         break;
       case 'cliente':
         this.navCtrl.setRoot(PrincipalClientePage);
         break;
       case 'dueño':
+        this.navCtrl.setRoot(DashboardPage);
+        break;
+      case 'supervisor':
         this.navCtrl.setRoot(DashboardPage);
         break;
       

@@ -5,6 +5,8 @@ import { ParamsService } from "./params.service";
 import { AngularFireDatabase } from "angularfire2/database";
 import { IonicMultiCamera } from 'ionic-multi-camera';
 import 'rxjs/add/observable/forkJoin';
+import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @Injectable()
 export class CameraService{
@@ -23,7 +25,9 @@ export class CameraService{
                 private messageHandler: MessageHandler,
                 public multiCamara: IonicMultiCamera,
                 public params: ParamsService,
-                public db:AngularFireDatabase){
+                public db:AngularFireDatabase,
+                private mediaCapture: MediaCapture,
+                private imagePicker: ImagePicker){
     }
 
     SacarFoto(){
@@ -52,4 +56,25 @@ export class CameraService{
             this.messageHandler.mostrarError(error, 'Ocurrió un error');
           });
     }
+
+    sacarMultiples(){
+      let options: CaptureImageOptions = { limit: 3 };
+      this.mediaCapture.captureImage(options)
+        .then(
+          (data: MediaFile[]) => this.arrayDeFotos = data,
+          (err: CaptureError) => this.messageHandler.mostrarError(err)
+        );
+    }
+
+    elegirMultiples(){
+      let options = { maximumImagesCount : 3 }
+      this.imagePicker.getPictures(options).then((results) => {
+        for (var i = 0; i < results.length; i++) {
+          //this.arrayDeFotos.push('data:image/jpeg;base64,' + results[i]);
+          alert(results[i]);
+        }
+      }, (err) => { });
+    }
+
+    
 }

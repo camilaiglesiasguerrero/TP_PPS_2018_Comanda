@@ -27,6 +27,7 @@ export class IniciarsesionmenuPage {
   }
 
   seleccionar(){
+
     switch (this.user) {
         case "admin": {
           this.params.name = "administrador@gmail.com";

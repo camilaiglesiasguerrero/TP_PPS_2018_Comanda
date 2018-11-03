@@ -62,17 +62,15 @@
            </ion-list>
        <ion-row>
         <ion-row>
-          <ion-col style="vertical-align: middle;"> 
+          <ion-col col-6 style="vertical-align: middle;"> 
             <img [hidden]='camara.fotoMostrar === "" ' [src]=camara.fotoMostrar alt="FotoMesa" style="width:50vw"> 
           </ion-col>
-          <ion-col >
-            <p *ngIf="createdCode">
-                <ngx-qrcode [qrc-value]="createdCode" style="width:40vw"></ngx-qrcode>
-            </p>
+          <ion-col col-6 *ngIf="createdCode">
+            <ngx-qrcode [qrc-value]="createdCode" style="width:40vw"></ngx-qrcode>
           </ion-col>
         </ion-row>
          <ion-col>
-             <button ion-button  color="dark" block type="button" (click)='newUpdateMesa()' class="login-button" [@fadeIn]="loginState" [disabled]="!frm.valid">Confirmar</button>
+            <button ion-button  color="dark" block type="button" (click)='newUpdateMesa()' class="login-button" [@fadeIn]="loginState" [disabled]="!frm.valid">Confirmar</button>
          </ion-col>
        </ion-row>
        </form>
