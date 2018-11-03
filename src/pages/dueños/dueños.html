@@ -20,5 +20,17 @@
 
 
 <ion-content padding>
-
+        <div *ngFor="let empleado of empleadosList">
+                <ion-list >
+                  <ion-item *ngIf="empleado.rol==='dueño'">
+                    <ion-thumbnail item-start>
+                      <img [src]="empleado.foto">
+                    </ion-thumbnail>
+                    <h2>{{empleado.nombre}} {{empleado.apellido}}</h2>
+                    <p>DNI: {{empleado.dni}}</p>
+                    <button ion-button (click)=modificar(empleado.key,empleado) clear>Modificar</button>
+                    <button ion-button color="danger" (click)=borrar(empleado.key) clear>Borrar</button>
+                  </ion-item>
+                </ion-list>
+              </div>
 </ion-content>

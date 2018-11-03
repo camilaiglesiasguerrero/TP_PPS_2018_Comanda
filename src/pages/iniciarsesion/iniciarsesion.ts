@@ -58,6 +58,8 @@ export class IniciarsesionPage {
     if (this.validForm()) {
       this.spiner = this.spinnerHandler.getAllPageSpinner();
       this.spiner.present();
+      this.paramsService.email = this.user.name;
+      this.paramsService.password = this.user.pass;
       this.autenticationService.singIn(this.user.name, this.user.pass)
         .then(response => {
           if(this.user.name != 'administrador@gmail.com'){
@@ -71,8 +73,6 @@ export class IniciarsesionPage {
             })
           }else{
             this.onLogged({email: this.user.name, rol:'admin'});
-            this.paramsService.email = this.user.name;
-            this.paramsService.password = this.user.pass;
           }    
         })
         .catch(error => {

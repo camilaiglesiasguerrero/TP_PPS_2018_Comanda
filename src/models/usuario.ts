@@ -9,7 +9,7 @@ export class Usuario {
     foto:string;
     rol:string;
 
-    constructor(nombre, apellido, dni, cuil, foto, rol){
+    constructor(nombre, apellido, dni, cuil, foto, mail, rol){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;

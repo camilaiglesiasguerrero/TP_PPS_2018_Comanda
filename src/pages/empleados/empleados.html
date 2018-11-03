@@ -14,22 +14,18 @@
 </ion-header>
 
 <ion-content padding>
-    <div class="flex-v">
-        <ul class="flex-container center-horizontal">
-            <!-- [ngClass]="{'last-item': i == totalItems }" -->
-            <li class="flex-item" *ngFor="let empleado of empleadosDisplay; let i=index" (click)="listaClick(empleado)">
-                <div class="flex-h height-100">
-                    <div class="fila-image-container width-30" *ngIf="!empleado.payload.val().foto">
-                        <img class="fila-image" src="assets/imgs/user.png">
-                    </div>
-                    <div class="fila-image-container width-30" *ngIf="empleado.payload.val().foto">
-                        <img class="fila-image jugador-image" src="{{empleado.payload.val().foto}}">
-                    </div>
-                    <div class="fila-description width-50">
-                        {{jugador.payload.val().nombre}}
-                    </div>
-                </div>
-            </li>
-        </ul>
+    <div *ngFor="let empleado of empleadosList">
+      <ion-list >
+        <ion-item *ngIf="empleado.rol!=='cliente' && empleado.rol!=='dueño'">
+          <ion-thumbnail item-start>
+            <img [src]="empleado.foto">
+          </ion-thumbnail>
+          <h2>{{empleado.nombre}} {{empleado.apellido}}</h2>
+          <p>DNI: {{empleado.dni}}</p>
+          <p>{{empleado.rol}}</p>
+          <button ion-button (click)=modificar(empleado.key,empleado) clear>Modificar</button>
+          <button ion-button color="danger" (click)=borrar(empleado.key) clear>Borrar</button>
+        </ion-item>
+      </ion-list>
     </div>
 </ion-content>
