@@ -57,6 +57,8 @@ export class IniciarsesionPage {
     if (this.validForm()) {
       this.spiner = this.spinnerHandler.getAllPageSpinner();
       this.spiner.present();
+      this.paramsService.email = this.user.name;
+      this.paramsService.password = this.user.pass;
       this.autenticationService.singIn(this.user.name, this.user.pass)
         .then(response => {
           if(this.user.name != 'administrador@gmail.com'){
@@ -64,16 +66,12 @@ export class IniciarsesionPage {
             if(this.allUsersData == null){
               this.allUsersData = this.usuariosService.getEmpleados();
             }
-
             this.userData = this.allUsersData.snapshotChanges();
             this.userData.subscribe(response => {
               this.onLogged(response[0].payload.val());
-              
             })
           }else{
             this.onLogged({email: this.user.name, rol:'admin'});
-            this.paramsService.email = this.user.name;
-            this.paramsService.password = this.user.pass;
           }    
         })
         .catch(error => {

@@ -1,12 +1,23 @@
 @import "../theme/variables.scss";
 
 ion-app.md{
-    background-image: url('../assets/imgs/logoFondo.png') !important;
-    background-color: $first-detail-color;
+    background-color: transparent !important;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 70%;
 }
+
+ion-app, ion-content, .nav-decor {
+    background-color: transparent !important;
+    background-image: none !important; 
+}
+
+body{
+    background-color: transparent !important;
+    background-image: none !important; 
+}
+
+
 
 .flex{
     &-v{
@@ -170,10 +181,6 @@ ion-app.md{
 .item-label-floating .text-input-md{
     margin-top: 5px;
     margin-bottom: 5px;
-}
-
-.scroll-content{
-    background-color: $first-detail-color;
 }
 
 .fila-image-container{

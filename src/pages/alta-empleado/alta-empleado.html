@@ -4,7 +4,8 @@
         <button ion-button menuToggle color="secondary">
             <ion-icon color="secondary" name="menu"></ion-icon>
         </button>
-        <ion-title>Nuevo {{tipoAlta}}</ion-title>
+        <ion-title *ngIf="tipoAlta==='empleado' || tipoAlta==='dueño'">Nuevo {{tipoAlta}}</ion-title>
+        <ion-title *ngIf="tipoAlta==='modEmp' || tipoAlta==='modDueño'">Moficacion</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -42,7 +43,7 @@
                     </ion-item>
                 </ion-col>
             </ion-row>
-            <ion-row *ngIf="tipoAlta=='empleado'">
+            <ion-row *ngIf="tipoAlta==='empleado' || tipoAlta==='modEmp'">
                 <ion-col>
                     <ion-item>
                       <ion-label>Tipo de empleado:</ion-label>
@@ -88,9 +89,11 @@
                   </button>
             </ion-row>
             <ion-row>
-                <ion-col text-center>
-                    <button class="btregistrar" ion-button round color="light" (click)="registerUser()">Registrarse</button>
+                <ion-col text-center *ngIf="tipoAlta==='empleado' || tipoAlta==='dueño'">
+                    <button class="btregistrar" *ngIf="tipoAlta==='empleado' || tipoAlta==='dueño'" ion-button round color="light" (click)="registerUser()">Registrar</button>
                 </ion-col>
+                    <button class="btcancelar" *ngIf="tipoAlta==='modEmp' || tipoAlta==='modDueño'" ion-button round color="danger" (click)="cancelarMod()">Cancelar</button>
+                    <button class="btmodificar" *ngIf="tipoAlta==='modEmp' || tipoAlta==='modDueño'" ion-button round color="light" (click)="modificar()">Modificar</button>
             </ion-row>
             <!-- <ion-row>
 

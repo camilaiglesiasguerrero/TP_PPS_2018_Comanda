@@ -1,3 +1,35 @@
-page-encuesta-cliente {
+@import "../../theme/variables.scss";
 
+page-encuesta-cliente{
+
+  .scroll-content{
+    background-color: $first-detail-color !important;
+  }
+
+  .pregunta-titulo{
+    color: white;
+    text-align: justify;
+    font-size: 1.5rem;
+  }
+
+  .respuesta{
+    color: beige;
+  }
+
+  .label-md{
+    margin: 8px 8px 8px 0;
+  }
+
+  .radio-md .radio-icon{
+    border-color: beige !important;
+  }
+
+  .radio-md .radio-checked{
+    border-color: beige !important;
+  }
+
+  .radio-md .radio-inner{
+    border-color: beige !important;
+    background-color: beige !important;
+  }
 }
