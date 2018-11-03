@@ -115,7 +115,7 @@ Branch: *branch_cari*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de ingreso al local`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los clientes`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 2/11 [f1f87a5](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f1f87a560ac3ecb20e78a983c68e352b5286fd90)]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Hacer reservas agendadas`
 
