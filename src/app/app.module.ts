@@ -42,6 +42,7 @@ import { EmpeladosPage } from '../pages/empleados/empleados';
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
 import { DueñosPage } from '../pages/dueños/dueños';
+import { ProfilePage } from '../pages/profile/profile';
 
     //ABM
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
@@ -98,7 +99,8 @@ import { PipesModule } from '../pipes/pipes.module';
         EstadoPedidoPage,
         EncuestaClientePage,
         PrincipalClientePage,
-        PrincipalMozoPage
+        PrincipalMozoPage,
+        ProfilePage
     ],
     imports: [
         BrowserModule,
@@ -136,7 +138,8 @@ import { PipesModule } from '../pipes/pipes.module';
         EstadoPedidoPage,
         EncuestaClientePage,
         PrincipalClientePage,
-        PrincipalMozoPage
+        PrincipalMozoPage,
+        ProfilePage
     ],
     providers: [
         StatusBar,

@@ -14,7 +14,7 @@ import { BebidasPage } from '../pages/bebidas/bebidas';
 import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { DueñosPage } from '../pages/dueños/dueños';
-
+import { ProfilePage } from '../pages/profile/profile';
 
 
 @Component({
@@ -44,28 +44,34 @@ export class MyApp {
     ];
     this.clientePages = [
       { title: 'Cerrar Sesión', component: IniciarsesionPage },
+      { title: 'Mi Perfil', component: ProfilePage }
     ];
     this.supervisorPages = [
       { title: 'Dueños', component: DueñosPage },
       { title: 'Empleados', component: EmpeladosPage },
+      { title: 'Mi Perfil', component: ProfilePage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
     this.mozoPages = [
       { title: 'Alta Clientes', component: IniciarsesionPage },
       { title: 'Mesas', component: MesasPage },
+      { title: 'Mi Perfil', component: ProfilePage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
     this.metrePages = [
       { title: 'Alta Clientes', component: IniciarsesionPage },
       { title: 'Mesas', component: MesasPage },
+      { title: 'Mi Perfil', component: ProfilePage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
     this.bartenerPages = [
       { title: 'Bebidas', component: BebidasPage },
+      { title: 'Mi Perfil', component: ProfilePage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
     this.cocineroPages = [
       { title: 'Comidas', component: ComidasPage },
+      { title: 'Mi Perfil', component: ProfilePage },
       { title: 'Cerrar Sesión', component: IniciarsesionPage }
     ]
     
