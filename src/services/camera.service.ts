@@ -3,10 +3,11 @@ import { Camera } from '@ionic-native/camera';
 import { MessageHandler } from "./messageHandler.service";
 import { ParamsService } from "./params.service";
 import { AngularFireDatabase } from "angularfire2/database";
-import { IonicMultiCamera } from 'ionic-multi-camera';
 import 'rxjs/add/observable/forkJoin';
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
-import { ImagePicker } from '@ionic-native/image-picker';
+//import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+//import { ImagePicker } from '@ionic-native/image-picker';
+import { IonicMultiCamera, Picture, CameraTranslations } from 'ionic-multi-camera';
+import { CameraPreviewPictureOptions } from "@ionic-native/camera-preview";
 
 @Injectable()
 export class CameraService{
@@ -26,8 +27,9 @@ export class CameraService{
                 public multiCamara: IonicMultiCamera,
                 public params: ParamsService,
                 public db:AngularFireDatabase,
-                private mediaCapture: MediaCapture,
-                private imagePicker: ImagePicker){
+                //private mediaCapture: MediaCapture,
+                //private imagePicker: ImagePicker){
+                private multiCamera: IonicMultiCamera){
     }
 
     SacarFoto(){
@@ -57,15 +59,34 @@ export class CameraService{
           });
     }
 
-    sacarMultiples(){
-      let options: CaptureImageOptions = { limit: 3 };
-      this.mediaCapture.captureImage(options)
-        .then(
-          (data: MediaFile[]) => this.arrayDeFotos = data,
-          (err: CaptureError) => this.messageHandler.mostrarError(err)
-        );
+    sacarMultiples(navCtrl){
+      const pictureOptions: CameraPreviewPictureOptions = {
+        quality: 100,
+        width: 600,
+        height: 600
+      };
+      const translations: CameraTranslations = {
+        cancel: 'Cancelar',
+        finish: 'Listo',
+        auto: 'AUTO',
+        on: 'On',
+        off: 'Off'
+      };
+      debugger;
+      this.multiCamera.getPicture(navCtrl, pictureOptions, translations)
+        .then((pictures: Array<Picture>) => {
+          for (var i = 0; i < pictures.length; i++) {
+            var foto = `data:image/jpeg;base64,${pictures[i].base64Data}`;
+            this.arrayDeFotos.push(foto);      
+          }
+        })
+        .catch(err => {
+          this.messageHandler.mostrarErrorLiteral(err);
+        });
+  
     }
 
+/*nofunciona
     elegirMultiples(){
       let options = { maximumImagesCount : 3 }
       this.imagePicker.getPictures(options).then((results) => {
@@ -75,6 +96,6 @@ export class CameraService{
         }
       }, (err) => { });
     }
-
+*/
     
 }

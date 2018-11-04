@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Alta de {{menu}}</ion-title>
+    <ion-title>{{titulo}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -53,33 +53,18 @@
       </ion-row>
       <br>
       <ion-row>
-          <ion-list>
-              <ion-item-sliding #item>
-                <ion-item style="text-align: center">
-                  Vincular foto
-                  <img src="../../assets/imgs/deslizar.png" alt="deslizar" style="width: 10%">
-                </ion-item>
-                <ion-item-options side="left">
-                  <button ion-button color="dark" (click)="Sacar()"> <ion-icon name="camera" style="zoom:2"></ion-icon></button>
-                </ion-item-options>
-            
-                <ion-item-options side="right">
-                  <button ion-button color="dark" (click)="Elegir()"><ion-icon name="photos" style="zoom:2"></ion-icon></button>
-                </ion-item-options>
-              </ion-item-sliding>
-            </ion-list>
+        <button ion-button color="light" (click)="Sacar()" block type="button"> <ion-icon name="camera" style="zoom:2"></ion-icon> Vincular foto</button>
       </ion-row> 
       <ion-row>
           <div class="app flex-row align-items-center">   
               <div class="container"> 
                   <div class="card-deck row">
-                      <div class="card col-md-6" style="text-align: center" *ngFor="let foto of fotos">
-                        <img [hidden]='foto === "" ' [src]=foto alt="No se puede mostrar" style="width:50vw"> 
+                      <div class="card col-md-6" style="text-align: center" *ngFor="let foto of camara.arrayDeFotos">
+                        <img [hidden]='foto === "" ' [src]=foto alt="No se puede mostrar" style="width:30vw"> 
                       </div>
                   </div>
               </div>
-          </div>
-      
+          </div>      
       </ion-row> 
   </form>
   <button ion-button  color="dark" block type="button" (click)='newUpdateProducto()' [disabled]="!frm.valid">Confirmar</button>
@@ -87,13 +72,3 @@
       <button ion-fab  style="background-color:rgb(175,44,245);" (click)="irA('Todos')" ><ion-icon name="list-box"></ion-icon></button>
   </ion-fab>
 </ion-content>
-
-
-<ion-row>
-    <ion-col col-6 style="vertical-align: middle;"> 
-      <img [hidden]='camara.fotoMostrar === "" ' [src]=camara.fotoMostrar alt="FotoMesa" style="width:50vw"> 
-    </ion-col>
-    <ion-col col-6 *ngIf="createdCode">
-      <ngx-qrcode [qrc-value]="createdCode" style="width:40vw"></ngx-qrcode>
-    </ion-col>
-</ion-row>

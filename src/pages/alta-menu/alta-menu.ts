@@ -86,17 +86,30 @@ export class AltaMenuPage {
 
     this.navParams.get('listado') ? this.navCtrl.remove(1,1) : null;
     if(this.params.rol == 'bartender'){
-      this.menu = 'Bebidas';
+      this.menu = 'bebidas';
       this.producto.tipo = 'Bebida';
     }else{
-      this.menu = 'Platos';
+      this.menu = 'platos';
       this.producto.tipo = 'Comida';
     }
-
+  
     this.camara.arrayDeFotos = new Array<any>();
-      
-
+    //Editando
+    this.navParams.get("producto") ? this.bindearDatos() : this.titulo = 'Alta de ' + this.menu;    
   }
+
+    bindearDatos(){
+      this.titulo = "Detalles del producto";
+      this.producto = this.navParams.get('producto');
+      this.nombre.setValue(this.producto.nombre);
+      this.descripcion.setValue(this.producto.descripcion);
+      this.cantidad.setValue(this.producto.cantidad);
+      this.precio.setValue(this.producto.precio);
+      this.tiempoElaboracion.setValue(this.producto.tiempoElaboracion);
+      this.camara.arrayDeFotos.push(this.producto.foto1);
+      this.camara.arrayDeFotos.push(this.producto.foto2);
+      this.camara.arrayDeFotos.push(this.producto.foto3);
+    }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad AltaMenuPage');
@@ -122,32 +135,36 @@ export class AltaMenuPage {
   }
 
   Sacar(){ 
-    this.camara.sacarMultiples();
+    this.camara.arrayDeFotos = new Array<any>();
+    this.camara.sacarMultiples(this.navCtrl);
   }
 
   newUpdateProducto(){
-    console.log(this.frm.value);
+  if(this.camara.arrayDeFotos.length == 3){
     this.producto.nombre = this.frm.get('nombre').value;
     this.producto.descripcion = this.frm.get('descripcion').value.toString();
     this.producto.tiempoElaboracion = this.frm.get('tiempoElaboracion').value;
     this.producto.precio = this.frm.get('precio').value;
     this.producto.cantidad = this.frm.get('cantidad').value;;
-    //this.producto.foto1 = this.camara.fotoMostrar;
-    //this.producto.foto2 = this.camara.fotoMostrar;
-    //this.producto.foto3 = this.camara.fotoMostrar; 
-    this.navParams.get("productos/"+this.producto.tipo) == undefined ? this.producto.key = this.database.ObtenerKey('productos/'+this.producto.tipo) : null;
+    this.producto.foto1 = this.camara.arrayDeFotos[0];
+    this.producto.foto2 = this.camara.arrayDeFotos[1];
+    this.producto.foto3 = this.camara.arrayDeFotos[2]; 
+    this.producto.estado = 'Habilitado';
+    this.navParams.get("producto") == undefined ? this.producto.key = this.database.ObtenerKey('productos/'+this.producto.tipo) : null;
 
     this.database.jsonPackData = this.producto;
         
     this.elSpinner = this.spinner.getAllPageSpinner();
     this.elSpinner.present();
-
-      this.database.SubirDataBase('productos/'+this.producto.tipo).then(r => {          
-        this.messageHandler.mostrarMensaje("Producto creado con éxito");
+      this.database.SubirDataBase('productos/'+this.menu+'/').then(r => {          
+        this.messageHandler.mostrarMensaje("Operación exitosa");
         this.createdCode = this.qr.createCode(this.producto.tipo+this.producto.nombre);
           this.elSpinner.dismiss();
           this.navCtrl.pop();
         });
-    }
   }
+  else
+    this.messageHandler.mostrarErrorLiteral("Falta vincular las 3 fotos");
+  }
+}
 
