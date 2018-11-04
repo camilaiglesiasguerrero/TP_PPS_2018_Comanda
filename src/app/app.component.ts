@@ -35,7 +35,7 @@ export class MyApp {
     supervisorPages: Array<{ title: string, component: any }>;
     cocineroPages: Array<{ title: string, component: any }>;
     bartenerPages: Array<{ title: string, component: any }>;
-
+    commonPages: Array<{ title: string, component: any }>;
 
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
                 private paramsService: ParamsService, private messageHandler: MessageHandler, private authenticationService: AuthenticationService) {
@@ -72,6 +72,10 @@ export class MyApp {
             { title: 'Comidas', component: ComidasPage },
             { title: 'Cerrar Sesión', component: IniciarsesionPage }
         ]
+        this.commonPages = [
+          { title: 'Cerrar Sesión', component:IniciarsesionPage }
+        ]
+    
 
     }
 

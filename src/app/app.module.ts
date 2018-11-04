@@ -8,7 +8,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoPlayer } from '@ionic-native/video-player';
 import { IonicMultiCameraModule, IonicMultiCamera } from 'ionic-multi-camera';
 import { File } from '@ionic-native/file';
-
+import { ImagePicker } from '@ionic-native/image-picker';
 import { configs } from './globalConfigs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -148,6 +148,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
         ParamsService,
         MediaCapture,
         VideoPlayer,
+        ImagePicker,
         AuthenticationService,
         MessageHandler,
         SpinnerHandler,

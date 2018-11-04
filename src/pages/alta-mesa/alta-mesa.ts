@@ -162,7 +162,7 @@ export class AltaMesaPage {
 
         this.database.SubirDataBase('mesas/').then(r => {          
           //this.messageHandler.mostrarMensaje("Mesa creada con éxito");
-          this.createdCode = this.qr.createCode(this.mesa.idString);
+          this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
           this.elSpinner.dismiss();
           this.navCtrl.pop();
           });
