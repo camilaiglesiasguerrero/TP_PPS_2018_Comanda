@@ -15,6 +15,7 @@ import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { DueñosPage } from '../pages/dueños/dueños';
 import { ProfilePage } from '../pages/profile/profile';
+import { PropinaPage } from '../pages/propina/propina';
 
 
 @Component({

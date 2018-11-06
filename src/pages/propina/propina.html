@@ -1,0 +1,46 @@
+<!--
+  Generated template for the PropinaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+      <ion-title >Propina</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="divTitulo">
+    <label class="titulo">Propina basada en su satifacción</label>
+  </div>
+  <div>
+    <button class="btescanear" ion-button block (click)="scan()">Escanear Codigo<ion-icon class="iconqr" name="md-qr-scanner"></ion-icon></button>
+    <ion-card *ngIf="totalPropina" class="card">
+      <label class="saldo"> Total propina:</label>
+      <br>
+      <br>
+      <br>
+      <label class="pesos">${{totalPropina}}</label>
+      <br>
+      <br>
+      <br>
+      <br>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <ion-icon class="cash" md="md-cash"></ion-icon>
+      <button class="btcargas" (click)="confirmarPropina()" >Confirmar Propina</button>
+  </ion-card>
+</div>
+
+</ion-content>

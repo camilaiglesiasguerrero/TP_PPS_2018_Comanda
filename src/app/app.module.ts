@@ -43,6 +43,7 @@ import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
 import { DueñosPage } from '../pages/dueños/dueños';
 import { ProfilePage } from '../pages/profile/profile';
+import { PropinaPage } from '../pages/propina/propina';
 
     //ABM
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
@@ -73,6 +74,7 @@ import { DatabaseService } from '../services/database.service';
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+import { from } from 'rxjs/observable/from';
 
 @NgModule({
     declarations: [
@@ -100,7 +102,8 @@ import { PipesModule } from '../pipes/pipes.module';
         EncuestaClientePage,
         PrincipalClientePage,
         PrincipalMozoPage,
-        ProfilePage
+        ProfilePage,
+        PropinaPage
     ],
     imports: [
         BrowserModule,
@@ -139,7 +142,8 @@ import { PipesModule } from '../pipes/pipes.module';
         EncuestaClientePage,
         PrincipalClientePage,
         PrincipalMozoPage,
-        ProfilePage
+        ProfilePage,
+        PropinaPage
     ],
     providers: [
         StatusBar,
