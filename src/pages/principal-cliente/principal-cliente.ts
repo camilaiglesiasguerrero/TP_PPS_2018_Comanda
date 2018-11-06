@@ -29,8 +29,7 @@ export class PrincipalClientePage {
               public barcodeScanner: BarcodeScanner,
               public params: ParamsService,
               private messageHandler: MessageHandler,
-              public popoverCtrl: PopoverController) {
-    
+              public popoverCtrl: PopoverController) { 
     this.user = this.params.user;
   }
 
@@ -58,7 +57,6 @@ export class PrincipalClientePage {
       case 'verPedido':
         let popover = this.popoverCtrl.create(EstadoPedidoPage,{mesa:this.mesa});
         popover.present({
-        
         });
     }
   }

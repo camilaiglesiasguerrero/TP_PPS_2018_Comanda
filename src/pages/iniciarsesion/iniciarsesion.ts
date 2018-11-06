@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from './../../services/authentication.service';
@@ -8,11 +8,10 @@ import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { RegistrarsePage } from '../registrarse/registrarse';
 import { ParamsService } from './../../services/params.service';
 import { UsuariosService } from './../../services/usuarios.service';
-
-import { HomePage } from './../home/home';
 import { EncuestaEmpleadoPage } from '../encuesta-empleado/encuesta-empleado';
 import { DashboardPage } from '../dashboard/dashboard';
 import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
+import { IniciarsesionmenuPage } from '../iniciarsesionmenu/iniciarsesionmenu';
 
 
 @Component({
@@ -36,7 +35,8 @@ export class IniciarsesionPage {
     private messageHandler: MessageHandler,
     private spinnerHandler: SpinnerHandler,
     private usuariosService: UsuariosService,
-    public paramsService: ParamsService) {
+    public paramsService: ParamsService,
+    public popoverCtrl:PopoverController) {
     this.selectUserOptions.title = "Usuarios disponibles";
   }
 
@@ -52,6 +52,8 @@ export class IniciarsesionPage {
   }
 
   singIn() {
+    this.user.name = this.paramsService.name;
+    this.user.pass = this.paramsService.pass;
     if (this.validForm()) {
       this.spiner = this.spinnerHandler.getAllPageSpinner();
       this.spiner.present();
@@ -64,11 +66,9 @@ export class IniciarsesionPage {
             if(this.allUsersData == null){
               this.allUsersData = this.usuariosService.getEmpleados();
             }
-
             this.userData = this.allUsersData.snapshotChanges();
             this.userData.subscribe(response => {
               this.onLogged(response[0].payload.val());
-              
             })
           }else{
             this.onLogged({email: this.user.name, rol:'admin'});
@@ -84,13 +84,16 @@ export class IniciarsesionPage {
   onLogged(user:any){
     this.paramsService.user = user;
     this.paramsService.rol = user.rol;
-    this.paramsService.rol == 'empleado' ? this.paramsService.emplPuesto = user.puesto : '';
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
     this.autenticationService.logInFromDataBase();
     
     switch(this.paramsService.rol){
-      case 'empleado':
+      case 'mozo':
+      case 'cocinero':
+      case 'bartender':
+      case 'delivery':
+      case 'metre':
         this.navCtrl.setRoot(EncuestaEmpleadoPage);    
         break;
       case 'cliente':
@@ -99,9 +102,10 @@ export class IniciarsesionPage {
       case 'dueño':
         this.navCtrl.setRoot(DashboardPage);
         break;
-      default:
-        this.navCtrl.setRoot(HomePage);
+      case 'supervisor':
+        this.navCtrl.setRoot(DashboardPage);
         break;
+      
     }
     
     //console.log("Se logueo correctamente");
@@ -111,44 +115,11 @@ export class IniciarsesionPage {
     this.navCtrl.setRoot(RegistrarsePage, {page:'login'});
   }
 
-  userSelectChange() {
-    switch (this.userSelect) {
-      case "admin": {
-        this.user.name = "administrador@gmail.com";
-        this.user.pass = "111111";
-        break;
-      }
-      case "bartender": {
-        this.user.name = "bartender@gmail.com";
-        this.user.pass = "123456";
-        break;
-      }
-      case "cocinero": {
-        this.user.name = "cocinero@gmail.com";
-        this.user.pass = "123456";
-        break;
-      }
-      case "metre": {
-        this.user.name = "metre@gmail.com";
-        this.user.pass = "123456";
-        break;
-      }
-      case "mozo": {
-        this.user.name = "mozo@gmail.com";
-        this.user.pass = "123456";
-        break;
-      }
-      case "cliente1": {
-        this.user.name = "cliente1@gmail.com";
-        this.user.pass = "123456";
-        break;
-      }
-      case "cliente2": {
-        this.user.name = "cliente2@gmail.com";
-        this.user.pass = "123456";
-        break;
-      }
-    }
+  elegirUser(){
+      let popover = this.popoverCtrl.create(IniciarsesionmenuPage);
+      popover.present({
+      }).then(r=>{
+      });
   }
 
   private validForm() {
@@ -158,6 +129,7 @@ export class IniciarsesionPage {
     this.messageHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
     return false;
   }
+
 
 
 }

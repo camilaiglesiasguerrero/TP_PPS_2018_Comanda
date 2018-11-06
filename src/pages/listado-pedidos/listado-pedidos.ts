@@ -26,7 +26,7 @@ export class ListadoPedidosPage {
               public db:AngularFireDatabase,
               public params:ParamsService) {
 
-    this.params.emplPuesto == 'bartender' ? this.esCocina = false : this.esCocina = true;
+    this.params.rol == 'bartender' ? this.esCocina = false : this.esCocina = true;
 
     db.list<any>('pedidos/').valueChanges()
       .subscribe(snapshotPedidos=>{

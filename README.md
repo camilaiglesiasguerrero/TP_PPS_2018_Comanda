@@ -44,7 +44,7 @@ Branch: *branch_cami*
 
 #### *Funcionalidades*
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de platos y bebidas`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de platos y bebidas` [ Comenzado 31/10  Mergeado 4/11 Commit [ac8fb16](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/ac8fb1602bd7bd85f287b09e0f78c53afb1e23ac) ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de mesa` [ Mergeado 28/10 Commit [34a93aa](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
@@ -79,7 +79,7 @@ Branch: *branch_fede*
 
 #### *Funcionalidades*
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de dueño/supervisor`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de dueño/supervisor`[ Mergeado 31/10 Commit [2380837](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/23808374d0e10b7f2064b9428bc9e816a6f88743) ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de empleados`  [ Mergeado 27/10 Commit [8574d00](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/8574d005b53a2658dc449106ec588dd7502c52cd) ]
 
@@ -115,7 +115,7 @@ Branch: *branch_cari*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de ingreso al local`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los clientes`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 2/11 [f1f87a5](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f1f87a560ac3ecb20e78a983c68e352b5286fd90)]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Hacer reservas agendadas`
 

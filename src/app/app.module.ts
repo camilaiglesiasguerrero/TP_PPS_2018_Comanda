@@ -8,7 +8,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoPlayer } from '@ionic-native/video-player';
 import { IonicMultiCameraModule, IonicMultiCamera } from 'ionic-multi-camera';
 import { File } from '@ionic-native/file';
-
+import { ImagePicker } from '@ionic-native/image-picker';
 import { configs } from './globalConfigs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,8 +26,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //Pages
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+
     //Autenticación
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
@@ -71,17 +70,18 @@ import { UsuariosService } from './../services/usuarios.service';
 import { QrService } from './../services/qr.service';
 import { CameraService } from '../services/camera.service';
 import { DatabaseService } from '../services/database.service';
+import { EncuestaClienteService } from '../services/encuestasCliente.service';
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
+import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 @NgModule({
     declarations: [
         MyApp,
-        HomePage,
-        ListPage,
         IniciarsesionPage,
+        IniciarsesionmenuPage,
         RegistrarsePage,
         MesasPage,
         BebidasPage,
@@ -119,9 +119,8 @@ import { from } from 'rxjs/observable/from';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        HomePage,
-        ListPage,
         IniciarsesionPage,
+        IniciarsesionmenuPage,
         RegistrarsePage,
         MesasPage,
         BebidasPage,
@@ -156,13 +155,15 @@ import { from } from 'rxjs/observable/from';
         ParamsService,
         MediaCapture,
         VideoPlayer,
+        ImagePicker,
         AuthenticationService,
         MessageHandler,
         SpinnerHandler,
         UsuariosService,
         QrService,
         CameraService,
-        DatabaseService
+        DatabaseService,
+        EncuestaClienteService
     ]
 })
 export class AppModule {}

@@ -1,19 +1,20 @@
-import { DateTime } from "ionic-angular";
-
 export class Producto {
 
-    uid: string;
+    key: string;
     nombre:string;
     descripcion:string;
-    tiempoElaboracion:DateTime;
+    tiempoElaboracion:number;
     precio:number;
     cantidad:number;
     foto1:string;
     foto2:string;
     foto3:string;
-    esComida: boolean;
+    tipo: string;
+    fotos:Array<string>;
+    estado: string;
 
-    constructor(nombre, descripcion, tiempoElaboracion, precio, cantidad, foto1, foto2, foto3, esComida){
+    constructor(key?,nombre?, descripcion?, tiempoElaboracion?, precio?, cantidad?, foto1?, foto2?, foto3?, tipo?,estado?){
+        this.key = key;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tiempoElaboracion = tiempoElaboracion;
@@ -22,7 +23,8 @@ export class Producto {
         this.foto1 = foto1;
         this.foto2 = foto2;
         this.foto3= foto3;
-        this.esComida = esComida;
+        this.tipo = tipo;
+        this.estado = estado;
     }
 
 }

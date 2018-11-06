@@ -15,8 +15,8 @@ export class AuthenticationService{
         return this.MiAuth.auth.createUserWithEmailAndPassword(email, pass)
     }
 
-    registerUser(email:string, pass:string){
-
+    registerAnonymous(){
+        return this.MiAuth.auth.signInAnonymously();
     }
 
     singIn(email:string, pass:string){
