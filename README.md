@@ -52,7 +52,7 @@ Branch: *branch_cami*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los empleados`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Pedir platos y bebidas`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Pedir platos y bebidas`[ Comenzado 05/11 ]
 
 ![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Push notification pedir mesa` [ Comenzado 31/10 ]
 
@@ -83,7 +83,7 @@ Branch: *branch_fede*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de empleados`  [ Mergeado 27/10 Commit [8574d00](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/8574d005b53a2658dc449106ec588dd7502c52cd) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de propina`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de propina` [ Mergeado 05/11 Commit [2821d5b](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2821d5b0c51f0cd8c40c18392b1c21cf88038e22) ]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para el supervisor`
 
