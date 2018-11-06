@@ -16,6 +16,8 @@ import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { EncuestaClientePage } from "../pages/encuesta-cliente/encuesta-cliente";
 import { DueñosPage } from '../pages/dueños/dueños';
+import { ProfilePage } from '../pages/profile/profile';
+import { PropinaPage } from '../pages/propina/propina';
 import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
 
 

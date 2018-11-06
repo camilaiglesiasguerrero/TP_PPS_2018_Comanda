@@ -1,0 +1,27 @@
+export const CodesPropina = [
+    {
+        id:0,
+        codigo:"asdfghj1234567qwertyu7654321vvv0",
+        porcentaje:0
+    },
+    {
+        id:5,
+        codigo:"bsdfghj1234567qwertyu7654321www5",
+        porcentaje:0.05
+    },
+    {
+        id:10,
+        codigo:"csdfghj1234567qwertyu7654321xxx10",
+        porcentaje:0.10
+    },
+    {
+        id:15,
+        codigo:"dsdfghj1234567qwertyu7654321yyy15",
+        porcentaje:0.15
+    },
+    {
+        id:20,
+        codigo:"esdfghj1234567qwertyu7654321zzz20",
+        porcentaje:0.20
+    }
+];

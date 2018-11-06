@@ -15,6 +15,7 @@ export class Usuario {
         this.dni = dni;
         this.cuil = cuil;
         this.foto = foto;
+        this.mail = mail;
         this.rol = rol;
     }
 

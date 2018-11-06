@@ -41,6 +41,8 @@ import { EmpeladosPage } from '../pages/empleados/empleados';
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
 import { DueñosPage } from '../pages/dueños/dueños';
+import { ProfilePage } from '../pages/profile/profile';
+import { PropinaPage } from '../pages/propina/propina';
 
     //ABM
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
@@ -72,6 +74,7 @@ import { EncuestaClienteService } from '../services/encuestasCliente.service';
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 @NgModule({
@@ -98,7 +101,9 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
         EstadoPedidoPage,
         EncuestaClientePage,
         PrincipalClientePage,
-        PrincipalMozoPage
+        PrincipalMozoPage,
+        ProfilePage,
+        PropinaPage
     ],
     imports: [
         BrowserModule,
@@ -135,7 +140,9 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
         EstadoPedidoPage,
         EncuestaClientePage,
         PrincipalClientePage,
-        PrincipalMozoPage
+        PrincipalMozoPage,
+        ProfilePage,
+        PropinaPage
     ],
     providers: [
         StatusBar,
