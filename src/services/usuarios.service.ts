@@ -27,4 +27,11 @@ export class UsuariosService {
        return this.afDB.list('/usuarios', ref => ref.orderByChild('uid').equalTo(this.MiAuth.auth.currentUser.uid))        
     }
 
+    public getEmpleados(){
+        return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('empleado'));
+    }
+
+    public getClientes(){
+        return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('cliente'));
+    }
 }

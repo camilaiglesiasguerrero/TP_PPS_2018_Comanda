@@ -24,7 +24,7 @@
     <ion-col>
       <ion-item>
         <ion-label floating>Correo Electrónico</ion-label>
-        <ion-input type="email" required name="email" [(ngModel)]="user.name"></ion-input>
+        <ion-input type="email" required name="email" [(ngModel)]="paramsService.name"></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -32,22 +32,15 @@
     <ion-col>
       <ion-item>
         <ion-label floating>Contraseña</ion-label>
-        <ion-input type="password" required name="password" [(ngModel)]="user.pass"></ion-input>
+        <ion-input type="password" required name="password" [(ngModel)]="paramsService.pass"></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item>
-        <ion-label floating>Seleccionar Usuario</ion-label>
-        <ion-select [(ngModel)]="userSelect" [selectOptions]="selectUserOptions" (ionChange)="userSelectChange()"  >
-            <ion-option value="admin">Administrador</ion-option>
-            <ion-option value="invitado">Invitado</ion-option>
-            <ion-option value="usuario">Usuario</ion-option>
-            <ion-option value="anonimo">Anónimo</ion-option>
-            <ion-option value="tester">Tester</ion-option>
-        </ion-select>
-      </ion-item>
+
+        <button ion-button block color="third" (click)="elegirUser()">Elegir usuario</button>
+
     </ion-col>
   </ion-row>
 

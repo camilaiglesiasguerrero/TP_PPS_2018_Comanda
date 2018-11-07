@@ -5,13 +5,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list *ngIf="paramsService.isLogged">
-      <button menuClose ion-button block color="third" *ngFor="let p of pages" (click)="openPage(p)">
+  <ion-content *ngIf="paramsService.isLogged">
+    <ion-list *ngIf="paramsService.rol == 'admin' || paramsService.rol == 'dueño' || paramsService.rol == 'supervisor'">
+      <button menuClose ion-button block color="third" *ngFor="let p of supervisorPages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>
-    <ion-list *ngIf="!paramsService.isLogged">
+    <ion-list *ngIf="paramsService.rol == 'cliente'">
+      <button menuClose ion-button block color="third" *ngFor="let p of clientePages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <ion-list>
+      <button menuClose ion-button block color="third" *ngFor="let p of commonPages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+  <ion-content *ngIf="!paramsService.isLogged">
+    <ion-list>
       <button menuClose ion-button block color="third" *ngFor="let p of loginPages" (click)="openPage(p)">
         {{p.title}}
       </button>

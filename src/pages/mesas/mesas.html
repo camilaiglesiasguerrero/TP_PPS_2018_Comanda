@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Listado de mesas</ion-title>
+    </ion-navbar>
+</ion-header>
+  
+  
+<ion-content padding>
+    <div class="app flex-row align-items-center">   
+        <div class="container"> 
+            <div class="card-deck row">
+                <div class="card col-md-6" style="text-align: center" *ngFor="let mesa of mesas">
+                    <br>
+                    <div id="circulo" >
+                            <p (click)="irA('M',mesa)">
+                                {{mesa.id}}
+                                <br>
+                                <img class=img src='{{mesa.foto}}' alt={{mesa.tipo}}>
+                                <br>
+                            </p>
+                    </div>
+                    <div>
+                        <button class='btn' ion-button *ngIf="mesa.estado !== 'Deshabilitada' " color="dark" type="button" (click)="irA('B',mesa)" >{{mesa.estado | estadoMesa }}</button>
+                        <button class='btn' ion-button *ngIf="mesa.estado === 'Deshabilitada' " color="danger" type="button" (click)="irA('B',mesa)" >{{mesa.estado | estadoMesa }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ion-fab center bottom>
+        <button ion-fab  style="background-color:rgb(175,44,245);" (click)="irA('A')" ><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+</ion-content>
+  
+  

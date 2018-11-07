@@ -4,10 +4,14 @@ import { Injectable } from '@angular/core';
 export class ParamsService {
 
     params:any;
-    user:any;
     isLogged:boolean;
     usuarioAdmin:boolean;
-
+    rol:string;
+    user:any;
+    email:string;
+    password:string;
     
+    name:string;
+    pass:string;
 
 }

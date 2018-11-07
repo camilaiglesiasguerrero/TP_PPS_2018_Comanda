@@ -1,0 +1,42 @@
+page-alta-empleado {
+
+    .scroll-content{
+        background-color: $first-detail-color;
+     }
+     
+    .nya{
+        margin-left: -5px;
+        margin-right: -2px;
+    }
+
+    .imgperfil{
+        width: 155px;
+        float: right;
+        margin-top: 6px;
+        border-radius: 10px;
+    }
+
+    .btnuser{
+        width: 48%;
+    }
+
+    .btregistrar{
+        width: 100%;
+        background-color: rgb(161, 255, 161);
+        font-size: 17px;
+        letter-spacing: 3px;
+    }
+
+    .btmodificar{
+        width: 48%;
+        background-color: rgb(161, 255, 161);
+        font-size: 17px;
+        letter-spacing: 3px;
+    }
+
+    .btcancelar{
+        width: 48%;
+        font-size: 17px;
+        letter-spacing: 3px;
+    }
+}

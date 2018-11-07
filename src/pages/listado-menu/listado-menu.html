@@ -1,0 +1,51 @@
+<!--
+  Generated template for the ListadoMenuPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Listado de {{menu}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list *ngFor="let p of listado">
+        <ion-item>
+          <div (click)="irA('Editar',p)">
+            <ion-row>
+                <div class="app flex-row align-items-center">   
+                    <div class="container"> 
+                        <div class="card-deck row">
+                            <div class="card col-md-6" style="text-align: center">
+                                <img class=img src='{{p.foto1}}' alt='No se puede mostrar la imagen'>
+                            </div>
+                            <div class="card col-md-6" style="text-align: center">
+                                <img class=img src='{{p.foto2}}' alt='No se puede mostrar la imagen'>
+                            </div>
+                            <div class="card col-md-6" style="text-align: center">
+                                <img class=img src='{{p.foto3}}' alt='No se puede mostrar la imagen'>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </ion-row> 
+            <h2>{{p.nombre}}:</h2><h3>{{p.descripcion}}</h3>
+            <p>{{p.cantidad}} unidades disponibles. 
+          </div>
+          <ion-row>
+            <ion-col col-6> 
+              <button class='btn' ion-button *ngIf="p.estado !== 'Deshabilitado' " color="dark" type="button" (click)="cambiarEstado(p)" >{{p.estado}}</button>
+              <button class='btn' ion-button *ngIf="p.estado === 'Deshabilitado' " color="danger" type="button" (click)="cambiarEstado(p)" >{{p.estado}}</button>
+            </ion-col>
+          </ion-row>       
+        </ion-item>
+    </ion-list>
+  <ion-fab left bottom>
+      <button ion-fab  style="background-color:rgb(175,44,245); " (click)="irA('Nuevo')" ><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

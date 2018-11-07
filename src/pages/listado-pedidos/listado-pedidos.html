@@ -1,0 +1,35 @@
+<!--
+  Generated template for the ListadoPedidosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Listado Pedidos Pendientes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1>Acá va el listado de pedidos pendientes para el rol cocinero o bartender</h1>
+  
+  <ion-card >
+    <ion-row  *ngFor="let pedido of productosPorPedido">
+      <ion-col>{{ pedido.idProducto }} </ion-col>
+      <ion-col><button>Cambiar Estado</button></ion-col>
+    </ion-row>
+  
+  </ion-card>
+
+  <ion-fab left bottom>
+      <button ion-fab  style="background-color:rgb(175,44,245); " (click)="irA('Nuevo')" ><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  <ion-fab center bottom>
+      <button ion-fab  style="background-color:rgb(175,44,245);" (click)="irA('Todos')" ><ion-icon name="list-box"></ion-icon></button>
+  </ion-fab>
+</ion-content>
+
+

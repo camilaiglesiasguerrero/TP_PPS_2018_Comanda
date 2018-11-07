@@ -1,0 +1,31 @@
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle color="secondary">
+            <ion-icon color="secondary" name="menu"></ion-icon>
+        </button>
+        <ion-title>Empleados</ion-title>
+        <ion-buttons end>
+        <button class="btnAgregar" ion-button outline (click)="agregarEmpleado()">Nuevo
+            <ion-icon class="iconadd" name="md-person-add"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngFor="let empleado of empleadosList">
+      <ion-list >
+        <ion-item *ngIf="empleado.rol!=='cliente' && empleado.rol!=='dueño'">
+          <ion-thumbnail item-start>
+            <img [src]="empleado.foto">
+          </ion-thumbnail>
+          <h2>{{empleado.nombre}} {{empleado.apellido}}</h2>
+          <p>DNI: {{empleado.dni}}</p>
+          <p>{{empleado.rol}}</p>
+          <button ion-button (click)=modificar(empleado.key,empleado) clear>Modificar</button>
+          <button ion-button color="danger" (click)=borrar(empleado.key) clear>Borrar</button>
+        </ion-item>
+      </ion-list>
+    </div>
+</ion-content>
