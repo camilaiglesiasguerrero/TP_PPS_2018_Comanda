@@ -6,11 +6,6 @@
   </ion-header>
 
   <ion-content *ngIf="paramsService.isLogged">
-      <ion-list>
-          <button menuClose ion-button block color="third" *ngFor="let p of commonPages" (click)="openPage(p)">
-            {{p.title}}
-          </button>
-      </ion-list>
     <ion-list *ngIf="paramsService.rol == 'admin' || paramsService.rol == 'dueño' || paramsService.rol == 'supervisor'">
       <button menuClose ion-button block color="third" *ngFor="let p of supervisorPages" (click)="openPage(p)">
         {{p.title}}
@@ -18,6 +13,11 @@
     </ion-list>
     <ion-list *ngIf="paramsService.rol == 'cliente'">
       <button menuClose ion-button block color="third" *ngFor="let p of clientePages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <ion-list>
+      <button menuClose ion-button block color="third" *ngFor="let p of commonPages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>
@@ -30,6 +30,7 @@
       </button>
     </ion-list>
   </ion-content>
+
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

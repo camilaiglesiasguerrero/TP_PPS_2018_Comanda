@@ -5,13 +5,9 @@ import { AnagramaPage } from '../juegos/anagrama/anagrama';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
-
-/**
- * Generated class for the PrincipalClientePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DatabaseService } from "../../services/database.service";
+import { SpinnerHandler } from "../../services/spinnerHandler.service";
+import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
 
 @IonicPage()
 @Component({
@@ -23,13 +19,17 @@ export class PrincipalClientePage {
   user:any;
   options:any;
   mesa:any;
+  ingresoLocal = "";
+  elSpinner = null;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public barcodeScanner: BarcodeScanner,
               public params: ParamsService,
               private messageHandler: MessageHandler,
-              public popoverCtrl: PopoverController) { 
+              public popoverCtrl: PopoverController,
+              private database: DatabaseService,
+              private spinnerHandler: SpinnerHandler) {
     this.user = this.params.user;
   }
 
@@ -41,11 +41,11 @@ export class PrincipalClientePage {
     this.options = { prompt : "Escaneá el código QR de la mesa" }
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
-           this.mesa = barcodeData.text;
-           this.irA('verPedido');
+        this.mesa = barcodeData.text;
+        this.irA('verPedido');
       }, (err) => {
-          //console.log('Error: ', err);
-          this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //console.log('Error: ', err);
+        this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
 
@@ -62,7 +62,34 @@ export class PrincipalClientePage {
   }
 
   solicitarMesa(){
-    //push a mozo
+    this.barcodeScanner.scan().then((barcodeData) => {
+      this.ingresoLocal = barcodeData.text;
+      if(this.ingresoLocal == 'IngresoLocal'){
+        this.guardarEnListaDeEspera();
+      }else{
+        this.messageHandler.mostrarErrorLiteral("Error al ingresar al local");
+      }
+    }, (error) => {
+      this.messageHandler.mostrarErrorLiteral(error);
+    });
+  }
+
+  private guardarEnListaDeEspera(){
+    this.elSpinner = this.spinnerHandler.getAllPageSpinner();
+    this.elSpinner.present();
+    var fecha = new Date();
+    var listaEspera = { estado: "sin mesa", fecha: fecha.toLocaleString(), clienteId: this.params.user.uid };
+    this.database.jsonPackData = listaEspera;
+    this.database.jsonPackData['key'] = this.database.ObtenerKey('lista-espera/');
+    this.database.SubirDataBase('lista-espera/').then(response => {
+      this.messageHandler.mostrarMensaje("Enseguida se le asignará una mesa");
+      this.elSpinner.dismiss();
+      //TODO: ENVIAR NOTIFICACION PUSH A LOS MOZOS Y SUPERVISORES DE QUE HAY UN CLIENTE ESPERANDO MESA
+      this.navCtrl.push(EncuestaClienteResultadosPage);
+    });
+
+
+
   }
 
 }

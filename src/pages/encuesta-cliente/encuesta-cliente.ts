@@ -93,7 +93,6 @@ export class EncuestaClientePage {
       on: 'On',
       off: 'Off'
     };
-    debugger;
     this.multiCamera.getPicture(this.navCtrl, pictureOptions, translations)
       .then((pictures: Array<Picture>) => {
         for (var i = 0; i < pictures.length; i++) {
