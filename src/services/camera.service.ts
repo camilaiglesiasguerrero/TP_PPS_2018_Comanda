@@ -72,7 +72,6 @@ export class CameraService{
         on: 'On',
         off: 'Off'
       };
-      debugger;
       this.multiCamera.getPicture(navCtrl, pictureOptions, translations)
         .then((pictures: Array<Picture>) => {
           for (var i = 0; i < pictures.length; i++) {
