@@ -30,8 +30,10 @@ plugins/ios.json
 www/
 $RECYCLE.BIN/
 package-lock.json
-/resources/
-resources/
+resources/android/
+resources/ios/
+resources/icon.png.md5
+
 
 .DS_Store
 Thumbs.db
