@@ -6,6 +6,7 @@ import { Pedido } from '../../models/pedido';
 import { Producto } from '../../models/producto';
 import { ProductoPedido } from '../../models/productoPedido';
 import { MessageHandler } from '../../services/messageHandler.service';
+import { ParamsService } from '../../services/params.service';
 
 /**
  * Generated class for the AltaPedidoPage page.
@@ -22,46 +23,49 @@ import { MessageHandler } from '../../services/messageHandler.service';
 export class AltaPedidoPage {
 
 bebidas:any;
-bebidasTotal:any;
 comidas:any;
-comidasTotal:any;
-platos:0;
-botellas:0;
-suma:0;
-elPedido:Pedido;
+reservas:any;
+
 productoPedido : Array<ProductoPedido>;
 producto : Array<Producto>;
 spinner:any;
+user:any;
+beb = 0;
+pla = 0;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private database: DatabaseService,
               private messageHandler:MessageHandler,
-              private spinnerH:SpinnerHandler) {
+              private spinnerH:SpinnerHandler,
+              private params:ParamsService) {
     
-
-    this.elPedido = new Pedido();
     this.productoPedido = new Array<ProductoPedido>();
     this.producto = new Array<Producto>();
-
+    this.user = this.params.user;
     
     this.database.db.list<any>('productos/platos/').valueChanges()
       .subscribe(snapshots => {
-          this.comidasTotal = snapshots;  
-          this.comidas = this.comidasTotal.filter(f => f.estado == 'Habilitado' );
-          this.comidas = this.comidasTotal.filter(f => f.cantidad > 0 );   
+          this.comidas = snapshots;  
+          this.comidas = this.comidas.filter(f => f.estado == 'Habilitado' );
+          this.comidas = this.comidas.filter(f => f.cantidad > 0 );   
           
       });    
 
     this.database.db.list<any>('productos/bebidas/').valueChanges()
       .subscribe(snapshots => {
-          this.bebidasTotal = snapshots;  
-          this.bebidas = this.bebidasTotal.filter(f => f.estado == 'Habilitado' );
-          this.bebidas = this.bebidasTotal.filter(f => f.cantidad > 0 );  
+          this.bebidas = snapshots;  
+          this.bebidas = this.bebidas.filter(f => f.estado == 'Habilitado' );
+          this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
           
       });     
- 
-    
+ //aca
+    this.database.db.list<any>('reservas/').valueChanges()
+      .subscribe(snapshots => {
+          this.reservas = snapshots;
+          this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
+      });    
+
   }
 
   ionViewDidLoad() {
@@ -77,17 +81,17 @@ spinner:any;
           this.productoPedido[i].cantidad ++;                 //le agrego uno
           flag = true;
           if(producto.tipo == 'Bebida'){                      //si el producto es bebida, verifico q me de el stock
-            for (let index = 0; index < this.bebidasTotal.length; index++) {
-              if(this.bebidasTotal.key == producto.key && this.bebidasTotal.cantidad < this.productoPedido[i].cantidad){
-                this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidasTotal[index].nombre);
+            for (let index = 0; index < this.bebidas.length; index++) {
+              if(this.bebidas.key == producto.key && this.bebidas.cantidad < this.productoPedido[i].cantidad){
+                this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[index].nombre);
                 this.productoPedido[i].cantidad --;
                 stock = false;
               }
             }
           }else{                                            //idem si es comida
-            for (let index = 0; index < this.comidasTotal.length; index++) {
-              if(this.comidasTotal.key == producto.key && this.comidasTotal.cantidad < this.productoPedido[i].cantidad){
-                this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidasTotal[index].nombre);
+            for (let index = 0; index < this.comidas.length; index++) {
+              if(this.comidas.key == producto.key && this.comidas.cantidad < this.productoPedido[i].cantidad){
+                this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[index].nombre);
                 this.productoPedido[i].cantidad --;
                 stock = false;
               }
@@ -110,14 +114,17 @@ spinner:any;
     if(stock){
       producto.cantidad--;
       this.producto.push(producto);
+      if(producto.tipo == 'Bebida')
+        this.beb ++;
+      else
+        this.pla++;
     }
-    console.log(this.productoPedido);
+    
   }
 
   Confirmar(){ 
-    
     let pedidoASubir : Pedido = new Pedido();
-
+    let aux; 
     pedidoASubir.key = this.database.ObtenerKey('pedidos/');
     pedidoASubir.estado = 'Solicitado';
     pedidoASubir.productoPedido = null;
@@ -126,18 +133,37 @@ spinner:any;
       this.restarProducto();
 
       for (let i = 0; i < this.productoPedido.length; i++) {
-        this.database.jsonPackData.key = this.productoPedido[i].idProducto;
-        this.database.jsonPackData.cantidad = this.productoPedido[i].cantidad;
-        this.database.jsonPackData.tipo = this.productoPedido[i].tipo; 
+         aux = {
+          key : this.productoPedido[i].idProducto,
+          cantidad : this.productoPedido[i].cantidad,
+          tipo : this.productoPedido[i].tipo
+        }
+        
+        this.database.jsonPackData = aux;
         
         this.database.SubirDataBase('pedidos/'+pedidoASubir.key+'/productos/').then(e=>{
           this.messageHandler.mostrarMensaje('Su pedido fue encargado');
-          
-        })
-      } 
-    });
-    
-  }
+        });    
+      }
+    });       
+      
+      if(this.params.rol == 'cliente'){
+        for (let j = 0; j < this.reservas.length; j++) {
+          if(this.reservas[j].dniCliente == this.user.dni){          
+            let res = {
+              key: this.reservas[j].key,
+              dniCliente: this.reservas[j].dniCliente,
+              idMesa: this.reservas[j].idMesa,
+              idPedido: pedidoASubir.key,
+              estado:'Con pedido'
+            } 
+            this.database.jsonPackData = res;
+            this.database.SubirDataBase('reservas/');
+          }
+        }
+      }
+  } 
+ 
 
   restarProducto(){
     let prod = new Producto();
@@ -160,7 +186,7 @@ spinner:any;
       if(prod.tipo == 'Bebida')
         this.database.SubirDataBase('productos/bebidas/');
       else 
-        this.database.SubirDataBase('productos/comidas/');
+        this.database.SubirDataBase('productos/platos/');
     }
   }
 }
