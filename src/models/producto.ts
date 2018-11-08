@@ -1,6 +1,6 @@
 export class Producto {
 
-    key: string;
+    key: any;
     nombre:string;
     descripcion:string;
     tiempoElaboracion:number;
@@ -10,7 +10,6 @@ export class Producto {
     foto2:string;
     foto3:string;
     tipo: string;
-    fotos:Array<string>;
     estado: string;
 
     constructor(key?,nombre?, descripcion?, tiempoElaboracion?, precio?, cantidad?, foto1?, foto2?, foto3?, tipo?,estado?){
@@ -26,5 +25,4 @@ export class Producto {
         this.tipo = tipo;
         this.estado = estado;
     }
-
 }

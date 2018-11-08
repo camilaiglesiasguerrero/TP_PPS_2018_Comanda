@@ -16,11 +16,7 @@
         {{p.title}}
       </button>
     </ion-list>
-    <ion-list>
-      <button menuClose ion-button block color="third" *ngFor="let p of commonPages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
+    
   </ion-content>
 
   <ion-content *ngIf="!paramsService.isLogged">
