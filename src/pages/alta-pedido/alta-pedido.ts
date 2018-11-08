@@ -25,7 +25,9 @@ export class AltaPedidoPage {
 bebidas:any;
 comidas:any;
 reservas:any;
-
+reservaKey : string;
+reservadniCliente:string;
+reservaMesa:any;
 productoPedido : Array<ProductoPedido>;
 producto : Array<Producto>;
 spinner:any;
@@ -40,6 +42,10 @@ pla = 0;
               private spinnerH:SpinnerHandler,
               private params:ParamsService) {
     
+    this.navParams.get("reserva") ? this.reservaKey = this.navParams.get("reserva") : null;
+    this.navParams.get("dniCliente") ? this.reservadniCliente = this.navParams.get("dniCliente") : null;
+    this.navParams.get("mesa") ? this.reservaMesa = this.navParams.get("mesa") : null;
+
     this.productoPedido = new Array<ProductoPedido>();
     this.producto = new Array<Producto>();
     this.user = this.params.user;
@@ -142,7 +148,7 @@ pla = 0;
         this.database.jsonPackData = aux;
         
         this.database.SubirDataBase('pedidos/'+pedidoASubir.key+'/productos/').then(e=>{
-          this.messageHandler.mostrarMensaje('Su pedido fue encargado');
+          this.messageHandler.mostrarMensaje('El pedido fue encargado');
         });    
       }
     });       
@@ -161,6 +167,16 @@ pla = 0;
             this.database.SubirDataBase('reservas/');
           }
         }
+      }else{
+        let res = {
+          key: this.reservaKey,
+          dniCliente: this.reservadniCliente,
+          idMesa: this.reservaMesa,
+          idPedido: pedidoASubir.key,
+          estado:'Con pedido'
+        } 
+        this.database.jsonPackData = res;
+        this.database.SubirDataBase('reservas/');
       }
   } 
  
