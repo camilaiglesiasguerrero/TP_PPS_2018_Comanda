@@ -1,4 +1,5 @@
 export class ProductoPedido {
+    
     idProducto:string;
     cantidad:number;
     tipo:string;
