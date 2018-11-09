@@ -1,15 +1,17 @@
 import { Producto } from './producto';
+import { ProductoPedido } from './productoPedido';
 
 export class Pedido {
     
-    key:string;
-    id:number;
-    productos: Array<Producto>;
+    key:string
     estado:string;
+    productoPedido: Array<ProductoPedido>;
 
-    constructor(id?,productos?, estado?){
-        this.id = id;
-        this.productos = productos;
+    constructor(key?,productos?, estado?){
+        this.key = key;
+        this.productoPedido = productos;
         this.estado = estado;
     }
+
+
 }

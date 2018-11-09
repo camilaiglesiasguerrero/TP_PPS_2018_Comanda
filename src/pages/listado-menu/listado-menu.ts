@@ -44,6 +44,12 @@ export class ListadoMenuPage {
     this.database.db.list<any>('productos/'+this.menu).valueChanges()
       .subscribe(snapshots => {
           this.listado = snapshots;  
+          for (let index = 0; index < this.listado.length; index++) {
+            if(this.listado[index].cantidad == 0)
+              this.inhabilitarProducto(this.listado[index]);
+            
+          }
+
       });     
   }
 
@@ -82,5 +88,11 @@ export class ListadoMenuPage {
     }
   }
 
-
+  inhabilitarProducto(producto){
+    this.producto = producto;
+    this.producto.estado = 'Sin stock';
+    
+    this.database.jsonPackData = this.producto;
+    this.database.SubirDataBase('productos/'+this.menu);
+  }
 }

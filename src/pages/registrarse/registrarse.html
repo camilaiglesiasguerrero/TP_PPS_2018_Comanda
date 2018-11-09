@@ -29,7 +29,7 @@
                 <ion-col>
                     <ion-item>
                         <ion-label floating>DNI</ion-label>
-                        <ion-input type="number" name="dni" [(ngModel)]="user.dni"></ion-input>
+                        <ion-input type="number" name="dni" [pattern]="[0-9]" [(ngModel)]="user.dni"></ion-input>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -37,7 +37,7 @@
                 <ion-col>
                     <ion-item>
                         <ion-label floating>CUIL</ion-label>
-                        <ion-input type="number" name="cuil" [(ngModel)]="user.cuil"></ion-input>
+                        <ion-input type="number" name="cuil" [pattern]="[0-9]" [(ngModel)]="user.cuil"></ion-input>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -59,7 +59,7 @@
                 <ion-col>
                     <ion-item>
                         <ion-label floating>Correo Electrónico</ion-label>
-                        <ion-input type="email" name="email" [(ngModel)]="user.email"></ion-input>
+                        <ion-input type="email" name="email"  [(ngModel)]="user.email"></ion-input>
                     </ion-item>
                 </ion-col>
             </ion-row>

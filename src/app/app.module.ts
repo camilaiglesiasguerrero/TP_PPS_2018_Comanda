@@ -27,13 +27,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 //Pages
 import { MyApp } from './app.component';
 
-    //Autenticación
+//Autenticación
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
-    //Page Principal por user
+//Page Principal por user
 import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
 import { PrincipalMozoPage } from '../pages/principal-mozo/principal-mozo';
-    //Listados
+//Listados
 import { MesasPage } from '../pages/mesas/mesas';
 import { BebidasPage } from '../pages/bebidas/bebidas';
 import { ComidasPage } from '../pages/comidas/comidas';
@@ -44,21 +44,22 @@ import { DueñosPage } from '../pages/dueños/dueños';
 import { ProfilePage } from '../pages/profile/profile';
 import { PropinaPage } from '../pages/propina/propina';
 
-    //ABM
+//ABM
 import { AltaMenuPage } from '../pages/alta-menu/alta-menu';
 import { AltaPedidoPage } from '../pages/alta-pedido/alta-pedido';
 import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
 import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
-    //Juegos
-import { AnagramaPage } from '../pages/juegos/anagrama/anagrama'; 
-    //Encuestas
+//Juegos
+import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+//Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
-    //Otros
+import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
+//Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
-    //Pedido
+//Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
 
 //Services
@@ -78,92 +79,94 @@ import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 @NgModule({
-    declarations: [
-        MyApp,
-        IniciarsesionPage,
-        IniciarsesionmenuPage,
-        RegistrarsePage,
-        MesasPage,
-        BebidasPage,
-        ComidasPage,
-        EmpeladosPage,
-        EncuestaEmpleadoPage,
-        ListadoPedidosPage,
-        AltaMenuPage,
-        ListadoMenuPage,
-        AltaPedidoPage,
-        AnagramaPage,
-        DashboardPage,
-        AltaMesaPage,
-        AltaEmpleadoPage,
-        DueñosPage,
-        OcuparMesaPage,
-        EstadoPedidoPage,
-        EncuestaClientePage,
-        PrincipalClientePage,
-        PrincipalMozoPage,
-        ProfilePage,
-        PropinaPage
-    ],
-    imports: [
-        BrowserModule,
-        IonicModule.forRoot(MyApp),
-        IonicMultiCameraModule.forRoot(),
-        AngularFireModule.initializeApp(configs.firebaseConfig),
-        AngularFireDatabaseModule,
-        AngularFireAuthModule,
-        BrowserAnimationsModule,
-        NgxQRCodeModule,
-        PipesModule
-    ],
-    bootstrap: [IonicApp],
-    entryComponents: [
-        MyApp,
-        IniciarsesionPage,
-        IniciarsesionmenuPage,
-        RegistrarsePage,
-        MesasPage,
-        BebidasPage,
-        ComidasPage,
-        EmpeladosPage,
-        EncuestaEmpleadoPage,
-        ListadoPedidosPage,
-        AltaMenuPage,
-        ListadoMenuPage,
-        AltaPedidoPage,
-        AnagramaPage,
-        DashboardPage,
-        AltaMesaPage,
-        AltaEmpleadoPage,
-        DueñosPage,
-        OcuparMesaPage,
-        EstadoPedidoPage,
-        EncuestaClientePage,
-        PrincipalClientePage,
-        PrincipalMozoPage,
-        ProfilePage,
-        PropinaPage
-    ],
-    providers: [
-        StatusBar,
-        SplashScreen,
-        {provide: ErrorHandler, useClass: IonicErrorHandler},
-        Camera,
-        IonicMultiCamera,
-        File,
-        BarcodeScanner,
-        ParamsService,
-        MediaCapture,
-        VideoPlayer,
-        ImagePicker,
-        AuthenticationService,
-        MessageHandler,
-        SpinnerHandler,
-        UsuariosService,
-        QrService,
-        CameraService,
-        DatabaseService,
-        EncuestaClienteService
-    ]
+  declarations: [
+    MyApp,
+    IniciarsesionPage,
+    IniciarsesionmenuPage,
+    RegistrarsePage,
+    MesasPage,
+    BebidasPage,
+    ComidasPage,
+    EmpeladosPage,
+    EncuestaEmpleadoPage,
+    ListadoPedidosPage,
+    AltaMenuPage,
+    ListadoMenuPage,
+    AltaPedidoPage,
+    AnagramaPage,
+    DashboardPage,
+    AltaMesaPage,
+    AltaEmpleadoPage,
+    DueñosPage,
+    OcuparMesaPage,
+    EstadoPedidoPage,
+    EncuestaClientePage,
+    PrincipalClientePage,
+    PrincipalMozoPage,
+    ProfilePage,
+    PropinaPage,
+    EncuestaClienteResultadosPage
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    IonicMultiCameraModule.forRoot(),
+    AngularFireModule.initializeApp(configs.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    NgxQRCodeModule,
+    PipesModule
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    IniciarsesionPage,
+    IniciarsesionmenuPage,
+    RegistrarsePage,
+    MesasPage,
+    BebidasPage,
+    ComidasPage,
+    EmpeladosPage,
+    EncuestaEmpleadoPage,
+    ListadoPedidosPage,
+    AltaMenuPage,
+    ListadoMenuPage,
+    AltaPedidoPage,
+    AnagramaPage,
+    DashboardPage,
+    AltaMesaPage,
+    AltaEmpleadoPage,
+    DueñosPage,
+    OcuparMesaPage,
+    EstadoPedidoPage,
+    EncuestaClientePage,
+    PrincipalClientePage,
+    PrincipalMozoPage,
+    ProfilePage,
+    PropinaPage,
+    EncuestaClienteResultadosPage
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Camera,
+    IonicMultiCamera,
+    File,
+    BarcodeScanner,
+    ParamsService,
+    MediaCapture,
+    VideoPlayer,
+    ImagePicker,
+    AuthenticationService,
+    MessageHandler,
+    SpinnerHandler,
+    UsuariosService,
+    QrService,
+    CameraService,
+    DatabaseService,
+    EncuestaClienteService
+  ]
 })
 export class AppModule {}

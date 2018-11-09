@@ -105,12 +105,20 @@ export class MyApp {
       case 'Empleados':
         this.nav.setRoot(page.component, { 'empleado': true });
         break;
-        case 'Dueños':
-            this.nav.setRoot(page.component, { 'empleado': true });
-            break;
-        default:
-            this.nav.setRoot(page.component);
-            break;
+    case 'Dueños':
+        this.nav.setRoot(page.component, { 'empleado': true });
+        break;
+    case 'Hacer Pedido':
+        if(this.paramsService.user.rol == 'cliente'){
+            this.nav.setRoot(page.component, { 'empleado': false });
+        }
+        if(this.paramsService.user.rol == 'mozo'){
+  
+        }
+        break;
+    default:
+        this.nav.setRoot(page.component);
+        break;
     }
   }
 
