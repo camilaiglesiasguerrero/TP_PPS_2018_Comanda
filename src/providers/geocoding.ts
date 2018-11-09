@@ -55,13 +55,16 @@ export class GeocodingProvider {
 
   //METODO -> OBTENER COORDENADAS (a partir de una dirección)
   obtenerCoordenadas(direccion:string){
-    let promesa = new Promise<number[]>((resolve, reject)=>{
+    let promesa = new Promise<any>((resolve, reject)=>{
       let url = "https://maps.googleapis.com/maps/api/geocode/json?address="+ direccion +"&key=" + configs.googleMaps.apiKey;
       this._http.get(url)
         .subscribe( (data:any) =>{
-          let latlng:number[] = [data.json().results[0].geometry.location.lat, data.json().results[0].geometry.location.lng];
-          console.log("LatLng: " + latlng);
-          resolve(latlng);
+          if(data.results.length){
+            let detalles = {lat: data.results[0].geometry.location.lat, long: data.results[0].geometry.location.lng, direccion: data.results[0].formatted_address};
+            resolve(detalles);
+          }else{
+            reject(data);
+          }
         }, error=>{
           console.log("ERROR! al obtener coordenadas: " + error);
         });

@@ -29,6 +29,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 //GPD, GEOLOCATION
 import { GeocodingProvider } from '../providers/geocoding';
 import { Geolocation } from '@ionic-native/geolocation';
+import { UbicacionPage } from '../pages/ubicacion/ubicacion';
 
 //Pages
 import { MyApp } from './app.component';
@@ -111,7 +112,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    UbicacionPage
   ],
   imports: [
     BrowserModule,
@@ -152,7 +154,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    UbicacionPage
   ],
   providers: [
     StatusBar,
