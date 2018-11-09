@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { GeocodingProvider } from '../../providers/geocoding';
+import { Platform } from 'ionic-angular';
+declare var google;
 import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { Pedido } from '../../models/pedido';
@@ -7,13 +11,6 @@ import { Producto } from '../../models/producto';
 import { ProductoPedido } from '../../models/productoPedido';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
-
-/**
- * Generated class for the AltaPedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -35,18 +32,22 @@ user:any;
 beb = 0;
 pla = 0;
 clienteTieneReserva:boolean;
+direccion:any = {value:""};
 
-  constructor(public navCtrl: NavController, 
+
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private database: DatabaseService,
               private messageHandler:MessageHandler,
               private spinnerH:SpinnerHandler,
-              private params:ParamsService) {
-    
+              private params:ParamsService,
+              public geolocation: Geolocation,
+              private geocodingProvider: GeocodingProvider,
+              private platform: Platform) {
+
     this.navParams.get("reserva") ? this.reservaKey = this.navParams.get("reserva") : null;
     this.navParams.get("dniCliente") ? this.reservadniCliente = this.navParams.get("dniCliente") : null;
     this.navParams.get("mesa") ? this.reservaMesa = this.navParams.get("mesa") : null;
-
     this.productoPedido = new Array<ProductoPedido>();
     this.producto = new Array<Producto>();
     this.user = this.params.user;
@@ -62,11 +63,11 @@ clienteTieneReserva:boolean;
 
     this.database.db.list<any>('productos/platos/').valueChanges()
       .subscribe(snapshots => {
-          this.comidas = snapshots;  
-          this.comidas = this.comidas.filter(f => f.estado == 'Habilitado' );
-          this.comidas = this.comidas.filter(f => f.cantidad > 0 );   
-          
-      });    
+        this.comidas = snapshots;
+        this.comidas = this.comidas.filter(f => f.estado == 'Habilitado' );
+        this.comidas = this.comidas.filter(f => f.cantidad > 0 );
+
+      });
 
     this.database.db.list<any>('productos/bebidas/').valueChanges()
       .subscribe(snapshots => {
@@ -82,10 +83,9 @@ clienteTieneReserva:boolean;
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad AltaPedidoPage');
   }
 
-  tapEvent(event,producto){    
+  tapEvent(event,producto){
     let flag = false;
     let stock = true;
     if(this.productoPedido.length > 0){//tengo algún producto en la lista de pedidos
@@ -110,7 +110,7 @@ clienteTieneReserva:boolean;
               }
             }
           }
-          
+
           break;
         }
       }
@@ -120,10 +120,10 @@ clienteTieneReserva:boolean;
         prod.cantidad = 1;
         prod.tipo = producto.tipo;
         this.productoPedido.push(new ProductoPedido(producto.key,1,producto.tipo));
-    }
-  }else
+      }
+    }else
       this.productoPedido.push(new ProductoPedido(producto.key,1,producto.tipo));
-  
+
     if(stock){
       producto.cantidad--;
       this.producto.push(producto);
@@ -132,7 +132,7 @@ clienteTieneReserva:boolean;
       else
         this.pla++;
     }
-    
+
   }
 
   Confirmar(){ 
@@ -140,7 +140,7 @@ clienteTieneReserva:boolean;
     spinner.getAllPageSpinner();
     spinner.present();*/
     let pedidoASubir : Pedido = new Pedido();
-    let aux; 
+    let aux;
     pedidoASubir.key = this.database.ObtenerKey('pedidos/');
     pedidoASubir.estado = 'Solicitado';
     pedidoASubir.productoPedido = null;
@@ -149,47 +149,46 @@ clienteTieneReserva:boolean;
       this.restarProducto();
 
       for (let i = 0; i < this.productoPedido.length; i++) {
-         aux = {
+        aux = {
           key : this.productoPedido[i].idProducto,
           cantidad : this.productoPedido[i].cantidad,
           tipo : this.productoPedido[i].tipo
         }
-        
+
         this.database.jsonPackData = aux;
-        
+
         this.database.SubirDataBase('pedidos/'+pedidoASubir.key+'/productos/').then(e=>{
           this.messageHandler.mostrarMensaje('El pedido fue encargado');
-        });    
+        });
       }
-    });       
-      
-      if(this.params.rol == 'cliente'){
-        for (let j = 0; j < this.reservas.length; j++) {
-          if(this.reservas[j].dniCliente == this.user.dni){          
-            let res = {
-              key: this.reservas[j].key,
-              dniCliente: this.reservas[j].dniCliente,
-              idMesa: this.reservas[j].idMesa,
-              idPedido: pedidoASubir.key,
-              estado:'Con pedido'
-            } 
-            this.database.jsonPackData = res;
-            this.database.SubirDataBase('reservas/');
+    });
+
+    if(this.params.rol == 'cliente'){
+      for (let j = 0; j < this.reservas.length; j++) {
+        if(this.reservas[j].dniCliente == this.user.dni){
+          let res = {
+            key: this.reservas[j].key,
+            dniCliente: this.reservas[j].dniCliente,
+            idMesa: this.reservas[j].idMesa,
+            idPedido: pedidoASubir.key,
+            estado:'Con pedido'
           }
+          this.database.jsonPackData = res;
+          this.database.SubirDataBase('reservas/');
         }
-      }else{
-        let res = {
-          key: this.reservaKey,
-          dniCliente: this.reservadniCliente,
-          idMesa: this.reservaMesa,
-          idPedido: pedidoASubir.key,
-          estado:'Con pedido'
-        } 
-        this.database.jsonPackData = res;
-        this.database.SubirDataBase('reservas/');
       }
-  } 
- 
+    }else{
+      let res = {
+        key: this.reservaKey,
+        dniCliente: this.reservadniCliente,
+        idMesa: this.reservaMesa,
+        idPedido: pedidoASubir.key,
+        estado:'Con pedido'
+      }
+      this.database.jsonPackData = res;
+      this.database.SubirDataBase('reservas/');
+    }
+  }
 
   restarProducto(){
     let prod = new Producto();
@@ -211,8 +210,14 @@ clienteTieneReserva:boolean;
       this.database.jsonPackData = prod;
       if(prod.tipo == 'Bebida')
         this.database.SubirDataBase('productos/bebidas/');
-      else 
+      else
         this.database.SubirDataBase('productos/platos/');
     }
   }
+
+
+
+
+
+
 }

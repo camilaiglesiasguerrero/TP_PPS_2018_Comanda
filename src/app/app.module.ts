@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,6 +24,12 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+
+//GPD, GEOLOCATION
+import { GeocodingProvider } from '../providers/geocoding';
+import { Geolocation } from '@ionic-native/geolocation';
+import { UbicacionPage } from '../pages/ubicacion/ubicacion';
 
 //Pages
 import { MyApp } from './app.component';
@@ -105,10 +112,12 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    UbicacionPage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicMultiCameraModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
@@ -145,7 +154,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    UbicacionPage
   ],
   providers: [
     StatusBar,
@@ -166,7 +176,9 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     QrService,
     CameraService,
     DatabaseService,
-    EncuestaClienteService
+    EncuestaClienteService,
+    GeocodingProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
