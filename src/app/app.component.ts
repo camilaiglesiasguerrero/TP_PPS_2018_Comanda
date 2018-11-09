@@ -73,7 +73,7 @@ export class MyApp {
     ];
 
 
-  }
+    }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -104,10 +104,10 @@ export class MyApp {
         break;
       case 'Hacer Pedido':
         if(this.paramsService.user.rol == 'cliente'){
-          this.nav.setRoot(page.component);
+            this.nav.setRoot(page.component, { 'empleado': false });
         }
         if(this.paramsService.user.rol == 'mozo'){
-          this.nav.setRoot(page.component);
+          this.nav.setRoot(page.component, {'empleado': true});
       }
 
         break;

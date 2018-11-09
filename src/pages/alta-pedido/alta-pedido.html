@@ -9,11 +9,41 @@
 
 
 <ion-content padding>
-  <ion-row>
-    <ion-col>
-      <div #directionsPanel></div>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+    <!--CABECERA-->
+    <ion-row class="tit fle">
+      <u><b>COMIDAS</b></u>
+    </ion-row>
+    <ion-row class=fle *ngFor="let comida of comidas">
+      <ion-col>
+        <ion-label>{{comida.nombre}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{comida.precio | precio}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <button (tap)="tapEvent($event,comida)">
+          <ion-icon name=add></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="tit fle">
+      <u><b>BEBIDAS</b></u>
+    </ion-row>
+    <ion-row class=fle *ngFor="let bebida of bebidas">
+      <ion-col>
+        <ion-label>{{bebida.nombre}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{bebida.precio | precio}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <button (tap)="tapEvent($event,bebida)">
+          <ion-icon name=add></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-row>
     <ion-col>
       <ion-item>
@@ -30,63 +60,12 @@
       <div #map id="map"></div>
     </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-col>
-    <!--  <agm-map [latitude]="lat"
-               [longitude]="lng"
-               [zoom]="3"
-               [disableDefaultUI]="true"
-               [streetViewControl]="false"
-               (mapClick)="selectLocation($event)">
-        <agm-marker
-          [latitude]="lat"
-          [longitude]="lng">
-        </agm-marker>
-      </agm-map>
-      -->
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <h1>Acá va el formulario de alta de pedido</h1><br><br>
-      <h2>Si es cliente, relaciona con GPS</h2><br>
-      <h2>Si es mozo, permite levantar el qr de la mesa</h2>
-
-
-      <button (click)="escanearQR()" [hidden]=!esMozo> Escanear código QR de la mesa </button>
-
-      <div [hidden]=esMozo>
-        <button (click)="activarGPS()" [hidden]=esMozo> Tomar dirección actual  </button>
-        <input type="text" placeholder="Cargar dirección">
-        <input type="text" placeholder="Cargar hora de entrega">
-        <ion-fab center bottom>
-          <button ion-fab  style="background-color:rgb(175,44,245);" (click)="irA('Todos')" ><ion-icon name="list-box"></ion-icon></button>
-        </ion-fab>
-
-        <ion-fab center bottom>
-          <button ion-fab color="danger"><ion-icon name="game-controller-b"></ion-icon></button>
-          <ion-fab-list side="top">
-            <button ion-fab color="warning" (click)="irA('bebida')"><ion-icon name="wine"></ion-icon></button>
-          </ion-fab-list>
-          <ion-fab-list side="left">
-            <button ion-fab color="light"><img src="../../assets/imgs/postre.png" alt="Postre"></button>
-          </ion-fab-list>
-          <ion-fab-list side="right">
-            <button ion-fab color="dark"><img src="../../assets/imgs/discount.png" alt="Descuento"></button>
-          </ion-fab-list>
-        </ion-fab>
-      </div>
-    </ion-col>
-  </ion-row>
-
-
-  <!--<ion-buttons end>
-    <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
-  </ion-buttons>
-  -->
-
-
 
 </ion-content>
+<ion-footer (click)="Confirmar()">
+  <ion-card>
+    Total {{beb}} bebidas y {{pla}} platos.-
+    <ion-icon name="check-mark" ></ion-icon>Confirmar
+  </ion-card>
+</ion-footer>
 

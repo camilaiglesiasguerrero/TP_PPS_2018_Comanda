@@ -1,9 +1,9 @@
-# CCF
+# CFC
 ## La Comanda 
 
 ![Logo](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/blob/master/src/assets/readme/logoFondo.png)
 
-## **CCF: Integrantes** 
+## **CFC: Integrantes** 
 
 :heavy_check_mark: Carina Muñoz: [GitHub](https://github.com/caru08) 
 

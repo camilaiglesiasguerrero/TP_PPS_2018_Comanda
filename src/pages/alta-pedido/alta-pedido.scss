@@ -9,12 +9,28 @@ page-alta-pedido {
       height: 100%;
     }
 
-    ion-card {
-      max-height: 200px;
-      overflow: scroll;
-      position: absolute;
-      z-index: 1;
+     .fle {
+        width: 100%;
+        height: auto;
+        //margin: 0.2em;
+        //line-height: 100px;
+        color: white;
+        font-size: 1em;
+        text-align: center;
+        //padding: 0.2em;
+
     }
 
+    .tit {
+        width: 100%;
+        height: auto;
+        //margin: 0.2em;
+        //line-height: 100px;
+        color: black;
+        font-size: 1.5em;
+        text-align: center;
+
+        //padding: 0.2em;
+    }
 
 }
