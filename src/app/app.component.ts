@@ -23,70 +23,64 @@ import { PrincipalClientePage } from '../pages/principal-cliente/principal-clien
 
 
 @Component({
-    templateUrl: 'app.html'
+  templateUrl: 'app.html'
 })
 
 export class MyApp {
 
-    @ViewChild(Nav) nav: Nav;
-    rootPage: any = IniciarsesionPage;
-    loginPages: Array<{ title: string, component: any }>;
-    clientePages: Array<{ title: string, component: any }>;
-    mozoPages: Array<{ title: string, component: any }>;
-    metrePages: Array<{ title: string, component: any }>;
-    supervisorPages: Array<{ title: string, component: any }>;
-    cocineroPages: Array<{ title: string, component: any }>;
-    bartenerPages: Array<{ title: string, component: any }>;
-    commonPages: Array<{ title: string, component: any }>;
+  @ViewChild(Nav) nav: Nav;
+  rootPage: any = IniciarsesionPage;
+  loginPages: Array<{ title: string, component: any }>;
+  clientePages: Array<{ title: string, component: any }>;
+  mozoPages: Array<{ title: string, component: any }>;
+  metrePages: Array<{ title: string, component: any }>;
+  supervisorPages: Array<{ title: string, component: any }>;
+  cocineroPages: Array<{ title: string, component: any }>;
+  bartenerPages: Array<{ title: string, component: any }>;
+  commonPages: Array<{ title: string, component: any }>;
 
-    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-                private paramsService: ParamsService, private messageHandler: MessageHandler, private authenticationService: AuthenticationService) {
-        this.initializeApp();
-        this.loginPages = [
-            { title: 'Iniciar Sesión', component: IniciarsesionPage },
-            { title: 'Registrarse', component: RegistrarsePage }
-        ];
-        this.clientePages = [
-            { title: "Inicio", component: PrincipalClientePage},
-            { title: "Hacer Pedido", component: AltaPedidoPage },
-            { title: "Encuesta de satisfacción", component: EncuestaClientePage},
-            { title: 'Cerrar Sesión', component: IniciarsesionPage },
-        ];
-        this.supervisorPages = [
-            { title: 'Empleados', component: EmpeladosPage },
-            { title: 'Cerrar Sesión', component: IniciarsesionPage }
-        ]
-        this.mozoPages = [
-            { title: 'Alta Clientes', component: IniciarsesionPage },
-            { title: 'Mesas', component: MesasPage },
-            { title: 'Cerrar Sesión', component: IniciarsesionPage }
-        ]
-        this.metrePages = [
-            { title: 'Alta Clientes', component: IniciarsesionPage },
-            { title: 'Mesas', component: MesasPage },
-            { title: 'Cerrar Sesión', component: IniciarsesionPage }
-        ]
-        this.bartenerPages = [
-            { title: 'Bebidas', component: BebidasPage },
-            { title: 'Cerrar Sesión', component: IniciarsesionPage }
-        ]
-        this.cocineroPages = [
-            { title: 'Comidas', component: ComidasPage },
-            { title: 'Cerrar Sesión', component: IniciarsesionPage }
-        ]
-        this.commonPages = [
-          { title: 'Cerrar Sesión', component:IniciarsesionPage }
-        ]
-    
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+              private paramsService: ParamsService, private messageHandler: MessageHandler, private authenticationService: AuthenticationService) {
+    this.initializeApp();
+    this.loginPages = [
+      { title: 'Iniciar Sesión', component: IniciarsesionPage },
+      { title: 'Registrarse', component: RegistrarsePage }
+    ];
+    this.clientePages = [
+      { title: "Inicio", component: PrincipalClientePage},
+      { title: "Hacer Pedido", component: AltaPedidoPage },
+      { title: "Encuesta de satisfacción", component: EncuestaClientePage}
+    ];
+    this.supervisorPages = [
+      { title: 'Empleados', component: EmpeladosPage }
+    ];
+    this.mozoPages = [
+      { title: 'Alta Clientes', component: IniciarsesionPage },
+      { title: 'Mesas', component: MesasPage }
+    ];
+    this.metrePages = [
+      { title: 'Alta Clientes', component: IniciarsesionPage },
+      { title: 'Mesas', component: MesasPage }
+    ];
+    this.bartenerPages = [
+      { title: 'Bebidas', component: BebidasPage }
+    ];
+    this.cocineroPages = [
+      { title: 'Comidas', component: ComidasPage },
+    ];
+    this.commonPages = [
+      { title: 'Cerrar Sesión', component:IniciarsesionPage }
+    ];
+
 
     }
 
-    initializeApp() {
-        this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
-        });
-    }
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
+  }
 
   openPage(page) {
     switch (page.title) {
@@ -105,27 +99,28 @@ export class MyApp {
       case 'Empleados':
         this.nav.setRoot(page.component, { 'empleado': true });
         break;
-    case 'Dueños':
+      case 'Dueños':
         this.nav.setRoot(page.component, { 'empleado': true });
         break;
-    case 'Hacer Pedido':
+      case 'Hacer Pedido':
         if(this.paramsService.user.rol == 'cliente'){
             this.nav.setRoot(page.component, { 'empleado': false });
         }
         if(this.paramsService.user.rol == 'mozo'){
-  
-        }
+          this.nav.setRoot(page.component, {'empleado': true});
+      }
+
         break;
-    default:
+      default:
         this.nav.setRoot(page.component);
         break;
     }
   }
 
-    private cerrarSesion() {
-        this.paramsService.isLogged = false;
-        this.authenticationService.logOut();
-        this.nav.setRoot(IniciarsesionPage, { 'fromApp': true });
-    }
+  private cerrarSesion() {
+    this.paramsService.isLogged = false;
+    this.authenticationService.logOut();
+    this.nav.setRoot(IniciarsesionPage, { 'fromApp': true });
+  }
 
 }
