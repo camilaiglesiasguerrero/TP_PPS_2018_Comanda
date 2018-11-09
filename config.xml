@@ -96,5 +96,5 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Elegir muchas fotos" />
     </plugin>
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
