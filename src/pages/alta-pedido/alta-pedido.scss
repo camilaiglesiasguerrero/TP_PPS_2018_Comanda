@@ -4,4 +4,17 @@ page-alta-pedido {
         background-color: $first-detail-color;
      }
 
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    ion-card {
+      max-height: 200px;
+      overflow: scroll;
+      position: absolute;
+      z-index: 1;
+    }
+
+
 }

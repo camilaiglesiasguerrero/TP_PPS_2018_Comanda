@@ -104,10 +104,10 @@ export class MyApp {
         break;
       case 'Hacer Pedido':
         if(this.paramsService.user.rol == 'cliente'){
-
+          this.nav.setRoot(page.component);
         }
         if(this.paramsService.user.rol == 'mozo'){
-
+          this.nav.setRoot(page.component);
       }
 
         break;
