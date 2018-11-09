@@ -14,10 +14,21 @@
 
 
 <ion-content padding>
-    <h1>Acá van las preguntas al empleado acerca de cómo encontró el lugar de trabajo. </h1>
-    
-    <br><br>
-    
+  <div *ngFor="let p of preguntas">
+  <ion-row >
+    <ion-col class="pregunta-titulo">
+        {{p.pregunta}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="p.control === radio">
+      <ion-list>
+          <ion-item *ngFor='let o of p.opciones'>
+            <ion-label>{{o.opc}}</ion-label>
+            <ion-radio value="friends" checked></ion-radio>
+          </ion-item>
+      </ion-list>
+  </ion-row>
+</div>
     <button>Cargar Foto</button>
     <br>
     <button>Sacar Foto</button>

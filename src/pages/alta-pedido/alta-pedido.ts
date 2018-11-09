@@ -34,6 +34,7 @@ spinner:any;
 user:any;
 beb = 0;
 pla = 0;
+clienteTieneReserva:boolean;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -49,7 +50,16 @@ pla = 0;
     this.productoPedido = new Array<ProductoPedido>();
     this.producto = new Array<Producto>();
     this.user = this.params.user;
-    
+                
+    this.database.db.list<any>('reservas/').valueChanges()
+      .subscribe(snapshots => {
+          this.reservas = snapshots;
+          this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
+          if(this.params.rol == 'cliente'){
+            this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.dni )
+          }
+     }); 
+
     this.database.db.list<any>('productos/platos/').valueChanges()
       .subscribe(snapshots => {
           this.comidas = snapshots;  
@@ -65,12 +75,9 @@ pla = 0;
           this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
           
       });     
- //aca
-    this.database.db.list<any>('reservas/').valueChanges()
-      .subscribe(snapshots => {
-          this.reservas = snapshots;
-          this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
-      });    
+  
+
+
 
   }
 
@@ -129,6 +136,9 @@ pla = 0;
   }
 
   Confirmar(){ 
+    /*let spinner = this.spinnerH;
+    spinner.getAllPageSpinner();
+    spinner.present();*/
     let pedidoASubir : Pedido = new Pedido();
     let aux; 
     pedidoASubir.key = this.database.ObtenerKey('pedidos/');

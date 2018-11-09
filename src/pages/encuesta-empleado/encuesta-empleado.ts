@@ -19,9 +19,16 @@ import { PrincipalMozoPage } from '../principal-mozo/principal-mozo';
 })
 export class EncuestaEmpleadoPage {
 
+  preguntas:Array<any>;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public paramsService: ParamsService) {
+
+    this.preguntas = new Array<any>();
+    this.preguntas.push({pregunta:'¿Cómo calificarías la limpieza con la que te entregaron el lugar?',control:'select'});
+    this.preguntas.push({pregunta:'¿Pudiste comenzar tu jornada a tiempo?',control:'radio',opciones:{opc:['si','no']}});
+    this.preguntas.push({pregunta:'¿Los elementos que necesitás para trabajar estaban en condiciones? (ej mesas armadas, comidas preparadas, bebidas en la heladera)',control:'radio'});
   }
 
   ionViewDidLoad() {
