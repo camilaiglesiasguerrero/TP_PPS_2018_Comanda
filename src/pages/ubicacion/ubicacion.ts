@@ -4,11 +4,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { GeocodingProvider } from '../../providers/geocoding';
 import { Platform } from 'ionic-angular';
 declare var google;
-import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
-import { Pedido } from '../../models/pedido';
-import { Producto } from '../../models/producto';
-import { ProductoPedido } from '../../models/productoPedido';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
 

@@ -111,7 +111,8 @@ export class AltaMesaPage {
               private messageHandler:MessageHandler,
               public params: ParamsService,
               private spinner: SpinnerHandler) {
-
+    
+    this.camara.fotoSubir = '';
     if(this.navParams.get('mesa') != undefined)//Implica que estoy editando
     {
       this.titulo = "Detalles de la mesa";
@@ -122,8 +123,9 @@ export class AltaMesaPage {
       this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
       this.camara.fotoMostrar = this.mesa.foto;
     }else{
+      this.camara.fotoSubir != '';
       this.titulo = "Ingresar nueva mesa";
-      this.ultimoId = this.navParams.get('ultimoId');
+      this.ultimoId = parseInt(this.navParams.get('ultimoId'));
       this.camara.fotoMostrar = '';
       this.tipoOpc.setValue("");
       this.comensales.setValue("2");
