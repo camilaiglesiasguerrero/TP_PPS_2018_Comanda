@@ -87,7 +87,12 @@ export class IniciarsesionPage {
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
     this.autenticationService.logInFromDataBase();
-    
+    if((!this.autenticationService.getVerification()) && this.paramsService.rol == "cliente")
+    {
+      this.messageHandler.mostrarErrorLiteral("Debe verificar su cuenta");
+      this.navCtrl.setRoot(IniciarsesionPage);
+    }
+    else{
     switch(this.paramsService.rol){
       case 'mozo':
       case 'cocinero':
@@ -105,7 +110,7 @@ export class IniciarsesionPage {
       case 'supervisor':
         this.navCtrl.setRoot(DashboardPage);
         break;
-      
+      }
     }
     
     //console.log("Se logueo correctamente");

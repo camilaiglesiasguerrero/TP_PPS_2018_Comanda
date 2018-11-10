@@ -151,15 +151,14 @@ export class RegistrarsePage {
             .then(response => {
                 let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto, false);
                 cliente.uid = this.autenticationService.getUID();
+                this.autenticationService.sendVerification();
                 this.usuarioService.guardar(cliente)
                     .then(response => {
                         spiner.dismiss();
-                        this.messageHandler.mostrarMensaje("Bienvenido!!");
-                        this.paramsService.isLogged = true;
-                        this.paramsService.user = cliente;
-                        this.paramsService.rol = cliente.rol;
+                        this.messageHandler.mostrarMensaje("Cuenta creada con exito. Debe verificar su correo electronico!");
+                        this.autenticationService.logOut();
                         if (this.fromLogin) {
-                            this.navCtrl.setRoot(PrincipalClientePage)
+                            this.navCtrl.setRoot(IniciarsesionPage)
                         }
                     }, error => {
                         this.autenticationService.deleteUserLogged()
