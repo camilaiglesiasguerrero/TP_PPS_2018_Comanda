@@ -122,6 +122,7 @@ export class AltaMesaPage {
       this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
       this.camara.fotoMostrar = this.mesa.foto;
     }else{
+      this.camara.fotoSubir != '';
       this.titulo = "Ingresar nueva mesa";
       this.ultimoId = this.navParams.get('ultimoId');
       this.camara.fotoMostrar = '';

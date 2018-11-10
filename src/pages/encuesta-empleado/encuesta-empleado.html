@@ -15,25 +15,116 @@
 
 <ion-content padding>
   <div *ngFor="let p of preguntas">
-  <ion-row >
-    <ion-col class="pregunta-titulo">
-        {{p.pregunta}}
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="p.control === radio">
+    <ion-row >
+      <ion-col class="pregunta-titulo">
+          {{p.pregunta}}
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="p.control == 'select'" class="elemento" >
+      <ion-col>
+        <ion-item >
+          <ion-label>Calificación</ion-label>
+          <ion-select [(ngModel)]="calificacion" >
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+            <ion-option value="4">4</ion-option>
+            <ion-option value="5">5</ion-option>
+            <ion-option value="6">6</ion-option>
+            <ion-option value="7">7</ion-option>
+            <ion-option value="8">8</ion-option>
+            <ion-option value="9">9</ion-option>
+            <ion-option value="10">10</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="p.control == 'sino'" class="elemento" radio-group [(ngModel)]="sino">
+      <ion-col>
+        <ion-item>
+          <ion-label>Sí</ion-label>
+          <ion-radio value="si"></ion-radio>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label>No</ion-label>
+          <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="p.control == 'range'" class="elemento">
+      <ion-col>
+        <ion-item>
+          <ion-range min="0" max="10" step="1" snaps="true" [(ngModel)]="alegria">
+            <ion-icon small range-left name="sad"></ion-icon>
+            <ion-icon range-right name="happy"></ion-icon>
+          </ion-range>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="p.control == 'check'" class="elemento">
       <ion-list>
-          <ion-item *ngFor='let o of p.opciones'>
-            <ion-label>{{o.opc}}</ion-label>
-            <ion-radio value="friends" checked></ion-radio>
+        <ion-col>
+          <ion-item>
+            <ion-label>Limpios</ion-label>
+            <ion-checkbox [(ngModel)]="elementos.limpios"></ion-checkbox>
           </ion-item>
-      </ion-list>
-  </ion-row>
-</div>
-    <button>Cargar Foto</button>
-    <br>
-    <button>Sacar Foto</button>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Ordenados</ion-label>
+            <ion-checkbox [(ngModel)]="elementos.ordenados"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>En correcto estado</ion-label>
+            <ion-checkbox [(ngModel)]="elementos.estado"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Listos para ser usados</ion-label>
+            <ion-checkbox [(ngModel)]="elementos.listos"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        </ion-list>
+      
+    </ion-row>
+
+
+
+    <ion-row *ngIf="p.control == 'input'" class="input" >
+      <ion-item>
+        <ion-input [(ngModel)]=txtLibre type="text"></ion-input>
+      </ion-item>
+
+    </ion-row>
+
+  </div>
+
+  <ion-list>
+    <ion-item-sliding  #item>
+      <ion-item  color="third"   style="text-align: center">
+        Vincular foto
+        <img src="../../assets/imgs/deslizar.png" alt="deslizar" style="width: 10%">
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="dark" (click)="Sacar()"> <ion-icon name="camera" style="zoom:2"></ion-icon></button>
+      </ion-item-options>
+  
+      <ion-item-options side="right">
+        <button ion-button color="dark" (click)="Elegir()"><ion-icon name="photos" style="zoom:2"></ion-icon></button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
     
-    <h1>Si está todo Ok, habilito los gráficos y permito abandonar la Encuesta</h1>
-    
-    <button (click)="irA()"> -> Seguir</button> 
+    <button ion-button block color="dark" (click)="Confirmar()">Confirmar</button>
 </ion-content>

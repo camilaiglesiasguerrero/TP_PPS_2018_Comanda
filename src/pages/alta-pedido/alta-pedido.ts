@@ -1,9 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-import { GeocodingProvider } from '../../providers/geocoding';
 import { Platform } from 'ionic-angular';
-declare var google;
 import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { Pedido } from '../../models/pedido';
@@ -40,10 +37,7 @@ direccion:any = {value:""};
               private database: DatabaseService,
               private messageHandler:MessageHandler,
               private spinnerH:SpinnerHandler,
-              private params:ParamsService,
-              public geolocation: Geolocation,
-              private geocodingProvider: GeocodingProvider,
-              private platform: Platform) {
+              private params:ParamsService) {
 
     this.navParams.get("reserva") ? this.reservaKey = this.navParams.get("reserva") : null;
     this.navParams.get("dniCliente") ? this.reservadniCliente = this.navParams.get("dniCliente") : null;
