@@ -8,6 +8,7 @@ import { Producto } from '../../models/producto';
 import { ProductoPedido } from '../../models/productoPedido';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
+import { diccionario } from '../../models/diccionario';
 
 @IonicPage()
 @Component({
@@ -46,7 +47,7 @@ direccion:any = {value:""};
     this.producto = new Array<Producto>();
     this.user = this.params.user;
                 
-    this.database.db.list<any>('reservas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
           this.reservas = snapshots;
           this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
@@ -55,7 +56,7 @@ direccion:any = {value:""};
           }
      }); 
 
-    this.database.db.list<any>('productos/platos/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
       .subscribe(snapshots => {
         this.comidas = snapshots;
         this.comidas = this.comidas.filter(f => f.estado == 'Habilitado' );
@@ -63,17 +64,13 @@ direccion:any = {value:""};
 
       });
 
-    this.database.db.list<any>('productos/bebidas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
       .subscribe(snapshots => {
           this.bebidas = snapshots;  
           this.bebidas = this.bebidas.filter(f => f.estado == 'Habilitado' );
           this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
           
-      });     
-  
-
-
-
+      });
   }
 
   ionViewDidLoad() {

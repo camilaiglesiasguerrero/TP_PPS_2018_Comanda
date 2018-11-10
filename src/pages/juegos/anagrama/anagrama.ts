@@ -6,12 +6,8 @@ import { MessageHandler } from '../../../services/messageHandler.service';
 import { DatabaseService } from '../../../services/database.service';
 import { Juego } from '../../../models/Juegos/juego';
 import { ParamsService } from '../../../services/params.service';
-/**
- * Generated class for the AnagramaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { diccionario } from "../../../models/diccionario";
+
 
 @IonicPage()
 @Component({
@@ -46,7 +42,7 @@ export class AnagramaPage {
     
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
-    this.database.db.list<any>('juegos/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
        

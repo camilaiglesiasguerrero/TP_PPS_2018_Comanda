@@ -7,13 +7,8 @@ import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
+import {diccionario} from "../../models/diccionario";
 
-/**
- * Generated class for the EstadoPedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -56,7 +51,7 @@ export class EstadoPedidoPage {
     this.spinner = spinnerHandler.getAllPageSpinner();
     this.spinner.present();
 
-    this.database.db.list<any>('reservas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         if(this.params.rol == 'cliente')
@@ -65,7 +60,7 @@ export class EstadoPedidoPage {
           //tengo la mesa con pedido => busco el pedido
           if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == 'Con pedido'){
             this.pedido.key = this.aux[index].idPedido;
-            this.database.db.list<any>('pedidos/').valueChanges()
+            this.database.db.list<any>(diccionario.apis.pedidos).valueChanges()
               .subscribe(snp => {
                   this.aux = snp;
                   for (let i = 0; i < this.aux.length; i++) {
