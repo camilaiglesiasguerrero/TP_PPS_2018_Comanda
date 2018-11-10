@@ -111,7 +111,8 @@ export class AltaMesaPage {
               private messageHandler:MessageHandler,
               public params: ParamsService,
               private spinner: SpinnerHandler) {
-
+    
+    this.camara.fotoSubir = '';
     if(this.navParams.get('mesa') != undefined)//Implica que estoy editando
     {
       this.titulo = "Detalles de la mesa";
