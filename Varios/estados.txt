@@ -1,0 +1,28 @@
+Estados:
+
+Mesa: 
+    Libre           -> Se asigna
+    Reservada       -> verificar hr de reserva
+    Ocupada         -> no se puede asignar
+    Deshabilitada   -> no se puede usar
+
+Reserva:
+    No maneja estado 
+
+Pedido:
+    Solicitado      -> espera Ok del mozo
+    En preparación  -> Tiene el Ok del mozo, el pedido está en manos del cocinero/bartender
+    Listo           -> Cocina/barra terminaron, lo recibe el mozo.
+    Entregado       -> 
+    Cuenta          -> lo solicita el clinete
+    Pagado          -> Mozo confirma la Cuenta 
+                                --> Se libera la mesa
+
+Productos: 
+    En preparación
+    Listo
+
+Reservas-agendadas:
+    sin_mesa
+    con_mesa
+    
