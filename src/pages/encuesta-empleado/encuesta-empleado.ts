@@ -64,7 +64,7 @@ export class EncuestaEmpleadoPage {
   }
 
   Confirmar(){
-    if(this.camara.fotoSubir != ''){
+  //  if(this.camara.fotoSubir != ''){
       let paraSubir = {
         limpieza: this.calificacion,
         enHorario: this.sino,
@@ -84,10 +84,10 @@ export class EncuestaEmpleadoPage {
       });
 
 
-    
+    /*
     }else
       this.messageHandler.mostrarError('Falta vincular la foto.');
-    
+    */
   }
 
 

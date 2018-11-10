@@ -124,7 +124,7 @@ export class AltaMesaPage {
     }else{
       this.camara.fotoSubir != '';
       this.titulo = "Ingresar nueva mesa";
-      this.ultimoId = this.navParams.get('ultimoId');
+      this.ultimoId = parseInt(this.navParams.get('ultimoId'));
       this.camara.fotoMostrar = '';
       this.tipoOpc.setValue("");
       this.comensales.setValue("2");

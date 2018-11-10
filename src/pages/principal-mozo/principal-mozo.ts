@@ -25,6 +25,7 @@ export class PrincipalMozoPage {
   listaMesas: Array<any>;
   comensalesMax:number;
   clientesEspera:Array<any>;
+  noHayMesasLibres:boolean;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -42,7 +43,10 @@ export class PrincipalMozoPage {
         let aux:Array<any>;
         aux = snp;
         aux = aux.filter(a => a.estado == 'Libre');
-        
+        if(aux.length == 0)
+          this.noHayMesasLibres = true;
+        else
+          this.noHayMesasLibres = false;
         for(let i=0;i<aux.length;i++){
           if(i==0)
             this.comensalesMax = aux[i].comensales;
