@@ -22,7 +22,6 @@ import { PrincipalClientePage } from '../pages/principal-cliente/principal-clien
 import {ReservasAgendadasPage} from "../pages/reservas-agendadas/reservas-agendadas";
 
 
-
 @Component({
   templateUrl: 'app.html'
 })
