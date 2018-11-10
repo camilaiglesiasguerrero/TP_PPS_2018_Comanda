@@ -17,11 +17,9 @@
   <h1>Acá va el listado de pedidos pendientes para el rol cocinero o bartender</h1>
   
   <ion-card >
-    <ion-row  *ngFor="let pedido of productosPorPedido">
-      <ion-col>{{ pedido.idProducto }} </ion-col>
-      <ion-col><button>Cambiar Estado</button></ion-col>
-    </ion-row>
-  
+    <div *ngFor="let producto of pedidosList.productos">
+        <ion-col>{{ producto.nombre }} </ion-col>
+    </div>
   </ion-card>
 
   <ion-fab left bottom>

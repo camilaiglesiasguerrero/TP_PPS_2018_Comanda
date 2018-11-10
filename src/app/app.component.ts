@@ -54,6 +54,7 @@ export class MyApp {
         ];
         this.supervisorPages = [
             { title: 'Empleados', component: EmpeladosPage },
+            { title: 'Dueños', component: DueñosPage },
             { title: 'Cerrar Sesión', component: IniciarsesionPage }
         ]
         this.mozoPages = [
