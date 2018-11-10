@@ -9,7 +9,9 @@ export const diccionario = {
     juegos: "juegos/",
     pedidos: "pedidos/",
     lista_espera: "lista-espera/",
-    reservas_agendadas: "reservas-agendadas/"
+    reservas_agendadas: "reservas-agendadas/",
+    encuesta_cliente: "encuesta-cliente/",
+    encuesta_empleado: "encuesta-empleado/"
 
 
   },

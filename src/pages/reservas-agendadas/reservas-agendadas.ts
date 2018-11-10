@@ -33,8 +33,8 @@ export class ReservasAgendadasPage {
     var dateaux = new Date(concatFecha);
     var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: dateaux.toLocaleString(), clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
     this.database.jsonPackData = listaEspera;
-    //TODO: CARI: chequear esto para que estaba
-   // this.database.jsonPackData['key'] = this.database.ObtenerKey('lista-espera/');
+    //TENIA ESTA, CHEQUEAR Q NO SEA UN BUG'lista-espera/'
+    this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.lista_espera);
     this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
       this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
       elSpinner.dismiss();

@@ -30,6 +30,9 @@
                             <div class="card col-md-6" style="text-align: center">
                                 <img class=img src='{{p.foto3}}' alt='No se puede mostrar la imagen'>
                             </div>
+                            <div class="card col-md-6" style="text-align: center; width: 20%">
+                                <ngx-qrcode [qrc-value]="p.nombre"></ngx-qrcode>
+                            </div>
                         </div>
                     </div>
                 </div>      

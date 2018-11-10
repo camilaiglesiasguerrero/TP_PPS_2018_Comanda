@@ -10,6 +10,7 @@ import {Trivia} from "../../../models/Juegos/trivia";
 import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 import {PrincipalClientePage} from "../../principal-cliente/principal-cliente";
 import * as _ from 'lodash';
+import {diccionario} from "../../../models/diccionario";
 
 @Component({
   selector: 'page-trivia',
@@ -47,7 +48,7 @@ export class TriviaPage {
 
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
-    this.database.db.list<any>('juegos/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
@@ -142,8 +143,8 @@ export class TriviaPage {
   }
 
   private perdiste(spinner, correcta){
-    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey('juegos/'));
-    this.database.SubirDataBase('juegos/').then(e=>{
+    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       spinner.dismiss();
       let alert = this.alertCtrl.create({
         title: 'Perdiste....',
@@ -168,8 +169,8 @@ export class TriviaPage {
         {
           text: 'Felicitaciones!',
           handler: data => {
-            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey('juegos/'));
-            this.database.SubirDataBase('juegos/').then(e=>{
+            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+            this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
               this.navCtrl.setRoot(PrincipalClientePage);
             });
           }
