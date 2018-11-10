@@ -66,6 +66,7 @@ import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resulta
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
+import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
 
@@ -113,7 +114,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
-    UbicacionPage
+    UbicacionPage,
+    ReservasAgendadasPage
   ],
   imports: [
     BrowserModule,
@@ -155,7 +157,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
-    UbicacionPage
+    UbicacionPage,
+    ReservasAgendadasPage
   ],
   providers: [
     StatusBar,

@@ -64,6 +64,7 @@ export class IniciarsesionPage {
       this.spiner.present();
       this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass)
         .then(response => {
+          this.autenticationService.logInFromDataBase();
           if(this.paramsService.name != 'administrador@gmail.com'){
             this.allUsersData = this.usuariosService.getByUserId();
             if(this.allUsersData == null){
@@ -89,7 +90,6 @@ export class IniciarsesionPage {
     this.paramsService.rol = user.rol;
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
-    this.autenticationService.logInFromDataBase();
 
     switch(this.paramsService.rol){
       case 'mozo':
