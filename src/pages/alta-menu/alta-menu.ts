@@ -138,7 +138,6 @@ export class AltaMenuPage {
     this.producto.foto1 = this.camara.arrayDeFotos[0];
     this.producto.foto2 = this.camara.arrayDeFotos[1];
     this.producto.foto3 = this.camara.arrayDeFotos[2]; 
-    this.producto.estado = 'Habilitado';
     this.navParams.get("producto") == undefined ? this.producto.key = this.database.ObtenerKey('productos/'+this.producto.tipo) : null;
 
     this.database.jsonPackData = this.producto;

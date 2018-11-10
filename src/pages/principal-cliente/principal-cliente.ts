@@ -9,6 +9,7 @@ import { DatabaseService } from "../../services/database.service";
 import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
 import {TriviaPage} from "../juegos/trivia/trivia";
+import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 
 @IonicPage()
 @Component({
@@ -39,12 +40,13 @@ export class PrincipalClientePage {
     //console.log('ionViewDidLoad PrincipalClientePage');
   }
 
-  escanearQR() {
+  escanearQR(donde:string) {
     this.options = { prompt : "Escaneá el código QR de la mesa" }
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
         this.mesa = barcodeData.text;
-        this.irA('verPedido');
+        donde == 'hacerPedido' ? this.irA('hacerPedido') : this.irA('verPedido');
+        
       }, (err) => {
         //console.log('Error: ', err);
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
@@ -60,9 +62,11 @@ export class PrincipalClientePage {
         this.navCtrl.push(TriviaPage);
         break;
       case 'verPedido':
-        let popover = this.popoverCtrl.create(EstadoPedidoPage,{mesa:this.mesa});
-        popover.present({
-        });
+        this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
+        break;
+      case 'hacerPedido':
+        this.navCtrl.push(AltaPedidoPage);
+        break;
     }
   }
 

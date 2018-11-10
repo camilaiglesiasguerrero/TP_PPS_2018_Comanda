@@ -50,8 +50,9 @@ export class MyApp {
     this.clientePages = [
       { title: "Inicio", component: PrincipalClientePage},
       { title: "Hacer Pedido", component: AltaPedidoPage },
-      { title: "Encuesta de satisfacción", component: EncuestaClientePage},
-      { title: "Hacer una reserva", component: ReservasAgendadasPage}
+      { title: "Pedir delivery", component:AltaPedidoPage },
+      { title: "Hacer una reserva", component: ReservasAgendadasPage},
+      { title: "Encuesta de satisfacción", component: EncuestaClientePage}
 
     ];
     this.clienteAnonimoPages = [
