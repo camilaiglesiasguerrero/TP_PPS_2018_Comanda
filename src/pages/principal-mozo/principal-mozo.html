@@ -34,7 +34,15 @@
             </ion-row>
 
     </ion-card>
-    <ion-card>
+
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button round color="light" (click)="escanearQR('hacerPedido')">
+                    <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                    Hacer un pedido 
+                </button>
+            </ion-col>
+        </ion-row>
         <ion-row>
             <ion-col text-center>
                 <button ion-button round color="light" (click)="escanearQR('verPedido')">
@@ -43,6 +51,6 @@
                 </button>
             </ion-col>
         </ion-row>
-    </ion-card>
+
 
 </ion-content>

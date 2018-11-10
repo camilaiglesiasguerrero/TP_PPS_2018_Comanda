@@ -5,6 +5,7 @@ import { MessageHandler } from '../../services/messageHandler.service';
 import { OcuparMesaPage } from '../ocupar-mesa/ocupar-mesa';
 import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
+import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 
 /**
  * Generated class for the PrincipalMozoPage page.
@@ -80,6 +81,9 @@ export class PrincipalMozoPage {
               case 'verPedido':
                 this.irA('verPedido');
                 break;
+              case 'hacerPedido':
+                this.irA('hacerPedido');
+                break;
            }
       }, (err) => {
           //console.log('Error: ', err);
@@ -94,10 +98,11 @@ export class PrincipalMozoPage {
         this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa,cliente:cliente});
         break;
       case 'verPedido':
-        let popover = this.popoverCtrl.create(EstadoPedidoPage,{mesa:this.mesa});
-        popover.present({
-        
-        });
+        this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
+        break;
+      case 'hacerPedido':
+        this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
+        break;
     }
   }
 }

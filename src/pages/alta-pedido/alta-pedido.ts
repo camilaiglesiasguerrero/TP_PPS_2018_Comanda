@@ -8,6 +8,9 @@ import { Producto } from '../../models/producto';
 import { ProductoPedido } from '../../models/productoPedido';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
+import { PrincipalMozoPage } from '../principal-mozo/principal-mozo';
 
 @IonicPage()
 @Component({
@@ -20,30 +23,30 @@ bebidas:any;
 comidas:any;
 reservas:any;
 reservaKey : string;
-reservadniCliente:string;
+reservaCliente:string;
 reservaMesa:any;
 productoPedido : Array<ProductoPedido>;
-producto : Array<Producto>;
 spinner:any;
 user:any;
-beb = 0;
-pla = 0;
 clienteTieneReserva:boolean;
 direccion:any = {value:""};
-
+options:any;
+listadoAPedir:Array<any>;
+mostrarParcial:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private database: DatabaseService,
               private messageHandler:MessageHandler,
-              private spinnerH:SpinnerHandler,
-              private params:ParamsService) {
+              public spinnerH:SpinnerHandler,
+              private params:ParamsService,
+              private barcodeScanner:BarcodeScanner) {
 
     this.navParams.get("reserva") ? this.reservaKey = this.navParams.get("reserva") : null;
-    this.navParams.get("dniCliclienteUidente") ? this.reservadniCliente = this.navParams.get("clienteUid") : null;
+    this.navParams.get("clienteUid") ? this.reservaCliente = this.navParams.get("clienteUid") : null;
     this.navParams.get("mesa") ? this.reservaMesa = this.navParams.get("mesa") : null;
     this.productoPedido = new Array<ProductoPedido>();
-    this.producto = new Array<Producto>();
+    this.listadoAPedir = new Array<any>();
     this.user = this.params.user;
                 
     this.database.db.list<any>('reservas/').valueChanges()
@@ -58,7 +61,6 @@ direccion:any = {value:""};
     this.database.db.list<any>('productos/platos/').valueChanges()
       .subscribe(snapshots => {
         this.comidas = snapshots;
-        this.comidas = this.comidas.filter(f => f.estado == 'Habilitado' );
         this.comidas = this.comidas.filter(f => f.cantidad > 0 );
 
       });
@@ -66,73 +68,94 @@ direccion:any = {value:""};
     this.database.db.list<any>('productos/bebidas/').valueChanges()
       .subscribe(snapshots => {
           this.bebidas = snapshots;  
-          this.bebidas = this.bebidas.filter(f => f.estado == 'Habilitado' );
           this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
           
       });     
-  
-
-
-
   }
 
   ionViewDidLoad() {
   }
 
-  tapEvent(event,producto){
-    let flag = false;
-    let stock = true;
-    if(this.productoPedido.length > 0){//tengo algún producto en la lista de pedidos
-      for (let i = 0; i < this.productoPedido.length; i++) {
-        if(this.productoPedido[i].idProducto == producto.key){//si ya pedi este producto
-          this.productoPedido[i].cantidad ++;                 //le agrego uno
-          flag = true;
-          if(producto.tipo == 'Bebida'){                      //si el producto es bebida, verifico q me de el stock
-            for (let index = 0; index < this.bebidas.length; index++) {
-              if(this.bebidas.key == producto.key && this.bebidas.cantidad < this.productoPedido[i].cantidad){
-                this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[index].nombre);
-                this.productoPedido[i].cantidad --;
-                stock = false;
-              }
-            }
-          }else{                                            //idem si es comida
+  escanearQR(){
+    let auxProducto;
+    this.options = { prompt : "Escaneá el código QR del producto" }
+    this.barcodeScanner.scan(this.options)
+      .then(barcodeData => {
+        auxProducto  = barcodeData.text;
+          if(auxProducto.split(':')[0] == 'Comida'){
             for (let index = 0; index < this.comidas.length; index++) {
-              if(this.comidas.key == producto.key && this.comidas.cantidad < this.productoPedido[i].cantidad){
-                this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[index].nombre);
-                this.productoPedido[i].cantidad --;
-                stock = false;
-              }
+              if(this.comidas[index].nombre == auxProducto)
+                this.listadoAPedir.push(this.comidas[index]);              
+            }
+          }else if(auxProducto.split(':')[0] == 'Bebida'){
+            for (let index = 0; index < this.bebidas.length; index++) {
+              if(this.bebidas[index].nombre == auxProducto)
+                this.listadoAPedir.push(this.bebidas[index]);              
             }
           }
+      }, (err) => {
+          //console.log('Error: ', err);
+          this.messageHandler.mostrarError(err, 'Ocurrió un error');
+      });
+  }
 
-          break;
+  tapEvent(event,producto){
+    this.listadoAPedir.push(producto);
+  }
+
+  verParcial(){
+    //vacío el array
+    while(this.productoPedido.length > 0)
+      this.productoPedido.pop(); 
+    
+    let flag = false;
+    let cnt;
+    let stock = true;
+
+    for (let index = 0; index < this.listadoAPedir.length; index++) {
+      if(this.productoPedido.length == 0)
+        this.productoPedido.push(new ProductoPedido(this.listadoAPedir[index].key,1,this.listadoAPedir[index].tipo));
+      else{
+          for (let i  = 0; i  < this.productoPedido.length; i ++) {
+            cnt = 0;
+            if(this.productoPedido[i].idProducto == this.listadoAPedir[index].key){//si ya pedi este producto le agrego uno
+              this.productoPedido[i].cantidad ++;
+              flag = true;
+            if(this.listadoAPedir[index].tipo == 'Bebida'){                         //si el producto es bebida, verifico q me de el stock
+              for (let index = 0; index < this.bebidas.length; index++) {
+                if(this.bebidas.key == this.listadoAPedir[index].key && this.bebidas.cantidad < this.productoPedido[i].cantidad){
+                  this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[index].nombre);
+                  this.productoPedido[i].cantidad --;
+                  stock = false;
+                }
+              }
+            }else{                                                                  //idem si es comida
+              for (let index = 0; index < this.comidas.length; index++) {
+                if(this.comidas.key == this.listadoAPedir[index].key && this.comidas.cantidad < this.productoPedido[i].cantidad){
+                  this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[index].nombre);
+                  this.productoPedido[i].cantidad --;
+                  stock = false;
+                }
+              }
+            }
+            break;
+          }
+          cnt ++;
+          if(!flag && cnt == this.productoPedido.length)                             //nunca pedi este producto
+            this.productoPedido.push(new ProductoPedido(this.listadoAPedir[index].key,1,this.listadoAPedir[index].tipo));
         }
       }
-      if(!flag){//si no pedí el producto lo agrego
-        let prod = new ProductoPedido();
-        prod.idProducto = producto.key;
-        prod.cantidad = 1;
-        prod.tipo = producto.tipo;
-        this.productoPedido.push(new ProductoPedido(producto.key,1,producto.tipo));
-      }
-    }else
-      this.productoPedido.push(new ProductoPedido(producto.key,1,producto.tipo));
-
-    if(stock){
-      producto.cantidad--;
-      this.producto.push(producto);
-      if(producto.tipo == 'Bebida')
-        this.beb ++;
-      else
-        this.pla++;
     }
-
+    this.mostrarParcial = true;
+  }
+  
+  seguirPidiendo(){
+    this.mostrarParcial = false;
   }
 
   Confirmar(){ 
-    /*let spinner = this.spinnerH;
-    spinner.getAllPageSpinner();
-    spinner.present();*/
+    let spinner = this.spinner.getAllPageSpinner();
+    spinner.present();
     let pedidoASubir : Pedido = new Pedido();
     let aux;
     pedidoASubir.key = this.database.ObtenerKey('pedidos/');
@@ -152,54 +175,32 @@ direccion:any = {value:""};
         this.database.jsonPackData = aux;
 
         this.database.SubirDataBase('pedidos/'+pedidoASubir.key+'/productos/').then(e=>{
+          spinner.dismiss();
           this.messageHandler.mostrarMensaje('El pedido fue encargado');
+          if(this.params.user.rol == 'cliente')
+            this.navCtrl.setRoot(PrincipalClientePage);
+          else  
+            this.navCtrl.setRoot(PrincipalMozoPage);
         });
       }
     });
-
-    if(this.params.rol == 'cliente'){
-      for (let j = 0; j < this.reservas.length; j++) {
-        if(this.reservas[j].clienteUid == this.user.clienteUid){
-          let res = {
-            key: this.reservas[j].key,
-            clienteUid: this.reservas[j].clienteUid,
-            idMesa: this.reservas[j].idMesa,
-            idPedido: pedidoASubir.key,
-            estado:'Con pedido'
-          }
-          this.database.jsonPackData = res;
-          this.database.SubirDataBase('reservas/');
-        }
-      }
-    }else{
-      let res = {
-        key: this.reservaKey,
-        clienteUid: this.reservadniCliente,
-        idMesa: this.reservaMesa,
-        idPedido: pedidoASubir.key,
-        estado:'Con pedido'
-      }
-      this.database.jsonPackData = res;
-      this.database.SubirDataBase('reservas/');
-    }
   }
 
   restarProducto(){
     let prod = new Producto();
-    for (let i = 0; i < this.producto.length; i++) {
+    for (let i = 0; i < this.listadoAPedir.length; i++) {
       //campo que cambia
-      prod.cantidad = this.producto[i].cantidad;
+      prod.cantidad = this.listadoAPedir[i].cantidad--;
       //
-      prod.descripcion = this.producto[i].descripcion;
-      prod.estado = this.producto[i].estado;
-      prod.foto1 = this.producto[i].foto1;
-      prod.foto2 = this.producto[i].foto2;
-      prod.foto3 = this.producto[i].foto3;
-      prod.key = this.producto[i].key;
-      prod.nombre = this.producto[i].nombre;
-      prod.precio = this.producto[i].precio;
-      prod.tiempoElaboracion = this.producto[i].tiempoElaboracion;
-      prod.tipo = this.producto[i].tipo;
+      prod.descripcion = this.listadoAPedir[i].descripcion;
+      prod.foto1 = this.listadoAPedir[i].foto1;
+      prod.foto2 = this.listadoAPedir[i].foto2;
+      prod.foto3 = this.listadoAPedir[i].foto3;
+      prod.key = this.listadoAPedir[i].key;
+      prod.nombre = this.listadoAPedir[i].nombre;
+      prod.precio = this.listadoAPedir[i].precio;
+      prod.tiempoElaboracion = this.listadoAPedir[i].tiempoElaboracion;
+      prod.tipo = this.listadoAPedir[i].tipo;
 
       this.database.jsonPackData = prod;
       if(prod.tipo == 'Bebida')
