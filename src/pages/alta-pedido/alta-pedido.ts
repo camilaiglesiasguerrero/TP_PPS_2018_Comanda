@@ -40,7 +40,7 @@ direccion:any = {value:""};
               private params:ParamsService) {
 
     this.navParams.get("reserva") ? this.reservaKey = this.navParams.get("reserva") : null;
-    this.navParams.get("dniCliente") ? this.reservadniCliente = this.navParams.get("dniCliente") : null;
+    this.navParams.get("dniCliclienteUidente") ? this.reservadniCliente = this.navParams.get("clienteUid") : null;
     this.navParams.get("mesa") ? this.reservaMesa = this.navParams.get("mesa") : null;
     this.productoPedido = new Array<ProductoPedido>();
     this.producto = new Array<Producto>();
@@ -51,7 +51,7 @@ direccion:any = {value:""};
           this.reservas = snapshots;
           this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
           if(this.params.rol == 'cliente'){
-            this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.dni )
+            this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.clienteUid )
           }
      }); 
 
@@ -159,10 +159,10 @@ direccion:any = {value:""};
 
     if(this.params.rol == 'cliente'){
       for (let j = 0; j < this.reservas.length; j++) {
-        if(this.reservas[j].dniCliente == this.user.dni){
+        if(this.reservas[j].clienteUid == this.user.clienteUid){
           let res = {
             key: this.reservas[j].key,
-            dniCliente: this.reservas[j].dniCliente,
+            clienteUid: this.reservas[j].clienteUid,
             idMesa: this.reservas[j].idMesa,
             idPedido: pedidoASubir.key,
             estado:'Con pedido'
@@ -174,7 +174,7 @@ direccion:any = {value:""};
     }else{
       let res = {
         key: this.reservaKey,
-        dniCliente: this.reservadniCliente,
+        clienteUid: this.reservadniCliente,
         idMesa: this.reservaMesa,
         idPedido: pedidoASubir.key,
         estado:'Con pedido'
