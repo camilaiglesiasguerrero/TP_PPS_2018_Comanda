@@ -10,6 +10,7 @@ import { CameraService } from '../../services/camera.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ImagePicker } from '@ionic-native/image-picker';
+import {diccionario} from "../../models/diccionario";
 /**
  * Generated class for the AltaMenuPage page.
  *
@@ -138,13 +139,13 @@ export class AltaMenuPage {
     this.producto.foto1 = this.camara.arrayDeFotos[0];
     this.producto.foto2 = this.camara.arrayDeFotos[1];
     this.producto.foto3 = this.camara.arrayDeFotos[2]; 
-    this.navParams.get("producto") == undefined ? this.producto.key = this.database.ObtenerKey('productos/'+this.producto.tipo) : null;
+    this.navParams.get("producto") == undefined ? this.producto.key = this.database.ObtenerKey(diccionario.apis.productos + this.producto.tipo) : null;
 
     this.database.jsonPackData = this.producto;
         
     this.elSpinner = this.spinner.getAllPageSpinner();
     this.elSpinner.present();
-      this.database.SubirDataBase('productos/'+this.menu+'/').then(r => {          
+      this.database.SubirDataBase(diccionario.apis.productos + this.menu +'/').then(r => {
         this.messageHandler.mostrarMensaje("Operación exitosa");
         this.createdCode = this.qr.createCode(this.producto.tipo+':'+this.producto.nombre);
           this.elSpinner.dismiss();

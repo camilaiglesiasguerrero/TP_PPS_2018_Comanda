@@ -7,6 +7,7 @@ import { PrincipalMozoPage } from '../principal-mozo/principal-mozo';
 import { CameraService } from '../../services/camera.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from '../../services/database.service';
+import {diccionario} from "../../models/diccionario";
 
 /**
  * Generated class for the EncuestaEmpleadoPage page.
@@ -75,11 +76,11 @@ export class EncuestaEmpleadoPage {
         gradoFelicidad: this.alegria,
         notas: this.txtLibre == undefined ? this.txtLibre = '' : this.txtLibre,
         foto:this.camara.fotoSubir,
-        key : this.database.ObtenerKey('encuesta-empleado/')
+        key : this.database.ObtenerKey(diccionario.apis.encuesta_empleado)
       }
 
       this.database.jsonPackData = paraSubir;
-      this.database.SubirDataBase('encuesta-empleado/').then(e =>{
+      this.database.SubirDataBase(diccionario.apis.encuesta_empleado).then(e =>{
         this.irA();
       });
 

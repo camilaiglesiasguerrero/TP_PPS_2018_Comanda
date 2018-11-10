@@ -68,10 +68,10 @@ mostrarParcial:boolean = false;
 
     this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
       .subscribe(snapshots => {
-          this.bebidas = snapshots;  
+          this.bebidas = snapshots;
           this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
           
-      });     
+      });
   }
 
   ionViewDidLoad() {
@@ -86,12 +86,12 @@ mostrarParcial:boolean = false;
           if(auxProducto.split(':')[0] == 'Comida'){
             for (let index = 0; index < this.comidas.length; index++) {
               if(this.comidas[index].nombre == auxProducto)
-                this.listadoAPedir.push(this.comidas[index]);              
+                this.listadoAPedir.push(this.comidas[index]);
             }
           }else if(auxProducto.split(':')[0] == 'Bebida'){
             for (let index = 0; index < this.bebidas.length; index++) {
               if(this.bebidas[index].nombre == auxProducto)
-                this.listadoAPedir.push(this.bebidas[index]);              
+                this.listadoAPedir.push(this.bebidas[index]);
             }
           }
       }, (err) => {
@@ -107,8 +107,8 @@ mostrarParcial:boolean = false;
   verParcial(){
     //vacío el array
     while(this.productoPedido.length > 0)
-      this.productoPedido.pop(); 
-    
+      this.productoPedido.pop();
+
     let flag = false;
     let cnt;
     let stock = true;
@@ -149,7 +149,7 @@ mostrarParcial:boolean = false;
     }
     this.mostrarParcial = true;
   }
-  
+
   seguirPidiendo(){
     this.mostrarParcial = false;
   }
@@ -159,11 +159,11 @@ mostrarParcial:boolean = false;
     spinner.present();
     let pedidoASubir : Pedido = new Pedido();
     let aux;
-    pedidoASubir.key = this.database.ObtenerKey('pedidos/');
-    pedidoASubir.estado = 'Solicitado';
+    pedidoASubir.key = this.database.ObtenerKey(diccionario.apis.pedidos);
+    pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
     pedidoASubir.productoPedido = null;
     this.database.jsonPackData = pedidoASubir;
-    this.database.SubirDataBase('pedidos/').then(r=>{
+    this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
       this.restarProducto();
 
       for (let i = 0; i < this.productoPedido.length; i++) {
@@ -175,12 +175,12 @@ mostrarParcial:boolean = false;
 
         this.database.jsonPackData = aux;
 
-        this.database.SubirDataBase('pedidos/'+pedidoASubir.key+'/productos/').then(e=>{
+        this.database.SubirDataBase(diccionario.apis.pedidos + pedidoASubir.key + "/" +diccionario.apis.productos).then(e=>{
           spinner.dismiss();
           this.messageHandler.mostrarMensaje('El pedido fue encargado');
           if(this.params.user.rol == 'cliente')
             this.navCtrl.setRoot(PrincipalClientePage);
-          else  
+          else
             this.navCtrl.setRoot(PrincipalMozoPage);
         });
       }
@@ -205,9 +205,9 @@ mostrarParcial:boolean = false;
 
       this.database.jsonPackData = prod;
       if(prod.tipo == 'Bebida')
-        this.database.SubirDataBase('productos/bebidas/');
+        this.database.SubirDataBase(diccionario.apis.productos_bebidas);
       else
-        this.database.SubirDataBase('productos/platos/');
+        this.database.SubirDataBase(diccionario.apis.productos_platos);
     }
   }
 

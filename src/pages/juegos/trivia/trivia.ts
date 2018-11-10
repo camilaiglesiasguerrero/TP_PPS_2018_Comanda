@@ -9,6 +9,8 @@ import { ParamsService } from '../../../services/params.service';
 import {Trivia} from "../../../models/Juegos/trivia";
 import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 import {PrincipalClientePage} from "../../principal-cliente/principal-cliente";
+import * as _ from 'lodash';
+import {diccionario} from "../../../models/diccionario";
 
 @Component({
   selector: 'page-trivia',
@@ -34,6 +36,7 @@ export class TriviaPage {
   respuesta:boolean;
   cantPreg=0;
   preguntasMostradas = [];
+  yaSeMostro = true;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -45,7 +48,7 @@ export class TriviaPage {
 
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
-    this.database.db.list<any>('juegos/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
@@ -65,13 +68,24 @@ export class TriviaPage {
   }
 
   comenzar(){
-    this.trivia.generarPregunta();
     this.verifica = false;
     this.seRindio = false;
     this.empiezaElJuego = true;
     this.segundos = 9;
     this.milisegundos = 100;
     this.cantPreg++;
+    this.trivia.generarPregunta();
+    this.yaSeMostro = true;
+    while(this.yaSeMostro){
+      var existe =_.find(this.preguntasMostradas, item => {
+        item == this.trivia.preguntaSecreta
+      });
+      if(existe){
+        this.yaSeMostro = true;
+      }else{
+        this.yaSeMostro = false;
+      }
+    }
     clearInterval(this.repetidor);
     this.preguntasMostradas.push(this.trivia.preguntaSecreta);
     this.pregunta = this.trivia.arrayOrdenado[this.trivia.preguntaSecreta];
@@ -119,17 +133,22 @@ export class TriviaPage {
         let spinner = this.spinner.getAllPageSpinner();
         spinner.present();
         clearInterval(this.repetidor);
-        this.perdiste(spinner);
+        var correcta = _.find(this.pregunta.respuestas, item =>{
+          return item.correcta == true;
+
+        });
+        this.perdiste(spinner, correcta.description);
       }
     }
   }
 
-  private perdiste(spinner){
-    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey('juegos/'));
-    this.database.SubirDataBase('juegos/').then(e=>{
+  private perdiste(spinner, correcta){
+    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       spinner.dismiss();
       let alert = this.alertCtrl.create({
         title: 'Perdiste....',
+        subTitle: "La respuesta correcta era: " + correcta,
         buttons: [
           {
             text: 'Intenta otro día...',
@@ -150,8 +169,8 @@ export class TriviaPage {
         {
           text: 'Felicitaciones!',
           handler: data => {
-            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey('juegos/'));
-            this.database.SubirDataBase('juegos/').then(e=>{
+            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+            this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
               this.navCtrl.setRoot(PrincipalClientePage);
             });
           }
@@ -161,7 +180,6 @@ export class TriviaPage {
     alert.present();
 
   }
-
 
   private esCorrecta(){
     let alert = this.alertCtrl.create({

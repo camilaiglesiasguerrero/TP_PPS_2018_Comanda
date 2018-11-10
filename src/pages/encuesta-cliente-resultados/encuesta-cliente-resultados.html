@@ -3,14 +3,16 @@
     <button ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>Encuesta Clientes</ion-title>
+    <ion-title>Resultados de Encuestas</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
-    <ion-col>
-      Resultados de las encuestas
-    </ion-col>
-  </ion-row>
+  <div class="flex-v" *ngIf="display">
+    <div class="flex-v center-horizontal center-vertical">
+
+      <div class="title">Atención recibida:</div>
+      <!--<p-chart type="doughnut" [data]="dataAtencion"></p-chart>-->
+    </div>
+  </div>
 </ion-content>

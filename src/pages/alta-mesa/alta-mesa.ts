@@ -8,12 +8,7 @@ import { CameraService } from '../../services/camera.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
-/**
- * Generated class for the AltaMesaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {diccionario} from "../../models/diccionario";
 
 @IonicPage()
 @Component({
@@ -153,16 +148,16 @@ export class AltaMesaPage {
         this.mesa.idString = this.frm.get('numero').value.toString();
         this.mesa.comensales = this.frm.get('comensales').value;
         this.mesa.tipo = this.frm.get('tipoOpc').value;
-        this.mesa.estado = 'Libre';
+        this.mesa.estado = diccionario.estados_mesas.libre;
         this.mesa.foto = this.camara.fotoMostrar;
-        this.navParams.get("mesa") == undefined ? this.mesa.key = this.database.ObtenerKey('mesas/') : null;
+        this.navParams.get("mesa") == undefined ? this.mesa.key = this.database.ObtenerKey(diccionario.apis.mesas) : null;
 
         this.database.jsonPackData = this.mesa;
         
         this.elSpinner = this.spinner.getAllPageSpinner();
         this.elSpinner.present();
 
-        this.database.SubirDataBase('mesas/').then(r => {          
+        this.database.SubirDataBase(diccionario.apis.mesas).then(r => {
           //this.messageHandler.mostrarMensaje("Mesa creada con éxito");
           this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
           this.elSpinner.dismiss();

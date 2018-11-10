@@ -168,6 +168,14 @@ body{
   }
 }
 
+.alert-md .alert-head {
+  padding: 15px 24px 0px;
+}
+
+.alert-md .alert-sub-title {
+  font-weight: 500;
+}
+
 .success-alert{
   text-align: center;
   > div{
@@ -181,7 +189,6 @@ body{
     background-color: $error-color !important;//$error-color !important;
   }
 }
-
 
 .item-md {
   border-radius: 12px;

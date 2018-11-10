@@ -38,7 +38,7 @@ export class PrincipalMozoPage {
       .subscribe(snp => {
         let aux:Array<any>;
         aux = snp;
-        aux = aux.filter(a => a.estado == 'Libre');
+        aux = aux.filter(a => a.estado == diccionario.estados_mesas.libre);
         if(aux.length == 0)
           this.noHayMesasLibres = true;
         else
@@ -53,7 +53,7 @@ export class PrincipalMozoPage {
         this.database.db.list<any>(diccionario.apis.lista_espera).valueChanges()
         .subscribe(snapshots => {
             this.clientesEspera = snapshots;
-            this.clientesEspera = this.clientesEspera.filter(f => f.estado == 'sin_mesa' && f.fecha.split(' ')[0] == hoy);
+            this.clientesEspera = this.clientesEspera.filter(f => f.estado == diccionario.estados_reservas_agendadas.sin_mesa && f.fecha.split(' ')[0] == hoy);
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
         });  
       });

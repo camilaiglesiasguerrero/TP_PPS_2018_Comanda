@@ -4,6 +4,21 @@ page-trivia{
     background-color: $first-detail-color;
   }
 
+  .alert-head {
+    padding: 12px 24px 10px !important;
+  }
+
+  .alert-md .alert-sub-title {
+    font-size: 16px;
+    margin: 8px 0 0 !important;
+  }
+
+  .alert-sub-title {
+    margin: 8px 0 0;
+    padding: 0;
+    font-weight: normal;
+  }
+
   .label-md{
     margin: 8px 8px 8px 0;
   }

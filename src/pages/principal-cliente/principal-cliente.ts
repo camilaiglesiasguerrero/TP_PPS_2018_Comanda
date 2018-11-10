@@ -10,6 +10,7 @@ import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
 import {TriviaPage} from "../juegos/trivia/trivia";
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
+import {diccionario} from "../../models/diccionario";
 
 @IonicPage()
 @Component({
@@ -46,7 +47,7 @@ export class PrincipalClientePage {
       .then(barcodeData => {
         this.mesa = barcodeData.text;
         donde == 'hacerPedido' ? this.irA('hacerPedido') : this.irA('verPedido');
-        
+
       }, (err) => {
         //console.log('Error: ', err);
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
@@ -73,7 +74,7 @@ export class PrincipalClientePage {
   solicitarMesa(){
     this.barcodeScanner.scan().then((barcodeData) => {
       this.ingresoLocal = barcodeData.text;
-      if(this.ingresoLocal == 'IngresoLocal'){
+      if(this.ingresoLocal == diccionario.qr.ingreso_local){
         this.infoReserva();
       }else{
         this.messageHandler.mostrarErrorLiteral("Error al ingresar al local");
@@ -117,10 +118,10 @@ export class PrincipalClientePage {
     this.elSpinner = this.spinnerHandler.getAllPageSpinner();
     this.elSpinner.present();
     var fecha = new Date();
-    var listaEspera = { estado: "sin_mesa", fecha: fecha.toLocaleString(), clienteId: this.params.user.uid, comensales: comensales, nombre: this.params.user.nombre };
+    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fecha.toLocaleString(), clienteId: this.params.user.uid, comensales: comensales, nombre: this.params.user.nombre };
     this.database.jsonPackData = listaEspera;
-    this.database.jsonPackData['key'] = this.database.ObtenerKey('lista-espera/');
-    this.database.SubirDataBase('lista-espera/').then(response => {
+    this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.lista_espera);
+    this.database.SubirDataBase(diccionario.apis.lista_espera).then(response => {
       this.messageHandler.mostrarMensaje("Enseguida se le asignará una mesa");
       this.elSpinner.dismiss();
       //TODO: ENVIAR NOTIFICACION PUSH A LOS MOZOS Y SUPERVISORES DE QUE HAY UN CLIENTE ESPERANDO MESA
