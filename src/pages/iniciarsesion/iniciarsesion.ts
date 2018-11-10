@@ -54,7 +54,7 @@ export class IniciarsesionPage {
     } else {
       setTimeout(() => {
         this.splash = false;
-      }, 600);
+      }, 6000);
     }
   }
 
@@ -65,7 +65,7 @@ export class IniciarsesionPage {
       this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass)
         .then(response => {
           this.autenticationService.logInFromDataBase();
-          if(this.paramsService.name != 'administrador@gmail.com'){
+          if(this.paramsService.email != 'administrador@gmail.com'){
             this.allUsersData = this.usuariosService.getByUserId();
             if(this.allUsersData == null){
               this.allUsersData = this.usuariosService.getEmpleados();
@@ -75,7 +75,7 @@ export class IniciarsesionPage {
               this.onLogged(response[0].payload.val());
             })
           }else{
-            this.onLogged({email: this.paramsService.name, rol:'admin'});
+            this.onLogged({email: this.paramsService.email, rol:'admin'});
           }
         })
         .catch(error => {
@@ -133,7 +133,7 @@ export class IniciarsesionPage {
     if (this.formGroup.controls.emailValidator.value && this.formGroup.controls.passValidator.value) {
       if(this.formGroup.controls.emailValidator.valid){
         if(this.formGroup.controls.passValidator.valid){
-          this.paramsService.name = this.formGroup.controls.emailValidator.value;
+          this.paramsService.email = this.formGroup.controls.emailValidator.value;
           this.paramsService.pass = this.formGroup.controls.passValidator.value;
           return true;
         }

@@ -8,6 +8,7 @@ import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from "../../services/database.service";
 import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
+import {TriviaPage} from "../juegos/trivia/trivia";
 
 @IonicPage()
 @Component({
@@ -55,6 +56,9 @@ export class PrincipalClientePage {
       case 'bebida':
         this.navCtrl.push(AnagramaPage);
         break;
+      case 'postre':
+        this.navCtrl.push(TriviaPage);
+        break;
       case 'verPedido':
         let popover = this.popoverCtrl.create(EstadoPedidoPage,{mesa:this.mesa});
         popover.present({
@@ -71,7 +75,6 @@ export class PrincipalClientePage {
         this.messageHandler.mostrarErrorLiteral("Error al ingresar al local");
       }
     }, (error) => {
-      this.infoReserva();
       this.messageHandler.mostrarErrorLiteral(error);
     });
   }

@@ -59,6 +59,8 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+import { TriviaPage } from '../pages/juegos/trivia/trivia';
+
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
@@ -117,6 +119,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PropinaPage,
     EncuestaClienteResultadosPage,
     UbicacionPage,
+    ReservasAgendadasPage,
+    TriviaPage,
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage
   ],
@@ -161,6 +165,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PropinaPage,
     EncuestaClienteResultadosPage,
     UbicacionPage,
+    ReservasAgendadasPage,
+    TriviaPage,
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage
   ],

@@ -37,7 +37,7 @@ export class ReservasAgendadasPage {
       this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
       elSpinner.dismiss();
       //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA
-      this.navCtrl.push(PrincipalClientePage);
+      this.navCtrl.setRoot(PrincipalClientePage);
     });
 
   }

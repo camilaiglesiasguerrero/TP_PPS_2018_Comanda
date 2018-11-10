@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>¡Participá por un Postre!</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <ion-row *ngIf="!empiezaElJuego">
+    <ion-col>
+      <p class="explicacion">Contesta 5 preguntas correctas y gana un postre gratis. ¡Apurate, que sólo tenés 10 segundos por pregunta!</p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <p id='timer' class="timer" readonly >{{cronometro}}<i class="mili">{{cronoMili}}</i></p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <button type="button" class="mi-btn btn-success" (click)='comenzar()'>Comenzar</button>
+    </ion-col>
+  </ion-row>
+  <div *ngIf="empiezaElJuego">
+    <ion-row>
+      <ion-col class="pregunta">
+        <p>{{pregunta.pregunta}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let respuesta of pregunta.respuestas" [ngClass]="{'respuesta-select': respuesta.selected}" (click)="respuestaClick(respuesta)" >
+      <ion-col>
+        <ion-item >
+          <ion-label style="color: #005668;">{{respuesta.description}}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <!--<ion-list radio-group [(ngModel)]="respuesta" (ionChange)="respuestaClick()">-->
+    <!--<ion-item *ngFor="let respuesta of pregunta.respuestas" style="background-color: transparent">-->
+    <!--<ion-label style="color: beige;">{{respuesta.description}}</ion-label>-->
+    <!--<ion-radio value="{{respuesta.description}}" checked></ion-radio>-->
+    <!--</ion-item>-->
+    <!--</ion-list>-->
+  </div>
+
+
+</ion-content>
