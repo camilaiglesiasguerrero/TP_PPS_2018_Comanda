@@ -37,7 +37,7 @@ export class MesasPage {
         this.navCtrl.push(AltaMesaPage,{mesa:mesa});
         break;
       case 'B':
-        mesa.estado == 'Libre' ? mesa.estado = 'Deshabilitada' : mesa.estado = 'Libre';
+        mesa.estado == diccionario.estados_mesas.libre ? mesa.estado = diccionario.estados_mesas.deshabilitada : mesa.estado = diccionario.estados_mesas.libre;
         this.database.jsonPackData = mesa;
         this.database.SubirDataBase(diccionario.apis.mesas);
         break;

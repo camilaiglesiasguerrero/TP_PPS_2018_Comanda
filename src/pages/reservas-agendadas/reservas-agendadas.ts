@@ -5,6 +5,7 @@ import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from "../../services/database.service";
 import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import {PrincipalClientePage} from "../principal-cliente/principal-cliente";
+import {diccionario} from "../../models/diccionario";
 
 @Component({
   selector: 'page-reservar-agendadas',
@@ -30,10 +31,11 @@ export class ReservasAgendadasPage {
     elSpinner.present();
     var concatFecha = this.fecha + "T" + this.hora;
     var dateaux = new Date(concatFecha);
-    var listaEspera = { estado: "sin_mesa", fecha: dateaux.toLocaleString(), clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
+    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: dateaux.toLocaleString(), clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
     this.database.jsonPackData = listaEspera;
-    this.database.jsonPackData['key'] = this.database.ObtenerKey('lista-espera/');
-    this.database.SubirDataBase('reservas-agendadas/').then(response => {
+    //TODO: CARI: chequear esto para que estaba
+   // this.database.jsonPackData['key'] = this.database.ObtenerKey('lista-espera/');
+    this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
       this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
       elSpinner.dismiss();
       //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA

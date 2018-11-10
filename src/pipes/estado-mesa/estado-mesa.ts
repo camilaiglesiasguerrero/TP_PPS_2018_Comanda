@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {diccionario} from "../../models/diccionario";
 
 /**
  * Generated class for the EstadoMesaPipe pipe.
@@ -13,9 +14,9 @@ export class EstadoMesaPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string, ...args) {
-    if(value === 'Deshabilitada')
-      return value
+    if(value === diccionario.estados_mesas.deshabilitada)
+      return value;
     else
-      return 'Habilitada';
+      return diccionario.estados_mesas.habilitada;
   }
 }

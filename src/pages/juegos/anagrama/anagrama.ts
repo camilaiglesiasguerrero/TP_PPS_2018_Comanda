@@ -119,8 +119,8 @@ export class AnagramaPage {
       if(!this.anagrama.Verificar())
       { 
         this.Rendirse(); 
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,false,this.database.ObtenerKey('juegos/'));
-        this.database.SubirDataBase('juegos/').then(e=>{
+        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+        this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
           setTimeout(function(){
             this.messageHandler.mostrarErrorLiteral('¡Perdiste!');
             this.navCtrl.remove(1,1);
@@ -129,8 +129,8 @@ export class AnagramaPage {
       }
       else
       {
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,true,this.database.ObtenerKey('juegos/'));
-        this.database.SubirDataBase('juegos/').then(e=>{
+        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+        this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
           setTimeout(function(){
             this.messageHandler.mostrarMensaje('¡Ganaste!');
             this.navCtrl.remove(1,1);

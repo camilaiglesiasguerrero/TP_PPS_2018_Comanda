@@ -128,25 +128,26 @@ export class OcuparMesaPage {
   Confirmar(){
     //Genero pedido pendiente para la mesa-cliente
     let reserva = new Reserva();
-    reserva.key = this.database.ObtenerKey('reservas/');
+    reserva.key = this.database.ObtenerKey(diccionario.apis.reservas);
     reserva.idPedido = null;
     //reserva.dniCliente = this.searchText.split('(')[1].split(')')[0];
     reserva.cliente = this.cliente.clienteId;
     reserva.idMesa = this.mesa.id;
+    //TODO: CAMI: CHEQUEATE ESTE ESTADO QUE CREO QUE RESERVAS NO LLEVA MAS ESTADO
     reserva.estado = 'Reserva';
     this.database.jsonPackData = reserva;
-    this.database.SubirDataBase('reservas/').then(r=>{
+    this.database.SubirDataBase(diccionario.apis.reservas).then(r=>{
     
       //Actualizo estado de la mesa
       let aux = new Mesa(this.mesa.id,
                           this.mesa.comensales,
                           this.mesa.tipo,
                           this.mesa.foto,
-                          'Reservada');
+                          diccionario.estados_mesas.reservada);
       aux.key = this.mesa.key;
       this.database.jsonPackData = aux;
-      this.database.SubirDataBase('mesas/').then(m=>{
-        this.mesa.estado = 'Reservada';
+      this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
+        this.mesa.estado = diccionario.estados_mesas.reservada;
         
         //Actualizo lista-espera
         let le = {
@@ -156,10 +157,9 @@ export class OcuparMesaPage {
           fecha: this.cliente.fecha,
           key: this.cliente.key,
           nombre: this.cliente.nombre
-        }
-
+        };
         this.database.jsonPackData = le;
-        this.database.SubirDataBase('lista-espera/').then(le=>{
+        this.database.SubirDataBase(diccionario.apis.lista_espera).then(le=>{
         });
       });      
     });

@@ -34,6 +34,7 @@ export class TriviaPage {
   respuesta:boolean;
   cantPreg=0;
   preguntasMostradas = [];
+  yaSeMostro = true;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -65,14 +66,19 @@ export class TriviaPage {
   }
 
   comenzar(){
-    this.trivia.generarPregunta();
     this.verifica = false;
     this.seRindio = false;
     this.empiezaElJuego = true;
     this.segundos = 9;
     this.milisegundos = 100;
     this.cantPreg++;
+    while(this.yaSeMostro){
+      for(var i=0; this.preguntasMostradas.length; i++){
+
+      }
+    }
     clearInterval(this.repetidor);
+    this.trivia.generarPregunta();
     this.preguntasMostradas.push(this.trivia.preguntaSecreta);
     this.pregunta = this.trivia.arrayOrdenado[this.trivia.preguntaSecreta];
     // this.respuesta = null;
@@ -161,7 +167,6 @@ export class TriviaPage {
     alert.present();
 
   }
-
 
   private esCorrecta(){
     let alert = this.alertCtrl.create({

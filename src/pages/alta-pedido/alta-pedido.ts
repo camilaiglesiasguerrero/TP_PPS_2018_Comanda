@@ -50,6 +50,7 @@ direccion:any = {value:""};
     this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
           this.reservas = snapshots;
+          //TODO: CAMI: CHEQUEATE QUE ESTE ESTADO CREO QUE NO VA MAS
           this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
           if(this.params.rol == 'cliente'){
             this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.clienteUid )
@@ -59,7 +60,7 @@ direccion:any = {value:""};
     this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
       .subscribe(snapshots => {
         this.comidas = snapshots;
-        this.comidas = this.comidas.filter(f => f.estado == 'Habilitado' );
+        this.comidas = this.comidas.filter(f => f.estado == diccionario.estados_platos_bebidas.habilitado);
         this.comidas = this.comidas.filter(f => f.cantidad > 0 );
 
       });
@@ -67,7 +68,7 @@ direccion:any = {value:""};
     this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
       .subscribe(snapshots => {
           this.bebidas = snapshots;  
-          this.bebidas = this.bebidas.filter(f => f.estado == 'Habilitado' );
+          this.bebidas = this.bebidas.filter(f => f.estado == diccionario.estados_platos_bebidas.habilitado);
           this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
           
       });
@@ -132,11 +133,11 @@ direccion:any = {value:""};
     spinner.present();*/
     let pedidoASubir : Pedido = new Pedido();
     let aux;
-    pedidoASubir.key = this.database.ObtenerKey('pedidos/');
-    pedidoASubir.estado = 'Solicitado';
+    pedidoASubir.key = this.database.ObtenerKey(diccionario.apis.pedidos);
+    pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
     pedidoASubir.productoPedido = null;
     this.database.jsonPackData = pedidoASubir;
-    this.database.SubirDataBase('pedidos/').then(r=>{
+    this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
       this.restarProducto();
 
       for (let i = 0; i < this.productoPedido.length; i++) {
@@ -148,7 +149,7 @@ direccion:any = {value:""};
 
         this.database.jsonPackData = aux;
 
-        this.database.SubirDataBase('pedidos/'+pedidoASubir.key+'/productos/').then(e=>{
+        this.database.SubirDataBase(diccionario.apis.pedidos + pedidoASubir.key + diccionario.apis.productos).then(e=>{
           this.messageHandler.mostrarMensaje('El pedido fue encargado');
         });
       }
@@ -165,7 +166,7 @@ direccion:any = {value:""};
             estado:'Con pedido'
           }
           this.database.jsonPackData = res;
-          this.database.SubirDataBase('reservas/');
+          this.database.SubirDataBase(diccionario.apis.reservas);
         }
       }
     }else{
@@ -177,7 +178,7 @@ direccion:any = {value:""};
         estado:'Con pedido'
       }
       this.database.jsonPackData = res;
-      this.database.SubirDataBase('reservas/');
+      this.database.SubirDataBase(diccionario.apis.reservas);
     }
   }
 
@@ -200,9 +201,9 @@ direccion:any = {value:""};
 
       this.database.jsonPackData = prod;
       if(prod.tipo == 'Bebida')
-        this.database.SubirDataBase('productos/bebidas/');
+        this.database.SubirDataBase(diccionario.apis.productos_bebidas);
       else
-        this.database.SubirDataBase('productos/platos/');
+        this.database.SubirDataBase(diccionario.apis.productos_platos);
     }
   }
 
