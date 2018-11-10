@@ -14,24 +14,34 @@
 
 
 <ion-content padding>
-    <ion-row>
-        <ion-col text-center>
-            <button ion-button round color="light" (click)="escanearQR('Reservar')">
-                <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
-                Reservar mesa 
-            </button>
-        </ion-col>
-    </ion-row>
+    <ion-card>
+        Clientes en lista de espera
+        <ion-row *ngFor="let c of clientesEspera">
+            <ion-col>{{c.nombre}}</ion-col>
+            <ion-col>{{c.comensales}} comensales</ion-col>
+            <ion-col text-center>
+                <button *ngIf="c.comensales <= comensalesMax" ion-button round color="light" (click)="escanearQR('Reservar',c)">
+                    <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                    Asignar mesa 
+                </button>
+            </ion-col>
+            <ion-col text-center>
+                <button *ngIf="c.comensales > comensalesMax" ion-button round color="light" disabled>
+                    <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                    Asignar mesa 
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+    <ion-card>
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button round color="light" (click)="escanearQR('verPedido')">
+                    <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                    Ver estado del pedido 
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 
-    <ion-row>
-        <ion-col text-center>
-            <button ion-button round color="light" (click)="escanearQR('verPedido')">
-                <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
-                Ver estado del pedido 
-            </button>
-        </ion-col>
-    </ion-row>
-
-
-    
 </ion-content>
