@@ -24,13 +24,14 @@ export class OcuparMesaPage {
   id:string;
   mesa: Mesa;
   aux : Array<any>;
-  clientes:Array<any>;
-  clientesFiltro:Array<any>;
-  searchText:string; 
+  //clientes:Array<any>;
+  //clientesFiltro:Array<any>;
+  //searchText:string; 
   display : boolean;
   estadoInicial:boolean;
   spinner:any;
   mostrar:boolean=false;
+  cliente:any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -40,15 +41,17 @@ export class OcuparMesaPage {
               private spinnerHandler: SpinnerHandler) {
     
     this.estadoInicial = true;
-    if(this.navParams.get('mesa').split(':')[0] != 'Mesa'){
+    if(this.navParams.get('mesa').split(':')[0] != 'Mesa' ||this.navParams.get('mesa').split(':')[1] == undefined ){
       this.messageHandler.mostrarError('Ese QR no es de una mesa');
       this.navCtrl.remove(1,1);
     }
-    else
+    else{
       this.id = this.navParams.get('mesa').split(':')[1];
+      this.cliente = this.navParams.get('cliente');
+    }
     this.mesa = new Mesa();
     
-    this.display = false;
+    //this.display = false;
 
     this.database.db.list<any>('mesas/').valueChanges()
       .subscribe(snapshots => {
@@ -79,9 +82,9 @@ export class OcuparMesaPage {
       }
     });
     
-    this.clientes = new Array<any>();
-    this.clientesFiltro = new Array<any>();
-    
+    //this.clientes = new Array<any>();
+    //this.clientesFiltro = new Array<any>();
+    /*
     this.database.db.list<any>('usuarios/').valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -91,8 +94,7 @@ export class OcuparMesaPage {
               this.clientes.push(this.aux[index].apellido + ', '+ this.aux[index].nombre + ' (' + this.aux[index].dni + ')');
             }
         }       
-    });  
-    
+    });  */
   }
 
   ionViewDidLoad() {
@@ -101,7 +103,7 @@ export class OcuparMesaPage {
   }
 
  
-  search(ev:any){
+  /*search(ev:any){
     this.display = true;
     const val = ev.target.value;
     this.clientesFiltro = this.clientes;
@@ -120,51 +122,51 @@ export class OcuparMesaPage {
     this.searchText = cli;
     this.clientesFiltro = this.clientes;
     this.display = false;
-  }
+  }*/
 
   Cancelar(){
-    this.searchText = '';
+    //this.searchText = '';
     this.navCtrl.remove(1,1);
     this.mesa = new Mesa();
   }
 
   Confirmar(){
-    let flag = false;
+    //Genero pedido pendiente para la mesa-cliente
+    let reserva = new Reserva();
+    reserva.key = this.database.ObtenerKey('reservas/');
+    reserva.idPedido = null;
+    //reserva.dniCliente = this.searchText.split('(')[1].split(')')[0];
+    reserva.cliente = this.cliente.clienteId;
+    reserva.idMesa = this.mesa.id;
+    reserva.estado = 'Reserva';
+    this.database.jsonPackData = reserva;
+    this.database.SubirDataBase('reservas/').then(r=>{
+    
+      //Actualizo estado de la mesa
+      let aux = new Mesa(this.mesa.id,
+                          this.mesa.comensales,
+                          this.mesa.tipo,
+                          this.mesa.foto,
+                          'Reservada');
+      aux.key = this.mesa.key;
+      this.database.jsonPackData = aux;
+      this.database.SubirDataBase('mesas/').then(m=>{
+        this.mesa.estado = 'Reservada';
+        
+        //Actualizo lista-espera
+        let le = {
+          clienteId: this.cliente.clienteId,
+          comensales: this.cliente.comensales,
+          estado: 'en_mesa_'+this.mesa.id,
+          fecha: this.cliente.fecha,
+          key: this.cliente.key,
+          nombre: this.cliente.nombre
+        }
 
-    for (let index = 0; index < this.clientes.length; index++) {
-      if(this.clientes[index] == this.searchText){
-        this.estadoInicial = false;
-        flag = true;
-        break;
-      }
-    }
-    if(flag){
-      //Genero pedido pendiente para la mesa-cliente
-      let reserva = new Reserva();
-      reserva.key = this.database.ObtenerKey('reservas/');
-      reserva.idPedido = null;
-      reserva.dniCliente = this.searchText.split('(')[1].split(')')[0];
-      reserva.idMesa = this.mesa.id;
-      reserva.estado = 'Reserva';
-      this.database.jsonPackData = reserva;
-      this.database.SubirDataBase('reservas/').then(r=>{
-      
-        //Actualizo estado de la mesa
-        let aux = new Mesa(this.mesa.id,
-                            this.mesa.comensales,
-                            this.mesa.tipo,
-                            this.mesa.foto,
-                            'Reservada');
-        aux.key = this.mesa.key;
-        console.log(aux);                
-        this.database.jsonPackData = aux;
-        this.database.SubirDataBase('mesas/').then(m=>{
-          this.mesa.estado = 'Reservada';
-        });      
-      });
-    }
-    else{
-      this.messageHandler.mostrarErrorLiteral("Seleccione un cliente válido");
-    }
+        this.database.jsonPackData = le;
+        this.database.SubirDataBase('lista-espera/').then(le=>{
+        });
+      });      
+    });
   }
 }

@@ -1,9 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-import { GeocodingProvider } from '../../providers/geocoding';
 import { Platform } from 'ionic-angular';
-declare var google;
 import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { Pedido } from '../../models/pedido';
@@ -19,19 +16,20 @@ import { ParamsService } from '../../services/params.service';
 })
 export class AltaPedidoPage {
 
-  bebidas:any;
-  comidas:any;
-  reservas:any;
-  reservaKey : string;
-  reservadniCliente:string;
-  reservaMesa:any;
-  productoPedido : Array<ProductoPedido>;
-  producto : Array<Producto>;
-  spinner:any;
-  user:any;
-  beb = 0;
-  pla = 0;
-  direccion:any = {value:""};
+bebidas:any;
+comidas:any;
+reservas:any;
+reservaKey : string;
+reservadniCliente:string;
+reservaMesa:any;
+productoPedido : Array<ProductoPedido>;
+producto : Array<Producto>;
+spinner:any;
+user:any;
+beb = 0;
+pla = 0;
+clienteTieneReserva:boolean;
+direccion:any = {value:""};
 
 
   constructor(public navCtrl: NavController,
@@ -39,10 +37,7 @@ export class AltaPedidoPage {
               private database: DatabaseService,
               private messageHandler:MessageHandler,
               private spinnerH:SpinnerHandler,
-              private params:ParamsService,
-              public geolocation: Geolocation,
-              private geocodingProvider: GeocodingProvider,
-              private platform: Platform) {
+              private params:ParamsService) {
 
     this.navParams.get("reserva") ? this.reservaKey = this.navParams.get("reserva") : null;
     this.navParams.get("dniCliente") ? this.reservadniCliente = this.navParams.get("dniCliente") : null;
@@ -50,6 +45,15 @@ export class AltaPedidoPage {
     this.productoPedido = new Array<ProductoPedido>();
     this.producto = new Array<Producto>();
     this.user = this.params.user;
+                
+    this.database.db.list<any>('reservas/').valueChanges()
+      .subscribe(snapshots => {
+          this.reservas = snapshots;
+          this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
+          if(this.params.rol == 'cliente'){
+            this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.dni )
+          }
+     }); 
 
     this.database.db.list<any>('productos/platos/').valueChanges()
       .subscribe(snapshots => {
@@ -61,17 +65,14 @@ export class AltaPedidoPage {
 
     this.database.db.list<any>('productos/bebidas/').valueChanges()
       .subscribe(snapshots => {
-        this.bebidas = snapshots;
-        this.bebidas = this.bebidas.filter(f => f.estado == 'Habilitado' );
-        this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );
+          this.bebidas = snapshots;  
+          this.bebidas = this.bebidas.filter(f => f.estado == 'Habilitado' );
+          this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
+          
+      });     
+  
 
-      });
-    //aca
-    this.database.db.list<any>('reservas/').valueChanges()
-      .subscribe(snapshots => {
-        this.reservas = snapshots;
-        this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
-      });
+
 
   }
 
@@ -128,7 +129,10 @@ export class AltaPedidoPage {
 
   }
 
-  Confirmar(){
+  Confirmar(){ 
+    /*let spinner = this.spinnerH;
+    spinner.getAllPageSpinner();
+    spinner.present();*/
     let pedidoASubir : Pedido = new Pedido();
     let aux;
     pedidoASubir.key = this.database.ObtenerKey('pedidos/');

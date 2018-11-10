@@ -63,6 +63,7 @@ import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
+import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
@@ -85,6 +86,7 @@ import { EncuestaClienteService } from '../services/encuestasCliente.service';
 import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
+
 
 @NgModule({
   declarations: [
@@ -115,6 +117,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PropinaPage,
     EncuestaClienteResultadosPage,
     UbicacionPage,
+    EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage
   ],
   imports: [
@@ -158,6 +161,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PropinaPage,
     EncuestaClienteResultadosPage,
     UbicacionPage,
+    EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage
   ],
   providers: [
