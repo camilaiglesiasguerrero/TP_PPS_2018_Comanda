@@ -6,13 +6,8 @@ import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { Reserva } from '../../models/reserva';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
+import {diccionario} from "../../models/diccionario";
 
-/**
- * Generated class for the OcuparMesaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -53,7 +48,7 @@ export class OcuparMesaPage {
     
     //this.display = false;
 
-    this.database.db.list<any>('mesas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {

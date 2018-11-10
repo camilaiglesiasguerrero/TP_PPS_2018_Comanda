@@ -11,6 +11,7 @@ import { ParamsService } from '../../services/params.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import { PrincipalMozoPage } from '../principal-mozo/principal-mozo';
+import { diccionario } from '../../models/diccionario';
 
 @IonicPage()
 @Component({
@@ -49,7 +50,7 @@ mostrarParcial:boolean = false;
     this.listadoAPedir = new Array<any>();
     this.user = this.params.user;
                 
-    this.database.db.list<any>('reservas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
           this.reservas = snapshots;
           this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
@@ -58,14 +59,14 @@ mostrarParcial:boolean = false;
           }
      }); 
 
-    this.database.db.list<any>('productos/platos/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
       .subscribe(snapshots => {
         this.comidas = snapshots;
         this.comidas = this.comidas.filter(f => f.cantidad > 0 );
 
       });
 
-    this.database.db.list<any>('productos/bebidas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
       .subscribe(snapshots => {
           this.bebidas = snapshots;  
           this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
