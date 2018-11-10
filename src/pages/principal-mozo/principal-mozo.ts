@@ -5,13 +5,8 @@ import { MessageHandler } from '../../services/messageHandler.service';
 import { OcuparMesaPage } from '../ocupar-mesa/ocupar-mesa';
 import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
+import {diccionario} from "../../models/diccionario";
 
-/**
- * Generated class for the PrincipalMozoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -38,7 +33,7 @@ export class PrincipalMozoPage {
     
        
 
-    this.database.db.list<any>('mesas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snp => {
         let aux:Array<any>;
         aux = snp;
@@ -54,7 +49,7 @@ export class PrincipalMozoPage {
             this.comensalesMax < aux[i].comensales ? this.comensalesMax = aux[i].comensales : null ;
         }
 
-        this.database.db.list<any>('lista-espera/').valueChanges()
+        this.database.db.list<any>(diccionario.apis.lista_espera).valueChanges()
         .subscribe(snapshots => {
             this.clientesEspera = snapshots;
             this.clientesEspera = this.clientesEspera.filter(f => f.estado == 'sin_mesa' && f.fecha.split(' ')[0] == hoy);

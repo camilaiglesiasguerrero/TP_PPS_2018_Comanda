@@ -5,13 +5,8 @@ import { AltaMenuPage } from '../alta-menu/alta-menu';
 import { DatabaseService } from '../../services/database.service';
 import { Producto } from '../../models/producto';
 import { MessageHandler } from '../../services/messageHandler.service';
+import {diccionario} from "../../models/diccionario";
 
-/**
- * Generated class for the ListadoMenuPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -41,7 +36,7 @@ export class ListadoMenuPage {
     }
     this.navParams.get('alta') ? this.navCtrl.remove(1,1) : null;
 
-    this.database.db.list<any>('productos/'+this.menu).valueChanges()
+    this.database.db.list<any>(diccionario.apis.productos + this.menu).valueChanges()
       .subscribe(snapshots => {
           this.listado = snapshots;  
           for (let index = 0; index < this.listado.length; index++) {

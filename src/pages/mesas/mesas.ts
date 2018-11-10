@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { AltaMesaPage } from '../alta-mesa/alta-mesa';
 import { DatabaseService } from '../../services/database.service';
 import { Mesa } from '../../models/mesa';
+import {diccionario} from "../../models/diccionario";
+
 
 @Component({
   selector: 'page-mesas',
@@ -16,7 +18,7 @@ export class MesasPage {
   constructor(public navCtrl: NavController,
               private database: DatabaseService) {
     
-    this.database.db.list<any>('mesas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snapshots => {
           this.mesas = snapshots;  
 
@@ -37,7 +39,7 @@ export class MesasPage {
       case 'B':
         mesa.estado == 'Libre' ? mesa.estado = 'Deshabilitada' : mesa.estado = 'Libre';
         this.database.jsonPackData = mesa;
-        this.database.SubirDataBase('mesas/');
+        this.database.SubirDataBase(diccionario.apis.mesas);
         break;
     }
   }
