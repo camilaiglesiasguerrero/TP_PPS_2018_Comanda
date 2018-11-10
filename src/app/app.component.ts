@@ -19,6 +19,7 @@ import { DueñosPage } from '../pages/dueños/dueños';
 import { ProfilePage } from '../pages/profile/profile';
 import { PropinaPage } from '../pages/propina/propina';
 import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
+import {ReservasAgendadasPage} from "../pages/reservas-agendadas/reservas-agendadas";
 
 
 
@@ -32,6 +33,7 @@ export class MyApp {
   rootPage: any = IniciarsesionPage;
   loginPages: Array<{ title: string, component: any }>;
   clientePages: Array<{ title: string, component: any }>;
+  clienteAnonimoPages: Array<{ title: string, component: any }>;
   mozoPages: Array<{ title: string, component: any }>;
   metrePages: Array<{ title: string, component: any }>;
   supervisorPages: Array<{ title: string, component: any }>;
@@ -47,6 +49,13 @@ export class MyApp {
       { title: 'Registrarse', component: RegistrarsePage }
     ];
     this.clientePages = [
+      { title: "Inicio", component: PrincipalClientePage},
+      { title: "Hacer Pedido", component: AltaPedidoPage },
+      { title: "Encuesta de satisfacción", component: EncuestaClientePage},
+      { title: "Hacer una reserva", component: ReservasAgendadasPage}
+
+    ];
+    this.clienteAnonimoPages = [
       { title: "Inicio", component: PrincipalClientePage},
       { title: "Hacer Pedido", component: AltaPedidoPage },
       { title: "Encuesta de satisfacción", component: EncuestaClientePage}

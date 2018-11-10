@@ -19,40 +19,41 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label floating>Correo Electrónico</ion-label>
-        <ion-input type="email" required name="email" [(ngModel)]="paramsService.name"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label floating>Contraseña</ion-label>
-        <ion-input type="password" required name="password" [(ngModel)]="paramsService.pass"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-
+<ion-content padding >
+  <form [formGroup]="formGroup">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Correo Electrónico</ion-label>
+          <ion-input type="email" required name="email" formControlName="emailValidator" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Contraseña</ion-label>
+          <ion-input type="password" required name="password" formControlName="passValidator"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
         <button ion-button block color="third" (click)="elegirUser()">Elegir usuario</button>
+      </ion-col>
+    </ion-row>
 
-    </ion-col>
-  </ion-row>
 
-
-  <ion-row>
-    <ion-col>
-      <button ion-button block color="dark" (click)="singIn()">Iniciar Sesión</button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <button ion-button block color="light" (click)="registerUser()">Registrarse</button>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button block color="dark" (click)="singIn()">Iniciar Sesión</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button block color="light" (click)="registerUser()">Registrarse</button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

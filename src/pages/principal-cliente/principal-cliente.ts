@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, AlertController } from 'ionic-angular';
 import { ParamsService } from '../../services/params.service';
 import { AnagramaPage } from '../juegos/anagrama/anagrama';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -29,7 +29,8 @@ export class PrincipalClientePage {
               private messageHandler: MessageHandler,
               public popoverCtrl: PopoverController,
               private database: DatabaseService,
-              private spinnerHandler: SpinnerHandler) {
+              private spinnerHandler: SpinnerHandler,
+              private alertCtrl: AlertController) {
     this.user = this.params.user;
   }
 
@@ -65,20 +66,51 @@ export class PrincipalClientePage {
     this.barcodeScanner.scan().then((barcodeData) => {
       this.ingresoLocal = barcodeData.text;
       if(this.ingresoLocal == 'IngresoLocal'){
-        this.guardarEnListaDeEspera();
+        this.infoReserva();
       }else{
         this.messageHandler.mostrarErrorLiteral("Error al ingresar al local");
       }
     }, (error) => {
+      this.infoReserva();
       this.messageHandler.mostrarErrorLiteral(error);
     });
   }
 
-  private guardarEnListaDeEspera(){
+  private infoReserva(){
+    let alert = this.alertCtrl.create({
+      title: 'Reservar mesa',
+      inputs: [
+        {
+          name: 'comensales',
+          placeholder: 'Cantidad de comensales',
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Reservar',
+          handler: data => {
+            this.guardarEnListaDeEspera(data.comensales);
+          }
+        }
+      ]
+    });
+    alert.present();
+
+  }
+
+  private guardarEnListaDeEspera(comensales){
     this.elSpinner = this.spinnerHandler.getAllPageSpinner();
     this.elSpinner.present();
     var fecha = new Date();
-    var listaEspera = { estado: "sin mesa", fecha: fecha.toLocaleString(), clienteId: this.params.user.uid };
+    var listaEspera = { estado: "sin_mesa", fecha: fecha.toLocaleString(), clienteId: this.params.user.uid, comensales: comensales, nombre: this.params.user.nombre };
     this.database.jsonPackData = listaEspera;
     this.database.jsonPackData['key'] = this.database.ObtenerKey('lista-espera/');
     this.database.SubirDataBase('lista-espera/').then(response => {
