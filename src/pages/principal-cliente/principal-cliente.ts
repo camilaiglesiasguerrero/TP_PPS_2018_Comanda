@@ -75,7 +75,6 @@ export class PrincipalClientePage {
         this.messageHandler.mostrarErrorLiteral("Error al ingresar al local");
       }
     }, (error) => {
-      this.infoReserva();
       this.messageHandler.mostrarErrorLiteral(error);
     });
   }

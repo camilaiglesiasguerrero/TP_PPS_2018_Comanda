@@ -91,7 +91,7 @@ export class RegistrarsePage {
       this.user.dni = this.miScan[4];
 
     }, (error) => {
-      //this.errorHandler.mostrarErrorLiteral(error);
+      this.messageHandler.mostrarErrorLiteral(error);
     });
   }
 
