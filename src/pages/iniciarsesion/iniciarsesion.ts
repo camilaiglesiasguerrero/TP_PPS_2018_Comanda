@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 import { AuthenticationService } from './../../services/authentication.service';
 import { MessageHandler } from './../../services/messageHandler.service';
@@ -14,6 +15,7 @@ import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import { IniciarsesionmenuPage } from '../iniciarsesionmenu/iniciarsesionmenu';
 
 
+
 @Component({
   selector: 'page-iniciarsesion',
   templateUrl: 'iniciarsesion.html',
@@ -21,23 +23,28 @@ import { IniciarsesionmenuPage } from '../iniciarsesionmenu/iniciarsesionmenu';
 export class IniciarsesionPage {
 
   splash = true;
-  user = { name: '', pass: '' }
   loading: boolean = false;
   spiner: any = null;
   userSelect: string = "";
   selectUserOptions = { title: '' };
   allUsersData: any;
-  userData: Observable<any[]>
+  userData: Observable<any[]>;
+  formGroup: FormGroup;
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    private autenticationService: AuthenticationService,
-    private messageHandler: MessageHandler,
-    private spinnerHandler: SpinnerHandler,
-    private usuariosService: UsuariosService,
-    public paramsService: ParamsService,
-    public popoverCtrl:PopoverController) {
+              public navParams: NavParams,
+              private autenticationService: AuthenticationService,
+              private messageHandler: MessageHandler,
+              private spinnerHandler: SpinnerHandler,
+              private usuariosService: UsuariosService,
+              public paramsService: ParamsService,
+              public popoverCtrl:PopoverController,
+              private formBuilder: FormBuilder) {
     this.selectUserOptions.title = "Usuarios disponibles";
+    this.formGroup = formBuilder.group({
+      emailValidator: ['', Validators.compose([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$'), Validators.required])],
+      passValidator: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    });
   }
 
   ionViewDidLoad() {
@@ -52,16 +59,13 @@ export class IniciarsesionPage {
   }
 
   singIn() {
-    this.user.name = this.paramsService.name;
-    this.user.pass = this.paramsService.pass;
     if (this.validForm()) {
       this.spiner = this.spinnerHandler.getAllPageSpinner();
       this.spiner.present();
-      this.paramsService.email = this.user.name;
-      this.paramsService.password = this.user.pass;
-      this.autenticationService.singIn(this.user.name, this.user.pass)
+      this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass)
         .then(response => {
-          if(this.user.name != 'administrador@gmail.com'){
+          this.autenticationService.logInFromDataBase();
+          if(this.paramsService.name != 'administrador@gmail.com'){
             this.allUsersData = this.usuariosService.getByUserId();
             if(this.allUsersData == null){
               this.allUsersData = this.usuariosService.getEmpleados();
@@ -71,8 +75,8 @@ export class IniciarsesionPage {
               this.onLogged(response[0].payload.val());
             })
           }else{
-            this.onLogged({email: this.user.name, rol:'admin'});
-          }    
+            this.onLogged({email: this.paramsService.name, rol:'admin'});
+          }
         })
         .catch(error => {
           this.spiner.dismiss();
@@ -86,15 +90,15 @@ export class IniciarsesionPage {
     this.paramsService.rol = user.rol;
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
-    this.autenticationService.logInFromDataBase();
-    
+
     switch(this.paramsService.rol){
       case 'mozo':
       case 'cocinero':
       case 'bartender':
       case 'delivery':
       case 'metre':
-        this.navCtrl.setRoot(EncuestaEmpleadoPage);    
+      case '':
+        this.navCtrl.setRoot(EncuestaEmpleadoPage);
         break;
       case 'cliente':
         this.navCtrl.setRoot(PrincipalClientePage);
@@ -105,9 +109,9 @@ export class IniciarsesionPage {
       case 'supervisor':
         this.navCtrl.setRoot(DashboardPage);
         break;
-      
+
     }
-    
+
     //console.log("Se logueo correctamente");
   }
 
@@ -116,17 +120,30 @@ export class IniciarsesionPage {
   }
 
   elegirUser(){
-      let popover = this.popoverCtrl.create(IniciarsesionmenuPage);
-      popover.present({
-      }).then(r=>{
-      });
+    let popover = this.popoverCtrl.create(IniciarsesionmenuPage);
+    popover.present({
+    }).then(r=>{});
+    popover.onDidDismiss(response => {
+      this.formGroup.controls.emailValidator.setValue(this.paramsService.email);
+      this.formGroup.controls.passValidator.setValue(this.paramsService.pass);
+    })
   }
 
   private validForm() {
-    if (this.user.pass && this.user.pass) {
-      return true;
+    if (this.formGroup.controls.emailValidator.value && this.formGroup.controls.passValidator.value) {
+      if(this.formGroup.controls.emailValidator.valid){
+        if(this.formGroup.controls.passValidator.valid){
+          this.paramsService.name = this.formGroup.controls.emailValidator.value;
+          this.paramsService.pass = this.formGroup.controls.passValidator.value;
+          return true;
+        }
+        this.messageHandler.mostrarErrorLiteral("La contraseña debe tener mínimo 6 caracteres", "Error al registrarse");
+      }else{
+        this.messageHandler.mostrarErrorLiteral("Email inválido", "Error al registrarse");
+      }
+    }else{
+      this.messageHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
     }
-    this.messageHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
     return false;
   }
 
