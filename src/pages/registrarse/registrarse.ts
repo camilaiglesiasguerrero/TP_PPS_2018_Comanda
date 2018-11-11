@@ -139,42 +139,6 @@ export class RegistrarsePage {
 
   }
 
-  private registrarYLoguear() {
-    let spiner = this.spinnerHandler.getAllPageSpinner();
-    spiner.present();
-    this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
-      .then(response => {
-        let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto, false);
-        cliente.uid = this.autenticationService.getUID();
-        this.usuarioService.guardar(cliente)
-          .then(response => {
-            spiner.dismiss();
-            this.messageHandler.mostrarMensaje("Bienvenido!!");
-            if (this.fromLogin) {
-              this.navCtrl.setRoot(IniciarsesionPage)
-            }
-          }, error => {
-            this.autenticationService.deleteUserLogged()
-              .then(response => {
-                spiner.dismiss();
-                this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
-                this.paramsService.isLogged = true;
-                if (this.fromLogin) {
-                  this.navCtrl.setRoot(IniciarsesionPage)
-                }
-              }, error => {
-                console.log("no se puedo eliminar el usuario logueado");
-                spiner.dismiss();
-                this.messageHandler.mostrarErrorLiteral("Hubo un error en el registro");
-              });
-          });
-      })
-      .catch(error => {
-        spiner.dismiss();
-        this.messageHandler.mostrarError(error, "Error al registrarse");
-      })
-  }
-
   private validatorCliente(){
     if (this.formGroup.controls.emailValidator.value && this.formGroup.controls.passValidator.value &&
       this.formGroup.controls.secondPassValidator.value && this.formGroup.controls.dniValidator.value &&
@@ -215,5 +179,42 @@ export class RegistrarsePage {
     return false;
   }
 
+    private registrarYLoguear() {
+        let spiner = this.spinnerHandler.getAllPageSpinner();
+        spiner.present();
+        this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
+            .then(response => {
+                let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto, false);
+                cliente.uid = this.autenticationService.getUID();
+                this.autenticationService.sendVerification();
+                this.usuarioService.guardar(cliente)
+                    .then(response => {
+                        spiner.dismiss();
+                        this.messageHandler.mostrarMensaje("Cuenta creada con exito. Debe verificar su correo electronico!");
+                        this.autenticationService.logOut();
+                        if (this.fromLogin) {
+                            this.navCtrl.setRoot(IniciarsesionPage)
+                        }
+                    }, error => {
+                        this.autenticationService.deleteUserLogged()
+                            .then(response => {
+                                spiner.dismiss();
+                                this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
+                                this.paramsService.isLogged = true;
+                                if (this.fromLogin) {
+                                    this.navCtrl.setRoot(IniciarsesionPage)
+                                }
+                            }, error => {
+                                console.log("no se puedo eliminar el usuario logueado");
+                                spiner.dismiss();
+                                this.messageHandler.mostrarErrorLiteral("Hubo un error en el registro");
+                            });
+                    });
+            })
+            .catch(error => {
+                spiner.dismiss();
+                this.messageHandler.mostrarError(error, "Error al registrarse");
+            })
+    }
 }
 

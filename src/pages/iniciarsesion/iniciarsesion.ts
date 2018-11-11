@@ -90,7 +90,13 @@ export class IniciarsesionPage {
     this.paramsService.rol = user.rol;
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
-
+    this.autenticationService.logInFromDataBase();
+    if((!this.autenticationService.getVerification()) && this.paramsService.rol == "cliente" && this.paramsService.email !== "cliente1@gmail.com" && this.paramsService.email !== "cliente2@gmail.com" )
+    {
+      this.messageHandler.mostrarErrorLiteral("Debe verificar su cuenta");
+      this.navCtrl.setRoot(IniciarsesionPage);
+    }
+    else{
     switch(this.paramsService.rol){
       case 'mozo':
       case 'cocinero':
@@ -109,7 +115,7 @@ export class IniciarsesionPage {
       case 'supervisor':
         this.navCtrl.setRoot(DashboardPage);
         break;
-
+      }
     }
 
     //console.log("Se logueo correctamente");
