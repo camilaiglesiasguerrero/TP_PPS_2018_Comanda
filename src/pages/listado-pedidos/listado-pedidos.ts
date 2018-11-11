@@ -8,13 +8,7 @@ import { Pedido } from '../../models/pedido';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductoPedido } from '../../models/productoPedido';
-
-/**
- * Generated class for the ListadoPedidosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {diccionario} from "../../models/diccionario";
 
 @IonicPage()
 @Component({
@@ -34,7 +28,7 @@ export class ListadoPedidosPage {
               public db:AngularFireDatabase,
               public params:ParamsService) {
     this.tipoEmpleado=this.navParams.get("tipoEmpleado");           
-    this.pedidosObs= db.list<any>('pedidos').snapshotChanges().pipe(
+    this.pedidosObs= db.list<any>(diccionario.apis.pedidos).snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )

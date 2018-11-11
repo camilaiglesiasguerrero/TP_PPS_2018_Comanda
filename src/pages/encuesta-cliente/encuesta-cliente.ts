@@ -10,6 +10,7 @@ import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { EncuestaClienteService } from '../../services/encuestasCliente.service';
 import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
+import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
 
 @IonicPage()
 @Component({
@@ -93,7 +94,6 @@ export class EncuestaClientePage {
       on: 'On',
       off: 'Off'
     };
-    debugger;
     this.multiCamera.getPicture(this.navCtrl, pictureOptions, translations)
       .then((pictures: Array<Picture>) => {
         for (var i = 0; i < pictures.length; i++) {
@@ -129,7 +129,7 @@ export class EncuestaClientePage {
     this.encuestaClienteService.guardar(this.resultados)
       .then(response => {
         this.messageHandler.mostrarMensaje("Gracias por completar la encuesta!");
-        this.navCtrl.setRoot(PrincipalClientePage);
+        this.navCtrl.setRoot(EncuestaClienteResultadosPage);
       }, error => {
         this.messageHandler.mostrarErrorLiteral("Hubo un error a completar la encuesta");
       })

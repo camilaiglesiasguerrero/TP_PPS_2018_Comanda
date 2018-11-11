@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,6 +24,12 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+
+//GPD, GEOLOCATION
+import { GeocodingProvider } from '../providers/geocoding';
+import { Geolocation } from '@ionic-native/geolocation';
+import { UbicacionPage } from '../pages/ubicacion/ubicacion';
 
 //Pages
 import { MyApp } from './app.component';
@@ -52,13 +59,17 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+import { TriviaPage } from '../pages/juegos/trivia/trivia';
+
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
+import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
+import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
 
@@ -77,6 +88,7 @@ import { EncuestaClienteService } from '../services/encuestasCliente.service';
 import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
+
 
 @NgModule({
   declarations: [
@@ -105,10 +117,16 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    UbicacionPage,
+    ReservasAgendadasPage,
+    TriviaPage,
+    EncuestaEmpleadoResultadosPage,
+    ReservasAgendadasPage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicMultiCameraModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
@@ -145,7 +163,12 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    UbicacionPage,
+    ReservasAgendadasPage,
+    TriviaPage,
+    EncuestaEmpleadoResultadosPage,
+    ReservasAgendadasPage
   ],
   providers: [
     StatusBar,
@@ -166,7 +189,9 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     QrService,
     CameraService,
     DatabaseService,
-    EncuestaClienteService
+    EncuestaClienteService,
+    GeocodingProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
