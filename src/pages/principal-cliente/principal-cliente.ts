@@ -11,6 +11,7 @@ import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encu
 import {TriviaPage} from "../juegos/trivia/trivia";
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
+import { CuentaPage } from '../cuenta/cuenta';
 
 @IonicPage()
 @Component({
@@ -66,7 +67,7 @@ export class PrincipalClientePage {
         this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
         break;
       case 'hacerPedido':
-        this.navCtrl.push(AltaPedidoPage);
+        this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         break;
     }
   }

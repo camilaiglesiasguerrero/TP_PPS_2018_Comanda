@@ -5,10 +5,16 @@ export class ProductoPedido {
     tipo:string;
     estado:string;
 
-    constructor(idProducto?,cantidad?,tipo?,estado?){
+    nombre:string;
+    precio:number;
+
+    constructor(idProducto?,cantidad?,tipo?,estado?,nombre?,precio?){
         this.idProducto = idProducto;
         this.cantidad = cantidad;
         this.tipo = tipo;
         this.estado = estado;
+        this.nombre = nombre;
+        this.precio = precio;
+
     }
 }

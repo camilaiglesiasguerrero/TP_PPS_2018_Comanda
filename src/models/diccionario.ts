@@ -18,9 +18,7 @@ export const diccionario = {
   estados_mesas:{
     libre: "Libre",
     reservada: "Reservada",
-    ocupada: "Ocupada",
-    deshabilitada: "Deshabilitada",
-    habilitada: "Habilitada"
+    ocupada: "Ocupada"
   },
   estados_pedidos:{
     solicitado: "Solicitado",
@@ -43,7 +41,17 @@ export const diccionario = {
     deshabilitado: "Deshabilitado",
     sin_stock: "Sin stock"
   },
+  estados_reservas:{
+    en_curso: "En curso",
+    finalizada: "Finalizada"
+  },
   qr:{
     ingreso_local: "IngresoLocal"
+  },
+  errores:{
+    QR_invalido: "Código QR inválido",
+    sin_reserva: "No existe reserva",
+    sin_pedido: "No existe pedido",
   }
+  
 };
