@@ -34,6 +34,7 @@
     "@ionic-native/video-player": "^4.15.0",
     "@ionic/storage": "2.2.0",
     "angularfire2": "5.0.0-rc.3",
+    "chart.js": "^2.7.3",
     "com.moust.cordova.videoplayer": "https://github.com/moust/cordova-plugin-videoplayer.git",
     "cordova-android": "7.0.0",
     "cordova-plugin-camera": "^4.0.3",
@@ -56,6 +57,7 @@
     "ionicons": "3.0.0",
     "ngx-qrcode2": "0.0.9",
     "phonegap-plugin-barcodescanner": "^8.0.0",
+    "primeng": "^6.1.6",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
@@ -66,6 +68,11 @@
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
+  "styles": [
+    "node_modules/primeicons/primeicons.css",
+    "node_modules/primeng/resources/themes/nova-light/theme.css",
+    "node_modules/primeng/resources/primeng.min.css"
+  ],
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
