@@ -52,6 +52,7 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
@@ -77,6 +78,10 @@ import { EncuestaClienteService } from '../services/encuestasCliente.service';
 import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
+
+
+
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 
 @NgModule({
   declarations: [
@@ -105,7 +110,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    AdivinarNumeroPage
   ],
   imports: [
     BrowserModule,
@@ -145,7 +151,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     PrincipalMozoPage,
     ProfilePage,
     PropinaPage,
-    EncuestaClienteResultadosPage
+    EncuestaClienteResultadosPage,
+    AdivinarNumeroPage
   ],
   providers: [
     StatusBar,
@@ -166,7 +173,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     QrService,
     CameraService,
     DatabaseService,
-    EncuestaClienteService
+    EncuestaClienteService,
+    AdivinarNumeroPage
   ]
 })
 export class AppModule {}
