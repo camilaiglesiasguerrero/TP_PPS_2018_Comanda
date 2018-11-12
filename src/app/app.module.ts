@@ -25,8 +25,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-
-//GPD, GEOLOCATION
+//GPS, GEOLOCATION
 import { GeocodingProvider } from '../providers/geocoding';
 import { Geolocation } from '@ionic-native/geolocation';
 import { UbicacionPage } from '../pages/ubicacion/ubicacion';
@@ -37,9 +36,11 @@ import { MyApp } from './app.component';
 //Autenticación
 import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
+
 //Page Principal por user
 import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
 import { PrincipalMozoPage } from '../pages/principal-mozo/principal-mozo';
+
 //Listados
 import { MesasPage } from '../pages/mesas/mesas';
 import { BebidasPage } from '../pages/bebidas/bebidas';
@@ -66,11 +67,13 @@ import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-emplea
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
 import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
+import { ChartModule } from 'primeng/chart';
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 import { CuentaPage } from '../pages/cuenta/cuenta';
+
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
 
@@ -84,6 +87,8 @@ import { QrService } from './../services/qr.service';
 import { CameraService } from '../services/camera.service';
 import { DatabaseService } from '../services/database.service';
 import { EncuestaClienteService } from '../services/encuestasCliente.service';
+import { ParserTypesService } from "../services/parserTypesService";
+
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
@@ -138,7 +143,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     AngularFireAuthModule,
     BrowserAnimationsModule,
     NgxQRCodeModule,
-    PipesModule
+    PipesModule,
+    ChartModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -196,7 +202,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     DatabaseService,
     EncuestaClienteService,
     GeocodingProvider,
-    Geolocation
+    Geolocation,
+    ParserTypesService
   ]
 })
 export class AppModule {}

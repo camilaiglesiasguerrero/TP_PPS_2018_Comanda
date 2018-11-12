@@ -7,11 +7,13 @@ import { MessageHandler } from '../../services/messageHandler.service';
 import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from "../../services/database.service";
 import { SpinnerHandler } from "../../services/spinnerHandler.service";
-import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
-import {TriviaPage} from "../juegos/trivia/trivia";
+import { EncuestaClienteResultadosPage } from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
+import { TriviaPage } from "../juegos/trivia/trivia";
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
 import { CuentaPage } from '../cuenta/cuenta';
+import {ParserTypesService} from "../../services/parserTypesService";
+
 
 @IonicPage()
 @Component({
@@ -34,7 +36,8 @@ export class PrincipalClientePage {
               public popoverCtrl: PopoverController,
               private database: DatabaseService,
               private spinnerHandler: SpinnerHandler,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private parserTypesService: ParserTypesService) {
     this.user = this.params.user;
   }
 
@@ -119,7 +122,7 @@ export class PrincipalClientePage {
     this.elSpinner = this.spinnerHandler.getAllPageSpinner();
     this.elSpinner.present();
     var fecha = new Date();
-    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fecha.toLocaleString(), clienteId: this.params.user.uid, comensales: comensales, nombre: this.params.user.nombre };
+    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: this.parserTypesService.parseDateTimeToStringDateTime(fecha), clienteId: this.params.user.uid, comensales: comensales, nombre: this.params.user.nombre };
     this.database.jsonPackData = listaEspera;
     this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.lista_espera);
     this.database.SubirDataBase(diccionario.apis.lista_espera).then(response => {

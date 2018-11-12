@@ -51,7 +51,12 @@ export const diccionario = {
   errores:{
     QR_invalido: "Código QR inválido",
     sin_reserva: "No existe reserva",
-    sin_pedido: "No existe pedido",
+    sin_pedido: "No existe pedido"
+  },
+  direccion_local: {
+    direccion: "Moreno 850, C1091AAR CABA, Argentina",
+    lat: -34.6119042,
+    long: -58.37844980000001
   }
   
 };

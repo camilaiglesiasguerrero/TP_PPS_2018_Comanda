@@ -34,6 +34,8 @@ direccion:any = {value:""};
 options:any;
 listadoAPedir:Array<any>;
 mostrarParcial:boolean = false;
+user:any;
+  
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -133,8 +135,8 @@ mostrarParcial:boolean = false;
             if(!flag)
               this.messageHandler.mostrarErrorLiteral(diccionario.errores.QR_invalido);
       }, (err) => {
-          //console.log('Error: ', err);
-          this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //console.log('Error: ', err);
+        this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
 
