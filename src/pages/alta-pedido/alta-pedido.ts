@@ -77,6 +77,7 @@ user:any;
             this.reserva.estado = reservas[0].estado;
             this.reserva.cliente = reservas[0].cliente;
             reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
+            this.reserva.fecha = this.reserva[0].fecha;
           }
           if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
             this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');

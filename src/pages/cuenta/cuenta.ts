@@ -39,7 +39,7 @@ export class CuentaPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CuentaPage');
+    //console.log('ionViewDidLoad CuentaPage');
   }
 
 }

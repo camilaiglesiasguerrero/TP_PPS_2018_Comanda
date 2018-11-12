@@ -7,6 +7,7 @@ import { ParamsService } from '../../services/params.service';
 import { Reserva } from '../../models/reserva';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import {diccionario} from "../../models/diccionario";
+import { ParserTypesService } from '../../services/parserTypesService';
 
 
 @IonicPage()
@@ -28,7 +29,8 @@ export class OcuparMesaPage {
               public database:DatabaseService,
               public messageHandler:MessageHandler,
               public params: ParamsService,
-              private spinnerHandler: SpinnerHandler) {
+              private spinnerHandler: SpinnerHandler,
+              private parserTypes: ParserTypesService) {
     
     let spinner = this.spinnerHandler.getAllPageSpinner();
     spinner.present();
@@ -88,6 +90,7 @@ export class OcuparMesaPage {
     reserva.idPedido = null;
     reserva.cliente = this.cliente.clienteId;
     reserva.idMesa = this.mesa.id;
+    reserva.fecha = this.parserTypes.parseDateTimeToStringDateTime(new Date());
     //TODO: CAMI: CHEQUEATE ESTE ESTADO QUE CREO QUE RESERVAS NO LLEVA MAS ESTADO
     reserva.estado = diccionario.estados_reservas.en_curso;
     this.database.jsonPackData = reserva;
