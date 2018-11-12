@@ -20,14 +20,16 @@ export class ListadoPedidosPage {
   esCocina : boolean;
   tipoEmpleado:string;
   pedidosObs: Observable<Pedido[]>;
-  pedidosList:Pedido[];
+  pedidosList:Array<any>;
   
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public db:AngularFireDatabase,
               public params:ParamsService) {
-    this.tipoEmpleado=this.navParams.get("tipoEmpleado");           
+    
+    //this.tipoEmpleado=this.navParams.get("tipoEmpleado");           
+    this.pedidosList = new Array<any>();
     this.pedidosObs= db.list<any>(diccionario.apis.pedidos).snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
@@ -35,6 +37,11 @@ export class ListadoPedidosPage {
     );
     this.pedidosObs.subscribe( res =>{
       this.pedidosList = res;
+      console.log(this.pedidosList);
+      for (let index = 0; index < this.pedidosList.length; index++) {
+        console.log(this.pedidosList[index].productos);
+        
+      }
     });
   }
   

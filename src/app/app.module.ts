@@ -72,6 +72,7 @@ import { ChartModule } from 'primeng/chart';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
+import { CuentaPage } from '../pages/cuenta/cuenta';
 
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
@@ -93,6 +94,8 @@ import { ParserTypesService } from "../services/parserTypesService";
 import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
+
+
 
 
 @NgModule({
@@ -127,7 +130,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
-    ReservasAgendadasPage
+    ReservasAgendadasPage,
+    CuentaPage
   ],
   imports: [
     BrowserModule,
@@ -174,7 +178,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
-    ReservasAgendadasPage
+    ReservasAgendadasPage,
+    CuentaPage
   ],
   providers: [
     StatusBar,
