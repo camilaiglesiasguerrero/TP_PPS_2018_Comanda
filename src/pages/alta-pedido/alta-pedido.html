@@ -113,7 +113,7 @@
   <!--<page-ubicacion [direccion]="direccion"></page-ubicacion>-->
 </ion-content>
 
-<ion-content padding *ngIf="mostrarParcial">
+<ion-content padding *ngIf="mostrarParcial || pedidoYaHecho">
   <br><br><br><br>
   <ion-row class="tit fle">
     <div class="title">
@@ -162,7 +162,7 @@
 </ion-content>
 
 
-<ion-footer>
+<ion-footer *ngIf="!pedidoYaHecho">
   <button ion-button full color="light" (click)="escanearQR()" *ngIf="!mostrarParcial && !isDelivery">
     <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
     Pedir mediante código QR
@@ -170,6 +170,6 @@
   <button ion-button *ngIf="isDelivery && !mostrarDireccion" color="light" block type="button"  (click)="obtenerDireccion()"><ion-icon name="check-mark" ></ion-icon>Ingresar dirección</button>
   <button ion-button *ngIf="!mostrarParcial" color="light" block type="button"  (click)="verParcial()"><ion-icon name="check-mark" ></ion-icon>Ver pedido</button>
   <button ion-button *ngIf="mostrarParcial || mostrarDireccion" color="light" block type="button"  (click)="seguirPidiendo()"><ion-icon name="check-mark" ></ion-icon>Seguir pidiendo</button>
-  <button ion-button  color="dark" block type="button" (click)="Confirmar()"><ion-icon name="check-mark" ></ion-icon>Confirmar</button>
+  <button ion-button   color="dark" block type="button" (click)="Confirmar()"><ion-icon name="check-mark" ></ion-icon>Confirmar</button>
 </ion-footer>
 

@@ -46,6 +46,7 @@ export class AltaPedidoPage {
   user:any;
   isDelivery:boolean;
   total:string = "";
+  pedidoYaHecho:boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -295,12 +296,13 @@ export class AltaPedidoPage {
   }
 
   private getDelivery(){
-    debugger;
     this.watcherDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid)).valueChanges()
       .subscribe(snapshots =>{
         var deliverys:any = snapshots;
+        this.pedidoYaHecho = false;
         for(var i=0; i < deliverys.length; i++){
           if(this.parse.compararFechayHoraMayorAHoy(deliverys[i].fecha)){
+            this.pedidoYaHecho = true;
             this.delivery.key = deliverys[i].key;
             this.delivery.idPedido = deliverys[i].idPedido;
             this.delivery.cliente = deliverys[i].cliente;
@@ -319,10 +321,12 @@ export class AltaPedidoPage {
   }
 
   private getPedidoDelivery(){
+    //TODO: FALTA TIEMPO DE DEMORA!!!!!
     this.watcherDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.delivery.idPedido)).valueChanges()
     .subscribe(snapshots => {
       this.listadoAPedir = [];
       var pedidos:any = snapshots;
+      var total = 0;
       for(var i=0; i < pedidos.length; i++){
         for(let key in pedidos[i].productos){
           var bebida = _.find(this.bebidas, bebida =>{
@@ -331,6 +335,7 @@ export class AltaPedidoPage {
           if(bebida){
             var cantidad = pedidos[i].productos[key].cantidad;
             for(var j=0; j< cantidad ; j++){
+              total += parseInt(bebida.precio);
               this.listadoAPedir.push(bebida)
             }
           }
@@ -340,11 +345,13 @@ export class AltaPedidoPage {
           if(plato){
             var cantidad = pedidos[i].productos[key].cantidad;
             for(var j=0; j< cantidad ; j++){
+              total += parseInt(plato.precio);
               this.listadoAPedir.push(plato)
             }
           }
         }
       }
+      this.total = total.toString();
     })
 
   }
