@@ -14,24 +14,43 @@
 
 
 <ion-content padding>
-    <ion-row>
-        <ion-col text-center>
-            <button ion-button round color="light" (click)="escanearQR('Reservar')">
-                <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
-                Reservar mesa 
-            </button>
-        </ion-col>
-    </ion-row>
+    <ion-card>
+        <ion-card-header><b>Clientes en lista de espera</b></ion-card-header>
 
-    <ion-row>
-        <ion-col text-center>
-            <button ion-button round color="light" (click)="escanearQR('verPedido')">
-                <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
-                Ver estado del pedido 
-            </button>
-        </ion-col>
-    </ion-row>
+            <ion-row *ngFor="let c of clientesEspera">
+                <ion-col>{{c.nombre}} <br> ({{c.comensales}} comensales)</ion-col>
+                <ion-col *ngIf="c.comensales <= comensalesMax"  text-center>
+                    <button ion-button round color="light" (click)="escanearQR('Reservar',c)">
+                        <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                        Asignar 
+                    </button>
+                </ion-col>
+                <ion-col *ngIf="c.comensales > comensalesMax || noHayMesasLibres" text-center>
+                    <button  ion-button round color="light" disabled>
+                        <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                        Asignar 
+                    </button>
+                </ion-col>
+            </ion-row>
+
+    </ion-card>
+
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button round color="light" (click)="escanearQR('hacerPedido')">
+                    <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                    Hacer un pedido 
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button round color="light" (click)="escanearQR('verPedido')">
+                    <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+                    Ver estado del pedido 
+                </button>
+            </ion-col>
+        </ion-row>
 
 
-    
 </ion-content>

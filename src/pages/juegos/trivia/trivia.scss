@@ -1,0 +1,67 @@
+page-trivia{
+
+  .scroll-content{
+    background-color: $first-detail-color;
+  }
+
+  .alert-head {
+    padding: 12px 24px 10px !important;
+  }
+
+  .alert-md .alert-sub-title {
+    font-size: 16px;
+    margin: 8px 0 0 !important;
+  }
+
+  .alert-sub-title {
+    margin: 8px 0 0;
+    padding: 0;
+    font-weight: normal;
+  }
+
+  .label-md{
+    margin: 8px 8px 8px 0;
+  }
+
+  .radio-md .radio-icon{
+    border-color: beige !important;
+  }
+
+  .radio-md .radio-checked{
+    border-color: beige !important;
+  }
+
+  .radio-md .radio-inner{
+    border-color: beige !important;
+    background-color: beige !important;
+  }
+
+  .timer{
+    color: #51ff47;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .explicacion{
+    color: beige;
+    text-align: justify;
+    font-size: 2rem;
+  }
+  .pocoTiempo{
+    color:tomato !important;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .pregunta{
+    display: flex;
+    justify-content: center;
+    color: beige;
+    font-size: 2rem;
+  }
+
+  .respuesta-select{
+    background-color: #51ff47;
+  }
+
+}

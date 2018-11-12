@@ -7,13 +7,8 @@ import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
+import {diccionario} from "../../models/diccionario";
 
-/**
- * Generated class for the EstadoPedidoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -31,7 +26,7 @@ export class EstadoPedidoPage {
   user:any;
   hacerPedido:boolean;
   reservaKey:string;
-  dniCliente:string;
+  clienteUid:string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -56,16 +51,16 @@ export class EstadoPedidoPage {
     this.spinner = spinnerHandler.getAllPageSpinner();
     this.spinner.present();
 
-    this.database.db.list<any>('reservas/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         if(this.params.rol == 'cliente')
-          this.aux = this.aux.filter(a => a.idCliente == this.user.dni);
+          this.aux = this.aux.filter(a => a.idCliente == this.user.uid);
         for (let index = 0; index < this.aux.length; index++) {
           //tengo la mesa con pedido => busco el pedido
           if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == 'Con pedido'){
             this.pedido.key = this.aux[index].idPedido;
-            this.database.db.list<any>('pedidos/').valueChanges()
+            this.database.db.list<any>(diccionario.apis.pedidos).valueChanges()
               .subscribe(snp => {
                   this.aux = snp;
                   for (let i = 0; i < this.aux.length; i++) {
@@ -83,7 +78,7 @@ export class EstadoPedidoPage {
             break;
           }else if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == 'Reserva'){
             this.reservaKey = this.aux[index].key;
-            this.dniCliente = this.aux[index].dniCliente;
+            this.clienteUid = this.aux[index].cliente;
             
           }
         }
@@ -117,7 +112,7 @@ export class EstadoPedidoPage {
         this.viewCtrl.dismiss();
         break;
       case 'hacerPedido':
-        this.navCtrl.push(AltaPedidoPage, { reserva: this.reservaKey, dniCliente: this.dniCliente, mesa: this.mesa});
+        this.navCtrl.push(AltaPedidoPage, { reserva: this.reservaKey, clienteUid: this.clienteUid, mesa: this.mesa});
         break;
     }
   }

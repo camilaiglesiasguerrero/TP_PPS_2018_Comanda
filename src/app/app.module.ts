@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,6 +24,12 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+
+//GPD, GEOLOCATION
+import { GeocodingProvider } from '../providers/geocoding';
+import { Geolocation } from '@ionic-native/geolocation';
+import { UbicacionPage } from '../pages/ubicacion/ubicacion';
 
 //Pages
 import { MyApp } from './app.component';
@@ -52,14 +59,20 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+<<<<<<< HEAD
+=======
+import { TriviaPage } from '../pages/juegos/trivia/trivia';
+>>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
 
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
+import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
+import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
 
@@ -80,9 +93,12 @@ import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 
+<<<<<<< HEAD
 
 import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 
+=======
+>>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
 @NgModule({
   declarations: [
     MyApp,
@@ -111,10 +127,19 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+<<<<<<< HEAD
     AdivinarNumeroPage
+=======
+    UbicacionPage,
+    ReservasAgendadasPage,
+    TriviaPage,
+    EncuestaEmpleadoResultadosPage,
+    ReservasAgendadasPage
+>>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicMultiCameraModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
@@ -152,7 +177,15 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+<<<<<<< HEAD
     AdivinarNumeroPage
+=======
+    UbicacionPage,
+    ReservasAgendadasPage,
+    TriviaPage,
+    EncuestaEmpleadoResultadosPage,
+    ReservasAgendadasPage
+>>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
   ],
   providers: [
     StatusBar,
@@ -174,7 +207,12 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     CameraService,
     DatabaseService,
     EncuestaClienteService,
+<<<<<<< HEAD
     AdivinarNumeroPage
+=======
+    GeocodingProvider,
+    Geolocation
+>>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
   ]
 })
 export class AppModule {}

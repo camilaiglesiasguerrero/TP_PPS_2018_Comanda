@@ -30,19 +30,16 @@
                             <div class="card col-md-6" style="text-align: center">
                                 <img class=img src='{{p.foto3}}' alt='No se puede mostrar la imagen'>
                             </div>
+                            <div class="card col-md-6" style="text-align: center; width: 20%">
+                                <ngx-qrcode [qrc-value]="p.nombre"></ngx-qrcode>
+                            </div>
                         </div>
                     </div>
                 </div>      
             </ion-row> 
             <h2>{{p.nombre}}:</h2><h3>{{p.descripcion}}</h3>
             <p>{{p.cantidad}} unidades disponibles. 
-          </div>
-          <ion-row>
-            <ion-col col-6> 
-              <button class='btn' ion-button *ngIf="p.estado !== 'Deshabilitado' " color="dark" type="button" (click)="cambiarEstado(p)" >{{p.estado}}</button>
-              <button class='btn' ion-button *ngIf="p.estado === 'Deshabilitado' " color="danger" type="button" (click)="cambiarEstado(p)" >{{p.estado}}</button>
-            </ion-col>
-          </ion-row>       
+          </div>    
         </ion-item>
     </ion-list>
   <ion-fab left bottom>

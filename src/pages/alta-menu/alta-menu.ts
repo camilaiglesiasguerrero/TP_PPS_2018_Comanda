@@ -10,6 +10,7 @@ import { CameraService } from '../../services/camera.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ImagePicker } from '@ionic-native/image-picker';
+import {diccionario} from "../../models/diccionario";
 /**
  * Generated class for the AltaMenuPage page.
  *
@@ -123,17 +124,6 @@ export class AltaMenuPage {
     }
   }
 
-  Elegir(){
-    //this.camara.elegirMultiples();
-    let options = { maximumImagesCount : 3 }
-      this.imagePicker.getPictures(options).then((results) => {
-        for (var i = 0; i < results.length; i++) {
-          //this.arrayDeFotos.push('data:image/jpeg;base64,' + results[i]);
-          this.messageHandler.mostrarError(results[i]);
-        }
-      }, (err) => { this.messageHandler.mostrarError(err); });
-  }
-
   Sacar(){ 
     this.camara.arrayDeFotos = new Array<any>();
     this.camara.sacarMultiples(this.navCtrl);
@@ -149,16 +139,15 @@ export class AltaMenuPage {
     this.producto.foto1 = this.camara.arrayDeFotos[0];
     this.producto.foto2 = this.camara.arrayDeFotos[1];
     this.producto.foto3 = this.camara.arrayDeFotos[2]; 
-    this.producto.estado = 'Habilitado';
-    this.navParams.get("producto") == undefined ? this.producto.key = this.database.ObtenerKey('productos/'+this.producto.tipo) : null;
+    this.navParams.get("producto") == undefined ? this.producto.key = this.database.ObtenerKey(diccionario.apis.productos + this.producto.tipo) : null;
 
     this.database.jsonPackData = this.producto;
         
     this.elSpinner = this.spinner.getAllPageSpinner();
     this.elSpinner.present();
-      this.database.SubirDataBase('productos/'+this.menu+'/').then(r => {          
+      this.database.SubirDataBase(diccionario.apis.productos + this.menu +'/').then(r => {
         this.messageHandler.mostrarMensaje("Operación exitosa");
-        this.createdCode = this.qr.createCode(this.producto.tipo+this.producto.nombre);
+        this.createdCode = this.qr.createCode(this.producto.tipo+':'+this.producto.nombre);
           this.elSpinner.dismiss();
           this.navCtrl.pop();
         });
