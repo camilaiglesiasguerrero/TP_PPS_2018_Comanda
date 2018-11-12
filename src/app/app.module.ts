@@ -60,10 +60,8 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
-<<<<<<< HEAD
-=======
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 import { TriviaPage } from '../pages/juegos/trivia/trivia';
->>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
 
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
@@ -71,6 +69,7 @@ import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente'
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
 import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
 import { ChartModule } from 'primeng/chart';
+
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
@@ -98,18 +97,6 @@ import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
-
-=======
->>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
-=======
-
-
->>>>>>> master
 @NgModule({
   declarations: [
     MyApp,
@@ -138,20 +125,15 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
-<<<<<<< HEAD
-    AdivinarNumeroPage
-=======
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
-<<<<<<< HEAD
-    ReservasAgendadasPage
->>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
-=======
+    ReservasAgendadasPage,
     ReservasAgendadasPage,
     CuentaPage
->>>>>>> master
+
   ],
   imports: [
     BrowserModule,
@@ -194,20 +176,13 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
-<<<<<<< HEAD
-    AdivinarNumeroPage
-=======
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
-<<<<<<< HEAD
-    ReservasAgendadasPage
->>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
-=======
     ReservasAgendadasPage,
     CuentaPage
->>>>>>> master
   ],
   providers: [
     StatusBar,
@@ -229,17 +204,10 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     CameraService,
     DatabaseService,
     EncuestaClienteService,
-<<<<<<< HEAD
-    AdivinarNumeroPage
-=======
+    AdivinarNumeroPage,
     GeocodingProvider,
-<<<<<<< HEAD
-    Geolocation
->>>>>>> c3a9d0936e434a5e89a25a98ca24838d76419f36
-=======
     Geolocation,
     ParserTypesService
->>>>>>> master
   ]
 })
 export class AppModule {}
