@@ -29,7 +29,7 @@ export class EncuestaClientePage {
    * Dentro de la carpeta dist/providers editar el archivo: ionic-multi-camara.d.ts
    * y agregar el parametro navbarControler en getPicture:
    * getPicture(navCtrl:NavController, pictureOptions?: CameraPreviewPictureOptions, translations?: CameraTranslations)
-   * Paso 2: Ir al archivo ionic-multi-camara.js y en la función getPictures agregar el parametro navCtrl 
+   * Paso 2: Ir al archivo ionic-multi-camara.js y en la función getPictures agregar el parametro navCtrl
    * y pisar el navCtrl declarado en el método:
    * IonicMultiCamera.prototype.getPicture = function (navCtrl, pictureOptions, translations) {
    * var _this = this;
@@ -63,22 +63,52 @@ export class EncuestaClientePage {
     }
    */
 
-  resultados: any = { 
-    limpieza: "", atencion: "", sabor: "", velocidad: "", recomendar: "", usuarioId: "", fotos: [] 
+  resultados: any = {
+    limpieza: "", atencion: "", sabor: "", velocidad: "", recomendar: "", usuarioId: "", fotos: []
   };
+  sabores = [
+    {
+      selected:false,
+      label: "Muy Rica",
+      value: 'muyRica'
+    },
+    {
+      selected:false,
+      label: "Rica",
+      value: 'rica'
+    },
+    {
+      selected:false,
+      label: "Regular",
+      value: 'regular'
+    },
+    {
+      selected:false,
+      label: "Mala",
+      value: 'mala'
+    }
+  ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private encuestaClienteService: EncuestaClienteService,
-    private authenticationService: AuthenticationService,
-    private messageHandler: MessageHandler,
-    private multiCamera: IonicMultiCamera
-    //private mediaCapture: MediaCapture
-    ) {
+              private encuestaClienteService: EncuestaClienteService,
+              private authenticationService: AuthenticationService,
+              private messageHandler: MessageHandler,
+              private multiCamera: IonicMultiCamera
+              //private mediaCapture: MediaCapture
+  ) {
     this.resultados.usuarioId = this.authenticationService.getUID();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EncuestaClientePage');
+  }
+
+  saborClick(sabor){
+    for(var i=0; i< this.sabores.length; i++){
+        this.sabores[i].selected = false;
+    }
+    sabor.selected = true;
+    this.resultados.sabor = sabor.value;
   }
 
   tomarFotos() {
@@ -98,7 +128,7 @@ export class EncuestaClientePage {
       .then((pictures: Array<Picture>) => {
         for (var i = 0; i < pictures.length; i++) {
           var foto = `data:image/jpeg;base64,${pictures[i].base64Data}`;
-          this.resultados.fotos.push(foto);      
+          this.resultados.fotos.push(foto);
         }
       })
       .catch(err => {
@@ -126,6 +156,8 @@ export class EncuestaClientePage {
   }
 
   finalizar() {
+    var model = this.resultados;
+    model.velocidad = this.resultados.velocidad == '1' ? 'tardo' : this.resultados.velocidad == '2' ? 'demoro' : 'rapida'
     this.encuestaClienteService.guardar(this.resultados)
       .then(response => {
         this.messageHandler.mostrarMensaje("Gracias por completar la encuesta!");

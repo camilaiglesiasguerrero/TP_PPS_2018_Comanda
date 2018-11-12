@@ -7,6 +7,7 @@ import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
+import { SpinnerHandler } from '../../services/spinnerHandler.service';
 
 
 @IonicPage()
@@ -28,11 +29,13 @@ export class PrincipalMozoPage {
               public barcodeScanner: BarcodeScanner,
               private messageHandler: MessageHandler,
               public popoverCtrl: PopoverController,
-              public database:DatabaseService) {
+              public database:DatabaseService,
+              private spinnerH:SpinnerHandler) {
     
     let hoy = (new Date().toLocaleString()).split(' ')[0];
     
-       
+    let spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
 
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snp => {
@@ -55,13 +58,14 @@ export class PrincipalMozoPage {
             this.clientesEspera = snapshots;
             this.clientesEspera = this.clientesEspera.filter(f => f.estado == diccionario.estados_reservas_agendadas.sin_mesa && f.fecha.split(' ')[0] == hoy);
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
+            spinner.dismiss();
         });  
       });
     
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad PrincipalMozoPage');
+    
   }
 
   escanearQR(caso:string,cliente?:any) {
@@ -69,7 +73,7 @@ export class PrincipalMozoPage {
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
            this.mesa = barcodeData.text;
-           switch(caso){
+           switch(caso){  
               case 'Reservar':
                 this.irA('reserva',cliente);
                 break;
@@ -84,6 +88,7 @@ export class PrincipalMozoPage {
           //console.log('Error: ', err);
           this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
+      
   }
   
 

@@ -27,14 +27,6 @@ export class AuthenticationService{
         return  this.MiAuth.auth.currentUser.email;
     }
 
-    sendVerification(){
-        return this.MiAuth.auth.currentUser.sendEmailVerification();
-    }
-
-    getVerification(){
-        return this.MiAuth.auth.currentUser.emailVerified;
-    }
-
     getUID(){
         return this.MiAuth.auth.currentUser.uid;
     }
@@ -57,5 +49,10 @@ export class AuthenticationService{
         this.afDB.database.goOffline();
     }
 
-
+    sendVerification(){
+        return this.MiAuth.auth.currentUser.sendEmailVerification();
+    }
+     getVerification(){
+        return this.MiAuth.auth.currentUser.emailVerified;
+    }
 }

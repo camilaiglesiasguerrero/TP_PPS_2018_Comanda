@@ -23,7 +23,7 @@ export class IniciarsesionmenuPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IniciarsesionmenuPage');
+    //console.log('ionViewDidLoad IniciarsesionmenuPage');
   }
 
   seleccionar(){

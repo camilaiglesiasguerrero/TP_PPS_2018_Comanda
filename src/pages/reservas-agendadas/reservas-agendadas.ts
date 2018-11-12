@@ -4,8 +4,10 @@ import { ParamsService } from '../../services/params.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from "../../services/database.service";
 import { SpinnerHandler } from "../../services/spinnerHandler.service";
-import {PrincipalClientePage} from "../principal-cliente/principal-cliente";
-import {diccionario} from "../../models/diccionario";
+import { PrincipalClientePage } from "../principal-cliente/principal-cliente";
+import { diccionario } from "../../models/diccionario";
+import {ParserTypesService} from "../../services/parserTypesService";
+
 
 @Component({
   selector: 'page-reservar-agendadas',
@@ -16,6 +18,7 @@ export class ReservasAgendadasPage {
   comensales:number;
   fecha:any;
   hora:any;
+  direccion:any = { value: ""};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -23,6 +26,7 @@ export class ReservasAgendadasPage {
               private messageHandler: MessageHandler,
               private database: DatabaseService,
               private spinnerHandler: SpinnerHandler,
+              private parserTypesService: ParserTypesService
               ) {
   }
 
@@ -31,7 +35,7 @@ export class ReservasAgendadasPage {
     elSpinner.present();
     var concatFecha = this.fecha + "T" + this.hora;
     var dateaux = new Date(concatFecha);
-    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: dateaux.toLocaleString(), clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
+    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: this.parserTypesService.parseDateTimeToStringDateTime(dateaux), clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
     this.database.jsonPackData = listaEspera;
     //TENIA ESTA, CHEQUEAR Q NO SEA UN BUG'lista-espera/'
     this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.lista_espera);
@@ -41,6 +45,5 @@ export class ReservasAgendadasPage {
       //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA
       this.navCtrl.setRoot(PrincipalClientePage);
     });
-
   }
 }

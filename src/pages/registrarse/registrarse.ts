@@ -139,6 +139,7 @@ export class RegistrarsePage {
 
   }
 
+  
   private validatorCliente(){
     if (this.formGroup.controls.emailValidator.value && this.formGroup.controls.passValidator.value &&
       this.formGroup.controls.secondPassValidator.value && this.formGroup.controls.dniValidator.value &&
