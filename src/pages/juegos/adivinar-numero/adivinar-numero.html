@@ -1,0 +1,61 @@
+<!--
+  Generated template for the AdivinarNumeroPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Adivine el numero</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  
+    <!-- Mostramos el número total de intentos -->
+    <p class="msjaliento" *ngIf="intentos==5">Tienes un total de {{ intentos }} intentos.<br> Buena suerte!</p>
+    <p class="msjaliento" *ngIf="intentos==4">Te quedan {{ intentos }} intentos.<br> Tu puedes ganar!</p>
+    <p class="msjaliento" *ngIf="intentos==3">Aun tienes {{ intentos }} intentos.<br> Vamos, segui intentado</p>
+    <p class="msjaliento" *ngIf="intentos==2">Todavia te quedan {{ intentos }} intentos.</p>
+    <p class="msjaliento" *ngIf="intentos==1">Ultimo intento para poder ganar!!!</p>
+    
+    <div *ngIf="intentos>0" class="divInput">
+    <ion-input class="inputnum" type="number" min="1" max="100" [(ngModel)]="num" placeholder="Introduce un número del 1 al 100"></ion-input>
+    </div>
+    <p *ngIf="intentos>0">El número secreto es {{ mayorMenor }}</p>
+
+    <!-- Si se acierta el número secreto, se muestra una card como felicitación -->
+    <ion-card class="classGanar" *ngIf="mayorMenor=='igual'">
+        <ion-card-header>
+            ¡¡¡FELICITACIONES!!! <ion-icon name="ios-medal-outline"></ion-icon>
+          </ion-card-header>
+          <ion-card-content> 
+              Acertaste!!! Te ganas un descuento<br>
+          </ion-card-content>
+          <button ion-button (click)="regresar()"> REGRESAR </button>
+    </ion-card>
+
+    <!-- Si se acaban los intentos, se muestra una card informativa -->
+    <ion-card class="cardPerder" *ngIf="intentos==0">
+        <ion-card-header>
+            PERDISTE <ion-icon name="md-thumbs-down"></ion-icon>
+          </ion-card-header>
+          <ion-card-content> 
+              Has consumido todos los intentos.<br>
+              El número secreto era:<br>
+              <h1>{{ numSecret }}</h1>
+          </ion-card-content>
+          <button ion-button (click)="regresar()"> REGRESAR </button>
+    </ion-card>
+
+    <div class="divbtn">
+    <!-- Botón para poder jugar -->
+    <button class="btadivinar" *ngIf="mayorMenor!='igual' && intentos!=0 " ion-button block (click)="compruebaNumero()">Adivina</button>
+    <!-- Botón que nos permite reiniciar el juego -->
+    <!--<button *ngIf=" mayorMenor=='igual' || intentos==0 " ion-button block (click)="reinicia()">Volver a Jugar</button>-->
+    </div>
+</ion-content>

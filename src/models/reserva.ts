@@ -2,14 +2,14 @@ export class Reserva {
 
     key: string;
     idPedido: number;
-    dniCliente: string;
+    cliente: string;
     idMesa: number;
     estado: string;
 
-    constructor(key?,idPedido?,dniCliente?,idMesa?, estado?){
+    constructor(key?,idPedido?,cliente?,idMesa?, estado?){
         this.key = key;
         this.idPedido = idPedido;
-        this.dniCliente = dniCliente;
+        this.cliente = cliente;
         this.idMesa = idMesa;
         this.estado = estado;
     }

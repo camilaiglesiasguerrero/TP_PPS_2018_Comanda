@@ -8,12 +8,7 @@ import { CameraService } from '../../services/camera.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
-/**
- * Generated class for the AltaMesaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {diccionario} from "../../models/diccionario";
 
 @IonicPage()
 @Component({
@@ -111,7 +106,8 @@ export class AltaMesaPage {
               private messageHandler:MessageHandler,
               public params: ParamsService,
               private spinner: SpinnerHandler) {
-
+    
+    this.camara.fotoSubir = '';
     if(this.navParams.get('mesa') != undefined)//Implica que estoy editando
     {
       this.titulo = "Detalles de la mesa";
@@ -119,11 +115,12 @@ export class AltaMesaPage {
       this.tipoOpc.setValue(this.mesa.tipo);
       this.comensales.setValue(this.mesa.comensales);
       this.numero.setValue(this.mesa.id);
-      this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
+      this.createdCode = this.qr.createCode('Mesa:'+this.mesa.id.toString());
       this.camara.fotoMostrar = this.mesa.foto;
     }else{
+      this.camara.fotoSubir != '';
       this.titulo = "Ingresar nueva mesa";
-      this.ultimoId = this.navParams.get('ultimoId');
+      this.ultimoId = parseInt(this.navParams.get('ultimoId'));
       this.camara.fotoMostrar = '';
       this.tipoOpc.setValue("");
       this.comensales.setValue("2");
@@ -148,21 +145,20 @@ export class AltaMesaPage {
     if(this.camara.fotoSubir != ''){
       if(this.mesa.tipo != ''){
         this.mesa.id = this.frm.get('numero').value;
-        this.mesa.idString = this.frm.get('numero').value.toString();
         this.mesa.comensales = this.frm.get('comensales').value;
         this.mesa.tipo = this.frm.get('tipoOpc').value;
-        this.mesa.estado = 'Libre';
+        this.mesa.estado = diccionario.estados_mesas.libre;
         this.mesa.foto = this.camara.fotoMostrar;
-        this.navParams.get("mesa") == undefined ? this.mesa.key = this.database.ObtenerKey('mesas/') : null;
+        this.navParams.get("mesa") == undefined ? this.mesa.key = this.database.ObtenerKey(diccionario.apis.mesas) : null;
 
         this.database.jsonPackData = this.mesa;
         
         this.elSpinner = this.spinner.getAllPageSpinner();
         this.elSpinner.present();
 
-        this.database.SubirDataBase('mesas/').then(r => {          
+        this.database.SubirDataBase(diccionario.apis.mesas).then(r => {
           //this.messageHandler.mostrarMensaje("Mesa creada con éxito");
-          this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
+          this.createdCode = this.qr.createCode('Mesa:'+this.mesa.id.toString());
           this.elSpinner.dismiss();
           this.navCtrl.pop();
           });

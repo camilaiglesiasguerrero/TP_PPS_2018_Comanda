@@ -1,110 +1,90 @@
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle color="secondary">
-            <ion-icon color="secondary" name="menu"></ion-icon>
-        </button>
-        <ion-title>{{title}}</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle color="secondary">
+      <ion-icon color="secondary" name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <div class="flex-v center-horizontal">
-        <div class="">
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>Nombre</ion-label>
-                        <ion-input type="text" name="Nombre" [(ngModel)]="user.nombre"></ion-input>
-                    </ion-item>
-                </ion-col>
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>Apellido</ion-label>
-                        <ion-input type="text" name="Apellido" [(ngModel)]="user.apellido"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>DNI</ion-label>
-                        <ion-input type="number" name="dni" [pattern]="[0-9]" [(ngModel)]="user.dni"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row *ngIf="isEmpleado">
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>CUIL</ion-label>
-                        <ion-input type="number" name="cuil" [pattern]="[0-9]" [(ngModel)]="user.cuil"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row *ngIf="isEmpleado">
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>Tipo de Empleado</ion-label>
-                        <ion-select [(ngModel)]="user.subRol">
-                            <ion-option value="mozo">Mozo</ion-option>
-                            <ion-option value="cocinero">Cocinero</ion-option>
-                            <ion-option value="bartender">Bartender</ion-option>
-                            <ion-option value="metre">Metre</ion-option>
-                            <ion-option value="supervisor">Supervisor</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>Correo Electrónico</ion-label>
-                        <ion-input type="email" name="email"  [(ngModel)]="user.email"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>Contraseña</ion-label>
-                        <ion-input type="password" name="password" [(ngModel)]="user.pass"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label floating>Repetir Contraseña</ion-label>
-                        <ion-input type="password" name="password" [(ngModel)]="user.secondPass"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col text-center>
-                    <button ion-button round color="light" (click)="escanearDni()">
-                        <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
-                        Escanear DNI
-                    </button>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col text-center>
-                    <button ion-button round color="light" (click)="tomarFoto()">
-                        <ion-icon color="secondary" name="camera" style="margin-right:5px;"></ion-icon>
-                        Tomar foto
-                    </button>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col text-center>
-                    <button ion-button round color="light" (click)="registerUser()">Registrarse</button>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col text-center>
-                    <button ion-button round color="light" (click)="ingresarAnonimo()">Ingresar como anónimo</button>
-                </ion-col>
-            </ion-row>
-        </div>
+  <div class="flex-v center-horizontal">
+    <div class="">
+      <form [formGroup]="formGroup">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Nombre</ion-label>
+              <ion-input type="text" name="Nombre" formControlName="nombreValidator"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Apellido</ion-label>
+              <ion-input type="text" name="Apellido" formControlName="apellidoValidator"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>DNI</ion-label>
+              <ion-input type="text" name="dni" formControlName="dniValidator"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Correo Electrónico</ion-label>
+              <ion-input type="email" name="email" formControlName="emailValidator"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Contraseña</ion-label>
+              <ion-input type="password" name="password" formControlName="passValidator"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Repetir Contraseña</ion-label>
+              <ion-input type="password" name="password" formControlName="secondPassValidator"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-center>
+            <button ion-button round color="light" (click)="escanearDni()">
+              <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+              Escanear DNI
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-center>
+            <button ion-button round color="light" (click)="tomarFoto()">
+              <ion-icon color="secondary" name="camera" style="margin-right:5px;"></ion-icon>
+              Tomar foto
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-center>
+            <button ion-button round color="light" (click)="registerUser()">{{title}}</button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!isEmpleado">
+          <ion-col text-center>
+            <button ion-button round color="light" (click)="ingresarAnonimo()">Ingresar como anónimo</button>
+          </ion-col>
+        </ion-row>
+      </form>
     </div>
+  </div>
 </ion-content>

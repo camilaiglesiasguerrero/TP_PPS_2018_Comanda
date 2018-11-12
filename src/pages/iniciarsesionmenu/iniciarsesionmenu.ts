@@ -23,55 +23,55 @@ export class IniciarsesionmenuPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IniciarsesionmenuPage');
+    //console.log('ionViewDidLoad IniciarsesionmenuPage');
   }
 
   seleccionar(){
 
     switch (this.user) {
         case "admin": {
-          this.params.name = "administrador@gmail.com";
+          this.params.email = "administrador@gmail.com";
           break;
         }
         case "bartender": {
-          this.params.name = "bartender@gmail.com";
+          this.params.email = "bartender@gmail.com";
           break;
         }
         case "cocinero": {
-          this.params.name = "cocinero@gmail.com";
+          this.params.email = "cocinero@gmail.com";
           break;
         }
         case "metre": {
-          this.params.name = "metre@gmail.com";
+          this.params.email = "metre@gmail.com";
           break;
         }
         case "mozo": {
-          this.params.name = "mozo@gmail.com";
+          this.params.email = "mozo@gmail.com";
           break;
         }
         case "cliente1": {
-          this.params.name = "cliente1@gmail.com";
+          this.params.email = "cliente1@gmail.com";
           break;
         }
         case "cliente2": {
-          this.params.name = "cliente2@gmail.com";
+          this.params.email = "cliente2@gmail.com";
           break;
         }
         case "dueño": {
-          this.params.name = "duenio@gmail.com";
+          this.params.email = "duenio@gmail.com";
           break;
         }
         case "supervisor": {
-          this.params.name = "supervisor@gmail.com";
+          this.params.email = "supervisor@gmail.com";
           break;
       }
       case "delivery": {
-        this.params.name = "delivery@gmail.com";
+        this.params.email = "delivery@gmail.com";
         break;
       }
     }
     this.params.pass = "123456";
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.params);
   }
 
 

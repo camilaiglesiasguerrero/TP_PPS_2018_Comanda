@@ -101,6 +101,7 @@ page-iniciarsesion {
     width:100%;
     background-color: $first-detail-color;
   }
+
   .flb {
     background-color: $first-detail-color;
     height:100%;
@@ -110,15 +111,19 @@ page-iniciarsesion {
     align-items: center;
     justify-content: center;
   }
+
   .Aligner-item {
     max-width: 50%;
   }
-  .Aligner-item--top {
+
+.Aligner-item--top {
     align-self: flex-start;
   }
+
   .Aligner-item--bottom {
     align-self: flex-end;
   }
+
   #custom-overlay img {
     display: block;
     margin: 0 auto;

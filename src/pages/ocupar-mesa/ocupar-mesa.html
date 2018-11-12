@@ -7,36 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Reservar mesa</ion-title>
+    <ion-title>Asignar mesa</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <ion-card *ngIf="mostrar">
+    <ion-card *ngIf="mostrar" style="text-align: center">
       <ion-card-content>
-        Se reservará la mesa {{mesa.id}} ({{mesa.tipo}}) para {{mesa.comensales}} comensales.
+        Se asignará la mesa {{mesa.id}} ({{mesa.tipo}} - {{mesa.comensales}} comensales) a nombre de {{cliente.nombre}} para {{cliente.comensales}} comensales.
         <img [src]=mesa.foto alt="FotoMesa" style="width:50vw"> 
-        <div class="autocomplete">
-            <ion-searchbar
-              [(ngModel)]="searchText"
-              (ionInput)="search($event)"
-              [showCancelButton]="shouldShowCancel"
-              debounce=10
-              placeholder = 'Seleccione cliente'>
-            </ion-searchbar>
-            <ion-list *ngIf=display>
-              <ion-item  *ngFor="let cli of clientesFiltro" (click)="VincularCliente(cli)">
-                {{cli}}
-              </ion-item>
-            </ion-list>
-          </div>
           <br>
           <button ion-button  color="dark" block type="button" (click)='Confirmar()'>Confirmar</button>
           <button ion-button  color="light" block type="button" (click)='Cancelar()'>Cancelar</button>
       </ion-card-content>
     </ion-card>
   
+
 </ion-content>
 

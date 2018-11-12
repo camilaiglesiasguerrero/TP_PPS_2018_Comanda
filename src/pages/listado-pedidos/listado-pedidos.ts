@@ -4,13 +4,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AltaMenuPage } from '../alta-menu/alta-menu';
 import { ListadoMenuPage } from '../listado-menu/listado-menu';
 import { ParamsService } from '../../services/params.service';
-
-/**
- * Generated class for the ListadoPedidosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Pedido } from '../../models/pedido';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ProductoPedido } from '../../models/productoPedido';
+import {diccionario} from "../../models/diccionario";
 
 @IonicPage()
 @Component({
@@ -20,22 +18,33 @@ import { ParamsService } from '../../services/params.service';
 export class ListadoPedidosPage {
 
   esCocina : boolean;
+  tipoEmpleado:string;
+  pedidosObs: Observable<Pedido[]>;
+  pedidosList:Array<any>;
+  
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public db:AngularFireDatabase,
               public params:ParamsService) {
-
-    this.params.rol == 'bartender' ? this.esCocina = false : this.esCocina = true;
-
-    db.list<any>('pedidos/').valueChanges()
-      .subscribe(snapshotPedidos=>{
-        console.log(snapshotPedidos);
-    })
     
-    
-
+    //this.tipoEmpleado=this.navParams.get("tipoEmpleado");           
+    this.pedidosList = new Array<any>();
+    this.pedidosObs= db.list<any>(diccionario.apis.pedidos).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
+    this.pedidosObs.subscribe( res =>{
+      this.pedidosList = res;
+      console.log(this.pedidosList);
+      for (let index = 0; index < this.pedidosList.length; index++) {
+        console.log(this.pedidosList[index].productos);
+        
+      }
+    });
   }
+  
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad ListadoPedidosPage');

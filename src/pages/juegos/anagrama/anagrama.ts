@@ -6,12 +6,9 @@ import { MessageHandler } from '../../../services/messageHandler.service';
 import { DatabaseService } from '../../../services/database.service';
 import { Juego } from '../../../models/Juegos/juego';
 import { ParamsService } from '../../../services/params.service';
-/**
- * Generated class for the AnagramaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { diccionario } from "../../../models/diccionario";
+import { ParserTypesService } from '../../../services/parserTypesService';
+
 
 @IonicPage()
 @Component({
@@ -42,22 +39,21 @@ export class AnagramaPage {
               public navParams: NavParams,
               public messageH:MessageHandler,
               public database:DatabaseService,
-              public params: ParamsService) {
+              public params: ParamsService,
+              public parserType: ParserTypesService) {
     
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
-    this.database.db.list<any>('juegos/').valueChanges()
+    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
        
         for (let index = 0; index < this.aux.length; index++) {
             if(this.aux[index].cliente == this.usuario.dni 
-              && this.aux[index].fecha == juego.obtenerFecha() 
+              && this.aux[index].fecha == parserType.parseDateToStringDate(new Date)
               && this.aux[index].nombreJuego == 'Anagrama'){
-                setTimeout(function(){
                   messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
                   navCtrl.remove(1,1);
-                },2000);
             }
 
         }
@@ -123,22 +119,18 @@ export class AnagramaPage {
       if(!this.anagrama.Verificar())
       { 
         this.Rendirse(); 
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,false,this.database.ObtenerKey('juegos/'));
-        this.database.SubirDataBase('juegos/').then(e=>{
-          setTimeout(function(){
-            this.messageHandler.mostrarErrorLiteral('¡Perdiste!');
+        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+        this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
+            this.messageH.mostrarErrorLiteral('¡Perdiste!');
             this.navCtrl.remove(1,1);
-          },2000);
       })
       }
       else
       {
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,true,this.database.ObtenerKey('juegos/'));
-        this.database.SubirDataBase('juegos/').then(e=>{
-          setTimeout(function(){
-            this.messageHandler.mostrarMensaje('¡Ganaste!');
-            this.navCtrl.remove(1,1);
-          },2000);        
+        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+        this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
+            this.messageH.mostrarMensaje('¡Ganaste!');
+            this.navCtrl.remove(1,1);      
         });
       }
     }

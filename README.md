@@ -44,17 +44,17 @@ Branch: *branch_cami*
 
 #### *Funcionalidades*
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de platos y bebidas` [ Comenzado 31/10  Mergeado 4/11 Commit [ac8fb16](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/ac8fb1602bd7bd85f287b09e0f78c53afb1e23ac) ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de platos y bebidas` [ Mergeado 4/11 Commit [ac8fb16](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/ac8fb1602bd7bd85f287b09e0f78c53afb1e23ac) ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de mesa` [ Mergeado 28/10 Commit [34a93aa](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/34a93aa714ed8bb31a33a7bc226a7124b0109e45) ]
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de la mesa` [ Comenzado 29/10 Mergeado 31/10 Commit [b3af296](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/b3af29681418925391e14a7bd0e4af8a1d642770) ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de la mesa` [ Mergeado 31/10 Commit [b3af296](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/b3af29681418925391e14a7bd0e4af8a1d642770) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para los empleados`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Encuesta con estadística para los empleados`[ Mergeado 09/11 Commit [2ebbe13](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2ebbe138111437ea3b1e8de315541b1b625798fc) - Faltan las estadísticas ]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Pedir platos y bebidas`[ Comenzado 05/11 ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Pedir platos y bebidas`[ Mergeado 09/11 Commit [2ebbe13](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2ebbe138111437ea3b1e8de315541b1b625798fc)]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Push notification pedir mesa` [ Comenzado 31/10 ]
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Push notification pedir mesa` [ Comenzado 31/10 - Falta implementar]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego para bebida gratis -> juego elegido: anagrama` [ Mergeado 24/10 Commit  [f33a359](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f33a359f9b90e39135fb82d72fbaaa5583225c69) ]
 
@@ -111,19 +111,19 @@ Branch: *branch_cari*
 
 #### *Funcionalidades*
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Alta de clientes`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Alta de clientes`[ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c)]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Código QR de ingreso al local`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de ingreso al local`[ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c)]
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 2/11 [f1f87a5](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f1f87a560ac3ecb20e78a983c68e352b5286fd90)]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 11/11 [3354c5d](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/3354c5daf5ad046e884df4bfee295307fe644bba) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Hacer reservas agendadas`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Hacer reservas agendadas` [ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c) - En proceso]
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification de reservas agendadas`
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Realizar pedido por GPS o dirección`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Juego para un postre gratis`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Juego para un postre gratis` [ En proceso]
 
 
 #### *Responsabilidades*
