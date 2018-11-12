@@ -98,7 +98,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
-
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 @NgModule({
   declarations: [
     MyApp,
@@ -127,6 +127,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
@@ -177,6 +178,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
