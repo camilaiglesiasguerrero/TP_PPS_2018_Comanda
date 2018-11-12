@@ -88,6 +88,11 @@ export class PrincipalClientePage {
     });
   }
 
+  perdirDelivery(){
+
+
+  }
+
   private infoReserva(){
     let alert = this.alertCtrl.create({
       title: 'Reservar mesa',

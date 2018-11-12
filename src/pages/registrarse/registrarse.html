@@ -76,10 +76,10 @@
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            <button ion-button round color="light" (click)="registerUser()">Registrarse</button>
+            <button ion-button round color="light" (click)="registerUser()">{{title}}</button>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="!isEmpleado">
           <ion-col text-center>
             <button ion-button round color="light" (click)="ingresarAnonimo()">Ingresar como anónimo</button>
           </ion-col>
