@@ -62,6 +62,7 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
 import { TriviaPage } from '../pages/juegos/trivia/trivia';
 
+
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
@@ -95,9 +96,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
-
-
-
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 @NgModule({
   declarations: [
     MyApp,
@@ -126,6 +125,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
@@ -174,6 +174,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
