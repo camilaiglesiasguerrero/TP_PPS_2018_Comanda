@@ -115,7 +115,7 @@ Branch: *branch_cari*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de ingreso al local`[ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c)]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 2/11 [f1f87a5](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f1f87a560ac3ecb20e78a983c68e352b5286fd90) - Faltan estadísticas]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 11/11 [3354c5d](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/3354c5daf5ad046e884df4bfee295307fe644bba) ]
 
 ![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Hacer reservas agendadas` [ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c) - En proceso]
 

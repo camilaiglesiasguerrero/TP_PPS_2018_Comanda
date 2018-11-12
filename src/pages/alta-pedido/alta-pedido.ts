@@ -20,20 +20,19 @@ import { diccionario } from '../../models/diccionario';
 })
 export class AltaPedidoPage {
 
-bebidas:any;
-comidas:any;
-reservas:any;
-reservaKey : string;
-reservaCliente:string;
-reservaMesa:any;
-productoPedido : Array<ProductoPedido>;
-spinner:any;
-user:any;
-clienteTieneReserva:boolean;
-direccion:any = {value:""};
-options:any;
-listadoAPedir:Array<any>;
-mostrarParcial:boolean = false;
+  bebidas:any;
+  comidas:any;
+  reservas:any;
+  reservaKey : string;
+  reservaCliente:string;
+  reservaMesa:any;
+  productoPedido : Array<ProductoPedido>;
+  user:any;
+  clienteTieneReserva:boolean;
+  direccion:any = {value:""};
+  options:any;
+  listadoAPedir:Array<any>;
+  mostrarParcial:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -49,15 +48,15 @@ mostrarParcial:boolean = false;
     this.productoPedido = new Array<ProductoPedido>();
     this.listadoAPedir = new Array<any>();
     this.user = this.params.user;
-                
+
     this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
-          this.reservas = snapshots;
-          this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
-          if(this.params.rol == 'cliente'){
-            this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.clienteUid )
-          }
-     }); 
+        this.reservas = snapshots;
+        this.reservas = this.reservas.filter(f => f.estado == 'Reserva');
+        if(this.params.rol == 'cliente'){
+          this.reservas = this.reservas.filter(f=> f.cliente == this.params.user.clienteUid )
+        }
+      });
 
     this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
       .subscribe(snapshots => {
@@ -68,9 +67,9 @@ mostrarParcial:boolean = false;
 
     this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
       .subscribe(snapshots => {
-          this.bebidas = snapshots;
-          this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );  
-          
+        this.bebidas = snapshots;
+        this.bebidas = this.bebidas.filter(f => f.cantidad > 0 );
+
       });
   }
 
@@ -83,20 +82,20 @@ mostrarParcial:boolean = false;
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
         auxProducto  = barcodeData.text;
-          if(auxProducto.split(':')[0] == 'Comida'){
-            for (let index = 0; index < this.comidas.length; index++) {
-              if(this.comidas[index].nombre == auxProducto)
-                this.listadoAPedir.push(this.comidas[index]);
-            }
-          }else if(auxProducto.split(':')[0] == 'Bebida'){
-            for (let index = 0; index < this.bebidas.length; index++) {
-              if(this.bebidas[index].nombre == auxProducto)
-                this.listadoAPedir.push(this.bebidas[index]);
-            }
+        if(auxProducto.split(':')[0] == 'Comida'){
+          for (let index = 0; index < this.comidas.length; index++) {
+            if(this.comidas[index].nombre == auxProducto)
+              this.listadoAPedir.push(this.comidas[index]);
           }
+        }else if(auxProducto.split(':')[0] == 'Bebida'){
+          for (let index = 0; index < this.bebidas.length; index++) {
+            if(this.bebidas[index].nombre == auxProducto)
+              this.listadoAPedir.push(this.bebidas[index]);
+          }
+        }
       }, (err) => {
-          //console.log('Error: ', err);
-          this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //console.log('Error: ', err);
+        this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
 
@@ -117,11 +116,11 @@ mostrarParcial:boolean = false;
       if(this.productoPedido.length == 0)
         this.productoPedido.push(new ProductoPedido(this.listadoAPedir[index].key,1,this.listadoAPedir[index].tipo));
       else{
-          for (let i  = 0; i  < this.productoPedido.length; i ++) {
-            cnt = 0;
-            if(this.productoPedido[i].idProducto == this.listadoAPedir[index].key){//si ya pedi este producto le agrego uno
-              this.productoPedido[i].cantidad ++;
-              flag = true;
+        for (let i  = 0; i  < this.productoPedido.length; i ++) {
+          cnt = 0;
+          if(this.productoPedido[i].idProducto == this.listadoAPedir[index].key){//si ya pedi este producto le agrego uno
+            this.productoPedido[i].cantidad ++;
+            flag = true;
             if(this.listadoAPedir[index].tipo == 'Bebida'){                         //si el producto es bebida, verifico q me de el stock
               for (let index = 0; index < this.bebidas.length; index++) {
                 if(this.bebidas.key == this.listadoAPedir[index].key && this.bebidas.cantidad < this.productoPedido[i].cantidad){
@@ -154,8 +153,8 @@ mostrarParcial:boolean = false;
     this.mostrarParcial = false;
   }
 
-  Confirmar(){ 
-    let spinner = this.spinner.getAllPageSpinner();
+  Confirmar(){
+    let spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
     let pedidoASubir : Pedido = new Pedido();
     let aux;

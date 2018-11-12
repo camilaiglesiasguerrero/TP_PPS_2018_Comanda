@@ -1,19 +1,28 @@
-<ion-row>
-  <ion-col class="flex-80">
-    <ion-item>
-      <ion-label floating>Ingresar direccion</ion-label>
-      <ion-input type="text" required name="origen" [(ngModel)]="direccion.value"></ion-input>
-    </ion-item>
-  </ion-col>
-  <ion-col class="center-horizontal center-vertical" >
-    <button ion-button icon-only style="box-shadow: none; background-color: transparent;" (click)="buscarCoordenadas()">
-      <ion-icon name="search"></ion-icon>
-    </button>
-  </ion-col>
-</ion-row>
+<div style="height: 100%">
+  <ion-row>
+    <ion-col class="flex-80 width-80" style="padding: 0;">
+      <ion-item>
+        <ion-label floating>Ingresar direccion</ion-label>
+        <ion-input type="text" required name="origen" [(ngModel)]="direccion.value"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col class="center-horizontal center-vertical flex-10 width-10"  >
+      <button ion-button icon-only style="box-shadow: none; background-color: transparent;" (click)="buscarCoordenadas()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
 
-<ion-row style="width: 100%; height: 60%;">
-  <ion-col>
-    <div #map id="map"></div>
-  </ion-col>
-</ion-row>
+  <ion-row *ngIf="tiempoArribo">
+    <ion-col>
+      <p class="tiempo-arribo">Tiempo de arribo: {{tiempoArribo}}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="width: 100%; height: 80%;">
+    <ion-col>
+      <div #map id="map"></div>
+    </ion-col>
+  </ion-row>
+
+</div>

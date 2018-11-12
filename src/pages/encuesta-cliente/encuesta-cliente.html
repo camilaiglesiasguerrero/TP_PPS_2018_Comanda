@@ -1,144 +1,137 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon color="dark" name="menu"></ion-icon>
-        </button>
-        <ion-title>Encuesta Clientes</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon color="dark" name="menu"></ion-icon>
+    </button>
+    <ion-title>Encuesta Clientes</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-row>
-        <ion-col class="pregunta-titulo">
-            ¿Cómo encontraste la limpieza de las instalaciones?
-        </ion-col>
-    </ion-row>
-    <ion-row>
+  <ion-row>
+    <ion-col class="pregunta-titulo">
+      ¿Cómo encontraste la limpieza de las instalaciones?
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-label>Limpieza</ion-label>
+          <ion-select [(ngModel)]="resultados.limpieza" interface="popover">
+            <ion-option value="muyBien">Muy Bien</ion-option>
+            <ion-option value="bien">Bien</ion-option>
+            <ion-option value="regular">Regular</ion-option>
+            <ion-option value="malo">Malo</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="pregunta-titulo">
+      ¿Cómo fue la atención recibida por parte del personal?
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list radio-group >
+        <ion-item>
+          <ion-label>Nivel de atención</ion-label>
+          <ion-select [(ngModel)]="resultados.atencion" interface="action-sheet">
+            <ion-option value="muyBuena">Muy Buena</ion-option>
+            <ion-option value="buena">Buena</ion-option>
+            <ion-option value="regular">Regular</ion-option>
+            <ion-option value="mala">Mala</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <!--<ion-item style="background-color: transparent">-->
+          <!--<ion-label style="color: beige;">Muy Buena</ion-label>-->
+          <!--<ion-radio value="muyBuena" checked></ion-radio>-->
+        <!--</ion-item>-->
+        <!--<ion-item style="background-color: transparent">-->
+          <!--<ion-label style="color: beige;">Buena</ion-label>-->
+          <!--<ion-radio value="buena" checked></ion-radio>-->
+        <!--</ion-item>-->
+        <!--<ion-item style="background-color: transparent">-->
+          <!--<ion-label style="color: beige;">Regular</ion-label>-->
+          <!--<ion-radio value="regular" checked></ion-radio>-->
+        <!--</ion-item>-->
+        <!--<ion-item style="background-color: transparent">-->
+          <!--<ion-label style="color: beige;">Mala</ion-label>-->
+          <!--<ion-radio value="mala" checked></ion-radio>-->
+        <!--</ion-item>-->
+
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="pregunta-titulo">
+      ¿Cuál es tu nivel de satisfacción con el sabor de la comida y la bebida?
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item *ngFor="let sabor of sabores" style="margin-bottom: 0.5em;">
+          <ion-checkbox [(ngModel)]="sabor.selected" color="secondary" (click)="saborClick(sabor)"></ion-checkbox>
+          <ion-label>{{sabor.label}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="pregunta-titulo">
+      ¿Cómo fue la velocidad de entrega del pedido?
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-row>
         <ion-col>
-            <ion-list radio-group [(ngModel)]="resultados.limpieza">
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Muy Bien</ion-label>
-                    <ion-radio value="muyBien" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Bien</ion-label>
-                    <ion-radio value="bien" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Regular</ion-label>
-                    <ion-radio value="regular" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Malo</ion-label>
-                    <ion-radio value="malo" checked></ion-radio>
-                </ion-item>
-            </ion-list>
+          <ion-badge item-end color="secondary">{{resultados.velocidad == '1' ? 'Tardó mucho' : resultados.velocidad == '2' ? 'Demoró un poco' : 'Rápida'}}</ion-badge>
         </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col class="pregunta-titulo">
-            ¿Cómo fue la atención recibida por parte del personal?
-        </ion-col>
-    </ion-row>
-    <ion-row>
+      </ion-row>
+      <ion-row>
         <ion-col>
-            <ion-list radio-group [(ngModel)]="resultados.atencion">
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Muy Buena</ion-label>
-                    <ion-radio value="muyBuena" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Buena</ion-label>
-                    <ion-radio value="buena" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Regular</ion-label>
-                    <ion-radio value="regular" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Mala</ion-label>
-                    <ion-radio value="mala" checked></ion-radio>
-                </ion-item>
-            </ion-list>
+          <ion-item>
+            <ion-range min="1" max="3" step="1" [(ngModel)]="resultados.velocidad">
+              <ion-icon small range-left name="arrow-round-down" style="min-height: 2.4rem; font-size: 2.4rem;"></ion-icon>
+              <ion-icon range-right name="arrow-round-up"></ion-icon>
+            </ion-range>
+          </ion-item>
         </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col class="pregunta-titulo">
-            ¿Cuál es tu nivel de satisfacción con el sabor de la comida y la bebida?
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-list radio-group [(ngModel)]="resultados.sabor">
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Muy Rica</ion-label>
-                    <ion-radio value="muyRica" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Rica</ion-label>
-                    <ion-radio value="rica" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Regular</ion-label>
-                    <ion-radio value="regular" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Mala</ion-label>
-                    <ion-radio value="mala" checked></ion-radio>
-                </ion-item>
-            </ion-list>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col class="pregunta-titulo">
-            ¿Cómo fue la velocidad de entrega del pedido?
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-list radio-group [(ngModel)]="resultados.velocidad">
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Rápida</ion-label>
-                    <ion-radio value="rapida" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Demoro un poco</ion-label>
-                    <ion-radio value="demoro" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Tardó mucho</ion-label>
-                    <ion-radio value="tardo" checked></ion-radio>
-                </ion-item>
-            </ion-list>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col class="pregunta-titulo">
-            ¿Recomendarías el lugar?
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-list radio-group [(ngModel)]="resultados.recomendar">
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">Si</ion-label>
-                    <ion-radio value="si" checked></ion-radio>
-                </ion-item>
-                <ion-item style="background-color: transparent">
-                    <ion-label style="color: beige;">No</ion-label>
-                    <ion-radio value="no" checked></ion-radio>
-                </ion-item>
-            </ion-list>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col text-center>
-            <button ion-button round color="light" (click)="tomarFotos()">Tomar fotos</button>
-        </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col text-center>
-            <button ion-button round color="light" (click)="finalizar()">Finalizar encuesta</button>
-        </ion-col>
-    </ion-row>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="pregunta-titulo">
+      ¿Recomendarías el lugar?
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list radio-group [(ngModel)]="resultados.recomendar">
+        <ion-item style="margin-bottom: 0.5em;">
+          <ion-label>Si</ion-label>
+          <ion-radio value="si" checked></ion-radio>
+        </ion-item>
+        <ion-item style="margin-bottom: 0.5em;">
+          <ion-label>No</ion-label>
+          <ion-radio value="no" checked></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button round color="light" (click)="tomarFotos()">Tomar fotos</button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button round color="light" (click)="finalizar()">Finalizar encuesta</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

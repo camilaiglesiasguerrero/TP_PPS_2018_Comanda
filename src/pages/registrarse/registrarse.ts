@@ -216,5 +216,6 @@ export class RegistrarsePage {
                 this.messageHandler.mostrarError(error, "Error al registrarse");
             })
     }
+
 }
 

@@ -54,7 +54,7 @@ export class IniciarsesionPage {
     } else {
       setTimeout(() => {
         this.splash = false;
-      }, 6000);
+      }, 600);
     }
   }
 
@@ -90,6 +90,7 @@ export class IniciarsesionPage {
     this.paramsService.rol = user.rol;
     this.spiner.dismiss();
     this.paramsService.isLogged = true;
+
     this.autenticationService.logInFromDataBase();
     if((!this.autenticationService.getVerification()) && this.paramsService.rol == "cliente" && this.paramsService.email !== "cliente1@gmail.com" && this.paramsService.email !== "cliente2@gmail.com" )
     {
@@ -115,6 +116,7 @@ export class IniciarsesionPage {
       case 'supervisor':
         this.navCtrl.setRoot(DashboardPage);
         break;
+
       }
     }
 
