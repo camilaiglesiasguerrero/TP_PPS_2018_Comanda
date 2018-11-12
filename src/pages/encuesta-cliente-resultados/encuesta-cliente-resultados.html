@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="!fromDashboard">
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content padding>
+  <div *ngIf="encuestas.length == 0">
+    <ion-item>
+      <p class="sin-resultados">No hay encuestas respondidas</p>
+    </ion-item>
+
+  </div>
   <div class="flex-v" *ngIf="display">
     <div class="flex-v center-horizontal center-vertical">
       <p-chart type="doughnut" [data]="dataAtencion" [options]="atencionOptions"></p-chart>
@@ -28,7 +34,6 @@
     <div class="flex-v center-horizontal center-vertical" style="margin-top: 2em;">
       <p-chart type="bar" [data]="dataRecomendar" [options]="recomendarOptions"></p-chart>
     </div>
-
 
   </div>
 </ion-content>

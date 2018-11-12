@@ -68,10 +68,13 @@ import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente'
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
 import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
 import { ChartModule } from 'primeng/chart';
+
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
+import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
+
 
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
@@ -127,7 +130,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
-    ReservasAgendadasPage
+    ReservasAgendadasPage,
+    ReservasAgendadasSupervisorPage
   ],
   imports: [
     BrowserModule,
@@ -174,7 +178,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
-    ReservasAgendadasPage
+    ReservasAgendadasPage,
+    ReservasAgendadasSupervisorPage
   ],
   providers: [
     StatusBar,

@@ -7,6 +7,8 @@ import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
+import {SpinnerHandler} from "../../services/spinnerHandler.service";
+import {ParserTypesService} from "../../services/parserTypesService";
 
 
 @IonicPage()
@@ -26,14 +28,13 @@ export class PrincipalMozoPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public barcodeScanner: BarcodeScanner,
-              private messageHandler: MessageHandler,
               public popoverCtrl: PopoverController,
-              public database:DatabaseService) {
-    
-    let hoy = (new Date().toLocaleString()).split(' ')[0];
-    
-       
-
+              public database:DatabaseService,
+              private messageHandler: MessageHandler,
+              private spinnerHandler: SpinnerHandler,
+              private parserTypesService: ParserTypesService) {
+    var spinner = this.spinnerHandler.getAllPageSpinner();
+    spinner.present();
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snp => {
         let aux:Array<any>;
@@ -53,11 +54,13 @@ export class PrincipalMozoPage {
         this.database.db.list<any>(diccionario.apis.lista_espera).valueChanges()
         .subscribe(snapshots => {
             this.clientesEspera = snapshots;
-            this.clientesEspera = this.clientesEspera.filter(f => f.estado == diccionario.estados_reservas_agendadas.sin_mesa && f.fecha.split(' ')[0] == hoy);
+            this.clientesEspera = this.clientesEspera.filter(f =>{
+              return f.estado == diccionario.estados_reservas_agendadas.sin_mesa && this.parserTypesService.compararFechaMayorAHoy(f.fecha)
+            });
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
+            spinner.dismiss();
         });  
       });
-    
   }
 
   ionViewDidLoad() {

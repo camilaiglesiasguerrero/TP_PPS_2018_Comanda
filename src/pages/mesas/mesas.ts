@@ -14,14 +14,14 @@ export class MesasPage {
 
   mesas : any;
   ultimoId : number = 0;
+  dic:any;
 
   constructor(public navCtrl: NavController,
               private database: DatabaseService) {
-    
+    this.dic = diccionario;
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snapshots => {
-          this.mesas = snapshots;  
-
+          this.mesas = snapshots;
           if(this.mesas != undefined && this.mesas != null && this.mesas.length != 0){
             this.ultimoId = this.mesas[this.mesas.length-1].id;
           }
