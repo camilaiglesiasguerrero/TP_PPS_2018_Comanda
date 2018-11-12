@@ -7,6 +7,7 @@ declare var google;
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
+import {diccionario} from "../../models/diccionario";
 
 @Component({
   selector: 'page-ubicacion',
@@ -25,7 +26,13 @@ export class UbicacionPage {
   @ViewChild('directionsPanel') directionsPanel: ElementRef;
   map: any;
   marker:any;
+  latLong:any;
+  directionsService:any;
+  directionsDisplay:any;
+  tiempoArribo:string;
+
   @Input('direccion') direccion:any;
+  @Input('show-ruta') showRuta:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -62,9 +69,11 @@ export class UbicacionPage {
   }
 
   private cargarMapa(lat, long) {
-    let latLng = new google.maps.LatLng(lat, long);
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsDisplay = new google.maps.DirectionsRenderer();
+    this.latLong = new google.maps.LatLng(lat, long);
     let mapOptions = {
-      center: latLng,
+      center: this.latLong,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -72,8 +81,12 @@ export class UbicacionPage {
     google.maps.event.addListener(this.map, 'click', event => {
       this.mapClick(event)
     });
+    this.directionsDisplay.setMap(this.map);
     this.obtenerDireccionPorCoordenadas(lat, long);
     this.addMarker(lat, long);
+    if(this.showRuta){
+      this.obtenerRutaALocal();
+    }
   }
 
   private obtenerDireccionPorCoordenadas(lat, long){
@@ -95,9 +108,7 @@ export class UbicacionPage {
       animation: google.maps.Animation.DROP,
       position: latLng
     });
-
     let content = "<h5>" + this.direccion.value + "</h5>";
-
     this.addInfoWindow(this.marker, content);
   }
 
@@ -108,6 +119,29 @@ export class UbicacionPage {
     google.maps.event.addListener(this.marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
+  }
+
+  private obtenerRutaALocal(){
+    let destino = new google.maps.LatLng(diccionario.direccion_local.lat, diccionario.direccion_local.long);
+    let configRute = {
+      origin: this.latLong,
+      destination:  destino,
+      travelMode: 'DRIVING',
+      drivingOptions: {
+        departureTime: new Date(),
+        trafficModel: 'pessimistic'
+      },
+      provideRouteAlternatives: true
+    }
+    this.directionsService.route(configRute, (result, status) =>{
+      if (status == 'OK') {
+        this.directionsDisplay.setDirections(result);
+        this.tiempoArribo = result.routes[0].legs[0].duration_in_traffic.text;
+      }
+    });
+
+
+
   }
 
   //este sirve para poner dos rutas de destino y te indica que camino tomar

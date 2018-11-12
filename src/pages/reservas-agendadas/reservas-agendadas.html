@@ -8,39 +8,57 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label floating>Cantidad de comensales</ion-label>
-        <ion-input type="number" name="comensales" [(ngModel)]="comensales" ></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Elegir fecha</ion-label>
-        <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="fecha">
-        </ion-datetime>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Elegir horario</ion-label>
-        <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora">
-        </ion-datetime>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+  <div>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Cantidad de comensales</ion-label>
+          <ion-input type="number" name="comensales" [(ngModel)]="comensales" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Elegir fecha</ion-label>
+          <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="fecha">
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Elegir horario</ion-label>
+          <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora">
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <!--<ion-row>-->
+      <!--<ion-col text-center>-->
+        <!--<button ion-button round color="light" (click)="confirmarReserva()">-->
+          <!--<ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>-->
+          <!--Confirmar reserva-->
+        <!--</button>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+  </div>
 
-  <ion-row>
-    <ion-col text-center>
-      <button ion-button round color="light" (click)="confirmarReserva()">
-        <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
-        Confirmar reserva
-      </button>
-    </ion-col>
-  </ion-row>
+  <div class="height-60">
+    <ion-row class="height-100">
+      <ion-col>
+        <page-ubicacion [direccion]="direccion" [show-ruta]="true"></page-ubicacion>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+
 </ion-content>
+
+<ion-footer>
+  <button ion-button color="light" block type="button"  (click)="confirmarReserva()"><ion-icon name="check-mark" ></ion-icon>Confirmar Reserva</button>
+</ion-footer>
+
+

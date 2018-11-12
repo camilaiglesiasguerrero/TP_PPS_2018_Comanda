@@ -8,6 +8,7 @@ import { ParamsService } from '../../services/params.service';
 import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
+import { CuentaPage } from '../cuenta/cuenta';
 
 
 @IonicPage()
@@ -21,8 +22,8 @@ export class EstadoPedidoPage {
   aux:any;
   pedido:Pedido;
   mostrar:boolean;
-  spinner:any;
   encuesta:boolean;
+  cuenta:boolean;
   user:any;
   hacerPedido:boolean;
   reservaKey:string;
@@ -38,18 +39,21 @@ export class EstadoPedidoPage {
     
     this.user = this.params.user;
     this.encuesta = false;
+    this.cuenta = false;
     this.hacerPedido = false;
+
     if(this.navParams.get('mesa').split(':')[0] != 'Mesa'){
-      this.messageHandler.mostrarError('Ese QR no es de una mesa');
+      this.messageHandler.mostrarError(diccionario.errores.QR_invalido);
       this.irA('cerrar');
     }
     else
       this.mesa = this.navParams.get('mesa').split(':')[1];
+
     this.pedido = new Pedido();
     this.pedido.key = '-1';
     this.mostrar = false;
-    this.spinner = spinnerHandler.getAllPageSpinner();
-    this.spinner.present();
+    let spinner = spinnerHandler.getAllPageSpinner();
+    spinner.present();
 
     this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
       .subscribe(snapshots => {
@@ -58,8 +62,9 @@ export class EstadoPedidoPage {
           this.aux = this.aux.filter(a => a.idCliente == this.user.uid);
         for (let index = 0; index < this.aux.length; index++) {
           //tengo la mesa con pedido => busco el pedido
-          if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == 'Con pedido'){
+          if(this.aux[index].idMesa == this.mesa.toString()){
             this.pedido.key = this.aux[index].idPedido;
+            
             this.database.db.list<any>(diccionario.apis.pedidos).valueChanges()
               .subscribe(snp => {
                   this.aux = snp;
@@ -67,16 +72,17 @@ export class EstadoPedidoPage {
                     if(this.aux[i].key == this.pedido.key){
                       this.pedido.estado = this.aux[i].estado;
                       this.mostrar = true;
-                      this.spinner.dismiss();    
+                      spinner.dismiss();    
                       //console.log(this.pedido);                  
                       break;
                     }
                   }
-                  if(this.pedido.estado == 'Finalizado' && this.params.rol == 'cliente')
+                  if(this.pedido.estado == diccionario.estados_pedidos.listo && this.params.rol == 'cliente')
                     this.encuesta = true;
+                    this.cuenta = true;
               });
             break;
-          }else if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == 'Reserva'){
+          }else if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == diccionario.estados_reservas.en_curso){
             this.reservaKey = this.aux[index].key;
             this.clienteUid = this.aux[index].cliente;
             
@@ -84,15 +90,13 @@ export class EstadoPedidoPage {
         }
         //si no tengo pedido es porque la mesa está libre o deshabilitada o porque aun no hice pedido
         if(this.pedido.key == '-1' && this.params.rol == 'mozo' ){
-          this.spinner.dismiss();
-          messageHandler.mostrarErrorLiteral('No se registra pedido para la mesa.');
+          spinner.dismiss();
+          messageHandler.mostrarErrorLiteral(diccionario.errores.sin_pedido);
           this.hacerPedido = true;
           }else if(this.pedido.key == '-1' && this.params.rol == 'cliente'){
-            this.spinner.dismiss();
-          setTimeout(function(){
-              messageHandler.mostrarErrorLiteral('No se registra pedido para usted en esa mesa.');
-              viewCtrl.dismiss();
-            },2000);
+            spinner.dismiss();
+            messageHandler.mostrarErrorLiteral(diccionario.errores.sin_pedido);
+            this.navCtrl.remove(1,1);
           }
       });
           
@@ -113,6 +117,9 @@ export class EstadoPedidoPage {
         break;
       case 'hacerPedido':
         this.navCtrl.push(AltaPedidoPage, { reserva: this.reservaKey, clienteUid: this.clienteUid, mesa: this.mesa});
+        break;
+      case 'solicitarCuenta':
+        this.navCtrl.push(CuentaPage, { pedido: this.pedido});
         break;
     }
   }
