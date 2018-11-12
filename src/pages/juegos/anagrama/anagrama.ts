@@ -7,6 +7,7 @@ import { DatabaseService } from '../../../services/database.service';
 import { Juego } from '../../../models/Juegos/juego';
 import { ParamsService } from '../../../services/params.service';
 import { diccionario } from "../../../models/diccionario";
+import { ParserTypesService } from '../../../services/parserTypesService';
 
 
 @IonicPage()
@@ -38,7 +39,8 @@ export class AnagramaPage {
               public navParams: NavParams,
               public messageH:MessageHandler,
               public database:DatabaseService,
-              public params: ParamsService) {
+              public params: ParamsService,
+              public parserType: ParserTypesService) {
     
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
@@ -48,7 +50,7 @@ export class AnagramaPage {
        
         for (let index = 0; index < this.aux.length; index++) {
             if(this.aux[index].cliente == this.usuario.dni 
-              //&& this.aux[index].fecha == datetime.getToday() 
+              && this.aux[index].fecha == parserType.parseDateToStringDate(new Date)
               && this.aux[index].nombreJuego == 'Anagrama'){
                   messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
                   navCtrl.remove(1,1);
