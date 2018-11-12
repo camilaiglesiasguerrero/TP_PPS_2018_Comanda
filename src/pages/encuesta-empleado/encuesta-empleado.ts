@@ -8,6 +8,7 @@ import { CameraService } from '../../services/camera.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from '../../services/database.service';
 import {diccionario} from "../../models/diccionario";
+import { SpinnerHandler } from '../../services/spinnerHandler.service';
 
 /**
  * Generated class for the EncuestaEmpleadoPage page.
@@ -35,7 +36,8 @@ export class EncuestaEmpleadoPage {
               public paramsService: ParamsService,
               public camara:CameraService,
               public messageHandler:MessageHandler,
-              public database:DatabaseService) {
+              public database:DatabaseService,
+              public spinnerH:SpinnerHandler) {
 
     this.preguntas = new Array<any>();
     this.camara.fotoSubir = '';
@@ -65,7 +67,10 @@ export class EncuestaEmpleadoPage {
   }
 
   Confirmar(){
-    if(this.camara.fotoSubir != ''){
+    let spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
+    //if(this.camara.fotoSubir != ''){
+
       let paraSubir = {
         limpieza: this.calificacion,
         enHorario: this.sino,
@@ -81,13 +86,14 @@ export class EncuestaEmpleadoPage {
 
       this.database.jsonPackData = paraSubir;
       this.database.SubirDataBase(diccionario.apis.encuesta_empleado).then(e =>{
+        spinner.dismiss();
         this.irA();
       });
 
 
     
-    }else
-      this.messageHandler.mostrarError('Falta vincular la foto.');
+    //}else
+    //  this.messageHandler.mostrarError('Falta vincular la foto.');
     
   }
 
