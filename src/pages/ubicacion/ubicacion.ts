@@ -24,15 +24,20 @@ export class UbicacionPage {
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('directionsPanel') directionsPanel: ElementRef;
+
+  @Input('direccion') direccion:any;
+  @Input('show-ruta') showRuta:any;
+  @Input('show-detalles') showDetalles:any;
+
   map: any;
   marker:any;
   latLong:any;
   directionsService:any;
   directionsDisplay:any;
-  tiempoArribo:string;
+  tiempoArribo:string = "";
+  infoDireccion:string = "";
 
-  @Input('direccion') direccion:any;
-  @Input('show-ruta') showRuta:any;
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -92,6 +97,9 @@ export class UbicacionPage {
   private obtenerDireccionPorCoordenadas(lat, long){
     this.geocodingProvider.obtenerDireccion(lat, long).then(response =>{
       this.direccion['value'] = response;
+      this.direccion['lat'] = lat;
+      this.direccion['long'] = long
+      this.direccion['infoDireccion'] = this.infoDireccion;
     }, error => {
       console.log(error);
     });
