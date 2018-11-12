@@ -104,7 +104,7 @@ export class RegistrarsePage {
 
   ingresarAnonimo() {
     if (this.formGroup.controls.nombreValidator.value && this.user.foto) {
-      if (this.formGroup.controls.nombreValidator.valid) {
+      if(this.formGroup.controls.nombreValidator.valid){
         this.user.nombre = this.formGroup.controls.nombreValidator.value;
         let spiner = this.spinnerHandler.getAllPageSpinner();
         spiner.present();
@@ -124,7 +124,7 @@ export class RegistrarsePage {
             spiner.dismiss();
             this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
           })
-      } else {
+      }else{
         this.messageHandler.mostrarErrorLiteral("Nombre inválido", "Error al registrarse");
       }
     } else {
@@ -132,7 +132,7 @@ export class RegistrarsePage {
     }
   }
 
-  private initValidator() {
+  private initValidator(){
     this.formGroup = this.formBuilder.group({
       emailValidator: ['', Validators.compose([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$'), Validators.required])],
       passValidator: ['', Validators.compose([Validators.minLength(6), Validators.required])],
@@ -144,41 +144,41 @@ export class RegistrarsePage {
 
   }
 
-  private validatorCliente() {
+  private validatorCliente(){
     if (this.formGroup.controls.emailValidator.value && this.formGroup.controls.passValidator.value &&
       this.formGroup.controls.secondPassValidator.value && this.formGroup.controls.dniValidator.value &&
       this.formGroup.controls.nombreValidator.value && this.formGroup.controls.apellidoValidator.value) {
-      if (this.formGroup.controls.emailValidator.valid) {
-        if (this.formGroup.controls.passValidator.valid && this.formGroup.controls.secondPassValidator.valid) {
-          if (this.formGroup.controls.passValidator.value == this.formGroup.controls.secondPassValidator.value) {
-            if (this.formGroup.controls.dniValidator.valid) {
-              if (this.formGroup.controls.nombreValidator.valid) {
-                if (this.formGroup.controls.apellidoValidator.valid) {
+      if(this.formGroup.controls.emailValidator.valid){
+        if(this.formGroup.controls.passValidator.valid && this.formGroup.controls.secondPassValidator.valid){
+          if(this.formGroup.controls.passValidator.value == this.formGroup.controls.secondPassValidator.value){
+            if(this.formGroup.controls.dniValidator.valid){
+              if(this.formGroup.controls.nombreValidator.valid){
+                if(this.formGroup.controls.apellidoValidator.valid){
                   this.user.email = this.formGroup.controls.emailValidator.value;
                   this.user.pass = this.formGroup.controls.passValidator.value;
                   this.user.dni = this.formGroup.controls.dniValidator.value;
                   this.user.nombre = this.formGroup.controls.nombreValidator.value;
                   this.user.apellido = this.formGroup.controls.apellidoValidator.value;
                   return true;
-                } else {
+                }else{
                   this.messageHandler.mostrarErrorLiteral("Apellido inválido", "Error al registrarse");
                 }
-              } else {
+              }else{
                 this.messageHandler.mostrarErrorLiteral("Nombre inválido", "Error al registrarse");
               }
-            } else {
+            }else{
               this.messageHandler.mostrarErrorLiteral("Dni inválido", "Error al registrarse");
             }
-          } else {
+          }else{
             this.messageHandler.mostrarErrorLiteral("Las contraseñas no coinciden", "Error al registrarse");
           }
-        } else {
+        }else{
           this.messageHandler.mostrarErrorLiteral("Las contraseñas deben tener mínimo 6 caracteres", "Error al registrarse");
         }
-      } else {
+      }else{
         this.messageHandler.mostrarErrorLiteral("Email inválido", "Error al registrarse");
       }
-    } else {
+    }else{
       this.messageHandler.mostrarErrorLiteral("Todos los campos son obligatorios", "Error al registrarse");
     }
     return false;
@@ -266,8 +266,6 @@ export class RegistrarsePage {
         this.navCtrl.setRoot(DashboardPage);
         break;
     }
-
-
   }
 
 }

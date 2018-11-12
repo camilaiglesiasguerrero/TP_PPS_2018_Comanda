@@ -53,7 +53,7 @@ export class TriviaPage {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
           if(this.aux[index].cliente == this.usuario.dni
-            && this.aux[index].fecha == juego.obtenerFecha()
+            //&& this.aux[index].fecha == datetime.getToday()
             && this.aux[index].nombreJuego == 'Trivia'){
             if(this.empiezaElJuego){
             }else{

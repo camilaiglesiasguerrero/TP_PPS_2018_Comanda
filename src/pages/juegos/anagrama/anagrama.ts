@@ -48,12 +48,10 @@ export class AnagramaPage {
        
         for (let index = 0; index < this.aux.length; index++) {
             if(this.aux[index].cliente == this.usuario.dni 
-              && this.aux[index].fecha == juego.obtenerFecha() 
+              //&& this.aux[index].fecha == datetime.getToday() 
               && this.aux[index].nombreJuego == 'Anagrama'){
-                setTimeout(function(){
                   messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
                   navCtrl.remove(1,1);
-                },2000);
             }
 
         }
@@ -121,20 +119,16 @@ export class AnagramaPage {
         this.Rendirse(); 
         this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
         this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-          setTimeout(function(){
-            this.messageHandler.mostrarErrorLiteral('¡Perdiste!');
+            this.messageH.mostrarErrorLiteral('¡Perdiste!');
             this.navCtrl.remove(1,1);
-          },2000);
       })
       }
       else
       {
         this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
         this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-          setTimeout(function(){
-            this.messageHandler.mostrarMensaje('¡Ganaste!');
-            this.navCtrl.remove(1,1);
-          },2000);        
+            this.messageH.mostrarMensaje('¡Ganaste!');
+            this.navCtrl.remove(1,1);      
         });
       }
     }

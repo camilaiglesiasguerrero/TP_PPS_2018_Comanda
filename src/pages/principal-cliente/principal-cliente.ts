@@ -10,7 +10,8 @@ import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import { EncuestaClienteResultadosPage } from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
 import { TriviaPage } from "../juegos/trivia/trivia";
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
-import { diccionario } from "../../models/diccionario";
+import {diccionario} from "../../models/diccionario";
+import { CuentaPage } from '../cuenta/cuenta';
 import {ParserTypesService} from "../../services/parserTypesService";
 
 
@@ -69,7 +70,7 @@ export class PrincipalClientePage {
         this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
         break;
       case 'hacerPedido':
-        this.navCtrl.push(AltaPedidoPage);
+        this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         break;
     }
   }

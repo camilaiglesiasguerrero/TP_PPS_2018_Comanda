@@ -6,9 +6,9 @@ import { OcuparMesaPage } from '../ocupar-mesa/ocupar-mesa';
 import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
-import {diccionario} from "../../models/diccionario";
-import {SpinnerHandler} from "../../services/spinnerHandler.service";
-import {ParserTypesService} from "../../services/parserTypesService";
+import { diccionario } from "../../models/diccionario";
+import { SpinnerHandler } from "../../services/spinnerHandler.service";
+import { ParserTypesService } from "../../services/parserTypesService";
 
 
 @IonicPage()
@@ -31,9 +31,9 @@ export class PrincipalMozoPage {
               public popoverCtrl: PopoverController,
               public database:DatabaseService,
               private messageHandler: MessageHandler,
-              private spinnerHandler: SpinnerHandler,
+              private spinnerH: SpinnerHandler,
               private parserTypesService: ParserTypesService) {
-    var spinner = this.spinnerHandler.getAllPageSpinner();
+    var spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snp => {
@@ -59,12 +59,12 @@ export class PrincipalMozoPage {
             });
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
             spinner.dismiss();
-        });  
+        });
       });
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad PrincipalMozoPage');
+
   }
 
   escanearQR(caso:string,cliente?:any) {

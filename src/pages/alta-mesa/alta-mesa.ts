@@ -115,7 +115,7 @@ export class AltaMesaPage {
       this.tipoOpc.setValue(this.mesa.tipo);
       this.comensales.setValue(this.mesa.comensales);
       this.numero.setValue(this.mesa.id);
-      this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
+      this.createdCode = this.qr.createCode('Mesa:'+this.mesa.id.toString());
       this.camara.fotoMostrar = this.mesa.foto;
     }else{
       this.camara.fotoSubir != '';
@@ -145,7 +145,6 @@ export class AltaMesaPage {
     if(this.camara.fotoSubir != ''){
       if(this.mesa.tipo != ''){
         this.mesa.id = this.frm.get('numero').value;
-        this.mesa.idString = this.frm.get('numero').value.toString();
         this.mesa.comensales = this.frm.get('comensales').value;
         this.mesa.tipo = this.frm.get('tipoOpc').value;
         this.mesa.estado = diccionario.estados_mesas.libre;
@@ -159,7 +158,7 @@ export class AltaMesaPage {
 
         this.database.SubirDataBase(diccionario.apis.mesas).then(r => {
           //this.messageHandler.mostrarMensaje("Mesa creada con éxito");
-          this.createdCode = this.qr.createCode('Mesa:'+this.mesa.idString);
+          this.createdCode = this.qr.createCode('Mesa:'+this.mesa.id.toString());
           this.elSpinner.dismiss();
           this.navCtrl.pop();
           });

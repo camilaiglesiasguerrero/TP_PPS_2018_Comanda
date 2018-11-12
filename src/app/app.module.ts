@@ -73,6 +73,7 @@ import { ChartModule } from 'primeng/chart';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
+import { CuentaPage } from '../pages/cuenta/cuenta';
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
 
 
@@ -131,6 +132,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage,
+    CuentaPage,
+    ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage
   ],
   imports: [
@@ -178,6 +181,8 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
+    ReservasAgendadasPage,
+    CuentaPage,
     ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage
   ],
