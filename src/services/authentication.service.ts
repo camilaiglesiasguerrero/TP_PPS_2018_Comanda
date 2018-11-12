@@ -6,48 +6,56 @@ import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class AuthenticationService{
 
-    constructor(private MiAuth:AngularFireAuth,
-        public afDB: AngularFireDatabase){
+  constructor(private MiAuth:AngularFireAuth,
+              public afDB: AngularFireDatabase){
 
-    }
+  }
 
-    registerUserAndLogin(email:string, pass:string){
-        return this.MiAuth.auth.createUserWithEmailAndPassword(email, pass)
-    }
+  registerUserAndLogin(email:string, pass:string){
+    return this.MiAuth.auth.createUserWithEmailAndPassword(email, pass)
+  }
 
-    registerAnonymous(){
-        return this.MiAuth.auth.signInAnonymously();
-    }
+  registerAnonymous(){
+    return this.MiAuth.auth.signInAnonymously();
+  }
 
-    singIn(email:string, pass:string){
-        return this.MiAuth.auth.signInWithEmailAndPassword(email, pass);
-    }
+  singIn(email:string, pass:string){
+    return this.MiAuth.auth.signInWithEmailAndPassword(email, pass);
+  }
 
-    getEmail(){
-        return  this.MiAuth.auth.currentUser.email;
-    }
+  getEmail(){
+    return  this.MiAuth.auth.currentUser.email;
+  }
 
-    getUID(){
-        return this.MiAuth.auth.currentUser.uid;
-    }
+  sendVerification(){
+    return this.MiAuth.auth.currentUser.sendEmailVerification();
+  }
 
-    logOut(){
-        this.MiAuth.auth.signOut();
-        this.logoutFromDatabase();
-    }
+  getVerification(){
+    return this.MiAuth.auth.currentUser.emailVerified;
+  }
 
-    deleteUserLogged(){
-        var user = this.MiAuth.auth.currentUser;
-        return user.delete();
-    }
+  getUID(){
+    return this.MiAuth.auth.currentUser.uid;
+  }
 
-    public logInFromDataBase(){
-        this.afDB.database.goOnline();
-    }
-    
-    public logoutFromDatabase() {
-        this.afDB.database.goOffline();
-    }
+  logOut(){
+    this.MiAuth.auth.signOut();
+    this.logoutFromDatabase();
+  }
+
+  deleteUserLogged(){
+    var user = this.MiAuth.auth.currentUser;
+    return user.delete();
+  }
+
+  public logInFromDataBase(){
+    this.afDB.database.goOnline();
+  }
+
+  public logoutFromDatabase() {
+    this.afDB.database.goOffline();
+  }
 
 
 }
