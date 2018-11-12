@@ -49,5 +49,10 @@ export class AuthenticationService{
         this.afDB.database.goOffline();
     }
 
-
+    sendVerification(){
+        return this.MiAuth.auth.currentUser.sendEmailVerification();
+    }
+     getVerification(){
+        return this.MiAuth.auth.currentUser.emailVerified;
+    }
 }
