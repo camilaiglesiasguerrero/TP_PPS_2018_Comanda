@@ -60,8 +60,13 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+<<<<<<< HEAD
 import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 import { TriviaPage } from '../pages/juegos/trivia/trivia';
+=======
+import { TriviaPage } from '../pages/juegos/trivia/trivia';
+
+>>>>>>> 99ca6c8169afe7199c5b8f1eea97cb0bae010ccc
 
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
@@ -97,6 +102,10 @@ import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
+<<<<<<< HEAD
+=======
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
+>>>>>>> 99ca6c8169afe7199c5b8f1eea97cb0bae010ccc
 @NgModule({
   declarations: [
     MyApp,
@@ -130,10 +139,15 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
+<<<<<<< HEAD
     ReservasAgendadasPage,
     ReservasAgendadasPage,
     CuentaPage
 
+=======
+    ReservasAgendadasPage,
+    CuentaPage
+>>>>>>> 99ca6c8169afe7199c5b8f1eea97cb0bae010ccc
   ],
   imports: [
     BrowserModule,
@@ -204,7 +218,10 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     CameraService,
     DatabaseService,
     EncuestaClienteService,
+<<<<<<< HEAD
     AdivinarNumeroPage,
+=======
+>>>>>>> 99ca6c8169afe7199c5b8f1eea97cb0bae010ccc
     GeocodingProvider,
     Geolocation,
     ParserTypesService
