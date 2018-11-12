@@ -68,11 +68,14 @@ import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente'
 import { EncuestaClienteResultadosPage } from '../pages/encuesta-cliente-resultados/encuesta-cliente-resultados';
 import { EncuestaEmpleadoResultadosPage } from '../pages/encuesta-empleado-resultados/encuesta-empleado-resultados';
 import { ChartModule } from 'primeng/chart';
+
 //Otros
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 import { CuentaPage } from '../pages/cuenta/cuenta';
+import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
+
 
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
@@ -95,9 +98,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
-
-
-
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 @NgModule({
   declarations: [
     MyApp,
@@ -126,12 +127,15 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage,
-    CuentaPage
+    CuentaPage,
+    ReservasAgendadasPage,
+    ReservasAgendadasSupervisorPage
   ],
   imports: [
     BrowserModule,
@@ -174,12 +178,15 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
     ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
+    AdivinarNumeroPage,
     UbicacionPage,
     ReservasAgendadasPage,
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage,
-    CuentaPage
+    CuentaPage,
+    ReservasAgendadasPage,
+    ReservasAgendadasSupervisorPage
   ],
   providers: [
     StatusBar,

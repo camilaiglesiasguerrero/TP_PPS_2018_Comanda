@@ -95,6 +95,7 @@ export class IniciarsesionPage {
     if((!this.autenticationService.getVerification()) && this.paramsService.rol == "cliente" && this.paramsService.email !== "cliente1@gmail.com" && this.paramsService.email !== "cliente2@gmail.com" )
     {
       this.messageHandler.mostrarErrorLiteral("Debe verificar su cuenta");
+      this.paramsService.isLogged = false;
       this.navCtrl.setRoot(IniciarsesionPage);
     }
     else{
@@ -116,7 +117,6 @@ export class IniciarsesionPage {
       case 'supervisor':
         this.navCtrl.setRoot(DashboardPage);
         break;
-
       }
     }
 

@@ -34,7 +34,8 @@ export const diccionario = {
   },
   estados_reservas_agendadas:{
     sin_mesa: "sin_mesa",
-    con_mesa: "con_mesa"
+    con_mesa: "con_mesa",
+    cancelada: "cancelada"
   },
   estados_platos_bebidas:{
     habilitado: "Habilitado",

@@ -19,19 +19,18 @@ export class MesasPage {
   constructor(public navCtrl: NavController,
               private database: DatabaseService,
               private spinnerH:SpinnerHandler) {
-    
+
     let spinner = spinnerH.getAllPageSpinner();
     spinner.present();
 
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snapshots => {
-          this.mesas = snapshots;  
-
+          this.mesas = snapshots;
           if(this.mesas != undefined && this.mesas != null && this.mesas.length != 0){
             this.ultimoId = this.mesas[this.mesas.length-1].id;
           }
           spinner.dismiss();
-      });     
+      });
   }
 
   irA(donde:string,mesa?:Mesa){

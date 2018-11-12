@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MessageHandler } from './../../services/messageHandler.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
@@ -15,7 +15,10 @@ import {diccionario} from "../../models/diccionario";
 
 export class EncuestaClienteResultadosPage implements OnInit{
 
+  @Input('from-dashboard') fromDashboard:boolean;
+
   display: boolean = false;
+  encuestas=[];
 
   atencionOptions = {
     title: {
@@ -192,25 +195,25 @@ export class EncuestaClienteResultadosPage implements OnInit{
     this.database.db.list<any>(diccionario.apis.encuesta_cliente).valueChanges()
       .subscribe(snapshots => {
         this.display = false;
-        var lala = snapshots;
+        this.encuestas = snapshots;
         this.initCounts()
-        for(var i=0; i < lala.length; i++){
-          for(let key in lala[i]){
+        for(var i=0; i < this.encuestas .length; i++){
+          for(let key in this.encuestas [i]){
             if(key == 'atencion'){
-              this.agregarAtencion(lala[i][key]);
+              this.agregarAtencion(this.encuestas [i][key]);
             }
             if(key == 'limpieza'){
-              this.agregarLimpieza(lala[i][key]);
+              this.agregarLimpieza(this.encuestas [i][key]);
             }
             if(key == 'sabor'){
-              this.agregarSabor(lala[i][key]);
+              this.agregarSabor(this.encuestas [i][key]);
             }
             if(key == 'velocidad'){
-              this.agregarVelocidad(lala[i][key]);
+              this.agregarVelocidad(this.encuestas [i][key]);
 
             }
             if(key == 'recomendar'){
-              this.agregarRecomendacion(lala[i][key]);
+              this.agregarRecomendacion(this.encuestas [i][key]);
             }
           }
         }

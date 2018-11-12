@@ -93,7 +93,7 @@ export class EncuestaEmpleadoPage {
 
     
     //}else
-    //  this.messageHandler.mostrarError('Falta vincular la foto.');
+    //  this.messageHandler.mostrarErrorLiteral('Falta vincular la foto.');
     
   }
 

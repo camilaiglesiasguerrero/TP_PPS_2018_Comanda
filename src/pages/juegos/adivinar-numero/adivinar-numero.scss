@@ -1,0 +1,38 @@
+page-adivinar-numero {
+
+    text-align: center;
+
+    .scroll-content{
+        background-color: $first-detail-color;
+     }
+
+     .inputnum{
+         font-size: 15px;
+         text-align: center;
+         background-color: white;
+         border-radius: 10px;
+     }
+
+     .divInput{
+        align-items: center;
+     }
+
+     .msjaliento{
+         font-size: 22px;
+     }
+
+     .divbtn{
+        text-align: center;
+     }
+
+     .btadivinar{
+         position: relative;
+         top: 40px;
+         font-size: 30px;
+         letter-spacing: 5px;
+         height: 150px;
+         border-radius: 80px;
+         border: 6px solid white;
+     }
+
+}

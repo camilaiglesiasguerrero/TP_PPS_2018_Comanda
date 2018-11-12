@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle color="secondary">
+      <ion-icon color="secondary" name="menu"></ion-icon>
+    </button>
+    <ion-title>Bienvenido, {{params.user.nombre}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div *ngFor="let reserva of reservasAgendadas">
+    <ion-list >
+      <ion-item style="margin-bottom: 1em;">
+        <h2>Cliente: {{reserva.nombre}}</h2>
+        <p>Fecha: {{reserva.fecha}}</p>
+        <p>Comensales: {{reserva.comensales}}</p>
+        <p>{{reserva.estado == 'sin_mesa' ? 'Sin mesa asignada': 'Con mesa asignada'}}</p>
+        <div class="flev-h end-horizontal">
+          <button ion-button (click)=asignarMesa(reserva) clear>Asignar Mesa</button>
+          <button ion-button color="danger" (click)=cancelarReserva(reserva.key) clear>Borrar</button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="reservasAgendadas.length == 0">
+    <ion-item>
+      <p class="sin-resultados">No hay reservas agendadas</p>
+    </ion-item>
+  </div>
+</ion-content>
