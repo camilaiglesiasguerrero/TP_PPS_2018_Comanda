@@ -20,6 +20,9 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PropinaPage } from '../pages/propina/propina';
 import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
 import {ReservasAgendadasPage} from "../pages/reservas-agendadas/reservas-agendadas";
+import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
+import {DashboardPage} from "../pages/dashboard/dashboard";
+import {PrincipalMozoPage} from "../pages/principal-mozo/principal-mozo";
 
 
 @Component({
@@ -61,14 +64,19 @@ export class MyApp {
       { title: "Encuesta de satisfacción", component: EncuestaClientePage}
     ];
     this.supervisorPages = [
-      { title: 'Empleados', component: EmpeladosPage }
+      { title: "Inicio", component: DashboardPage},
+      { title: 'Empleados', component: EmpeladosPage },
+      { title: 'Reservas Agendadas', component: ReservasAgendadasSupervisorPage }
+
     ];
     this.mozoPages = [
-      { title: 'Alta Clientes', component: IniciarsesionPage },
+      { title: "Inicio", component: PrincipalMozoPage},
+      { title: 'Agregar cliente', component: RegistrarsePage },
       { title: 'Mesas', component: MesasPage }
     ];
     this.metrePages = [
-      { title: 'Alta Clientes', component: IniciarsesionPage },
+      { title: "Inicio", component: PrincipalMozoPage},
+      { title: 'Agregar cliente', component: RegistrarsePage },
       { title: 'Mesas', component: MesasPage }
     ];
     this.bartenerPages = [
@@ -82,7 +90,7 @@ export class MyApp {
     ];
 
 
-    }
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -113,12 +121,14 @@ export class MyApp {
         break;
       case 'Hacer Pedido':
         if(this.paramsService.user.rol == 'cliente'){
-            this.nav.setRoot(page.component, { 'empleado': false });
+          this.nav.setRoot(page.component, { 'empleado': false });
         }
         if(this.paramsService.user.rol == 'mozo'){
           this.nav.setRoot(page.component, {'empleado': true});
-      }
-
+        }
+        break;
+      case "Agregar cliente":
+        this.nav.setRoot(page.component, { 'empleado': true });
         break;
       default:
         this.nav.setRoot(page.component);

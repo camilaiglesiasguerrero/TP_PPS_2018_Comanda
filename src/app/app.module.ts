@@ -66,8 +66,11 @@ import { TriviaPage } from '../pages/juegos/trivia/trivia';
 =======
 import { TriviaPage } from '../pages/juegos/trivia/trivia';
 
+<<<<<<< HEAD
 >>>>>>> 99ca6c8169afe7199c5b8f1eea97cb0bae010ccc
 
+=======
+>>>>>>> master
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
 import { EncuestaClientePage } from '../pages/encuesta-cliente/encuesta-cliente';
@@ -80,6 +83,8 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 import { CuentaPage } from '../pages/cuenta/cuenta';
+import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
+
 
 //Pedido
 import { EstadoPedidoPage } from '../pages/estado-pedido/estado-pedido';
@@ -142,12 +147,18 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
 <<<<<<< HEAD
     ReservasAgendadasPage,
     ReservasAgendadasPage,
+<<<<<<< HEAD
     CuentaPage
 
 =======
     ReservasAgendadasPage,
     CuentaPage
 >>>>>>> 99ca6c8169afe7199c5b8f1eea97cb0bae010ccc
+=======
+    CuentaPage,
+    ReservasAgendadasPage,
+    ReservasAgendadasSupervisorPage
+>>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -196,7 +207,9 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     TriviaPage,
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage,
-    CuentaPage
+    CuentaPage,
+    ReservasAgendadasPage,
+    ReservasAgendadasSupervisorPage
   ],
   providers: [
     StatusBar,
