@@ -381,7 +381,10 @@ export class AltaPedidoPage {
 
         //Creo el pedido
         pedidoASubir.key = keyPedido;
-        pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
+        if(this.params.rol == 'cliente')
+          pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
+        else
+          pedidoASubir.estado = diccionario.estados_pedidos.en_preparacion;
         pedidoASubir.productoPedido = null;
         this.database.jsonPackData = pedidoASubir;
         this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
@@ -447,7 +450,7 @@ export class AltaPedidoPage {
           this.database.SubirDataBase(diccionario.apis.delivery).then(p =>{
             //Creo el pedido
             pedidoASubir.key = keyPedido;
-            pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
+            pedidoASubir.estado = diccionario.estados_pedidos.en_preparacion;
             pedidoASubir.productoPedido = null;
 
             this.database.jsonPackData = pedidoASubir;
