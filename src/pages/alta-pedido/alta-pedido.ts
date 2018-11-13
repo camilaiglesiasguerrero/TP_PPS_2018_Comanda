@@ -71,6 +71,10 @@ user:any;
           let reservas = new Array<any>();
           reservas = snapshots;
           reservas = reservas.filter(f => f.estado == diccionario.estados_reservas.en_curso);
+          if(reservas.length == 0){
+            this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva);
+            this.navCtrl.remove(1,1);
+          }
           if(reservas.length == 1){
             this.reserva.key = reservas[0].key;
             this.reserva.idMesa = reservas[0].idMesa;

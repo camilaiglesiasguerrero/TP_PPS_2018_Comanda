@@ -11,9 +11,8 @@ export const diccionario = {
     lista_espera: "lista-espera/",
     reservas_agendadas: "reservas-agendadas/",
     encuesta_cliente: "encuesta-cliente/",
-    encuesta_empleado: "encuesta-empleado/"
-
-
+    encuesta_empleado: "encuesta-empleado/",
+    cuentas: "cuentas/"
   },
   estados_mesas:{
     libre: "Libre",
@@ -26,7 +25,7 @@ export const diccionario = {
     listo: "Listo",
     entregado: "Entregado",
     cuenta: "Cuenta",
-    pagado: "pagado"
+    pagado: "Pagado"
   },
   estados_productos:{
     en_preparacion: "En preparación",
