@@ -14,26 +14,36 @@
 
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
+  <ion-grid><b>
+    <ion-row class="tit">
       <ion-col>Item</ion-col>
       <ion-col>Cantidad</ion-col>
       <ion-col>Precio</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let d of detalleCuenta">
+    </ion-row></b>
+    <ion-row class="fle" *ngFor="let d of detalleCuenta">
       <ion-col>{{d.item}}</ion-col>
       <ion-col>{{d.cantidad}}</ion-col>
-      <ion-col>{{d.valor}}</ion-col>  
+      <ion-col>{{d.valor | precio}}</ion-col>  
     </ion-row>
     <ion-row class=footer>
       <ion-row>
-        <ion-col>Total</ion-col>
-        <ion-col justify-content-end>{{suma | precio}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Propina</ion-col>
-        <ion-col><button>Elegí el importe</button></ion-col>
+        <ion-col *ngIf=!propina>
+          <button ion-button round color="light" (click)="dejarPropina()">
+            <ion-icon color="secondary" name="logo-usd" style="margin-right:5px;"></ion-icon>
+            Dejar propina
+          </button>
+        </ion-col>
+        <ion-col *ngIf=propina>
+          <button ion-button round color="light" (click)="confirmar()">
+            <ion-icon color="secondary" name="logo-usd" style="margin-right:5px;"></ion-icon>
+            Finalizar
+          </button>
+        </ion-col>
+        
+        <ion-col justify-content-end>Total {{suma | precio}}</ion-col>        
+        <ion-col *ngIf=propina justify-content-end>Propina {{ suma / params.propinaAux | precio}}</ion-col>        
       </ion-row>
     </ion-row>
+  
   </ion-grid>
 </ion-content>

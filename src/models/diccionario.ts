@@ -12,6 +12,7 @@ export const diccionario = {
     reservas_agendadas: "reservas-agendadas/",
     encuesta_cliente: "encuesta-cliente/",
     encuesta_empleado: "encuesta-empleado/",
+    cuentas: "cuentas/",
     delivery: "delivery/"
 
 
@@ -27,7 +28,7 @@ export const diccionario = {
     listo: "Listo",
     entregado: "Entregado",
     cuenta: "Cuenta",
-    pagado: "pagado"
+    pagado: "Pagado"
   },
   estados_productos:{
     en_preparacion: "En preparación",

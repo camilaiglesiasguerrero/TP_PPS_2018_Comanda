@@ -7,7 +7,7 @@ import { ParamsService } from '../../services/params.service';
 import { Reserva } from '../../models/reserva';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import {diccionario} from "../../models/diccionario";
-import {ParserTypesService} from "../../services/parserTypesService";
+import { ParserTypesService } from '../../services/parserTypesService';
 
 
 @IonicPage()
