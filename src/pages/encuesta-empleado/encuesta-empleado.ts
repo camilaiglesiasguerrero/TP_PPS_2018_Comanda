@@ -10,13 +10,6 @@ import { DatabaseService } from '../../services/database.service';
 import {diccionario} from "../../models/diccionario";
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 
-/**
- * Generated class for the EncuestaEmpleadoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-encuesta-empleado',

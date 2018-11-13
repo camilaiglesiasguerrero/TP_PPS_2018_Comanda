@@ -75,6 +75,7 @@ import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 import { CuentaPage } from '../pages/cuenta/cuenta';
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
+import {ReservarMesaPage} from "../pages/reservar-mesa/reservar-mesa";
 
 
 //Pedido
@@ -99,6 +100,7 @@ import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -135,7 +137,8 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ReservasAgendadasPage,
     CuentaPage,
     ReservasAgendadasPage,
-    ReservasAgendadasSupervisorPage
+    ReservasAgendadasSupervisorPage,
+    ReservarMesaPage
   ],
   imports: [
     BrowserModule,
@@ -186,7 +189,8 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ReservasAgendadasPage,
     CuentaPage,
     ReservasAgendadasPage,
-    ReservasAgendadasSupervisorPage
+    ReservasAgendadasSupervisorPage,
+    ReservarMesaPage
   ],
   providers: [
     StatusBar,

@@ -12,7 +12,10 @@ export const diccionario = {
     reservas_agendadas: "reservas-agendadas/",
     encuesta_cliente: "encuesta-cliente/",
     encuesta_empleado: "encuesta-empleado/",
-    cuentas: "cuentas/"
+    cuentas: "cuentas/",
+    delivery: "delivery/"
+
+
   },
   estados_mesas:{
     libre: "Libre",

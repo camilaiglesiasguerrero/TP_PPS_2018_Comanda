@@ -16,6 +16,7 @@ import { ParserTypesService } from '../../services/parserTypesService';
   templateUrl: 'ocupar-mesa.html',
 })
 export class OcuparMesaPage {
+
   suscripcion:any;
   id:string;
   mesa: Mesa;
@@ -30,7 +31,7 @@ export class OcuparMesaPage {
               public messageHandler:MessageHandler,
               public params: ParamsService,
               private spinnerHandler: SpinnerHandler,
-              private parserTypes: ParserTypesService) {
+              private parserTypesService: ParserTypesService) {
     
     let spinner = this.spinnerHandler.getAllPageSpinner();
     spinner.present();
@@ -46,9 +47,10 @@ export class OcuparMesaPage {
     this.mesa = new Mesa();
     
     //this.display = false;
+    //        return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('empleado'));
 
-    this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
-      .subscribe(snapshots => {
+    this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.id)).valueChanges();
+    this.suscripcion.subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
           if(this.aux[index].id.toString() == this.id){
@@ -67,7 +69,6 @@ export class OcuparMesaPage {
         this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
         navCtrl.remove(1,1);
       }
-
     });
   }
 
@@ -90,9 +91,9 @@ export class OcuparMesaPage {
     reserva.idPedido = null;
     reserva.cliente = this.cliente.clienteId;
     reserva.idMesa = this.mesa.id;
-    reserva.fecha = this.parserTypes.parseDateTimeToStringDateTime(new Date());
     //TODO: CAMI: CHEQUEATE ESTE ESTADO QUE CREO QUE RESERVAS NO LLEVA MAS ESTADO
     reserva.estado = diccionario.estados_reservas.en_curso;
+    reserva.fecha = this.parserTypesService.parseDateTimeToStringDateTime(new Date());
     this.database.jsonPackData = reserva;
     this.database.SubirDataBase(diccionario.apis.reservas).then(r=>{
     
@@ -106,9 +107,7 @@ export class OcuparMesaPage {
       this.database.jsonPackData = aux;
       this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
         this.mesa.estado = diccionario.estados_mesas.reservada;
-        
         //Actualizo lista-espera
-        
         let le = {
           clienteId: this.cliente.clienteId,
           comensales: this.cliente.comensales,

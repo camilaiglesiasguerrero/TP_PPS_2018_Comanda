@@ -89,8 +89,7 @@ export class PrincipalClientePage {
   }
 
   perdirDelivery(){
-
-
+    this.navCtrl.push(AltaPedidoPage,{delivery:true});
   }
 
   private infoReserva(){
