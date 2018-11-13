@@ -436,7 +436,7 @@ export class AltaPedidoPage {
           this.delivery.lat = this.direccion['lat'];
           this.delivery.long = this.direccion['long'];
           this.delivery.infoDireccion = this.direccion['infoDireccion'];
-          this.delivery.fecha = this.parse.parseDateToStringDate(new Date());
+          this.delivery.fecha = this.parse.parseDateTimeToStringDateTime(new Date());
 
           this.database.jsonPackData = this.delivery;
           this.database.SubirDataBase(diccionario.apis.delivery).then(p =>{
