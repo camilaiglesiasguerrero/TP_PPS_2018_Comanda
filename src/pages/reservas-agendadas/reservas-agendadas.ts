@@ -7,6 +7,7 @@ import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import { PrincipalClientePage } from "../principal-cliente/principal-cliente";
 import { diccionario } from "../../models/diccionario";
 import {ParserTypesService} from "../../services/parserTypesService";
+declare var moment;
 
 
 @Component({
@@ -19,6 +20,10 @@ export class ReservasAgendadasPage {
   fecha:any;
   hora:any;
   direccion:any = { value: ""};
+  minDate:string;
+  maxDate:string;
+  minTime:string;
+  maxTime:string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -27,23 +32,36 @@ export class ReservasAgendadasPage {
               private database: DatabaseService,
               private spinnerHandler: SpinnerHandler,
               private parserTypesService: ParserTypesService
-              ) {
+  ) {
+    var hoy = new Date();
+    this.minDate = hoy.getFullYear() + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
+    this.maxDate = '2020' + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
+    this.minTime = '18:00';
+    this.maxTime = '23:59';
+
   }
 
   confirmarReserva(){
-    let elSpinner = this.spinnerHandler.getAllPageSpinner();
-    elSpinner.present();
     var concatFecha = this.fecha + "T" + this.hora;
     var dateaux = new Date(concatFecha);
-    var listaEspera = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: this.parserTypesService.parseDateTimeToStringDateTime(dateaux), clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
-    this.database.jsonPackData = listaEspera;
-    //TENIA ESTA, CHEQUEAR Q NO SEA UN BUG'lista-espera/'
-    this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.reservas_agendadas);
-    this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
-      this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
-      elSpinner.dismiss();
-      //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA
-      this.navCtrl.setRoot(PrincipalClientePage);
-    });
+    var fechaReserva = this.parserTypesService.parseDateTimeToStringDateTime(dateaux);
+    if(this.parserTypesService.compararFechayHoraMayorAHoy(fechaReserva)){
+      let elSpinner = this.spinnerHandler.getAllPageSpinner();
+      elSpinner.present();
+      var reservaAgendada = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fechaReserva,
+        clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
+      this.database.jsonPackData = reservaAgendada;
+      //TENIA ESTA, CHEQUEAR Q NO SEA UN BUG'lista-espera/'
+      this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.reservas_agendadas);
+      this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
+        this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
+        elSpinner.dismiss();
+        //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA
+        this.navCtrl.setRoot(PrincipalClientePage);
+      });
+    }else{
+      this.messageHandler.mostrarErrorLiteral("La fecha no puede ser menor a la actual");
+    }
   }
+
 }

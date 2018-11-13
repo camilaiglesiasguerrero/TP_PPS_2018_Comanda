@@ -1,0 +1,19 @@
+@import "../../theme/variables.scss";
+
+page-reservar-mesa{
+  .scroll-content{
+    background-color: $first-detail-color;
+  }
+
+  .foto-container{
+    min-height: 30px;
+    max-height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+  }
+  .foto{
+    border-radius: 1em;
+  }
+}
