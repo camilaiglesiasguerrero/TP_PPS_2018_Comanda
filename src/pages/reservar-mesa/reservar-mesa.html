@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Asignar mesa</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngIf="mostrar" style="text-align: center">
+    <ion-card-content>
+      <div class="flex-v">
+        <div>
+          Se asignará la mesa {{mesa.id}} ({{mesa.tipo}} - {{mesa.comensales}} comensales) a nombre de {{reservaAgendada.nombre}} para {{reservaAgendada.comensales}} comensales.
+        </div>
+        <div class="foto-container">
+          <img class="foto" [src]=mesa.foto alt="FotoMesa" style="width:50vw">
+        </div>
+        <div style="margin-top:1em;">
+          <button ion-button  color="dark" block type="button" (click)='Confirmar()'>Confirmar</button>
+        </div>
+        <div>
+          <button ion-button  color="light" block type="button" (click)='salir()'>Cancelar</button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

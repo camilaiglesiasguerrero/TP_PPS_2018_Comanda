@@ -25,7 +25,7 @@ export class PrincipalMozoPage {
   clientesEspera:Array<any>;
   noHayMesasLibres:boolean;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public barcodeScanner: BarcodeScanner,
               public popoverCtrl: PopoverController,
@@ -52,14 +52,14 @@ export class PrincipalMozoPage {
         }
 
         this.database.db.list<any>(diccionario.apis.lista_espera).valueChanges()
-        .subscribe(snapshots => {
+          .subscribe(snapshots => {
             this.clientesEspera = snapshots;
             this.clientesEspera = this.clientesEspera.filter(f =>{
               return f.estado == diccionario.estados_reservas_agendadas.sin_mesa && this.parserTypesService.compararFechaMayorAHoy(f.fecha)
             });
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
             spinner.dismiss();
-        });
+          });
       });
   }
 
@@ -71,29 +71,32 @@ export class PrincipalMozoPage {
     this.options = { prompt : "Escaneá el código QR de la mesa" }
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
-           this.mesa = barcodeData.text;
-           switch(caso){
-              case 'Reservar':
-                this.irA('reserva',cliente);
-                break;
-              case 'verPedido':
-                this.irA('verPedido');
-                break;
-              case 'hacerPedido':
-                this.irA('hacerPedido');
-                break;
-           }
+        this.mesa = barcodeData.text;
+        switch(caso){
+          case 'Reservar':
+            this.irA('reserva',cliente);
+            break;
+          case 'verPedido':
+            this.irA('verPedido');
+            break;
+          case 'hacerPedido':
+            this.irA('hacerPedido');
+            break;
+        }
       }, (err) => {
-          //console.log('Error: ', err);
-          this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //console.log('Error: ', err);
+        this.mesa = "Mesa:1";
+        this.irA('reserva', cliente)
+        this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
-  
+
 
   irA(donde:string,cliente?:any){
     switch(donde){
       case 'reserva':
-        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa,cliente:cliente});
+        alert(this.mesa);
+        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
         break;
       case 'verPedido':
         this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
