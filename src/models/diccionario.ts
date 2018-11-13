@@ -11,7 +11,8 @@ export const diccionario = {
     lista_espera: "lista-espera/",
     reservas_agendadas: "reservas-agendadas/",
     encuesta_cliente: "encuesta-cliente/",
-    encuesta_empleado: "encuesta-empleado/"
+    encuesta_empleado: "encuesta-empleado/",
+    delivery: "delivery/"
 
 
   },
