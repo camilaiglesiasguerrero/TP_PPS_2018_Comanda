@@ -84,7 +84,6 @@ export class AltaPedidoPage {
     this.productoPedido = new Array<ProductoPedido>();
     this.listadoAPedir = new Array<any>();
 
-
     this.isDelivery ? this.getDelivery() : this.getReservas();
     this.getPlatos();
     this.getBebidas();
@@ -255,28 +254,34 @@ export class AltaPedidoPage {
   }
 
   private getReservas(){
-    this.watcherReservas = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.reserva.idMesa)).valueChanges()
+    this.watcherReservas = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.reserva.idMesa))
+      .valueChanges()
       .subscribe(snapshots => {
-        let reservas = new Array<any>();
-        reservas = snapshots;
-        reservas = reservas.filter(f => f.estado == diccionario.estados_reservas.en_curso);
-        if(reservas.length == 1){
-          this.reserva.key = reservas[0].key;
-          this.reserva.idMesa = reservas[0].idMesa;
-          this.reserva.estado = reservas[0].estado;
-          this.reserva.cliente = reservas[0].cliente;
-          reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
-        }
-        if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
-          this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');
-          this.watcherReservas.unsubscribe();
-          this.navCtrl.remove(1,1);
-        }else if(this.reserva.idPedido != undefined){
-          this.messageHandler.mostrarErrorLiteral('Ya hay un pedido hecho para esta mesa.');
-          this.watcherReservas.unsubscribe();
-          this.navCtrl.remove(1,1);
-        }
-      });
+          let reservas = new Array<any>();
+          reservas = snapshots;
+          reservas = reservas.filter(f => f.estado == diccionario.estados_reservas.en_curso);
+          if(reservas.length == 0){
+            this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva);
+            this.navCtrl.remove(1,1);
+          }
+          if(reservas.length == 1){
+            this.reserva.key = reservas[0].key;
+            this.reserva.idMesa = reservas[0].idMesa;
+            this.reserva.estado = reservas[0].estado;
+            this.reserva.cliente = reservas[0].cliente;
+            reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
+            this.reserva.fecha = this.reserva[0].fecha;
+          }
+          if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
+            this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');
+            this.watcherReservas.unsubscribe();
+            this.navCtrl.remove(1,1);
+          }else if(this.reserva.idPedido != undefined){
+            this.messageHandler.mostrarErrorLiteral('Ya hay un pedido hecho para esta mesa.');
+            this.watcherReservas.unsubscribe();
+            this.navCtrl.remove(1,1);
+          }
+          });
   }
 
   private getPlatos(){

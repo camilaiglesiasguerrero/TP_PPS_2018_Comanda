@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Spinner } from 'ionic-angular';
 import { DatabaseService } from '../../services/database.service';
 import { diccionario } from '../../models/diccionario';
+import { PropinaPage } from '../propina/propina';
+import { ParamsService } from '../../services/params.service';
+import { MessageHandler } from '../../services/messageHandler.service';
+import { SpinnerHandler } from '../../services/spinnerHandler.service';
+import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
+import { reduce } from 'rxjs/operators';
 
 /**
  * Generated class for the CuentaPage page.
@@ -19,27 +25,71 @@ export class CuentaPage {
 
   detalleCuenta : Array<any>;
   aux : Array<any>;
-  suma = 0;
+  suma:number;
+  propina:any;
+  pedidoSubs:any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private database: DatabaseService) {
-
+              private database: DatabaseService,
+              private params:ParamsService,
+              private messageHandler: MessageHandler,
+              private spinnerH:SpinnerHandler) {
+    this.suma = 0;
     this.aux = new Array<any>();
     this.detalleCuenta = new Array<any>();
-    
-    this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.navParams.get('pedido')))
+    this.propina = false;
+
+    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.navParams.get('pedido')+'/'+diccionario.apis.productos)
       .valueChanges()
       .subscribe(snapshots => {
-          this.aux = snapshots;
-          for (let i = 0; i < this.aux[0].producto.length; i++) {
-            this.detalleCuenta.push({ item:this.aux[0].producto.nombre, cantidad:this.aux[0].producto.cantidad, valor:this.aux[0].producto.precio * this.aux[0].producto.cantidad }); 
-            this.suma += this.aux[0].producto.precio * this.aux[0].producto.cantidad;  
-          }
-     }).unsubscribe(); 
+        this.aux = snapshots;
+        for (let i = 0; i < this.aux.length; i++) {
+          
+          this.detalleCuenta.push({ item:this.aux[i].nombre, cantidad:this.aux[i].cantidad, valor:this.aux[i].precio * this.aux[i].cantidad }); 
+          this.suma += this.aux[i].precio * this.aux[i].cantidad;  
+        }
+     }); 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CuentaPage');
+    //console.log('ionViewDidLoad CuentaPage');
+  }
+
+  dejarPropina(){
+    this.propina = true;
+    this.navCtrl.push(PropinaPage,{cuenta:this.suma});    
+  }
+
+  confirmar(){
+    
+    this.pedidoSubs.unsubscribe();
+    let spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
+
+    //cargo cuenta
+    let cuenta = {
+      key: this.database.ObtenerKey(diccionario.apis.cuentas),
+      cliente: this.params.user.uid,
+      propinaPje: this.params.propinaAux,
+      cuenta: this.suma
+    }
+    this.database.jsonPackData = cuenta;
+    this.database.SubirDataBase(diccionario.apis.cuentas).then(r=>{
+      //leo y actualizo estado pedido
+      let subsTmp = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.navParams.get('pedido')))
+        .valueChanges()
+        .subscribe(snapshots => {
+          let auxPedido = snapshots;
+          auxPedido[0]['estado'] = diccionario.estados_pedidos.pagado;
+          this.database.jsonPackData = auxPedido[0]; 
+          this.database.SubirDataBase(diccionario.apis.pedidos).then(e=>{
+          spinner.dismiss();
+          this.messageHandler.mostrarMensaje("¡Te esperamos la próxima!");
+          this.navCtrl.setRoot(EncuestaClientePage);
+        });
+      });
+    });
   }
 
 }

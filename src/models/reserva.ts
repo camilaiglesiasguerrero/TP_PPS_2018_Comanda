@@ -7,7 +7,7 @@ export class Reserva {
     estado: string;
     fecha:string;
 
-    constructor(key?,idPedido?,cliente?,idMesa?, estado?, fecha?){
+    constructor(key?,idPedido?,cliente?,idMesa?, estado?,fecha?){
         this.key = key;
         this.idPedido = idPedido;
         this.cliente = cliente;
