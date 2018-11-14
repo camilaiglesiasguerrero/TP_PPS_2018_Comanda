@@ -73,17 +73,17 @@ export class PrincipalClientePage {
               this.puedePedirDelivery = false;
               this.puedeSolicitarMesa = false;
             }
-        }else{
-          this.puedePedirDelivery = true;
-          this.puedeSolicitarMesa = true;
-          this.puedeJugar = false;
-          this.puedeVerPedido = false;
-          this.puedeHacerPedido = false;
+          }else{
+            this.puedePedirDelivery = true;
+            this.puedeSolicitarMesa = true;
+            this.puedeJugar = false;
+            this.puedeVerPedido = false;
+            this.puedeHacerPedido = false;
+          }
         }
-      }
-          //Verifico estado del pedido
-          if(this.auxPedido != undefined){
-            this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.auxPedido))
+        //Verifico estado del pedido
+        if(this.auxPedido != undefined){
+          this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.auxPedido))
             .valueChanges()
             .subscribe(snp => {
               let auxPedido:any = snp;
@@ -96,8 +96,7 @@ export class PrincipalClientePage {
                 this.puedePedirDelivery = false;
                 this.puedeSolicitarMesa = false;
               }
-
-          });
+            });
         }
       });
   }
