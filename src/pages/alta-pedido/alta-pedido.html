@@ -3,166 +3,180 @@
     <button ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>Hacer Pedido</ion-title>
+    <ion-title>Pedidos</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding *ngIf="!mostrarParcial">
-  <ion-grid>
-    <ion-row class="tit fle">
-      <ion-col>
-        <div class="title">
-          COMIDAS
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngFor="let comida of comidas">
-      <ion-col>
-        <ion-item>
-          <div class="flex-v">
-            <div class="flex-h">
-              <div *ngIf="comida.foto1">
-                <ion-thumbnail item-start>
-                  <img [src]="comida.foto1">
-                </ion-thumbnail>
-              </div>
-              <div *ngIf="comida.foto2">
-                <ion-thumbnail item-start>
-                  <img [src]="comida.foto2">
-                </ion-thumbnail>
-              </div>
-              <div *ngIf="comida.foto3">
-                <ion-thumbnail item-start>
-                  <img [src]="comida.foto3">
-                </ion-thumbnail>
-              </div>
-            </div>
-            <div class="flex-h">
-              <div class="flex-v width-80">
-                <div>{{comida.nombre}}</div>
-                <div class="under-div">{{comida.precio | precio}}</div>
-              </div>
-              <div class="flex-v width-20">
-                <ion-icon class="center-horizontal action-icons" name=add color="secondary" (click)="addClick($event, comida)"></ion-icon>
-                <ion-icon class="center-horizontal under-div action-icons" name=remove color="secondary" (click)="removeCLick($event, comida)"></ion-icon>
-              </div>
-            </div>
+<ion-content padding>
+  <!--ALTA DE PEDIDO-->
+  <div *ngIf="display" class="height-100">
+    <ion-grid *ngIf="!mostrarParcial && !pedidoYaHecho && !mostrarDireccion">
+      <ion-row class="tit fle">
+        <ion-col>
+          <div class="title">
+            COMIDAS
           </div>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row class="tit fle" style="margin-top: 2em;">
-      <ion-col>
-        <div class="title">
-          BEBIDAS
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row class=fle *ngFor="let bebida of bebidas; let i = index">
-      <ion-col>
-        <ion-item [ngClass]="{'last-item':  i == bebidas.length - 1}">
-          <div class="flex-v">
-            <div class="flex-h">
-              <div *ngIf="bebida.foto1">
-                <ion-thumbnail item-start>
-                  <img [src]="bebida.foto1">
-                </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let comida of comidas">
+        <ion-col>
+          <ion-item>
+            <div class="flex-v">
+              <div class="flex-h">
+                <div *ngIf="comida.foto1">
+                  <ion-thumbnail item-start>
+                    <img [src]="comida.foto1">
+                  </ion-thumbnail>
+                </div>
+                <div *ngIf="comida.foto2">
+                  <ion-thumbnail item-start>
+                    <img [src]="comida.foto2">
+                  </ion-thumbnail>
+                </div>
+                <div *ngIf="comida.foto3">
+                  <ion-thumbnail item-start>
+                    <img [src]="comida.foto3">
+                  </ion-thumbnail>
+                </div>
               </div>
-              <div *ngIf="bebida.foto2">
-                <ion-thumbnail item-start>
-                  <img [src]="bebida.foto2">
-                </ion-thumbnail>
-              </div>
-              <div *ngIf="bebida.foto3">
-                <ion-thumbnail item-start>
-                  <img [src]="bebida.foto3">
-                </ion-thumbnail>
-              </div>
-            </div>
-            <div class="flex-h">
-              <div class="flex-v width-80">
-                <div>{{bebida.nombre}}</div>
-                <div class="under-div">{{bebida.precio | precio}}</div>
-              </div>
-              <div class="flex-v width-20">
-                <ion-icon class="center-horizontal action-icons" name=add color="secondary" (click)="addClick($event, bebida)"></ion-icon>
-                <ion-icon class="center-horizontal under-div action-icons" name=remove color="secondary" (click)="removeCLick($event, bebida)"></ion-icon>
+              <div class="flex-h">
+                <div class="flex-v width-80">
+                  <div>{{comida.nombre}}</div>
+                  <div class="under-div">{{comida.precio | precio}}</div>
+                </div>
+                <div class="flex-v width-20">
+                  <ion-icon class="center-horizontal action-icons" name=add color="secondary" (click)="addClick($event, comida)"></ion-icon>
+                  <ion-icon class="center-horizontal under-div action-icons" name=remove color="secondary" (click)="removeCLick($event, comida)"></ion-icon>
+                </div>
               </div>
             </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="tit fle" style="margin-top: 2em;">
+        <ion-col>
+          <div class="title">
+            BEBIDAS
           </div>
-        </ion-item>
-      </ion-col>
+        </ion-col>
+      </ion-row>
+      <ion-row class=fle *ngFor="let bebida of bebidas; let i = index">
+        <ion-col>
+          <ion-item [ngClass]="{'last-item':  i == bebidas.length - 1}">
+            <div class="flex-v">
+              <div class="flex-h">
+                <div *ngIf="bebida.foto1">
+                  <ion-thumbnail item-start>
+                    <img [src]="bebida.foto1">
+                  </ion-thumbnail>
+                </div>
+                <div *ngIf="bebida.foto2">
+                  <ion-thumbnail item-start>
+                    <img [src]="bebida.foto2">
+                  </ion-thumbnail>
+                </div>
+                <div *ngIf="bebida.foto3">
+                  <ion-thumbnail item-start>
+                    <img [src]="bebida.foto3">
+                  </ion-thumbnail>
+                </div>
+              </div>
+              <div class="flex-h">
+                <div class="flex-v width-80">
+                  <div>{{bebida.nombre}}</div>
+                  <div class="under-div">{{bebida.precio | precio}}</div>
+                </div>
+                <div class="flex-v width-20">
+                  <ion-icon class="center-horizontal action-icons" name=add color="secondary" (click)="addClick($event, bebida)"></ion-icon>
+                  <ion-icon class="center-horizontal under-div action-icons" name=remove color="secondary" (click)="removeCLick($event, bebida)"></ion-icon>
+                </div>
+              </div>
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+    <!--VISUALIZACION DE PEDIDO O PEDIDO PARCIAL-->
+    <div *ngIf="mostrarParcial || pedidoYaHecho">
+      <ion-row class="tit fle">
+        <div class="title">
+          TU PEDIDO:
+        </div>
+      </ion-row>
+      <ion-row class=fle *ngFor="let pedido of listadoAPedir">
+        <ion-col>
+          <ion-item style="padding-left: 5px;">
+            <div class="flex-h">
+              <div class="width-75">{{pedido.nombre}}</div>
+              <div class="width-25">{{pedido.precio | precio}}</div>
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="title end-horizontal">
+            Total: {{total | precio}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="isDelivery"  style="margin-bottom: 10em;">
+        <ion-col>
+          <ion-row>
+            <ion-col>
+              <div class="title flex-v">
+                <div class="color-beige">
+                  Dirección:
+                </div>
+                <div class="direccion">
+                  {{direccion.value}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="title flex-v" *ngIf="estadoPedido" style="margin-top: 1em;">
+                <div class="tiempo-entrega color-beige">
+                  Estado:
+                </div>
+                <div class="direccion">
+                  {{estadoPedido}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top: 1em;">
+            <ion-col>
+              <div class="title flex-v">
+                <div class="tiempo-entrega color-beige">
+                  Tiempo de entrega aproximado:
+                </div>
+                <div class="direccion">
+                  {{ tiempoEntrega.hora > 0 ? tiempoEntrega.hora + ' horas, ' + tiempoEntrega.minutos + ' minutos' : tiempoEntrega.minutos + ' minutos'}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
 
-      <!--<ion-col>-->
-      <!--<ion-label>{{bebida.nombre}}</ion-label>-->
-      <!--</ion-col>-->
-      <!--<ion-col>-->
-      <!--<ion-label>{{bebida.precio | precio}}</ion-label>-->
-      <!--</ion-col>-->
-      <!--<ion-col>-->
-      <!--<button (tap)="tapEvent($event,bebida)">-->
-      <!--<ion-icon name=add></ion-icon>-->
-      <!--</button>-->
-      <!--</ion-col>-->
-
-
-    </ion-row>
-  </ion-grid>
-  <!--<page-ubicacion [direccion]="direccion"></page-ubicacion>-->
-</ion-content>
-
-<ion-content padding *ngIf="mostrarParcial || pedidoYaHecho">
-  <br><br><br><br>
-  <ion-row class="tit fle">
-    <div class="title">
-      TU PEDIDO:
     </div>
-  </ion-row>
-  <ion-row class=fle *ngFor="let pedido of listadoAPedir">
-    <ion-col>
-      <ion-item style="padding-left: 5px;">
-        <div class="flex-h">
-          <div class="width-75">{{pedido.nombre}}</div>
-          <div class="width-25">{{pedido.precio | precio}}</div>
-        </div>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <div class="title end-horizontal">
-        Total: {{total | precio}}
-      </div>
-    </ion-col>
-  </ion-row>
-  <ion-row style="margin-bottom: 10em;">
-    <ion-col>
-      <div class="title flex-v">
-        <div class="">
-          Dirección:
-        </div>
-        <div class="direccion">
-          {{direccion.value}}
-        </div>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-content>
 
-<ion-content padding *ngIf="mostrarDireccion">
-  <div class="height-80" style="margin-top: 5em; margin-bottom: 15em;">
-    <ion-row class="height-100">
-      <ion-col>
-        <page-ubicacion [direccion]="direccion" [show-detalles]="true"></page-ubicacion>
-      </ion-col>
-    </ion-row>
+    <!--VISUALIZACION DE UBICACION-->
+    <div *ngIf="mostrarDireccion" class="height-80" style="margin-bottom: 15em;">
+      <ion-row class="height-100">
+        <ion-col>
+          <page-ubicacion [direccion]="direccion" [show-detalles]="true" [show-ruta]="true"></page-ubicacion>
+        </ion-col>
+      </ion-row>
+    </div>
   </div>
 </ion-content>
 
-
-<ion-footer *ngIf="!pedidoYaHecho">
+<ion-footer *ngIf="display && !pedidoYaHecho">
   <button ion-button full color="light" (click)="escanearQR()" *ngIf="!mostrarParcial && !isDelivery">
     <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
     Pedir mediante código QR

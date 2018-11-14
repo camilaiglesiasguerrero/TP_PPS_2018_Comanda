@@ -185,7 +185,6 @@ export class RegistrarsePage {
   }
 
   private registrarYLoguear() {
-    debugger;
     let spinner = this.spinnerHandler.getAllPageSpinner();
     spinner.present();
     this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
