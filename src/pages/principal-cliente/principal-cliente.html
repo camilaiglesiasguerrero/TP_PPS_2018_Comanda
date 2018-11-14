@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-fab center bottom>
+  <ion-fab center bottom *ngIf='puedeJugar'>
     <button ion-fab color="danger"><ion-icon name="game-controller-b"></ion-icon></button>
     <ion-fab-list side="top">
       <button ion-fab color="warning" (click)="irA('bebida')"><ion-icon name="wine"></ion-icon></button>
@@ -17,11 +17,11 @@
       <button ion-fab color="light" (click)="irA('postre')"><img src="../../assets/imgs/postre.png" alt="Postre"></button>
     </ion-fab-list>
     <ion-fab-list side="right">
-      <button ion-fab color="dark"><img src="../../assets/imgs/discount.png" alt="Descuento"></button>
+      <button ion-fab color="dark" (click)="irA('descuento')"><img src="../../assets/imgs/discount.png" alt="Descuento"></button>
     </ion-fab-list>
   </ion-fab>
 
-  <ion-row>
+  <ion-row *ngIf='puedeHacerPedido'>
     <ion-col text-center>
       <button ion-button round color="light" (click)="escanearQR('hacerPedido')">
         <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
@@ -30,7 +30,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <ion-row *ngIf='puedeVerPedido'>
     <ion-col text-center>
       <button ion-button round color="light" (click)="escanearQR('verPedido')">
         <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
@@ -39,7 +39,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <ion-row *ngIf='puedeSolicitarMesa'>
     <ion-col text-center>
       <button ion-button round color="light" (click)="solicitarMesa()">
         <ion-icon color="secondary" name="checkbox-outline" style="margin-right:5px;"></ion-icon>
@@ -47,7 +47,7 @@
       </button>
     </ion-col>
   </ion-row>
-  <ion-row style="margin-top: 7em;">
+  <ion-row style="margin-top: 7em;" *ngIf='puedePedirDelivery'>
     <ion-col text-center>
       <button ion-button round color="light" (click)="perdirDelivery()">
         <div class="flex-v icon-container mi-only-icon">
