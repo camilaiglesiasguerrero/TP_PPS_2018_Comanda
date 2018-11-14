@@ -78,7 +78,7 @@ export class EstadoPedidoPage {
                   for (let i = 0; i < this.aux.length; i++) {
                     if(this.aux[i].key == this.pedido.key){
                       this.pedido.estado = this.aux[i].estado;
-                      for (let j = 0; j < this.aux[i].productos.length; j++) {
+                      /*for (let j = 0; j < this.aux[i].productos.length; j++) {
                         this.pedido.productoPedido.push(new ProductoPedido(this.aux[i].productos[j].key,
                                                                           this.aux[i].productos[j].cantidad,
                                                                           this.aux[i].productos[j].tipo,
@@ -86,7 +86,7 @@ export class EstadoPedidoPage {
                                                                           this.aux[i].productos[j].nombre,
                                                                           this.aux[i].productos[j].precio));  
                         console.log(this.pedido);
-                      }
+                      }*/
                       this.mostrar = true;
                       spinner.dismiss();    
                       //console.log(this.pedido);                  

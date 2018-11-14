@@ -115,6 +115,9 @@ export class PrincipalClientePage {
       }, (err) => {
         //console.log('Error: ', err);
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //MARCADOR
+        this.mesa = 'Mesa:1'
+        this.irA('hacerPedido');
       });
   }
 

@@ -31,8 +31,8 @@ export const diccionario = {
     pagado: "Pagado"
   },
   estados_productos:{
-    en_preparacion: "En preparación",
-    listo: "Listo"
+    en_preparacion: false,
+    listo: true
   },
   estados_reservas_agendadas:{
     sin_mesa: "sin_mesa",

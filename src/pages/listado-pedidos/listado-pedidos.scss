@@ -4,4 +4,65 @@ page-listado-pedidos {
         background-color: $first-detail-color;
      }
 
+  .fle {
+    width: 100%;
+    height: auto;
+    //margin: 0.2em;
+    //line-height: 100px;
+    color: white;
+    font-size: 1em;
+    text-align: center;
+    //padding: 0.2em;
+
+  }
+
+  .tit {
+    width: 100%;
+    height: auto;
+    //margin: 0.2em;
+    //line-height: 100px;
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+    //padding: 0.2em;
+  }
+
+  .title{
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    font-weight: 600;
+  }
+
+  .tiempo-entrega{
+    color: white;
+    font-size: 1.7rem;
+    display: flex;
+    font-weight: 600;
+  }
+
+  .under-div{
+    margin-top: 5px;
+  }
+
+  .action-icons{
+    background-color: $first-detail-color;
+    color: white;
+    border-radius: 10px;
+  }
+
+  .last-item{
+    margin-bottom: 8em;
+  }
+
+  .direccion{
+    font-size: 15px;
+    margin-top: 5px;
+  }
+
+  .color-beige{
+    color: $fourth-detail-color;
+  }
 }
+
+
