@@ -11,7 +11,6 @@ import { EncuestaClienteResultadosPage } from "../encuesta-cliente-resultados/en
 import { TriviaPage } from "../juegos/trivia/trivia";
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
-import { CuentaPage } from '../cuenta/cuenta';
 import {ParserTypesService} from "../../services/parserTypesService";
 import {AdivinarNumeroPage} from "../juegos/adivinar-numero/adivinar-numero";
 
@@ -28,6 +27,14 @@ export class PrincipalClientePage {
   mesa:any;
   ingresoLocal = "";
   elSpinner = null;
+  puedeJugar = false;
+  puedeHacerPedido = true;
+  puedeVerPedido = false;
+  puedePedirDelivery = true;
+  puedeSolicitarMesa = false;
+  auxPedido:any;
+
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -40,6 +47,59 @@ export class PrincipalClientePage {
               private alertCtrl: AlertController,
               private parserTypesService: ParserTypesService) {
     this.user = this.params.user;
+
+    this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
+      .valueChanges()
+      .subscribe(snapshots => {
+        let auxReserva = new Array<any>();
+        auxReserva = snapshots;
+        let flag = false;
+        for (let index = 0; index < auxReserva.length; index++) {
+          if(auxReserva[index].estado == diccionario.estados_reservas.en_curso){
+            if(auxReserva[index].idPedido != undefined){
+              this.auxPedido = auxReserva[index].idPedido;
+              this.puedeJugar = true;
+              this.puedeVerPedido = true;
+              this.puedeHacerPedido = false;
+              this.puedePedirDelivery = false;
+              this.puedeSolicitarMesa = false;
+              flag = true;
+            }
+
+            if(!flag && index == auxReserva.length-1){
+              this.puedeJugar = false;
+              this.puedeVerPedido = false;
+              this.puedeHacerPedido = true;
+              this.puedePedirDelivery = false;
+              this.puedeSolicitarMesa = false;
+            }
+        }else{
+          this.puedePedirDelivery = true;
+          this.puedeSolicitarMesa = true;
+          this.puedeJugar = false;
+          this.puedeVerPedido = false;
+          this.puedeHacerPedido = false;
+        }
+      }
+          //Verifico estado del pedido
+          if(this.auxPedido != undefined){
+            this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.auxPedido))
+            .valueChanges()
+            .subscribe(snp => {
+              let auxPedido:any = snp;
+              if(auxPedido[0].estado == diccionario.estados_pedidos.cuenta ||
+                auxPedido[0].estado == diccionario.estados_pedidos.pagado ||
+                auxPedido[0].estado == diccionario.estados_pedidos.entregado){
+                this.puedeJugar = false;
+                this.puedeVerPedido = true;
+                this.puedeHacerPedido = false;
+                this.puedePedirDelivery = false;
+                this.puedeSolicitarMesa = false;
+              }
+
+          });
+        }
+      });
   }
 
   ionViewDidLoad() {
@@ -62,13 +122,13 @@ export class PrincipalClientePage {
   irA(donde:string){
     switch(donde){
       case 'bebida':
-        this.navCtrl.push(AnagramaPage);
+        this.navCtrl.push(AnagramaPage,{pedido:this.auxPedido});
         break;
       case 'postre':
-        this.navCtrl.push(TriviaPage);
+        this.navCtrl.push(TriviaPage,{pedido:this.auxPedido});
         break;
       case 'descuento':
-        this.navCtrl.push(AdivinarNumeroPage);
+        this.navCtrl.push(AdivinarNumeroPage,{pedido:this.auxPedido});
         break;
       case 'verPedido':
         this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});

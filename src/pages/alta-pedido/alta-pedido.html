@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>Hacer Pedido</ion-title>
+    <ion-title>Pedidos</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -127,7 +127,7 @@
           <ion-row>
             <ion-col>
               <div class="title flex-v">
-                <div class="">
+                <div class="color-beige">
                   Dirección:
                 </div>
                 <div class="direccion">
@@ -136,10 +136,22 @@
               </div>
             </ion-col>
           </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="title flex-v" *ngIf="estadoPedido" style="margin-top: 1em;">
+                <div class="tiempo-entrega color-beige">
+                  Estado:
+                </div>
+                <div class="direccion">
+                  {{estadoPedido}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
           <ion-row style="margin-top: 1em;">
             <ion-col>
               <div class="title flex-v">
-                <div class="tiempo-entrega">
+                <div class="tiempo-entrega color-beige">
                   Tiempo de entrega aproximado:
                 </div>
                 <div class="direccion">

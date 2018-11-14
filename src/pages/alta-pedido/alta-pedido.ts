@@ -52,6 +52,7 @@ export class AltaPedidoPage {
   arrayPromesas = [];
   display:boolean;
   tiempoEntrega = { hora: 0, minutos: 0};
+  estadoPedido:string = "";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -88,7 +89,6 @@ export class AltaPedidoPage {
 
     this.productoPedido = new Array<ProductoPedido>();
     this.listadoAPedir = new Array<any>();
-    debugger;
     // this.isDelivery ? this.getDelivery() : this.getReservas();
     var spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
@@ -355,6 +355,10 @@ export class AltaPedidoPage {
             this.delivery.estado = deliverys[i].estado;
             this.delivery.infoDireccion = deliverys[i].infoDireccion;
             this.delivery.fecha = deliverys[i].fecha;
+            this.delivery.tiempoDemoraHora = deliverys[i].tiempoDemoraHora;
+            this.delivery.tiempoDemoraMinutos = deliverys[i].tiempoDemoraMinutos;
+            this.tiempoEntrega.hora = this.delivery.tiempoDemoraHora;
+            this.tiempoEntrega.minutos = this.delivery.tiempoDemoraMinutos;
             this.getPedidoDelivery(spinner);
           }
         }
@@ -373,6 +377,7 @@ export class AltaPedidoPage {
         var pedidos:any = snapshots;
         var total = 0;
         for(var i=0; i < pedidos.length; i++){
+          this.estadoPedido = pedidos[i].estado;
           for(let key in pedidos[i].productos){
             var bebida = _.find(this.bebidas, bebida =>{
               return bebida.key == pedidos[i].productos[key].key
@@ -423,7 +428,10 @@ export class AltaPedidoPage {
 
         //Creo el pedido
         pedidoASubir.key = keyPedido;
-        pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
+        if(this.params.rol == 'cliente')
+          pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
+        else
+          pedidoASubir.estado = diccionario.estados_pedidos.en_preparacion;
         pedidoASubir.productoPedido = null;
         this.database.jsonPackData = pedidoASubir;
         this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
@@ -484,12 +492,15 @@ export class AltaPedidoPage {
           this.delivery.long = this.direccion['long'];
           this.delivery.infoDireccion = this.direccion['infoDireccion'];
           this.delivery.fecha = this.parse.parseDateTimeToStringDateTime(new Date());
+          this.delivery.tiempoDemoraHora = this.tiempoEntrega.hora;
+          this.delivery.tiempoDemoraMinutos = this.tiempoEntrega.minutos;
+
 
           this.database.jsonPackData = this.delivery;
           this.database.SubirDataBase(diccionario.apis.delivery).then(p =>{
             //Creo el pedido
             pedidoASubir.key = keyPedido;
-            pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
+            pedidoASubir.estado = diccionario.estados_pedidos.en_preparacion;
             pedidoASubir.productoPedido = null;
 
             this.database.jsonPackData = pedidoASubir;
@@ -555,7 +566,7 @@ export class AltaPedidoPage {
           minutos = tiempoDemora;
         }
         while(minutos > 60){
-          minutos = tiempoDemora - 60;
+          minutos = minutos - 60;
           hora++;
         }
         this.tiempoEntrega.hora = hora;

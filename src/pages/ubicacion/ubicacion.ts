@@ -134,7 +134,6 @@ export class UbicacionPage {
   }
 
   private obtenerRutaALocal(){
-    debugger;
     let destino = new google.maps.LatLng(diccionario.direccion_local.lat, diccionario.direccion_local.long);
     let configRute = {
       origin: this.latLong,
