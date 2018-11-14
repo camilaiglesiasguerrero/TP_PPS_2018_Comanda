@@ -1,18 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AltaMenuPage } from '../alta-menu/alta-menu';
 import { ListadoMenuPage } from '../listado-menu/listado-menu';
 import { ParamsService } from '../../services/params.service';
-import { Pedido } from '../../models/pedido';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ProductoPedido } from '../../models/productoPedido';
 import {diccionario} from "../../models/diccionario";
 import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { PrincipalMozoPage } from '../principal-mozo/principal-mozo';
 import { MessageHandler } from '../../services/messageHandler.service';
 
 @IonicPage()
@@ -88,14 +81,6 @@ export class ListadoPedidosPage {
     //console.log('ionViewDidLoad ListadoPedidosPage');
   }
 
-  ionViewCanLeave(){
-    this.subsProducto.unsubscribe();
-    this.subsPedido.unsubscribe();
-    this.subsUnPedido.unsubscribe();
-    this.subsMesa.unsubscribe();
-    this.subsReserva.unsubscribe();
-  }
-
   irA(donde: string){
     switch(donde){
       case 'Nuevo':
@@ -136,6 +121,10 @@ export class ListadoPedidosPage {
             spinner.dismiss();
         });
       }
+      if(this.pedidosList.length == 0){
+        this.messageHandler.mostrarMensaje('No hay pedidos pendientes');
+        spinner.dismiss();
+      }
     });
   }
 
@@ -167,7 +156,8 @@ export class ListadoPedidosPage {
 
         if(this.pedidosMozo.length == 0 || this.pedidosList.length == 0){
           spinner.dismiss();
-          this.messageHandler.mostrarMensaje("No hay pedidos");
+          this.messageHandler.mostrarMensaje("No hay pedidos pendientes");
+          this.navCtrl.remove(1,1);
         }else{
           spinner.dismiss();
         }
