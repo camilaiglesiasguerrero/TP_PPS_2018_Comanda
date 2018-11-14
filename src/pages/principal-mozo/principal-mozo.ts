@@ -55,7 +55,7 @@ export class PrincipalMozoPage {
           .subscribe(snapshots => {
             this.clientesEspera = snapshots;
             this.clientesEspera = this.clientesEspera.filter(f =>{
-              return f.estado == diccionario.estados_reservas_agendadas.sin_mesa && this.parserTypesService.compararFechaMayorAHoy(f.fecha)
+              return f.estado == diccionario.estados_reservas_agendadas.sin_mesa && this.parserTypesService.compararFechayHoraMayorAHoy(f.fecha)
             });
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
             spinner.dismiss();
