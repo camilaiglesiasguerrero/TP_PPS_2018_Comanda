@@ -28,10 +28,10 @@ export class PrincipalClientePage {
   ingresoLocal = "";
   elSpinner = null;
   puedeJugar = false;
-  puedeHacerPedido = true;
+  puedeHacerPedido = false;
   puedeVerPedido = false;
   puedePedirDelivery = true;
-  puedeSolicitarMesa = false;
+  puedeSolicitarMesa = true;
   auxPedido:any;
 
 
