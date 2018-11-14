@@ -11,6 +11,7 @@ import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 import {PrincipalClientePage} from "../../principal-cliente/principal-cliente";
 import * as _ from 'lodash';
 import {diccionario} from "../../../models/diccionario";
+import {ParserTypesService} from "../../../services/parserTypesService";
 
 @Component({
   selector: 'page-trivia',
@@ -18,7 +19,7 @@ import {diccionario} from "../../../models/diccionario";
 })
 export class TriviaPage {
 
-  display : boolean = false;
+  display : boolean;
   empiezaElJuego : boolean = false;
   repetidor: any;
   segundos: number = 0;
@@ -41,20 +42,22 @@ export class TriviaPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
-              public spinner: SpinnerHandler,
+              public spinnerH: SpinnerHandler,
               public database:DatabaseService,
               public params: ParamsService,
-              private alertCtrl: AlertController) {
-
-    let juego : Juego = new Juego();
+              private alertCtrl: AlertController,
+              private parser: ParserTypesService) {
+    this.display = false;
     this.usuario = this.params.user;
+    this.empiezaElJuego = false;
+    let spinner = spinnerH.getAllPageSpinner();
+    spinner.present();
     this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
-          if(this.aux[index].cliente == this.usuario.dni
-            //&& this.aux[index].fecha == datetime.getToday()
-            && this.aux[index].nombreJuego == 'Trivia'){
+          if(this.aux[index].cliente == this.usuario.uid && this.aux[index].nombreJuego == 'Trivia' && this.parser.compararFechayHoraMayorAHoy(this.aux[index].fecha)
+            ){
             if(this.empiezaElJuego){
             }else{
               messageH.mostrarErrorLiteral('Ya jugaste Trivia hoy');
@@ -62,6 +65,8 @@ export class TriviaPage {
             }
           }
         }
+        spinner.dismiss();
+        this.display = true;
       });
     this.cronometro = '00:10.';
     this.cronoMili = '00';
@@ -78,10 +83,11 @@ export class TriviaPage {
     this.yaSeMostro = true;
     while(this.yaSeMostro){
       var existe =_.find(this.preguntasMostradas, item => {
-        item == this.trivia.preguntaSecreta
+        return item == this.trivia.preguntaSecreta
       });
       if(existe){
         this.yaSeMostro = true;
+        this.trivia.generarPregunta();
       }else{
         this.yaSeMostro = false;
       }
@@ -130,7 +136,7 @@ export class TriviaPage {
           this.esCorrecta();
         }
       }else{
-        let spinner = this.spinner.getAllPageSpinner();
+        let spinner = this.spinnerH.getAllPageSpinner();
         spinner.present();
         clearInterval(this.repetidor);
         var correcta = _.find(this.pregunta.respuestas, item =>{
@@ -143,7 +149,7 @@ export class TriviaPage {
   }
 
   private perdiste(spinner, correcta){
-    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.jsonPackData = new Juego('Trivia',this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       spinner.dismiss();
       let alert = this.alertCtrl.create({
@@ -169,7 +175,7 @@ export class TriviaPage {
         {
           text: 'Felicitaciones!',
           handler: data => {
-            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+            this.database.jsonPackData = new Juego('Trivia',this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
             this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
               this.navCtrl.setRoot(PrincipalClientePage);
             });

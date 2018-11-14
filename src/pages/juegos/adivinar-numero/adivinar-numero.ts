@@ -20,6 +20,7 @@ export class AdivinarNumeroPage {
   mayorMenor: string = '...';
   intentos:number;
   yaJugo:boolean;
+  display:boolean;
 
   // Definimos la variable numSecret de tipo number
   numSecret: number = this.numAleatorio(0,100);
@@ -43,7 +44,6 @@ export class AdivinarNumeroPage {
   compruebaNumero(){
     if(this.num)
     {
-
       // Sumamos 1 intento al contador por cada acción realizada.
       this.intentos = this.intentos-1;
 

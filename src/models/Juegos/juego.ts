@@ -7,12 +7,12 @@ export class Juego {
 
     
 
-    constructor(nombreJuego?,cliente?,gano?,key?) {
+    constructor(nombreJuego?,cliente?,gano?,key?, fecha?) {
         this.nombreJuego = nombreJuego;
         this.cliente = cliente;
         this.gano = gano;      
         this.key = key;    
-        //this.fecha = this.datetime.getToday();
+        this.fecha = fecha;
     }
 
 }
