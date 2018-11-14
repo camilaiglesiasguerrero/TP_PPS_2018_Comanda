@@ -8,6 +8,7 @@ import { Juego } from '../../../models/Juegos/juego';
 import { ParamsService } from '../../../services/params.service';
 import { diccionario } from "../../../models/diccionario";
 import { ParserTypesService } from '../../../services/parserTypesService';
+import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 
 
 @IonicPage()
@@ -40,6 +41,7 @@ export class AnagramaPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
+              public spinnerH: SpinnerHandler,
               public database:DatabaseService,
               public params: ParamsService,
               public parserType: ParserTypesService,
@@ -48,6 +50,8 @@ export class AnagramaPage {
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
     this.empiezaElJuego = false;
+    let spinner = spinnerH.getAllPageSpinner();
+    spinner.present();
     this.watchJuegos = this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -55,10 +59,13 @@ export class AnagramaPage {
           if(this.aux[index].cliente == this.usuario.uid  && this.parserType.compararFechayHoraMayorAHoy(this.aux[index].fecha) && this.aux[index].nombreJuego == 'Anagrama'){
             if(!this.empiezaElJuego){
               messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
+              spinner.dismiss();
               navCtrl.remove(1,1);
+              return;
             }
           }
         }
+        spinner.dismiss();
         this.display = true;
       });
 
@@ -74,7 +81,6 @@ export class AnagramaPage {
 
   ionViewWillLeave(){
     this.watchJuegos.unsubscribe();
-
   }
 
   generarPalabra(){

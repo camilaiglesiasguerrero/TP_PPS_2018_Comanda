@@ -13,6 +13,7 @@ import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
 import { CuentaPage } from '../cuenta/cuenta';
 import {ParserTypesService} from "../../services/parserTypesService";
+import {AdivinarNumeroPage} from "../juegos/adivinar-numero/adivinar-numero";
 
 
 @IonicPage()
@@ -65,6 +66,9 @@ export class PrincipalClientePage {
         break;
       case 'postre':
         this.navCtrl.push(TriviaPage);
+        break;
+      case 'descuento':
+        this.navCtrl.push(AdivinarNumeroPage);
         break;
       case 'verPedido':
         this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
