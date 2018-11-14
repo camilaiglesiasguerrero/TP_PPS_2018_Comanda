@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Anagrama } from '../../../models/Juegos/anagrama';
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import { MessageHandler } from '../../../services/messageHandler.service';
@@ -17,7 +17,6 @@ import { ParserTypesService } from '../../../services/parserTypesService';
 })
 export class AnagramaPage {
 
-  display : boolean = false;
   anagrama : Anagrama;
   empiezaElJuego : boolean = false;
   repetidor: any;
@@ -31,118 +30,158 @@ export class AnagramaPage {
   seRindio: boolean = false;
   laPalabra: string;
   letras: Array<any>;
+  display:boolean;
+  watchJuegos:any;
+  sinTiempo:boolean;
 
   usuario:any;
   aux:any;
- 
-  constructor(public navCtrl: NavController, 
+
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
               public database:DatabaseService,
               public params: ParamsService,
-              public parserType: ParserTypesService) {
-    
+              public parserType: ParserTypesService,
+              private alertCtrl: AlertController) {
+    this.display = false;
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
-    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
+    this.empiezaElJuego = false;
+    this.watchJuegos = this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
-       
         for (let index = 0; index < this.aux.length; index++) {
-            if(this.aux[index].cliente == this.usuario.dni 
-              && this.aux[index].fecha == parserType.parseDateToStringDate(new Date)
-              && this.aux[index].nombreJuego == 'Anagrama'){
-                  messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
-                  navCtrl.remove(1,1);
+          if(this.aux[index].cliente == this.usuario.uid  && this.parserType.compararFechayHoraMayorAHoy(this.aux[index].fecha) && this.aux[index].nombreJuego == 'Anagrama'){
+            if(!this.empiezaElJuego){
+              messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
+              navCtrl.remove(1,1);
             }
-
+          }
         }
-    });
+        this.display = true;
+      });
 
-      this.anagrama = new Anagrama(); 
-      this.cronometro = '00:30.';
-      this.cronoMili = '00';
-      
+    this.anagrama = new Anagrama();
+    this.cronometro = '00:30.';
+    this.cronoMili = '00';
+
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad AnagramaPage');
   }
 
+  ionViewWillLeave(){
+    this.watchJuegos.unsubscribe();
+
+  }
+
   generarPalabra(){
+    this.empiezaElJuego = true;
     this.anagrama.palabraResultado = null;
     this.verifica = false;
     this.seRindio = false;
-    this.anagrama.GenerarPalabra();    
-    this.empiezaElJuego = true;
+    this.anagrama.GenerarPalabra();
     this.segundos = 29;
     this.milisegundos = 100;
     this.laPalabra = this.anagrama.arrayOrdenado[this.anagrama.palabraSecreta].palabra;
-      
+    this.sinTiempo = false;
     clearInterval(this.repetidor);
 
-    this.repetidor = setInterval( ()=> { 
-      this.cronometro = '00:' + (this.segundos <= 9 ? '0' + this.segundos.toString() : this.segundos.toString()) + '.';
-      this.cronoMili = this.milisegundos <= 9 ? '0' + this.milisegundos.toString() : this.milisegundos.toString();
-      this.milisegundos-=1;
-      if( this.milisegundos == 0)
-      {
-        this.milisegundos = 99;
-        if(this.segundos != 0)
-        {  
-          this.segundos -=1;
-          if(this.segundos == 5)
+    this.repetidor = setInterval( ()=> {
+        this.cronometro = '00:' + (this.segundos <= 9 ? '0' + this.segundos.toString() : this.segundos.toString()) + '.';
+        this.cronoMili = this.milisegundos <= 9 ? '0' + this.milisegundos.toString() : this.milisegundos.toString();
+        this.milisegundos-=1;
+        if( this.milisegundos == 0)
+        {
+          this.milisegundos = 99;
+          if(this.segundos != 0)
           {
+            this.segundos -=1;
+            if(this.segundos == 5)
+            {
+              var x = document.getElementById("timer");
+              x.className = "pocoTiempo";
+            }
+          }
+          else
+          {
+            this.cronoMili = '00';
             var x = document.getElementById("timer");
-            x.className = "pocoTiempo";
+            this.sinTiempo = true;
+            clearInterval(this.repetidor);
+            this.Verificar();
           }
         }
-        else
-        {
-          this.cronoMili = '00';
-          var x = document.getElementById("timer");
-          clearInterval(this.repetidor);
-          this.Verificar();
-        }
       }
-    }
-    , 10);
+      , 10);
 
-    
-    
+
+
   }
-  
+
   Verificar(){
     if(this.anagrama.palabraResultado != '' && this.anagrama.palabraResultado != null)
     {
       clearInterval(this.repetidor);
       if(!this.anagrama.Verificar())
-      { 
-        this.Rendirse(); 
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
-        this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-            this.messageH.mostrarErrorLiteral('¡Perdiste!');
-            this.navCtrl.remove(1,1);
-      })
+      {
+        this.perdio();
       }
       else
       {
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+        this.database.jsonPackData = new Juego('Anagrama',this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parserType.parseDateTimeToStringDateTime(new Date()));
         this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-            this.messageH.mostrarMensaje('¡Ganaste!');
-            this.navCtrl.remove(1,1);      
+          let alert = this.alertCtrl.create({
+            title: 'Ganaste!!!',
+            subTitle: "Tienes una bebida gratis.",
+            buttons: [
+              {
+                text: 'felicitaciones',
+                handler: data => {
+                  this.navCtrl.remove(1,1);
+                }
+              }
+            ]
+          });
+          alert.present();
         });
+      }
+    }else{
+      if(this.sinTiempo){
+        this.perdio();
       }
     }
   }
 
   Rendirse(){
     clearInterval(this.repetidor);
-    this.seRindio = true;    
+    this.seRindio = true;
   }
 
   Mezclar(){
     this.anagrama.Mezclar(this.anagrama.arrayOrdenado, this.anagrama.palabraSecreta);
+  }
+
+  private perdio(){
+    this.Rendirse();
+    this.database.jsonPackData = new Juego('Anagrama',this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos), this.parserType.parseDateTimeToStringDateTime(new Date()));
+    this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
+      let alert = this.alertCtrl.create({
+        title: 'Perdiste...',
+        subTitle: "Vuelva a intentar otro día!",
+        buttons: [
+          {
+            text: 'volver',
+            handler: data => {
+              this.navCtrl.remove(1,1);
+            }
+          }
+        ]
+      });
+      alert.present();
+    })
   }
 
 }
