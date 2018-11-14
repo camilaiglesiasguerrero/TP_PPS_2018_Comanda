@@ -12,7 +12,7 @@ import { TriviaPage } from "../juegos/trivia/trivia";
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
 import {ParserTypesService} from "../../services/parserTypesService";
-import { AdivinarNumeroPage } from '../juegos/adivinar-numero/adivinar-numero';
+import {AdivinarNumeroPage} from "../juegos/adivinar-numero/adivinar-numero";
 
 
 @IonicPage()
@@ -47,7 +47,7 @@ export class PrincipalClientePage {
               private alertCtrl: AlertController,
               private parserTypesService: ParserTypesService) {
     this.user = this.params.user;
-    
+
     this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
       .valueChanges()
       .subscribe(snapshots => {
@@ -65,7 +65,7 @@ export class PrincipalClientePage {
               this.puedeSolicitarMesa = false;
               flag = true;
             }
-            
+
             if(!flag && index == auxReserva.length-1){
               this.puedeJugar = false;
               this.puedeVerPedido = false;
@@ -87,8 +87,8 @@ export class PrincipalClientePage {
             .valueChanges()
             .subscribe(snp => {
               let auxPedido:any = snp;
-              if(auxPedido[0].estado == diccionario.estados_pedidos.cuenta || 
-                auxPedido[0].estado == diccionario.estados_pedidos.pagado || 
+              if(auxPedido[0].estado == diccionario.estados_pedidos.cuenta ||
+                auxPedido[0].estado == diccionario.estados_pedidos.pagado ||
                 auxPedido[0].estado == diccionario.estados_pedidos.entregado){
                 this.puedeJugar = false;
                 this.puedeVerPedido = true;

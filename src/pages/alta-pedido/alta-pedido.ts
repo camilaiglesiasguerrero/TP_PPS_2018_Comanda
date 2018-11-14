@@ -47,6 +47,12 @@ export class AltaPedidoPage {
   isDelivery:boolean;
   total:string = "";
   pedidoYaHecho:boolean;
+  promesaPlatos:any;
+  promesaBebidas:any;
+  arrayPromesas = [];
+  display:boolean;
+  tiempoEntrega = { hora: 0, minutos: 0};
+  estadoPedido:string = "";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -57,6 +63,7 @@ export class AltaPedidoPage {
               private barcodeScanner:BarcodeScanner,
               private parse: ParserTypesService) {
     //Entra por escaneo de QR desde cliente o desde mozo
+    this.display = false;
     if(this.navParams.get("mesa")){
       if(this.navParams.get("mesa").split(':')[0]=='Mesa')
         this.reserva.idMesa = this.navParams.get("mesa").split(':')[1];
@@ -80,13 +87,21 @@ export class AltaPedidoPage {
       }
     }
 
-
     this.productoPedido = new Array<ProductoPedido>();
     this.listadoAPedir = new Array<any>();
-
-    this.isDelivery ? this.getDelivery() : this.getReservas();
+    // this.isDelivery ? this.getDelivery() : this.getReservas();
+    var spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
     this.getPlatos();
     this.getBebidas();
+    this.arrayPromesas.push(this.promesaBebidas);
+    this.arrayPromesas.push(this.promesaPlatos);
+    Observable.forkJoin(this.arrayPromesas).subscribe(() => {
+      this.isDelivery ? this.getDelivery(spinner) : this.getReservas(spinner);
+    });
+    // this.arrayPromesas.subscribe(response =>{
+    //
+    // })
   }
 
 
@@ -127,13 +142,20 @@ export class AltaPedidoPage {
 
   addClick(event,producto){
     this.listadoAPedir.push(producto);
+    this.messageHandler.mostrarMensajeCortoAbajo("Se agrego: " + producto.descripcion);
   }
 
   removeCLick(event, producto){
-    var encontrado = _.remove(this.listadoAPedir, item =>{
-      return item == producto;
-    })
-
+    var eliminado = false;
+    _.remove(this.listadoAPedir, item =>{
+      if(item == producto){
+        if(!eliminado){
+          eliminado = true;
+          this.messageHandler.mostrarMensajeCortoAbajo("Se quitó: " + producto.descripcion);
+          return item == producto
+        }
+      }
+    });
   }
 
   verParcial(){
@@ -170,24 +192,25 @@ export class AltaPedidoPage {
             this.listadoAPedir[index].tipo,
             diccionario.estados_pedidos.solicitado,
             this.listadoAPedir[index].nombre,
-            this.listadoAPedir[index].precio));
+            this.listadoAPedir[index].precio,
+            this.listadoAPedir[index].tiempoElaboracion));
         }else{
           for (let i  = 0; i  < this.productoPedido.length; i ++) {
             if(this.productoPedido[i].idProducto == this.listadoAPedir[index].key){//si ya pedi este producto le agrego uno
               this.productoPedido[i].cantidad ++;
               flag = true;
               if(this.listadoAPedir[index].tipo == 'Bebida'){                         //si el producto es bebida, verifico q me de el stock
-                for (let index = 0; index < this.bebidas.length; index++) {
-                  if(this.bebidas.key == this.listadoAPedir[index].key && this.bebidas.cantidad < this.productoPedido[i].cantidad){
-                    this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[index].nombre);
+                for (let j = 0; j < this.bebidas.length; j++) {
+                  if(this.bebidas[j].key == this.listadoAPedir[index].key && this.bebidas[j].cantidad < this.productoPedido[i].cantidad){
+                    this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[j].nombre);
                     this.productoPedido[i].cantidad --;
                     stock = false;
                   }
                 }
               }else{                                                                  //idem si es comida
-                for (let index = 0; index < this.comidas.length; index++) {
-                  if(this.comidas.key == this.listadoAPedir[index].key && this.comidas.cantidad < this.productoPedido[i].cantidad){
-                    this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[index].nombre);
+                for (let k = 0; k < this.comidas.length; k++) {
+                  if(this.comidas[k].key == this.listadoAPedir[index].key && this.comidas[k].cantidad < this.productoPedido[i].cantidad){
+                    this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[k].nombre);
                     this.productoPedido[i].cantidad --;
                     stock = false;
                   }
@@ -202,7 +225,9 @@ export class AltaPedidoPage {
                 this.listadoAPedir[index].tipo,
                 diccionario.estados_pedidos.solicitado,
                 this.listadoAPedir[index].nombre,
-                this.listadoAPedir[index].precio));
+                this.listadoAPedir[index].precio,
+                this.listadoAPedir[index].tiempoElaboracion)
+              );
               break;
             }
           }
@@ -210,6 +235,7 @@ export class AltaPedidoPage {
       }
       this.total = total.toString();
     }
+    this.calcularTiempoDemora();
     return true;
   }
 
@@ -253,54 +279,66 @@ export class AltaPedidoPage {
     this.mostrarParcial = false;
   }
 
-  private getReservas(){
+  private getReservas(spinner){
     this.watcherReservas = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.reserva.idMesa))
       .valueChanges()
       .subscribe(snapshots => {
-          let reservas = new Array<any>();
-          reservas = snapshots;
-          reservas = reservas.filter(f => f.estado == diccionario.estados_reservas.en_curso);
-          if(reservas.length == 0){
-            this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva);
-            this.navCtrl.remove(1,1);
-          }
-          if(reservas.length == 1){
-            this.reserva.key = reservas[0].key;
-            this.reserva.idMesa = reservas[0].idMesa;
-            this.reserva.estado = reservas[0].estado;
-            this.reserva.cliente = reservas[0].cliente;
-            reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
-            this.reserva.fecha = this.reserva[0].fecha;
-          }
-          if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
-            this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');
-            this.watcherReservas.unsubscribe();
-            this.navCtrl.remove(1,1);
-          }else if(this.reserva.idPedido != undefined){
-            this.messageHandler.mostrarErrorLiteral('Ya hay un pedido hecho para esta mesa.');
-            this.watcherReservas.unsubscribe();
-            this.navCtrl.remove(1,1);
-          }
-          });
+        let reservas = new Array<any>();
+        reservas = snapshots;
+        reservas = reservas.filter(f => f.estado == diccionario.estados_reservas.en_curso);
+        if(reservas.length == 0){
+          this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva);
+          this.navCtrl.remove(1,1);
+        }
+        if(reservas.length == 1){
+          this.reserva.key = reservas[0].key;
+          this.reserva.idMesa = reservas[0].idMesa;
+          this.reserva.estado = reservas[0].estado;
+          this.reserva.cliente = reservas[0].cliente;
+          reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
+          this.reserva.fecha = this.reserva[0].fecha;
+        }
+        if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
+          this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');
+          this.watcherReservas.unsubscribe();
+          this.navCtrl.remove(1,1);
+        }else if(this.reserva.idPedido != undefined){
+          this.messageHandler.mostrarErrorLiteral('Ya hay un pedido hecho para esta mesa.');
+          this.watcherReservas.unsubscribe();
+          this.navCtrl.remove(1,1);
+        }
+        spinner.dismiss();
+        this.display = true;
+      });
   }
 
   private getPlatos(){
-    this.watcherPlatos = this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
-      .subscribe(snapshots => {
-        this.comidasTotal = snapshots;
-        this.comidas = this.comidasTotal.filter(f => f.cantidad > 0 );
-      });
+    this.promesaPlatos = new Promise(resolve =>{
+      setTimeout(() => {
+        this.watcherPlatos = this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
+          .subscribe(snapshots => {
+            this.comidasTotal = snapshots;
+            this.comidas = this.comidasTotal.filter(f => f.cantidad > 0 );
+            resolve();
+          });
+      }, 0)
+    })
   }
 
   private getBebidas(){
-    this.watcherBebidas = this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
-      .subscribe(snapshots => {
-        this.bebidasTotal = snapshots;
-        this.bebidas = this.bebidasTotal.filter(f => f.cantidad > 0 );
-      });
+    this.promesaBebidas = new Promise(resolve =>{
+      setTimeout(() => {
+        this.watcherBebidas = this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
+          .subscribe(snapshots => {
+            this.bebidasTotal = snapshots;
+            this.bebidas = this.bebidasTotal.filter(f => f.cantidad > 0 );
+            resolve();
+          });
+      }, 0)
+    });
   }
 
-  private getDelivery(){
+  private getDelivery(spinner){
     this.watcherDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid)).valueChanges()
       .subscribe(snapshots =>{
         var deliverys:any = snapshots;
@@ -317,47 +355,56 @@ export class AltaPedidoPage {
             this.delivery.estado = deliverys[i].estado;
             this.delivery.infoDireccion = deliverys[i].infoDireccion;
             this.delivery.fecha = deliverys[i].fecha;
-            this.getPedidoDelivery();
+            this.delivery.tiempoDemoraHora = deliverys[i].tiempoDemoraHora;
+            this.delivery.tiempoDemoraMinutos = deliverys[i].tiempoDemoraMinutos;
+            this.tiempoEntrega.hora = this.delivery.tiempoDemoraHora;
+            this.tiempoEntrega.minutos = this.delivery.tiempoDemoraMinutos;
+            this.getPedidoDelivery(spinner);
           }
+        }
+        if(!this.pedidoYaHecho){
+          spinner.dismiss();
+          this.display = true;
         }
       })
-
-
   }
 
-  private getPedidoDelivery(){
+  private getPedidoDelivery(spinner){
     //TODO: FALTA TIEMPO DE DEMORA!!!!!
     this.watcherDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.delivery.idPedido)).valueChanges()
-    .subscribe(snapshots => {
-      this.listadoAPedir = [];
-      var pedidos:any = snapshots;
-      var total = 0;
-      for(var i=0; i < pedidos.length; i++){
-        for(let key in pedidos[i].productos){
-          var bebida = _.find(this.bebidas, bebida =>{
-            return bebida.key == pedidos[i].productos[key].key
-          })
-          if(bebida){
-            var cantidad = pedidos[i].productos[key].cantidad;
-            for(var j=0; j< cantidad ; j++){
-              total += parseInt(bebida.precio);
-              this.listadoAPedir.push(bebida)
+      .subscribe(snapshots => {
+        this.listadoAPedir = [];
+        var pedidos:any = snapshots;
+        var total = 0;
+        for(var i=0; i < pedidos.length; i++){
+          this.estadoPedido = pedidos[i].estado;
+          for(let key in pedidos[i].productos){
+            var bebida = _.find(this.bebidas, bebida =>{
+              return bebida.key == pedidos[i].productos[key].key
+            })
+            if(bebida){
+              var cantidadBebida = pedidos[i].productos[key].cantidad;
+              for(var j=0; j< cantidadBebida ; j++){
+                total += parseInt(bebida.precio);
+                this.listadoAPedir.push(bebida)
+              }
             }
-          }
-          var plato =_.find(this.comidas, plato =>{
-            return plato.key == pedidos[i].productos[key].key
-          })
-          if(plato){
-            var cantidad = pedidos[i].productos[key].cantidad;
-            for(var j=0; j< cantidad ; j++){
-              total += parseInt(plato.precio);
-              this.listadoAPedir.push(plato)
+            var plato =_.find(this.comidas, plato =>{
+              return plato.key == pedidos[i].productos[key].key
+            })
+            if(plato){
+              let cantidadPlatos = pedidos[i].productos[key].cantidad;
+              for(var k=0; k < cantidadPlatos ; k++){
+                total += parseInt(plato.precio);
+                this.listadoAPedir.push(plato)
+              }
             }
           }
         }
-      }
-      this.total = total.toString();
-    })
+        this.total = total.toString();
+        this.display = true;
+        spinner.dismiss();
+      })
 
   }
 
@@ -445,6 +492,9 @@ export class AltaPedidoPage {
           this.delivery.long = this.direccion['long'];
           this.delivery.infoDireccion = this.direccion['infoDireccion'];
           this.delivery.fecha = this.parse.parseDateTimeToStringDateTime(new Date());
+          this.delivery.tiempoDemoraHora = this.tiempoEntrega.hora;
+          this.delivery.tiempoDemoraMinutos = this.tiempoEntrega.minutos;
+
 
           this.database.jsonPackData = this.delivery;
           this.database.SubirDataBase(diccionario.apis.delivery).then(p =>{
@@ -495,7 +545,35 @@ export class AltaPedidoPage {
     }
   }
 
-
+  private calcularTiempoDemora(){
+    this.tiempoEntrega = { hora: 0, minutos: 0};
+    var tiempoDemora = 0;
+    for(var i = 0; i< this.productoPedido.length; i++){
+      var cantidadProductos = this.productoPedido[i].cantidad;
+      for(var j = 0; j < cantidadProductos; j++){
+        tiempoDemora += parseInt(this.productoPedido[i].tiempoElaboracion)
+      }
+    }
+    if(tiempoDemora > 0){
+      if(this.direccion['tiempoArribo']){
+        tiempoDemora +=  Math.floor(this.direccion['tiempoArribo']);
+        var hora = 0;
+        var minutos = 0;
+        if(tiempoDemora > 60){
+          minutos = tiempoDemora - 60;
+          hora++;
+        }else{
+          minutos = tiempoDemora;
+        }
+        while(minutos > 60){
+          minutos = minutos - 60;
+          hora++;
+        }
+        this.tiempoEntrega.hora = hora;
+        this.tiempoEntrega.minutos = minutos;
+      }
+    }
+  }
 
 
 }

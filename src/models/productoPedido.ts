@@ -1,20 +1,20 @@
 export class ProductoPedido {
-    
-    idProducto:string;
-    cantidad:number;
-    tipo:string;
-    estado:string;
 
-    nombre:string;
-    precio:number;
+  idProducto:string;
+  cantidad:number;
+  tipo:string;
+  estado:string;
+  nombre:string;
+  precio:number;
+  tiempoElaboracion:string;
 
-    constructor(idProducto?,cantidad?,tipo?,estado?,nombre?,precio?){
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
-        this.tipo = tipo;
-        this.estado = estado;
-        this.nombre = nombre;
-        this.precio = precio;
-
-    }
+  constructor(idProducto?,cantidad?,tipo?,estado?,nombre?,precio?, tiempoElaboracion?){
+    this.idProducto = idProducto;
+    this.cantidad = cantidad;
+    this.tipo = tipo;
+    this.estado = estado;
+    this.nombre = nombre;
+    this.precio = precio;
+    this.tiempoElaboracion = tiempoElaboracion;
+  }
 }
