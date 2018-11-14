@@ -49,8 +49,9 @@ export class OcuparMesaPage {
     //this.display = false;
     //        return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('empleado'));
 
-    this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.id)).valueChanges();
-    this.suscripcion.subscribe(snapshots => {
+    this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.id))
+              .valueChanges()
+              .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
           if(this.aux[index].id.toString() == this.id){
@@ -67,7 +68,7 @@ export class OcuparMesaPage {
       spinner.dismiss();
       if(this.mesa.estado != 'Libre'){
         this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
-        navCtrl.remove(1,1);
+        this.Cancelar();
       }
     });
   }
