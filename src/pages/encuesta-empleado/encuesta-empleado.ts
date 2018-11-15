@@ -30,7 +30,8 @@ export class EncuestaEmpleadoPage {
               public camara:CameraService,
               public messageHandler:MessageHandler,
               public database:DatabaseService,
-              public spinnerH:SpinnerHandler) {
+              public spinnerH:SpinnerHandler,
+              private params:ParamsService) {
 
     this.preguntas = new Array<any>();
     this.camara.fotoSubir = '';
@@ -74,7 +75,8 @@ export class EncuestaEmpleadoPage {
         gradoFelicidad: this.alegria,
         notas: this.txtLibre == undefined ? this.txtLibre = '' : this.txtLibre,
         foto:this.camara.fotoSubir,
-        key : this.database.ObtenerKey(diccionario.apis.encuesta_empleado)
+        key : this.database.ObtenerKey(diccionario.apis.encuesta_empleado),
+        empleado: this.params.rol
       }
 
       this.database.jsonPackData = paraSubir;
