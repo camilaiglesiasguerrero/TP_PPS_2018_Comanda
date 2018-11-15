@@ -1,10 +1,49 @@
-<ion-header *ngIf="!fromDashboard">
-  <ion-navbar>
-    <ion-title>Resultados encuestas a empleados </ion-title>
-  </ion-navbar>
-</ion-header>
 
 
-<ion-content padding>
-    
-</ion-content>
+  <div *ngIf="encuestas.length == 0">
+    <ion-item>
+      <p class="sin-resultados">No hay encuestas respondidas</p>
+    </ion-item>
+  </div>
+  <button ion-button round color="light" (click)="ver('verLimpieza')">
+    Limpieza
+  </button>
+  <button ion-button round color="light" (click)="ver('verTiempo')">
+    Horarios respetados
+  </button>
+  <button ion-button round color="light" (click)="ver('verCondiciones')">
+    Condiciones generales de elementos de trabajo
+  </button>
+  <button ion-button round color="light" (click)="ver('verFelicidad')">
+    Ambiente laboral
+  </button>
+  <button ion-button round color="light" (click)="ver('verNotas')">
+    Notas
+  </button>
+
+  
+
+    <div class="flex-v center-horizontal center-vertical" style="margin-top: 2em;"  *ngIf=verLimpieza>
+      <p-chart type="doughnut" [data]="dataLimpieza" [options]="limpiezaOptions"></p-chart>
+    </div>
+
+    <div class="flex-v center-horizontal center-vertical" *ngIf=verTiempo>
+      <p-chart type="pie" [data]="dataTiempo" [options]="tiemposOptions"></p-chart>
+    </div>
+
+    <div class="flex-v center-horizontal center-vertical" style="margin-top: 2em;" *ngIf=verCondiciones>
+      <p-chart type="bar" [data]="dataCondiciones" [options]="condicionesOptions"></p-chart>
+    </div>
+
+    <div class="flex-v center-horizontal center-vertical" style="margin-top: 2em;" *ngIf=verFelicidad>
+      <p-chart type="polarArea" [data]="dataFelicidad" [options]="felicidadOptions"></p-chart>
+    </div>
+
+    <div class="flex-v center-horizontal center-vertical" style="margin-top: 2em;" *ngIf=verNotas>
+      Notas o aclaraciones de los empleados:
+      <ion-card *ngFor="let n of notas">
+        <div *ngIf="n.nota != ''">{{n.rol}}: {{n.nota}} </div>
+      </ion-card>
+    </div>
+
+
