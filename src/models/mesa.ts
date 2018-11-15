@@ -1,7 +1,7 @@
 export class Mesa {
     
     key:string;
-    id:number;
+    id:any;
     comensales: string;
     tipo: string;
     foto:string;

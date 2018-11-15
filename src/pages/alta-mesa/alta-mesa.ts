@@ -144,7 +144,7 @@ export class AltaMesaPage {
   newUpdateMesa(){
     if(this.camara.fotoSubir != ''){
       if(this.mesa.tipo != ''){
-        this.mesa.id = this.frm.get('numero').value;
+        this.mesa.id = (this.frm.get('numero').value).toString();
         this.mesa.comensales = this.frm.get('comensales').value;
         this.mesa.tipo = this.frm.get('tipoOpc').value;
         this.mesa.estado = diccionario.estados_mesas.libre;

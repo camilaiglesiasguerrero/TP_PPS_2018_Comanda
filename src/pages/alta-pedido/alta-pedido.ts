@@ -190,7 +190,7 @@ export class AltaPedidoPage {
           this.productoPedido.push(new ProductoPedido(this.listadoAPedir[index].key,
             1,
             this.listadoAPedir[index].tipo,
-            diccionario.estados_pedidos.solicitado,
+            diccionario.estados_productos.en_preparacion,
             this.listadoAPedir[index].nombre,
             this.listadoAPedir[index].precio,
             this.listadoAPedir[index].tiempoElaboracion));
@@ -223,7 +223,7 @@ export class AltaPedidoPage {
               this.productoPedido.push(new ProductoPedido(this.listadoAPedir[index].key,
                 1,
                 this.listadoAPedir[index].tipo,
-                diccionario.estados_pedidos.solicitado,
+                diccionario.estados_productos.en_preparacion,
                 this.listadoAPedir[index].nombre,
                 this.listadoAPedir[index].precio,
                 this.listadoAPedir[index].tiempoElaboracion)

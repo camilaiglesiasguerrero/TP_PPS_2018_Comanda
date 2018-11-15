@@ -151,8 +151,11 @@ export class AnagramaPage {
                 let productoGanado = {
                     key : this.database.ObtenerKey(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos),
                     nombre: '¡Daikiri ganado!',
-                    importe: 0,
-                    cantidad: 1
+                    precio: 0,
+                    cantidad: 1,
+                    estado: diccionario.estados_productos.en_preparacion,
+                    tipo: 'Bebida',
+                    pedido: this.pedido
                 }
                 //guardo el producto
                 this.database.jsonPackData = productoGanado;

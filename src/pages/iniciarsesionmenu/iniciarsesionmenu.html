@@ -16,36 +16,24 @@
 <ion-content padding class="menu-container">
   <ion-list radio-group [(ngModel)]="user">
     <ion-item style="margin-bottom: 0.5em;">
-      <ion-label>Mozo</ion-label>
-      <ion-radio (ionSelect)='seleccionar()' value="mozo" checked></ion-radio>
-    </ion-item>
-    <ion-item style="margin-bottom: 0.5em;">
-      <ion-label>Metre</ion-label>
-      <ion-radio (ionSelect)='seleccionar()' value="metre"></ion-radio>
-    </ion-item>
+      <ion-label>Bartender</ion-label>
+        <ion-radio (ionSelect)='seleccionar()' value="bartender"></ion-radio>
+      </ion-item> 
     <ion-item style="margin-bottom: 0.5em;">
       <ion-label>Cocinero</ion-label>
       <ion-radio (ionSelect)='seleccionar()' value="cocinero"></ion-radio>
-    </ion-item>
-    <ion-item style="margin-bottom: 0.5em;">
-    <ion-label>Bartender</ion-label>
-      <ion-radio (ionSelect)='seleccionar()' value="bartender"></ion-radio>
-    </ion-item> 
-    <ion-item style="margin-bottom: 0.5em;">
-      <ion-label>Supervisor</ion-label>
-      <ion-radio (ionSelect)='seleccionar()' value="supervisor"></ion-radio>
     </ion-item>
     <ion-item style="margin-bottom: 0.5em;">
       <ion-label>Delivery</ion-label>
       <ion-radio (ionSelect)='seleccionar()' value="delivery"></ion-radio>
     </ion-item>
     <ion-item style="margin-bottom: 0.5em;">
-      <ion-label>Dueño</ion-label>
-      <ion-radio (ionSelect)='seleccionar()' value="dueño"></ion-radio>
+      <ion-label>Metre</ion-label>
+      <ion-radio (ionSelect)='seleccionar()' value="metre"></ion-radio>
     </ion-item>
     <ion-item style="margin-bottom: 0.5em;">
-      <ion-label>Admin</ion-label>
-      <ion-radio (ionSelect)='seleccionar()' value="admin"></ion-radio>
+      <ion-label>Mozo</ion-label>
+      <ion-radio (ionSelect)='seleccionar()' value="mozo" checked></ion-radio>
     </ion-item>
     <ion-item style="margin-bottom: 0.5em;">
       <ion-label>Cliente1</ion-label>
@@ -54,6 +42,19 @@
     <ion-item style="margin-bottom: 0.5em;">
       <ion-label>Cliente2</ion-label>
       <ion-radio (ionSelect)='seleccionar()'  value="cliente2"></ion-radio>
+    </ion-item>
+    <ion-item style="margin-bottom: 0.5em;">
+      <ion-label>Supervisor</ion-label>
+      <ion-radio (ionSelect)='seleccionar()' value="supervisor"></ion-radio>
+    </ion-item>
+    
+    <ion-item style="margin-bottom: 0.5em;">
+      <ion-label>Dueño</ion-label>
+      <ion-radio (ionSelect)='seleccionar()' value="dueño"></ion-radio>
+    </ion-item>
+    <ion-item style="margin-bottom: 0.5em;">
+      <ion-label>Admin</ion-label>
+      <ion-radio (ionSelect)='seleccionar()' value="admin"></ion-radio>
     </ion-item>
   </ion-list>
 </ion-content>

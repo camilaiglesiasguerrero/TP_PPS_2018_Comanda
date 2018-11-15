@@ -74,11 +74,25 @@ export class PrincipalClientePage {
               this.puedeSolicitarMesa = false;
             }
           }else{
-            this.puedePedirDelivery = true;
-            this.puedeSolicitarMesa = true;
-            this.puedeJugar = false;
-            this.puedeVerPedido = false;
-            this.puedeHacerPedido = false;
+            this.database.db.list<any>(diccionario.apis.lista_espera, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
+              .valueChanges()
+              .subscribe(snapshots => {
+                let auxListaEspera = snapshots;
+                auxListaEspera = auxListaEspera.filter(le => le['estado'] == diccionario.estados_reservas_agendadas.sin_mesa)
+                if(auxListaEspera.length == 1){
+                  this.puedePedirDelivery = false;
+                  this.puedeSolicitarMesa = false;
+                  this.puedeJugar = true;
+                  this.puedeVerPedido = false;
+                  this.puedeHacerPedido = false;      
+                }else if(auxListaEspera.length == 0){
+                  this.puedePedirDelivery = true;
+                  this.puedeSolicitarMesa = true;
+                  this.puedeJugar = false;
+                  this.puedeVerPedido = false;
+                  this.puedeHacerPedido = false;
+                }
+              });
           }
         }
         //Verifico estado del pedido
@@ -114,10 +128,9 @@ export class PrincipalClientePage {
 
       }, (err) => {
         //console.log('Error: ', err);
+        this.mesa = 'Mesa:2';
+        this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
-        //MARCADOR
-        this.mesa = 'Mesa:1'
-        this.irA('hacerPedido');
       });
   }
 

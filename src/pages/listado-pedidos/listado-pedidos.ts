@@ -106,13 +106,13 @@ export class ListadoPedidosPage {
         this.database.db.list<any>(diccionario.apis.pedidos+this.pedidosList[i].key+'/'+diccionario.apis.productos)
         .valueChanges()
         .subscribe(snp => {
-          let cont = -1;
+          let cont = 0;
           let aux = snp;
           this.productos[i] = aux;
           for (let j = 0; j < this.productos[i].length; j++) {
             if(this.productos[i][j].estado)
               cont++;
-            if(cont == j){
+            if(cont == this.productos[i].length){
                 this.pedidosList[i].estado = diccionario.estados_pedidos.listo;
                 this.database.jsonPackData = this.pedidosList[i];
                 this.database.SubirDataBase(diccionario.apis.pedidos);
@@ -136,7 +136,7 @@ export class ListadoPedidosPage {
     .valueChanges()
     .subscribe(snapshots => {
       this.pedidosList = snapshots;
-      this.pedidosList = this.pedidosList.filter(e =>  e.isDelivery == false && (e.estado == diccionario.estados_pedidos.listo || e.estado == diccionario.estados_pedidos.pagado));
+      this.pedidosList = this.pedidosList.filter(e =>  e.isDelivery == false && (e.estado == diccionario.estados_pedidos.listo || e.estado == diccionario.estados_pedidos.pagado || e.estado == diccionario.estados_pedidos.solicitado));
       this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('estado').equalTo(diccionario.estados_reservas.en_curso))
       .valueChanges()
       .subscribe(snapshots => {
@@ -186,7 +186,7 @@ export class ListadoPedidosPage {
   }
 
   /**Cambia el estado del pedido a Entregado/Cerrado */
-  Entregar(p){
+  AprobarEntregar(p){
     let spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
     let auxPedido;
@@ -194,7 +194,11 @@ export class ListadoPedidosPage {
       .valueChanges()
       .subscribe(snapshots => {
         auxPedido = snapshots;
-        auxPedido[0].estado = diccionario.estados_pedidos.entregado;      
+        if(p.estado == 'Solicitado') 
+          auxPedido[0].estado = diccionario.estados_pedidos.en_preparacion;
+        else if(p.estado == 'Listo')
+          auxPedido[0].estado = diccionario.estados_pedidos.entregado;
+
         this.database.jsonPackData = auxPedido[0];
         this.database.SubirDataBase(diccionario.apis.pedidos).then(e=>{
         spinner.dismiss();
