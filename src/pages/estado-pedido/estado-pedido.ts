@@ -9,6 +9,7 @@ import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
 import { CuentaPage } from '../cuenta/cuenta';
+import { ProductoPedido } from '../../models/productoPedido';
 
 
 @IonicPage()
@@ -64,7 +65,7 @@ export class EstadoPedidoPage {
       .subscribe(snapshots => {
         this.aux = snapshots;
         if(this.params.rol == 'cliente')
-          this.aux = this.aux.filter(a => a.idCliente == this.user.uid);
+          this.aux = this.aux.filter(a => a.cliente == this.user.uid);
         for (let index = 0; index < this.aux.length; index++) {
           //tengo la mesa con pedido => busco el pedido
           if(this.aux[index].idMesa == this.mesa.toString()){
@@ -77,6 +78,15 @@ export class EstadoPedidoPage {
                   for (let i = 0; i < this.aux.length; i++) {
                     if(this.aux[i].key == this.pedido.key){
                       this.pedido.estado = this.aux[i].estado;
+                      /*for (let j = 0; j < this.aux[i].productos.length; j++) {
+                        this.pedido.productoPedido.push(new ProductoPedido(this.aux[i].productos[j].key,
+                                                                          this.aux[i].productos[j].cantidad,
+                                                                          this.aux[i].productos[j].tipo,
+                                                                          this.aux[i].productos[j].estado,
+                                                                          this.aux[i].productos[j].nombre,
+                                                                          this.aux[i].productos[j].precio));  
+                        console.log(this.pedido);
+                      }*/
                       this.mostrar = true;
                       spinner.dismiss();    
                       //console.log(this.pedido);                  

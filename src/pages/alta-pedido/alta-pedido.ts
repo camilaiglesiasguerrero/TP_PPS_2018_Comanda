@@ -296,7 +296,7 @@ export class AltaPedidoPage {
           this.reserva.estado = reservas[0].estado;
           this.reserva.cliente = reservas[0].cliente;
           reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
-          this.reserva.fecha = this.reserva[0].fecha;
+          this.reserva.fecha = reservas[0].fecha;
         }
         if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
           this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');
@@ -444,7 +444,8 @@ export class AltaPedidoPage {
               tipo : this.productoPedido[i].tipo,
               estado: this.productoPedido[i].estado,
               nombre: this.productoPedido[i].nombre,
-              precio: this.productoPedido[i].precio
+              precio: this.productoPedido[i].precio,
+              pedido: pedidoASubir.key
             }
 
             this.database.jsonPackData = aux;

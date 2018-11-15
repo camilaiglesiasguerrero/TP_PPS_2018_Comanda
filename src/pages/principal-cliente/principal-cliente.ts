@@ -28,10 +28,10 @@ export class PrincipalClientePage {
   ingresoLocal = "";
   elSpinner = null;
   puedeJugar = false;
-  puedeHacerPedido = true;
+  puedeHacerPedido = false;
   puedeVerPedido = false;
   puedePedirDelivery = true;
-  puedeSolicitarMesa = false;
+  puedeSolicitarMesa = true;
   auxPedido:any;
 
 
@@ -115,6 +115,9 @@ export class PrincipalClientePage {
       }, (err) => {
         //console.log('Error: ', err);
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //MARCADOR
+        this.mesa = 'Mesa:1'
+        this.irA('hacerPedido');
       });
   }
 

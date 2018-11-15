@@ -100,6 +100,7 @@ import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
+import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     CuentaPage,
     ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage,
-    ReservarMesaPage
+    ReservarMesaPage,
+    ListadoEsperaPage
   ],
   imports: [
     BrowserModule,
@@ -190,7 +192,8 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     CuentaPage,
     ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage,
-    ReservarMesaPage
+    ReservarMesaPage,
+    ListadoEsperaPage
   ],
   providers: [
     StatusBar,
