@@ -39,6 +39,8 @@ export class AnagramaPage {
   aux:any;
   pedido:any;
 
+  subsPedido : any;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
@@ -142,37 +144,39 @@ export class AnagramaPage {
         this.database.jsonPackData = new Juego('Anagrama',this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parserType.parseDateTimeToStringDateTime(new Date()));
         this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
           //levanto el pedido
-          this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
+          this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
             .valueChanges()
             .subscribe(snapshots => {
-                let auxPedido = new Array<any>();
-                auxPedido = snapshots;
+                
                 let productoGanado = {
                     key : this.database.ObtenerKey(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos),
                     nombre: '¡Daikiri ganado!',
-                    importe: 0,
-                    cantidad: 1
+                    precio: 0,
+                    cantidad: 1,
+                    estado: diccionario.estados_productos.en_preparacion,
+                    tipo: 'Bebida',
+                    pedido: this.pedido
                 }
                 //guardo el producto
                 this.database.jsonPackData = productoGanado;
                 this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
-  
-                  let alert = this.alertCtrl.create({
-                    title: '¡Ganaste!',
-                    subTitle: "Tenés una bebida gratis.",
-                    buttons: [
-                      {
-                        text: 'Felicitaciones',
-                        handler: data => {
-                          this.navCtrl.remove(1,1);
-                        }
-                      }
-                    ]
-                  });
-                  alert.present();
+                  this.subsPedido.unsubscribe();
             });
           });
         });
+        let alert = this.alertCtrl.create({
+          title: '¡Ganaste!',
+          subTitle: "Tenés una bebida gratis.",
+          buttons: [
+            {
+              text: 'Felicitaciones',
+              handler: data => {
+                this.navCtrl.remove(1,1);
+              }
+            }
+          ]
+        });
+        alert.present();
       }
     }else{
       if(this.sinTiempo){

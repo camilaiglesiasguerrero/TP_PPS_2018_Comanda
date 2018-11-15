@@ -94,7 +94,7 @@ export class EstadoPedidoPage {
                     }
                   }
 
-                  if(this.pedido.estado == diccionario.estados_pedidos.listo && this.params.rol == 'cliente'){
+                  if(this.pedido.estado == diccionario.estados_pedidos.entregado && this.params.rol == 'cliente'){
                     this.encuesta = true;
                     this.cuenta = true;
                   }else if(this.pedido.estado == diccionario.estados_pedidos.pagado && this.params.rol == 'mozo'){

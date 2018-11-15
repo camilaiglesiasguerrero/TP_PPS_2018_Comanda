@@ -46,15 +46,12 @@ export class OcuparMesaPage {
     }
     this.mesa = new Mesa();
     
-    //this.display = false;
-    //        return this.afDB.list('/usuarios', ref => ref.orderByChild('rol').equalTo('empleado'));
-
     this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.id))
               .valueChanges()
               .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
-          if(this.aux[index].id.toString() == this.id){
+          if(this.aux[index].id.toString() == this.id.toString()){
               this.mesa = new Mesa(this.id,
                                   this.aux[index].comensales,
                                   this.aux[index].tipo,

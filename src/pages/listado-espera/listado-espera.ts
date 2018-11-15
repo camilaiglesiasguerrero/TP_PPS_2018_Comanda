@@ -4,6 +4,9 @@ import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { ParserTypesService } from '../../services/parserTypesService';
 import { diccionario } from '../../models/diccionario';
+import { OcuparMesaPage } from '../ocupar-mesa/ocupar-mesa';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { MessageHandler } from '../../services/messageHandler.service';
 
 /**
  * Generated class for the ListadoEsperaPage page.
@@ -20,16 +23,18 @@ import { diccionario } from '../../models/diccionario';
 export class ListadoEsperaPage {
 
   mesa:any;
-  
+  options:any;
   comensalesMax:number;
   clientesEspera:Array<any>;
   noHayMesasLibres:boolean;
-
+  
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public database:DatabaseService,
               private spinnerH: SpinnerHandler,
-              private parserTypesService: ParserTypesService) {
+              private parserTypesService: ParserTypesService,
+              private barcodeScanner: BarcodeScanner,
+              private messageHandler:MessageHandler) {
     
     
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
@@ -64,4 +69,17 @@ export class ListadoEsperaPage {
     //console.log('ionViewDidLoad ListadoEsperaPage');
   }
 
+  escanearQR(caso:string,cliente?:any) {
+    this.options = { prompt : "Escaneá el código QR de la mesa" }
+    this.barcodeScanner.scan(this.options)
+      .then(barcodeData => {
+        this.mesa = barcodeData.text;
+        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
+      }, (err) => {
+        //console.log('Error: ', err);
+        this.mesa = 'Mesa:2';
+        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
+        this.messageHandler.mostrarError(err, 'Ocurrió un error');
+      });
+  }
 }

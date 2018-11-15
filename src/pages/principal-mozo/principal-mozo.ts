@@ -56,8 +56,8 @@ export class PrincipalMozoPage {
         }
       }, (err) => {
         //console.log('Error: ', err);
-        this.mesa = "Mesa:1";
-        this.irA('reserva', cliente)
+        this.mesa = 'Mesa:2';
+        this.irA('reserva');
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
@@ -66,7 +66,6 @@ export class PrincipalMozoPage {
   irA(donde:string,cliente?:any){
     switch(donde){
       case 'reserva':
-        this.mesa = 'Mesa:1';
         this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
         break;
       case 'verPedido':

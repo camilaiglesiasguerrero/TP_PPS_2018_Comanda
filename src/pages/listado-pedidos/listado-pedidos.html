@@ -46,8 +46,9 @@
             <div class="flex-h">
               <div class="width-40">Mesa {{p.idMesa}}</div>
               <div class="width-60">Pedido {{p.estado}}</div>
-              <button *ngIf='p.estado == "Listo"' (click)="Entregar(p)">Entregar</button>
+              <button *ngIf='p.estado == "Listo"' (click)="AprobarEntregar(p)">Entregar</button>
               <button *ngIf='p.estado == "Pagado"' (click)="cerrarMesa(p)">Cerrar</button>
+              <button *ngIf='p.estado == "Solicitado"' (click)="AprobarEntregar(p)">Aprobar</button>
             </div>
           </ion-item>
         </ion-col>
