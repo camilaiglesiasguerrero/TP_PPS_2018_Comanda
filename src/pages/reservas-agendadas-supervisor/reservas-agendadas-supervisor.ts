@@ -62,8 +62,8 @@ export class ReservasAgendadasSupervisorPage {
         this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
       }, (err) => {
         //datos hardcodeados para testear
-        //  this.mesa = "Mesa:1";
-        // this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
+          this.mesa = "Mesa:1";
+           this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

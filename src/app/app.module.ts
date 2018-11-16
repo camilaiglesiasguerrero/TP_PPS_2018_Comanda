@@ -14,6 +14,13 @@ import { configs } from './globalConfigs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+//PUSH NOTIFICATIONS
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { Firebase } from  '@ionic-native/firebase';
+import { FcmProvider } from "../providers/fcm";
+import {NotificationsPushService} from "../services/notificationsPush.service";
+
+
 //LectorQR
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
@@ -149,6 +156,7 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     IonicMultiCameraModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFirestoreModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
     NgxQRCodeModule,
@@ -217,7 +225,10 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     EncuestaClienteService,
     GeocodingProvider,
     Geolocation,
-    ParserTypesService
+    ParserTypesService,
+    Firebase,
+    FcmProvider,
+    NotificationsPushService
   ]
 })
 export class AppModule {}

@@ -13,9 +13,11 @@ export const diccionario = {
     encuesta_cliente: "encuesta-cliente/",
     encuesta_empleado: "encuesta-empleado/",
     cuentas: "cuentas/",
-    delivery: "delivery/"
-
-
+    delivery: "delivery/",
+  },
+  firestore:{
+    devices: "devices",
+    notifications: "notifications"
   },
   estados_mesas:{
     libre: "Libre",

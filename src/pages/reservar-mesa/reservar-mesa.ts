@@ -8,6 +8,7 @@ import {diccionario} from "../../models/diccionario";
 import {Mesa} from "../../models/mesa";
 import {PrincipalClientePage} from "../principal-cliente/principal-cliente";
 import {PrincipalMozoPage} from "../principal-mozo/principal-mozo";
+import {NotificationsPushService} from "../../services/notificationsPush.service";
 declare var moment;
 
 @Component({
@@ -30,6 +31,7 @@ export class ReservarMesaPage {
               private messageHandler: MessageHandler,
               private database: DatabaseService,
               private spinnerHandler: SpinnerHandler,
+              private notificationPushService: NotificationsPushService
   ) {
   }
 
@@ -51,18 +53,24 @@ export class ReservarMesaPage {
               spinner.dismiss();
               this.messageHandler.mostrarErrorLiteral("Mesa ocupada");
               this.navCtrl.remove(1,1);
-            }else {
-              this.watchMesasList = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.idMesa)).valueChanges()
-                .subscribe(snapshots => {
-                  var aux:any = snapshots;
-                  this.mesa = new Mesa(aux[0].id, aux[0].comensales, aux[0].tipo, aux[0].foto, aux[0].estado);
-                  this.mesa.key = aux[0].key;
-                  this.mostrar = true;
-                  spinner.dismiss();
-                });
             }
           }
         }
+        this.watchMesasList = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.idMesa)).valueChanges()
+          .subscribe(snapshots => {
+            var aux:any = snapshots;
+            this.mesa = new Mesa(aux[0].id, aux[0].comensales, aux[0].tipo, aux[0].foto, aux[0].estado);
+            if(this.mesa.estado == diccionario.estados_mesas.libre){
+              this.mesa.key = aux[0].key;
+              this.mostrar = true;
+              spinner.dismiss();
+            }else{
+              spinner.dismiss();
+              this.messageHandler.mostrarErrorLiteral("Mesa ocupada");
+              this.navCtrl.remove(1,1);
+            }
+
+          });
       })
   }
 
@@ -85,6 +93,7 @@ export class ReservarMesaPage {
     //dar de alta una reserva y modificar el estado de la reserva;
     this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(e=>{
       //resto producto
+      this.notificationPushService.asignacionMesaReservaAgendad(reservaAgendada.clienteId);
       this.messageHandler.mostrarMensaje("Mesa asignada con éxito");
       spinner.dismiss();
       this.salir();
