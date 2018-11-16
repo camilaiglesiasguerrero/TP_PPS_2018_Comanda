@@ -1,0 +1,10 @@
+Instalar:
+
+npm install -g firebase-tools
+
+npm i @ionic-native/firebase@^4.17.0
+ionic cordova plugin add cordova-plugin-firebase
+
+Si no les llegase a compilar, no anda el serve o el run prueben entrar en la carpeta functions del directorio principal
+y ejecutar npm install xq es un modulo aparte y tiene su propio packege.json
+Si no anda, subo la carpeta node_modules de la carpeta funcitons que la puse en el gitignore

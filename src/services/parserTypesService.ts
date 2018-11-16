@@ -40,9 +40,10 @@ export class ParserTypesService {
 
   compararFechayHoraMayorAHoy(fecha:string){
     var hoy = new Date();
-    var parserHoy = Date.parse(hoy.toString());
-    var parserReserva = Date.parse(fecha);
-    return parserReserva > parserHoy;
+    hoy.setHours(0,0,0);
+    //var parserHoy = Date.parse(hoy.toString());
+    var parserReserva = this.parseStringDateToDateTime(fecha);
+    return parserReserva > hoy;
   }
 
   compararFechaMayorAHoy(fecha:string){

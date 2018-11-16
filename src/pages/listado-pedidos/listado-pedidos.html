@@ -7,20 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Listado Pedidos Pendientes</ion-title>
+    <ion-title>Pedidos pendientes</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <h1>Acá va el listado de pedidos pendientes para el rol cocinero o bartender</h1>
-  
-  <ion-card >
-    <div *ngFor="let producto of pedidosList.productos">
-        <ion-col>{{ producto.nombre }} </ion-col>
-    </div>
-  </ion-card>
+<ion-content padding *ngIf=!esMozo>
+  <ion-row>
+      <ion-col >Pedido</ion-col>
+      <ion-col >Cantidad</ion-col>
+      <ion-col >Listo</ion-col>
+    </ion-row>
+  <div *ngFor="let p of productos">
+    <ion-card >
+      <div *ngFor="let pr of p">
+        <ion-row>
+          <ion-col *ngIf="pr.tipo == tipo">{{ pr.nombre }}</ion-col>
+          <ion-col *ngIf="pr.tipo == tipo">{{ pr.cantidad }}</ion-col>
+          <ion-col *ngIf="pr.tipo == tipo"><ion-checkbox [(ngModel)]='pr.estado' (ionChange)="cambiarEstado(pr,p)"></ion-checkbox></ion-col>
+        </ion-row>
+      </div>  
+    </ion-card>
+  </div>
 
   <ion-fab left bottom>
       <button ion-fab  style="background-color:rgb(175,44,245); " (click)="irA('Nuevo')" ><ion-icon name="add"></ion-icon></button>
@@ -30,4 +39,19 @@
   </ion-fab>
 </ion-content>
 
-
+<ion-content padding *ngIf=esMozo>
+    <ion-row class=fle *ngFor="let p of pedidosMozo">
+        <ion-col>
+          <ion-item style="padding-left: 5px;">
+            <div class="flex-h">
+              <div class="width-40">Mesa {{p.idMesa}}</div>
+              <div class="width-60">Pedido {{p.estado}}</div>
+              <button *ngIf='p.estado == "Listo"' (click)="AprobarEntregar(p)">Entregar</button>
+              <button *ngIf='p.estado == "Pagado"' (click)="cerrarMesa(p)">Cerrar</button>
+              <button *ngIf='p.estado == "Solicitado"' (click)="AprobarEntregar(p)">Aprobar</button>
+            </div>
+          </ion-item>
+        </ion-col>
+    </ion-row>
+      
+</ion-content>

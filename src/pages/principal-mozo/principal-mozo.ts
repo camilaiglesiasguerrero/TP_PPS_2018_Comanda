@@ -9,6 +9,7 @@ import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import { diccionario } from "../../models/diccionario";
 import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import { ParserTypesService } from "../../services/parserTypesService";
+import { ListadoPedidosPage } from '../listado-pedidos/listado-pedidos';
 
 
 @IonicPage()
@@ -25,42 +26,12 @@ export class PrincipalMozoPage {
   clientesEspera:Array<any>;
   noHayMesasLibres:boolean;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public barcodeScanner: BarcodeScanner,
               public popoverCtrl: PopoverController,
               public database:DatabaseService,
-              private messageHandler: MessageHandler,
-              private spinnerH: SpinnerHandler,
-              private parserTypesService: ParserTypesService) {
-    var spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
-    this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
-      .subscribe(snp => {
-        let aux:Array<any>;
-        aux = snp;
-        aux = aux.filter(a => a.estado == diccionario.estados_mesas.libre);
-        if(aux.length == 0)
-          this.noHayMesasLibres = true;
-        else
-          this.noHayMesasLibres = false;
-        for(let i=0;i<aux.length;i++){
-          if(i==0)
-            this.comensalesMax = aux[i].comensales;
-          else
-            this.comensalesMax < aux[i].comensales ? this.comensalesMax = aux[i].comensales : null ;
-        }
-
-        this.database.db.list<any>(diccionario.apis.lista_espera).valueChanges()
-        .subscribe(snapshots => {
-            this.clientesEspera = snapshots;
-            this.clientesEspera = this.clientesEspera.filter(f =>{
-              return f.estado == diccionario.estados_reservas_agendadas.sin_mesa && this.parserTypesService.compararFechaMayorAHoy(f.fecha)
-            });
-            this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
-            spinner.dismiss();
-        });
-      });
+              private messageHandler: MessageHandler) {
   }
 
   ionViewDidLoad() {
@@ -71,35 +42,40 @@ export class PrincipalMozoPage {
     this.options = { prompt : "Escaneá el código QR de la mesa" }
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
-           this.mesa = barcodeData.text;
-           switch(caso){
-              case 'Reservar':
-                this.irA('reserva',cliente);
-                break;
-              case 'verPedido':
-                this.irA('verPedido');
-                break;
-              case 'hacerPedido':
-                this.irA('hacerPedido');
-                break;
-           }
+        this.mesa = barcodeData.text;
+        switch(caso){
+          case 'Reservar':
+            this.irA('reserva',cliente);
+            break;
+          case 'verPedido':
+            this.irA('verPedido');
+            break;
+          case 'hacerPedido':
+            this.irA('hacerPedido');
+            break;
+        }
       }, (err) => {
-          //console.log('Error: ', err);
-          this.messageHandler.mostrarError(err, 'Ocurrió un error');
+        //console.log('Error: ', err);
+        this.mesa = 'Mesa:2';
+        this.irA('reserva');
+        this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
-  
+
 
   irA(donde:string,cliente?:any){
     switch(donde){
       case 'reserva':
-        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa,cliente:cliente});
+        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
         break;
       case 'verPedido':
         this.navCtrl.push(EstadoPedidoPage,{mesa:this.mesa});
         break;
       case 'hacerPedido':
         this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
+        break;
+      case 'verPedidosEntrega':
+        this.navCtrl.push(ListadoPedidosPage);
         break;
     }
   }

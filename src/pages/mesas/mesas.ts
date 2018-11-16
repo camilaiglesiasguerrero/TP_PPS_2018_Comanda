@@ -27,7 +27,7 @@ export class MesasPage {
       .subscribe(snapshots => {
           this.mesas = snapshots;
           if(this.mesas != undefined && this.mesas != null && this.mesas.length != 0){
-            this.ultimoId = this.mesas[this.mesas.length-1].id;
+            this.ultimoId = parseInt(this.mesas[this.mesas.length-1].id);
           }
           spinner.dismiss();
       });

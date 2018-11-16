@@ -5,6 +5,7 @@ $app-direction: ltr;
 $first-detail-color: #007c96;
 $second-detail-color:#dde9de;
 $third-detail-color: #444d54;
+$fourth-detail-color: beige;
 $background-color: white;
 $error-color: #d22c0e;
 $success-color: rgb(20, 170, 20) ;
@@ -32,6 +33,7 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
   warning:    $warning-color,
+  success:    $success-color,
   camera: #000
 );
 

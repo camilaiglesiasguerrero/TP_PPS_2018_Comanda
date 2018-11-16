@@ -11,9 +11,13 @@ export const diccionario = {
     lista_espera: "lista-espera/",
     reservas_agendadas: "reservas-agendadas/",
     encuesta_cliente: "encuesta-cliente/",
-    encuesta_empleado: "encuesta-empleado/"
-
-
+    encuesta_empleado: "encuesta-empleado/",
+    cuentas: "cuentas/",
+    delivery: "delivery/",
+  },
+  firestore:{
+    devices: "devices",
+    notifications: "notifications"
   },
   estados_mesas:{
     libre: "Libre",
@@ -26,11 +30,11 @@ export const diccionario = {
     listo: "Listo",
     entregado: "Entregado",
     cuenta: "Cuenta",
-    pagado: "pagado"
+    pagado: "Pagado"
   },
   estados_productos:{
-    en_preparacion: "En preparación",
-    listo: "Listo"
+    en_preparacion: false,
+    listo: true
   },
   estados_reservas_agendadas:{
     sin_mesa: "sin_mesa",
@@ -58,6 +62,11 @@ export const diccionario = {
     direccion: "Moreno 850, C1091AAR CABA, Argentina",
     lat: -34.6119042,
     long: -58.37844980000001
+  },
+  juegos:{
+    trivia: 'Trivia',
+    adivinar: 'Adivinar',
+    anagrama: 'Anagrama'
   }
   
 };

@@ -14,4 +14,5 @@ export class ParamsService {
     name:string;
     pass:string;
 
+    propinaAux:any = 0;
 }

@@ -7,6 +7,7 @@ import { ParamsService } from '../../services/params.service';
 import { Reserva } from '../../models/reserva';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import {diccionario} from "../../models/diccionario";
+import { ParserTypesService } from '../../services/parserTypesService';
 
 
 @IonicPage()
@@ -15,6 +16,7 @@ import {diccionario} from "../../models/diccionario";
   templateUrl: 'ocupar-mesa.html',
 })
 export class OcuparMesaPage {
+
   suscripcion:any;
   id:string;
   mesa: Mesa;
@@ -28,7 +30,8 @@ export class OcuparMesaPage {
               public database:DatabaseService,
               public messageHandler:MessageHandler,
               public params: ParamsService,
-              private spinnerHandler: SpinnerHandler) {
+              private spinnerHandler: SpinnerHandler,
+              private parserTypesService: ParserTypesService) {
     
     let spinner = this.spinnerHandler.getAllPageSpinner();
     spinner.present();
@@ -43,13 +46,12 @@ export class OcuparMesaPage {
     }
     this.mesa = new Mesa();
     
-    //this.display = false;
-
-    this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
-      .subscribe(snapshots => {
+    this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.id))
+              .valueChanges()
+              .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
-          if(this.aux[index].id.toString() == this.id){
+          if(this.aux[index].id.toString() == this.id.toString()){
               this.mesa = new Mesa(this.id,
                                   this.aux[index].comensales,
                                   this.aux[index].tipo,
@@ -63,9 +65,8 @@ export class OcuparMesaPage {
       spinner.dismiss();
       if(this.mesa.estado != 'Libre'){
         this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
-        navCtrl.remove(1,1);
+        this.Cancelar();
       }
-
     });
   }
 
@@ -90,6 +91,7 @@ export class OcuparMesaPage {
     reserva.idMesa = this.mesa.id;
     //TODO: CAMI: CHEQUEATE ESTE ESTADO QUE CREO QUE RESERVAS NO LLEVA MAS ESTADO
     reserva.estado = diccionario.estados_reservas.en_curso;
+    reserva.fecha = this.parserTypesService.parseDateTimeToStringDateTime(new Date());
     this.database.jsonPackData = reserva;
     this.database.SubirDataBase(diccionario.apis.reservas).then(r=>{
     
@@ -103,9 +105,7 @@ export class OcuparMesaPage {
       this.database.jsonPackData = aux;
       this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
         this.mesa.estado = diccionario.estados_mesas.reservada;
-        
         //Actualizo lista-espera
-        
         let le = {
           clienteId: this.cliente.clienteId,
           comensales: this.cliente.comensales,

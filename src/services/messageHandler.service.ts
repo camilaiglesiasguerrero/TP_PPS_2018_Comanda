@@ -73,6 +73,16 @@ export class MessageHandler{
         alert.present();
     }
 
+    public mostrarMensajeCortoAbajo(message){
+      let alert = this.alertCtrl.create({
+        message: message,
+        duration: 2000,
+        position: "bottom",
+        cssClass: 'success-alert',
+      });
+      alert.present();
+    }
+
     public mostrarMensajeConfimación(mensaje, title?) {
         let alert = this.alert.create({
             title: title,
