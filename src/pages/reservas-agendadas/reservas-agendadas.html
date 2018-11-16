@@ -21,7 +21,7 @@
       <ion-col>
         <ion-item>
           <ion-label>Elegir fecha</ion-label>
-          <ion-datetime displayFormat="DD MMM, YYYY" [min]="minDate" [max]="maxDate" [(ngModel)]="fecha">
+          <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="fecha">
           </ion-datetime>
         </ion-item>
       </ion-col>
@@ -30,11 +30,19 @@
       <ion-col>
         <ion-item>
           <ion-label>Elegir horario</ion-label>
-          <ion-datetime displayFormat="HH:mm"  [min]="minTime" [max]="maxTime" [(ngModel)]="hora">
+          <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora">
           </ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
+    <!--<ion-row>-->
+      <!--<ion-col text-center>-->
+        <!--<button ion-button round color="light" (click)="confirmarReserva()">-->
+          <!--<ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>-->
+          <!--Confirmar reserva-->
+        <!--</button>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
   </div>
 
   <div class="height-60">

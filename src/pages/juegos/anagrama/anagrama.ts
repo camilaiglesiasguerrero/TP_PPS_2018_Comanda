@@ -147,7 +147,7 @@ export class AnagramaPage {
           this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
             .valueChanges()
             .subscribe(snapshots => {
-                
+
                 let productoGanado = {
                     key : this.database.ObtenerKey(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos),
                     nombre: '¡Daikiri ganado!',

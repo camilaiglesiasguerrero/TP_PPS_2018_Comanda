@@ -10,8 +10,6 @@ import { QRPropina } from '../../models/qr-propina';
 
 //servicios
 import { MessageHandler } from '../../services/messageHandler.service';
-import { CuentaPage } from '../cuenta/cuenta';
-import { ParamsService } from '../../services/params.service';
 
 /**
  * Generated class for the PropinaPage page.
@@ -39,7 +37,6 @@ export class PropinaPage {
     public navParams: NavParams,
     public scanner: BarcodeScanner, 
     public mensajes: MessageHandler,
-    private params:ParamsService
     ) {
       this.codigosBD = CodesPropina.slice(0);
       this.totalCuenta = this.navParams.get('cuenta');
@@ -64,7 +61,6 @@ export class PropinaPage {
     }, (err) => {
       console.log('Error:', err)
     })
-    
   }  
 
   validarCodigo(codigo:string){
@@ -87,7 +83,6 @@ export class PropinaPage {
   }
 
   confirmarPropina(){
-    this.params.propinaAux = this.codigoComprobado.id;
-    this.navCtrl.remove(2,1);
+    
   }
 }

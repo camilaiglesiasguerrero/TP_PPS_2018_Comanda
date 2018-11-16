@@ -107,7 +107,6 @@ export class UbicacionPage {
 
   private addMarker(lat, long){
     let latLng = new google.maps.LatLng(lat, long);
-    this.latLong = latLng;
     //Si existe otro punto en el mapa lo elimina
     if(this.marker){
       this.marker.setMap(null);
@@ -119,9 +118,6 @@ export class UbicacionPage {
     });
     let content = "<h5>" + this.direccion.value + "</h5>";
     this.addInfoWindow(this.marker, content);
-    if(this.showRuta){
-      this.obtenerRutaALocal();
-    }
   }
 
   private addInfoWindow(marker, content){
@@ -149,9 +145,11 @@ export class UbicacionPage {
       if (status == 'OK') {
         this.directionsDisplay.setDirections(result);
         this.tiempoArribo = result.routes[0].legs[0].duration_in_traffic.text;
-        this.direccion['tiempoArribo'] = result.routes[0].legs[0].duration_in_traffic.value / 59.9;
       }
     });
+
+
+
   }
 
   //este sirve para poner dos rutas de destino y te indica que camino tomar

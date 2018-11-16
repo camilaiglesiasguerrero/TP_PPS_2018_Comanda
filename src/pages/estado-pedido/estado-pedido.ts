@@ -84,7 +84,7 @@ export class EstadoPedidoPage {
                                                                           this.aux[i].productos[j].tipo,
                                                                           this.aux[i].productos[j].estado,
                                                                           this.aux[i].productos[j].nombre,
-                                                                          this.aux[i].productos[j].precio));  
+                                                                          this.aux[i].productos[j].precio));
                         console.log(this.pedido);
                       }*/
                       this.mostrar = true;

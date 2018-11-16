@@ -2,38 +2,13 @@ page-cuenta {
     .scroll-content{
         background-color: $first-detail-color;
      }
-    
-
-     .fle {
-        width: 100%;
-        height: auto;
-        //margin: 0.2em;
-        //line-height: 100px;
-        color: white;
-        font-size: 1em;
-        text-align: center;
-        //padding: 0.2em;
-
-    }
-
-    .tit {
-        width: 100%;
-        height: auto;
-        //margin: 0.2em;
-        //line-height: 100px;
-        color: black;
-        font-size: 1.5em;
-        text-align: center;
-
-        //padding: 0.2em;
-    }
      
     .footer {
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: $third-detail-color;
+        background-color: red;
         color: white;
         text-align: center;
     }

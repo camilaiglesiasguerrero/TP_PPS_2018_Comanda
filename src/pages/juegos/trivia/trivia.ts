@@ -11,7 +11,6 @@ import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 import {PrincipalClientePage} from "../../principal-cliente/principal-cliente";
 import * as _ from 'lodash';
 import {diccionario} from "../../../models/diccionario";
-import {ParserTypesService} from "../../../services/parserTypesService";
 
 @Component({
   selector: 'page-trivia',
@@ -19,7 +18,7 @@ import {ParserTypesService} from "../../../services/parserTypesService";
 })
 export class TriviaPage {
 
-  display : boolean;
+  display : boolean = false;
   empiezaElJuego : boolean = false;
   repetidor: any;
   segundos: number = 0;
@@ -38,45 +37,34 @@ export class TriviaPage {
   cantPreg=0;
   preguntasMostradas = [];
   yaSeMostro = true;
-  watchJuegos:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
-              public spinnerH: SpinnerHandler,
+              public spinner: SpinnerHandler,
               public database:DatabaseService,
               public params: ParamsService,
-              private alertCtrl: AlertController,
-              private parser: ParserTypesService) {
-    this.display = false;
+              private alertCtrl: AlertController) {
+
+    let juego : Juego = new Juego();
     this.usuario = this.params.user;
-    this.empiezaElJuego = false;
-    let spinner = spinnerH.getAllPageSpinner();
-    spinner.present();
-    this.watchJuegos = this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
+    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
-          if(this.aux[index].cliente == this.usuario.uid && this.aux[index].nombreJuego == diccionario.juegos.trivia && this.parser.compararFechayHoraMayorAHoy(this.aux[index].fecha)
-            ){
+          if(this.aux[index].cliente == this.usuario.dni
+            //&& this.aux[index].fecha == datetime.getToday()
+            && this.aux[index].nombreJuego == 'Trivia'){
             if(this.empiezaElJuego){
             }else{
               messageH.mostrarErrorLiteral('Ya jugaste Trivia hoy');
-              spinner.dismiss();
               navCtrl.remove(1,1);
-              return;
             }
           }
         }
-        spinner.dismiss();
-        this.display = true;
       });
     this.cronometro = '00:10.';
     this.cronoMili = '00';
-  }
-
-  ionViewWillLeave(){
-    this.watchJuegos.unsubscribe();
   }
 
   comenzar(){
@@ -90,11 +78,10 @@ export class TriviaPage {
     this.yaSeMostro = true;
     while(this.yaSeMostro){
       var existe =_.find(this.preguntasMostradas, item => {
-        return item == this.trivia.preguntaSecreta
+        item == this.trivia.preguntaSecreta
       });
       if(existe){
         this.yaSeMostro = true;
-        this.trivia.generarPregunta();
       }else{
         this.yaSeMostro = false;
       }
@@ -124,8 +111,9 @@ export class TriviaPage {
           else
           {
             this.cronoMili = '00';
+            //var x = document.getElementById("timer");
             clearInterval(this.repetidor);
-            this.sinTiempo();
+            // this.Verificar();
           }
         }
       }
@@ -142,7 +130,7 @@ export class TriviaPage {
           this.esCorrecta();
         }
       }else{
-        let spinner = this.spinnerH.getAllPageSpinner();
+        let spinner = this.spinner.getAllPageSpinner();
         spinner.present();
         clearInterval(this.repetidor);
         var correcta = _.find(this.pregunta.respuestas, item =>{
@@ -155,7 +143,7 @@ export class TriviaPage {
   }
 
   private perdiste(spinner, correcta){
-    this.database.jsonPackData = new Juego(diccionario.juegos.trivia, this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       spinner.dismiss();
       let alert = this.alertCtrl.create({
@@ -177,12 +165,11 @@ export class TriviaPage {
   private ganaste(){
     let alert = this.alertCtrl.create({
       title: 'Ganaste!!',
-      subTitle: "Tienes un postre Tiramisú gratis",
       buttons: [
         {
           text: 'Felicitaciones!',
           handler: data => {
-            this.database.jsonPackData = new Juego(diccionario.juegos.trivia, this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
+            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
             this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
               this.navCtrl.setRoot(PrincipalClientePage);
             });
@@ -192,25 +179,6 @@ export class TriviaPage {
     });
     alert.present();
 
-  }
-
-  private sinTiempo(){
-    let alert = this.alertCtrl.create({
-      title: 'Perdiste!!',
-      subTitle: "Te quedaste sin tiempo",
-      buttons: [
-        {
-          text: 'Intenta otro día...',
-          handler: data => {
-            this.database.jsonPackData = new Juego(diccionario.juegos.trivia, this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
-            this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-              this.navCtrl.setRoot(PrincipalClientePage);
-            });
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
   private esCorrecta(){
