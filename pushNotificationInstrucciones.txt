@@ -8,3 +8,28 @@ ionic cordova plugin add cordova-plugin-firebase
 Si no les llegase a compilar, no anda el serve o el run prueben entrar en la carpeta functions del directorio principal
 y ejecutar npm install xq es un modulo aparte y tiene su propio packege.json
 Si no anda, subo la carpeta node_modules de la carpeta funcitons que la puse en el gitignore
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+librerias instalas en la ofi
+ "angularfire2": "^5.1.0",
+ "firebase": "^5.5.8",
+
+ "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
