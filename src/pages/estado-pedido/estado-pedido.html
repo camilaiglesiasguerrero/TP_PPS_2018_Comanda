@@ -17,13 +17,39 @@
   <div *ngIf='mostrar'>
     <h1>Pedido {{pedido.estado}}</h1>
   </div>
-  <div *ngIf='cuenta'>
-      <button ion-button round color="light" (click)="irA('solicitarCuenta')">Solicitar cuenta</button>
+  <div *ngIf='hacerPedido'>
+    <button ion-button round color="light" (click)="irA('hacerPedido')">Hacer Pedido</button>
   </div>
   <div *ngIf='encuesta'>
     <button ion-button round color="light" (click)="irA('encuestaCliente')">Encuesta de satisfacción</button>
   </div>
-  <div *ngIf='hacerPedido'>
-    <button ion-button round color="light" (click)="irA('hacerPedido')">Hacer Pedido</button>
+  <div *ngIf='cuenta'>
+      <button ion-button round color="light" (click)="irA('solicitarCuenta')">Solicitar cuenta</button>
   </div>
+  <div *ngIf='cerrar'>
+    <button ion-button round color="light" (click)="cerrarMesa()">Cerrar mesa</button>
+  </div>
+  <!--
+  <div *ngIf='mostrar'>
+      <ion-row class="tit fle">
+        <div class="title">
+          TU PEDIDO:
+        </div>
+      </ion-row>
+      <div  *ngFor="let p of pedido">
+      <ion-row class=fle *ngFor="let pr of p.productoPedido">
+        <ion-col>
+          <ion-item style="padding-left: 5px;">
+            <div class="flex-h">
+              <div class="width-75">{{pr.nombre}}</div>
+              <div class="width-25">{{pr.precio | precio}}</div>
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  -->
+  
+  
 </ion-content>

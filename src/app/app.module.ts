@@ -14,6 +14,13 @@ import { configs } from './globalConfigs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+//PUSH NOTIFICATIONS
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { Firebase } from  '@ionic-native/firebase';
+import { FcmProvider } from "../providers/fcm";
+import {NotificationsPushService} from "../services/notificationsPush.service";
+
+
 //LectorQR
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
@@ -75,6 +82,7 @@ import { OcuparMesaPage } from '../pages/ocupar-mesa/ocupar-mesa';
 import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agendadas'
 import { CuentaPage } from '../pages/cuenta/cuenta';
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
+import {ReservarMesaPage} from "../pages/reservar-mesa/reservar-mesa";
 
 
 //Pedido
@@ -99,6 +107,8 @@ import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
+import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -135,7 +145,9 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ReservasAgendadasPage,
     CuentaPage,
     ReservasAgendadasPage,
-    ReservasAgendadasSupervisorPage
+    ReservasAgendadasSupervisorPage,
+    ReservarMesaPage,
+    ListadoEsperaPage
   ],
   imports: [
     BrowserModule,
@@ -144,6 +156,7 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     IonicMultiCameraModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFirestoreModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
     NgxQRCodeModule,
@@ -186,7 +199,9 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     ReservasAgendadasPage,
     CuentaPage,
     ReservasAgendadasPage,
-    ReservasAgendadasSupervisorPage
+    ReservasAgendadasSupervisorPage,
+    ReservarMesaPage,
+    ListadoEsperaPage
   ],
   providers: [
     StatusBar,
@@ -210,7 +225,10 @@ import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-num
     EncuestaClienteService,
     GeocodingProvider,
     Geolocation,
-    ParserTypesService
+    ParserTypesService,
+    Firebase,
+    FcmProvider,
+    NotificationsPushService
   ]
 })
 export class AppModule {}

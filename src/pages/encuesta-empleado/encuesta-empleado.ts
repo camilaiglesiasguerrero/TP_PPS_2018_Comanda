@@ -8,13 +8,7 @@ import { CameraService } from '../../services/camera.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from '../../services/database.service';
 import {diccionario} from "../../models/diccionario";
-
-/**
- * Generated class for the EncuestaEmpleadoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SpinnerHandler } from '../../services/spinnerHandler.service';
 
 @IonicPage()
 @Component({
@@ -35,7 +29,9 @@ export class EncuestaEmpleadoPage {
               public paramsService: ParamsService,
               public camara:CameraService,
               public messageHandler:MessageHandler,
-              public database:DatabaseService) {
+              public database:DatabaseService,
+              public spinnerH:SpinnerHandler,
+              private params:ParamsService) {
 
     this.preguntas = new Array<any>();
     this.camara.fotoSubir = '';
@@ -65,7 +61,10 @@ export class EncuestaEmpleadoPage {
   }
 
   Confirmar(){
-    if(this.camara.fotoSubir != ''){
+    let spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
+    //if(this.camara.fotoSubir != ''){
+
       let paraSubir = {
         limpieza: this.calificacion,
         enHorario: this.sino,
@@ -76,18 +75,20 @@ export class EncuestaEmpleadoPage {
         gradoFelicidad: this.alegria,
         notas: this.txtLibre == undefined ? this.txtLibre = '' : this.txtLibre,
         foto:this.camara.fotoSubir,
-        key : this.database.ObtenerKey(diccionario.apis.encuesta_empleado)
+        key : this.database.ObtenerKey(diccionario.apis.encuesta_empleado),
+        empleado: this.params.rol
       }
 
       this.database.jsonPackData = paraSubir;
       this.database.SubirDataBase(diccionario.apis.encuesta_empleado).then(e =>{
+        spinner.dismiss();
         this.irA();
       });
 
 
     
-    }else
-      this.messageHandler.mostrarErrorLiteral('Falta vincular la foto.');
+    //}else
+    //  this.messageHandler.mostrarErrorLiteral('Falta vincular la foto.');
     
   }
 

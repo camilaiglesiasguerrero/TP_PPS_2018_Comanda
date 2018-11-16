@@ -9,10 +9,12 @@ export class Delivery {
   long:any;
   infoDireccion:string;
   fecha:string;
+  tiempoDemoraHora:number;
+  tiempoDemoraMinutos:number;
 
 
 
-  constructor(key?,idPedido?,cliente?, estado?, direccion?, lat?, long?, infoDireccion?, fecha?){
+  constructor(key?,idPedido?,cliente?, estado?, direccion?, lat?, long?, infoDireccion?, fecha?, tiempoDemoraHora?, tiempoDemoraMinutos?){
     this.key = key;
     this.idPedido = idPedido;
     this.cliente = cliente;
@@ -22,6 +24,8 @@ export class Delivery {
     this.estado = estado;
     this.infoDireccion = infoDireccion;
     this.fecha = fecha;
+    this.tiempoDemoraHora = tiempoDemoraHora;
+    this.tiempoDemoraMinutos = tiempoDemoraMinutos
   }
 
 }
