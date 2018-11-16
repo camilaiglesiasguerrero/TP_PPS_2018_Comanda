@@ -13,6 +13,7 @@ import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
 import {ParserTypesService} from "../../services/parserTypesService";
 import {AdivinarNumeroPage} from "../juegos/adivinar-numero/adivinar-numero";
+import {NotificationsPushService} from "../../services/notificationsPush.service";
 
 
 @IonicPage()
@@ -45,7 +46,8 @@ export class PrincipalClientePage {
               private database: DatabaseService,
               private spinnerHandler: SpinnerHandler,
               private alertCtrl: AlertController,
-              private parserTypesService: ParserTypesService) {
+              private parserTypesService: ParserTypesService,
+              private notificationPushService: NotificationsPushService) {
     this.user = this.params.user;
 
     this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
@@ -211,6 +213,7 @@ export class PrincipalClientePage {
     this.database.SubirDataBase(diccionario.apis.lista_espera).then(response => {
       this.messageHandler.mostrarMensaje("Enseguida se le asignará una mesa");
       this.elSpinner.dismiss();
+      this.notificationPushService.solicitudDeMesa(this.params.user.nombre);
       //TODO: ENVIAR NOTIFICACION PUSH A LOS MOZOS Y SUPERVISORES DE QUE HAY UN CLIENTE ESPERANDO MESA
       this.navCtrl.push(EncuestaClienteResultadosPage);
     });

@@ -18,6 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { Firebase } from  '@ionic-native/firebase';
 import { FcmProvider } from "../providers/fcm";
+import {NotificationsPushService} from "../services/notificationsPush.service";
 
 
 //LectorQR
@@ -226,7 +227,8 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     Geolocation,
     ParserTypesService,
     Firebase,
-    FcmProvider
+    FcmProvider,
+    NotificationsPushService
   ]
 })
 export class AppModule {}

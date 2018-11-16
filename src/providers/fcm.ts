@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firebase } from "@ionic-native/firebase";
 import { Platform } from "ionic-angular";
 import { AngularFirestore } from 'angularfire2/firestore';
+import {diccionario} from "../models/diccionario";
 
 
 @Injectable()
@@ -29,7 +30,7 @@ export class FcmProvider {
 
   saveTokenToFireStore(token, userId, rol){
     if(!token) return;
-    const devicesRef = this.afs.collection('devises');
+    const devicesRef = this.afs.collection(diccionario.firestore.devices);
     const docData = {
       token,
       userId: userId,

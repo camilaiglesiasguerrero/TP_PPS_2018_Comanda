@@ -21,49 +21,59 @@ exports.newSubscriberNotification = functions.firestore
   .onCreate( async event =>{
 
     const data = event.data();
-    console.log("data userid" + data.userId);
-    console.log("data token" + data.rol);
-    console.log('data cliente' + data.clientName);
+    console.log("data title" + data.title);
+    console.log("data body" + data.body);
 
-    const userId = data.userId;
-    const rol = data.rol;
-    const cliente = data.clientName;
+    console.log("data devices" + data.devices);
 
+    const title = data.title;
+    const body = data.body;
+    const devices = data.devices;
 
     const payload = {
       notification:{
-        title: 'Lista de espera',
-        body: `El cliente ${cliente} solicito una mesa`,
+        title: title,
+        body: body,
         icon: 'https://goo.gl/Fz9nr0',
         color: '#197db7',
         sound: 'true'
       }
     };
-
-    const db = admin.firestore();
-    db.settings({timestampsInSnapshots: true});
-    const devicesRef= db.collection('devices');
-
-    const devices = await devicesRef.get();
-
     const tokens = [];
-
-    console.log("antes del foreach");
-    console.log("devices", devices);
-    devices.forEach(result =>{
+    devices.forEach(device =>{
       console.log("entro al foreach");
-      console.log("resulta data", result.data());
-      const token = result.data().token;
-      tokens.push(token);
+      console.log("device", device);
+      tokens.push(device);
     });
-    console.log(tokens);
 
-    console.log("despues del foreach");
-    const mitoken = "d-Kc1xply7g:APA91bFi9ARAbES03JcobPIySm9vamajCb4oBQYdO6k-bvdVVS4ocGbpJdtaciyQQNU_yHZAatqTFUx_vzq_HTpP0IoNQBwx2cjPVea-EISbuonmwGh3qGVMl3dWK1BtZwStgsWEOZNp";
-    console.log("mi token" + mitoken);
-    console.log(payload);
+    console.log("tokens", tokens);
 
-    return admin.messaging().sendToDevice(mitoken, payload);
+
+    // const db = admin.firestore();
+    // db.settings({timestampsInSnapshots: true});
+
+    // const devicesRef= db.collection('devices');
+    //
+    // const devices = await devicesRef.get();
+    //
+    // const tokens = [];
+
+    // console.log("antes del foreach");
+    // console.log("devices", devices);
+    // devices.forEach(result =>{
+    //   console.log("entro al foreach");
+    //   console.log("resulta data", result.data());
+    //   const token = result.data().token;
+    //   tokens.push(token);
+    // });
+    // console.log(tokens);
+
+
+   // const mitoken = "d-Kc1xply7g:APA91bFi9ARAbES03JcobPIySm9vamajCb4oBQYdO6k-bvdVVS4ocGbpJdtaciyQQNU_yHZAatqTFUx_vzq_HTpP0IoNQBwx2cjPVea-EISbuonmwGh3qGVMl3dWK1BtZwStgsWEOZNp";
+
+    console.log("payload", payload);
+
+    return admin.messaging().sendToDevice(tokens, payload);
 
   });
 

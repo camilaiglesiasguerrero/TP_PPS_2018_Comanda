@@ -7,6 +7,8 @@ import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import { PrincipalClientePage } from "../principal-cliente/principal-cliente";
 import { diccionario } from "../../models/diccionario";
 import {ParserTypesService} from "../../services/parserTypesService";
+import {NotificationsPushService} from "../../services/notificationsPush.service";
+
 declare var moment;
 
 
@@ -31,7 +33,8 @@ export class ReservasAgendadasPage {
               private messageHandler: MessageHandler,
               private database: DatabaseService,
               private spinnerHandler: SpinnerHandler,
-              private parserTypesService: ParserTypesService
+              private parserTypesService: ParserTypesService,
+              private notificationPushService: NotificationsPushService
   ) {
     var hoy = new Date();
     this.minDate = hoy.getFullYear() + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
@@ -51,11 +54,11 @@ export class ReservasAgendadasPage {
       var reservaAgendada = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fechaReserva,
         clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
       this.database.jsonPackData = reservaAgendada;
-      //TENIA ESTA, CHEQUEAR Q NO SEA UN BUG'lista-espera/'
       this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.reservas_agendadas);
       this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
         this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
         elSpinner.dismiss();
+        this.notificationPushService.altaReservaAgendada(this.params.user.nombre);
         //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA
         this.navCtrl.setRoot(PrincipalClientePage);
       });

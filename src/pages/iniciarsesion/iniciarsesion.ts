@@ -101,28 +101,27 @@ export class IniciarsesionPage {
       this.navCtrl.setRoot(IniciarsesionPage);
     }
     else{
-    switch(this.paramsService.rol){
-      case 'mozo':
-        this.fcmProvider.getToken(this.paramsService.user.uid, this.paramsService.user.rol);
-        this.navCtrl.setRoot(EncuestaEmpleadoPage);
-        break;
-      case 'cocinero':
-      case 'bartender':
-      case 'delivery':
-      case 'metre':
-      case '':
-        this.navCtrl.setRoot(EncuestaEmpleadoPage);
-        break;
-      case 'cliente':
-        this.navCtrl.setRoot(PrincipalClientePage);
-        break;
-      case 'dueño':
-        this.navCtrl.setRoot(DashboardPage);
-        break;
-      case 'supervisor':
-        this.navCtrl.setRoot(DashboardPage);
-        break;
+      switch(this.paramsService.rol){
+        case 'mozo':
+        case 'cocinero':
+        case 'bartender':
+        case 'delivery':
+        case 'metre':
+        case '':
+
+          this.navCtrl.setRoot(EncuestaEmpleadoPage);
+          break;
+        case 'cliente':
+          this.navCtrl.setRoot(PrincipalClientePage);
+          break;
+        case 'dueño':
+          this.navCtrl.setRoot(DashboardPage);
+          break;
+        case 'supervisor':
+          this.navCtrl.setRoot(DashboardPage);
+          break;
       }
+      this.fcmProvider.getToken(this.paramsService.user.uid, this.paramsService.user.rol);
     }
 
     //console.log("Se logueo correctamente");
