@@ -188,6 +188,7 @@ export class TriviaPage {
             spinner.dismiss();
             let alert = this.alertCtrl.create({
               title: 'Ganaste!!',
+              subTitle: "Tenés un tiramisu gratis",
               buttons: [
                 {
                   text: 'Felicitaciones!',
