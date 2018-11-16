@@ -130,8 +130,8 @@ export class PrincipalClientePage {
 
       }, (err) => {
         //console.log('Error: ', err);
-        this.mesa = 'Mesa:2';
-        this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
+       // this.mesa = 'Mesa:2';
+       // this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

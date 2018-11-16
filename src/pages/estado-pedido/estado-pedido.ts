@@ -59,8 +59,9 @@ export class EstadoPedidoPage {
     this.mostrar = false;
     let spinner = spinnerHandler.getAllPageSpinner();
     spinner.present();
-
-    this.database.db.list<any>(diccionario.apis.reservas).valueChanges()
+                                                                                                            
+    this.subsReserva = this.database.db.list<any>(diccionario.apis.reservas,ref => ref.orderByChild('idMesa').equalTo(this.mesa))
+    .valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         if(this.params.rol == 'cliente')
