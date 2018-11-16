@@ -37,6 +37,8 @@ export class TriviaPage {
   cantPreg=0;
   preguntasMostradas = [];
   yaSeMostro = true;
+  subsPedido : any;
+  pedido:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -48,6 +50,7 @@ export class TriviaPage {
 
     let juego : Juego = new Juego();
     this.usuario = this.params.user;
+    this.pedido = this.navParams.get('pedido');
     this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -130,20 +133,19 @@ export class TriviaPage {
           this.esCorrecta();
         }
       }else{
-        let spinner = this.spinner.getAllPageSpinner();
-        spinner.present();
         clearInterval(this.repetidor);
         var correcta = _.find(this.pregunta.respuestas, item =>{
           return item.correcta == true;
-
         });
-        this.perdiste(spinner, correcta.description);
+        this.perdiste(correcta.description);
       }
     }
   }
 
-  private perdiste(spinner, correcta){
-    this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+  private perdiste(correcta){
+    let spinner = this.spinner.getAllPageSpinner();
+    spinner.present();
+    this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       spinner.dismiss();
       let alert = this.alertCtrl.create({
@@ -163,22 +165,43 @@ export class TriviaPage {
   }
 
   private ganaste(){
-    let alert = this.alertCtrl.create({
-      title: 'Ganaste!!',
-      buttons: [
-        {
-          text: 'Felicitaciones!',
-          handler: data => {
-            this.database.jsonPackData = new Juego('Trivia',this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
-            this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-              this.navCtrl.setRoot(PrincipalClientePage);
+    debugger;
+    let spinner = this.spinner.getAllPageSpinner();
+    spinner.present();
+    this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
+      this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
+        .valueChanges()
+        .subscribe(snapshots => {
+          let productoGanado = {
+            key : this.database.ObtenerKey(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos),
+            nombre: '¡Tiramisu ganado!',
+            precio: 0,
+            cantidad: 1,
+            estado: diccionario.estados_productos.en_preparacion,
+            tipo: 'Comida',
+            pedido: this.pedido
+          };
+          //guardo el producto
+          this.database.jsonPackData = productoGanado;
+          this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
+            spinner.dismiss();
+            let alert = this.alertCtrl.create({
+              title: 'Ganaste!!',
+              buttons: [
+                {
+                  text: 'Felicitaciones!',
+                  handler: data => {
+                    this.navCtrl.setRoot(PrincipalClientePage);
+                  }
+                }
+              ]
             });
-          }
-        }
-      ]
+            alert.present();
+            this.subsPedido.unsubscribe();
+          });
+        });
     });
-    alert.present();
-
   }
 
   private esCorrecta(){
