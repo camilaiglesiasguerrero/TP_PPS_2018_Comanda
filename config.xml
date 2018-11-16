@@ -20,7 +20,8 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <preference name="AndroidExtraFilesystems" value="root" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -95,5 +96,6 @@
     <plugin name="cordova-plugin-media-capture" spec="^3.0.2" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <plugin name="cordova-plugin-camera-preview" spec="git+https://github.com/cordova-plugin-camera-preview/cordova-plugin-camera-preview.git" />
+    <plugin name="cordova-plugin-file-transfer" spec="~1.7.1" />
     <engine name="android" spec="7.0.0" />
 </widget>

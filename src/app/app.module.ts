@@ -3,12 +3,13 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpModule } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoPlayer } from '@ionic-native/video-player';
 import { IonicMultiCameraModule, IonicMultiCamera } from 'ionic-multi-camera';
 import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { configs } from './globalConfigs';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -101,6 +102,7 @@ import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionm
 
 import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
+import { ManejoArchivosPage } from '../pages/manejo-archivos/manejo-archivos';
 
 @NgModule({
   declarations: [
@@ -140,11 +142,13 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
-    ListadoEsperaPage
+    ListadoEsperaPage,
+    ManejoArchivosPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     IonicMultiCameraModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
@@ -193,7 +197,8 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
-    ListadoEsperaPage
+    ListadoEsperaPage,
+    ManejoArchivosPage
   ],
   providers: [
     StatusBar,
@@ -202,6 +207,7 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     Camera,
     IonicMultiCamera,
     File,
+    FileTransfer,
     BarcodeScanner,
     ParamsService,
     MediaCapture,

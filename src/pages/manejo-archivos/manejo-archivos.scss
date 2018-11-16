@@ -1,0 +1,44 @@
+page-manejo-archivos {
+    .data-scroll {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    .data-table {
+        min-width: 800px;
+    }
+    
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even){background-color: $third-detail-color}
+    .fondo{
+        background-image: url("../assets/img/fondo1.jpg");
+        background-size: 100%;
+        background-position-y: 50%;
+
+     
+    }
+   .cars{
+    width:120px;
+    height:120px;
+
+    }
+    
+    .cars div {
+        //display: block;
+        margin: 8px 14px 0 14px;
+        //overflow: hidden;
+        font-size: 20px;
+       // line-height: 16px;
+        color: #737373;
+        //text-overflow: ellipsis;
+        position: center;
+        text-align: center;
+    }
+    
+    
+}
