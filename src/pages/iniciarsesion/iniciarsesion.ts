@@ -13,6 +13,7 @@ import { EncuestaEmpleadoPage } from '../encuesta-empleado/encuesta-empleado';
 import { DashboardPage } from '../dashboard/dashboard';
 import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import { IniciarsesionmenuPage } from '../iniciarsesionmenu/iniciarsesionmenu';
+import {FcmProvider} from "../../providers/fcm";
 
 
 
@@ -39,7 +40,8 @@ export class IniciarsesionPage {
               private usuariosService: UsuariosService,
               public paramsService: ParamsService,
               public popoverCtrl:PopoverController,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public fcmProvider: FcmProvider) {
     this.selectUserOptions.title = "Usuarios disponibles";
     this.formGroup = formBuilder.group({
       emailValidator: ['', Validators.compose([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$'), Validators.required])],
@@ -101,6 +103,9 @@ export class IniciarsesionPage {
     else{
     switch(this.paramsService.rol){
       case 'mozo':
+        this.fcmProvider.getToken(this.paramsService.user.uid, this.paramsService.user.rol);
+        this.navCtrl.setRoot(EncuestaEmpleadoPage);
+        break;
       case 'cocinero':
       case 'bartender':
       case 'delivery':
