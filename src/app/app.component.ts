@@ -66,6 +66,7 @@ export class MyApp {
     this.supervisorPages = [
       { title: "Inicio", component: DashboardPage},
       { title: 'Empleados', component: EmpeladosPage },
+      { title: 'Dueños', component: DueñosPage },
       { title: 'Reservas Agendadas', component: ReservasAgendadasSupervisorPage }
 
     ];
