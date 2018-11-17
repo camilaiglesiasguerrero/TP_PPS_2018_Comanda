@@ -534,7 +534,7 @@ export class AltaPedidoPage {
           //TODO: chequear esto en edicion:
           this.delivery.key = this.database.ObtenerKey(diccionario.apis.delivery);
           this.delivery.idPedido = keyPedido;
-          this.delivery.estado = diccionario.estados_reservas.en_curso;
+          this.delivery.estado = diccionario.estados_delivery.en_curso;
           this.delivery.direccion = this.direccion.value;
           this.delivery.lat = this.direccion['lat'];
           this.delivery.long = this.direccion['long'];
