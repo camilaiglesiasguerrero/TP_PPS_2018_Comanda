@@ -35,14 +35,14 @@ export class PropinaPage {
   codigo:string;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    public scanner: BarcodeScanner, 
+    public scanner: BarcodeScanner,
     public mensajes: MessageHandler,
     private params:ParamsService
-    ) {
-      this.codigosBD = CodesPropina.slice(0);
-      this.totalCuenta = this.navParams.get('cuenta');
+  ) {
+    this.codigosBD = CodesPropina.slice(0);
+    this.totalCuenta = this.navParams.get('cuenta');
   }
 
   ionViewDidLoad() {
@@ -64,26 +64,26 @@ export class PropinaPage {
     }, (err) => {
       console.log('Error:', err)
     })
-    
-  }  
+
+  }
 
   validarCodigo(codigo:string){
     for (let index = 0; index < this.codigosBD.length; index++) {
-        if (codigo.toString() == this.codigosBD[index].codigo.toString()) {
-            return this.codigosBD[index];
-        }
+      if (codigo.toString() == this.codigosBD[index].codigo.toString()) {
+        return this.codigosBD[index];
+      }
     }
     return null;
   }
 
   calcularPropina(){
     let alertConfirm = this.mensajes.mostrarMensajeConfimación("Su propina sera de " + this.codigoComprobado.id + "%", "¿Esta seguro?");
-          alertConfirm.present();
-          alertConfirm.onDidDismiss((confirm) => {
-            if (confirm) {
-              this.totalPropina = this.totalCuenta * this.codigoComprobado.porcentaje;
-            }
-          });
+    alertConfirm.present();
+    alertConfirm.onDidDismiss((confirm) => {
+      if (confirm) {
+        this.totalPropina = this.totalCuenta * this.codigoComprobado.porcentaje;
+      }
+    });
   }
 
   confirmarPropina(){

@@ -1,4 +1,5 @@
 export class Juego {
+
     nombreJuego:string;
     cliente:string;
     fecha:string;
@@ -11,8 +12,9 @@ export class Juego {
         this.nombreJuego = nombreJuego;
         this.cliente = cliente;
         this.gano = gano;      
-        this.key = key;    
+        this.key = key;
         this.fecha = fecha;
+
     }
 
 }

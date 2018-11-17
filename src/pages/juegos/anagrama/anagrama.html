@@ -18,12 +18,12 @@
     <p class="explicacion">Reordená las letras para formar una palabra. ¡Apurate, que sólo tenés 30 segundos!</p>
     <p id='timer' class="timer" readonly >{{cronometro}}<i class="mili">{{cronoMili}}</i></p>
     <ion-row [hidden]='seRindio'>
-        <ion-col text-center>
-          <button ion-button round color="light" (click)='generarPalabra()'>
-            <ion-icon color="secondary" name="play" style="margin-right:5px;"></ion-icon>
-            Comenzar
-          </button>
-        </ion-col>
+      <ion-col text-center>
+        <button ion-button round color="light" (click)='generarPalabra()'>
+          <ion-icon color="secondary" name="play" style="margin-right:5px;"></ion-icon>
+          Comenzar
+        </button>
+      </ion-col>
     </ion-row>
     <div [hidden]='!empiezaElJuego'>
       <br>
@@ -43,30 +43,30 @@
       </div>
       <br>
       <div [hidden]='anagrama.gano'>
-          <ion-row [hidden]='seRindio'>
-              <ion-col text-center>
-                <button ion-button round color="light" (click)='Mezclar()'>
-                  <ion-icon color="secondary" name="shuffle" style="margin-right:5px;"></ion-icon>
-                  Mezclar
-                </button>
-              </ion-col>
-          </ion-row>
-          <ion-row [hidden]='seRindio'>
-              <ion-col text-center>
-                <button ion-button round color="success" (click)='Verificar()'>
-                  <ion-icon color="secondary" name="checkbox-outline" style="margin-right:5px;"></ion-icon>
-                  Comprobar
-                </button>
-              </ion-col>
-          </ion-row>
-          <ion-row [hidden]='seRindio'>
-              <ion-col text-center>
-                <button ion-button round color="danger" (click)="Rendirse()">
-                  <ion-icon color="secondary" name="close-circle" style="margin-right:5px;"></ion-icon>
-                  Rendirse
-                </button>
-              </ion-col>
-            </ion-row>
+        <ion-row [hidden]='seRindio'>
+          <ion-col text-center>
+            <button ion-button round color="light" (click)='Mezclar()'>
+              <ion-icon color="secondary" name="shuffle" style="margin-right:5px;"></ion-icon>
+              Mezclar
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]='seRindio'>
+          <ion-col text-center>
+            <button ion-button round color="success" (click)='Verificar()'>
+              <ion-icon color="secondary" name="checkbox-outline" style="margin-right:5px;"></ion-icon>
+              Comprobar
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]='seRindio'>
+          <ion-col text-center>
+            <button ion-button round color="danger" (click)="Rendirse()">
+              <ion-icon color="secondary" name="close-circle" style="margin-right:5px;"></ion-icon>
+              Rendirse
+            </button>
+          </ion-col>
+        </ion-row>
       </div>
     </div>
   </div>

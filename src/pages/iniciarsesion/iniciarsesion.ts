@@ -56,7 +56,7 @@ export class IniciarsesionPage {
     } else {
       setTimeout(() => {
         this.splash = false;
-      }, 600);
+      }, 6000);
     }
   }
 

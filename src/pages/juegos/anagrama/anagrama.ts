@@ -49,7 +49,7 @@ export class AnagramaPage {
               public params: ParamsService,
               public parserType: ParserTypesService,
               private alertCtrl: AlertController) {
-  
+
     this.pedido = this.navParams.get('pedido');
     this.display = false;
     this.usuario = this.params.user;
@@ -60,7 +60,7 @@ export class AnagramaPage {
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
-          if(this.aux[index].cliente == this.usuario.uid  && this.parserType.compararFechayHoraMayorAHoy(this.aux[index].fecha) && this.aux[index].nombreJuego == 'Anagrama'){
+          if(this.aux[index].cliente == this.usuario.uid  && this.parserType.compararFechayHoraMayorAHoy(this.aux[index].fecha) && this.aux[index].nombreJuego == diccionario.juegos.anagrama){
             if(!this.empiezaElJuego){
               messageH.mostrarErrorLiteral('Ya jugaste Anagrama hoy');
               spinner.dismiss();
@@ -141,28 +141,28 @@ export class AnagramaPage {
       }
       else
       {
-        this.database.jsonPackData = new Juego('Anagrama',this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parserType.parseDateTimeToStringDateTime(new Date()));
+        this.database.jsonPackData = new Juego(diccionario.juegos.anagrama,this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parserType.parseDateTimeToStringDateTime(new Date()));
         this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
           //levanto el pedido
           this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
             .valueChanges()
             .subscribe(snapshots => {
-                
-                let productoGanado = {
-                    key : this.database.ObtenerKey(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos),
-                    nombre: '¡Daikiri ganado!',
-                    precio: 0,
-                    cantidad: 1,
-                    estado: diccionario.estados_productos.en_preparacion,
-                    tipo: 'Bebida',
-                    pedido: this.pedido
-                }
-                //guardo el producto
-                this.database.jsonPackData = productoGanado;
-                this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
-                  this.subsPedido.unsubscribe();
+
+              let productoGanado = {
+                key : this.database.ObtenerKey(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos),
+                nombre: '¡Daikiri ganado!',
+                precio: 0,
+                cantidad: 1,
+                estado: diccionario.estados_productos.en_preparacion,
+                tipo: 'Bebida',
+                pedido: this.pedido
+              }
+              //guardo el producto
+              this.database.jsonPackData = productoGanado;
+              this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
+                this.subsPedido.unsubscribe();
+              });
             });
-          });
         });
         let alert = this.alertCtrl.create({
           title: '¡Ganaste!',

@@ -66,5 +66,4 @@ export class ReservasAgendadasPage {
       this.messageHandler.mostrarErrorLiteral("La fecha no puede ser menor a la actual");
     }
   }
-
 }

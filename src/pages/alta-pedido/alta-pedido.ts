@@ -446,7 +446,7 @@ export class AltaPedidoPage {
               nombre: this.productoPedido[i].nombre,
               precio: this.productoPedido[i].precio,
               pedido: pedidoASubir.key
-            }
+            };
 
             this.database.jsonPackData = aux;
 

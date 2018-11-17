@@ -86,7 +86,7 @@ export class PrincipalClientePage {
                   this.puedeSolicitarMesa = false;
                   this.puedeJugar = true;
                   this.puedeVerPedido = false;
-                  this.puedeHacerPedido = false;      
+                  this.puedeHacerPedido = false;
                 }else if(auxListaEspera.length == 0){
                   this.puedePedirDelivery = true;
                   this.puedeSolicitarMesa = true;
@@ -130,8 +130,8 @@ export class PrincipalClientePage {
 
       }, (err) => {
         //console.log('Error: ', err);
-        this.mesa = 'Mesa:2';
-        this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
+       // this.mesa = 'Mesa:2';
+       // this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

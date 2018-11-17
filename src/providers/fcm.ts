@@ -17,9 +17,7 @@ export class FcmProvider {
   async getToken(userId, rol){
     let token;
     if(this.platform.is('android')){
-      alert("is android");
       token = await this.firebaseNative.getToken();
-      alert("token " + token);
     }
     if(!this.platform.is('cordova')){
 
@@ -38,9 +36,7 @@ export class FcmProvider {
     };
 
     return devicesRef.doc(token).set(docData).then(response =>{
-      alert("volvio del save divice");
     })
-
 
   }
 
