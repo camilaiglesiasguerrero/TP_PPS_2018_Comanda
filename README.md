@@ -84,18 +84,16 @@ Branch: *branch_fede*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de propina` [ Mergeado 05/11 Commit [2821d5b](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2821d5b0c51f0cd8c40c18392b1c21cf88038e22) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para el supervisor`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Encuesta con estadística para el supervisor`
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Tomar pedido`
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Push notification para pedido de platos y bebidas`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Mapa de ruta hasta el domicilio de entrega`
+![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Mapa de ruta hasta el domicilio de entrega`
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego 10% de descuento`
 
-
-#### *Responsabilidades*
 
 
 
