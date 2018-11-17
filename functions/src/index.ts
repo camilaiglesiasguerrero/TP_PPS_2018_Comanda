@@ -17,7 +17,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 exports.newSubscriberNotification = functions.firestore
-  .document('notifications/{notificationId}')
+  .document('notifications2/{notificationId}')
   .onCreate( async event =>{
 
     const data = event.data();

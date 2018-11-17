@@ -23,6 +23,8 @@ import {ReservasAgendadasPage} from "../pages/reservas-agendadas/reservas-agenda
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
 import {DashboardPage} from "../pages/dashboard/dashboard";
 import {PrincipalMozoPage} from "../pages/principal-mozo/principal-mozo";
+import {DeliveryPedidosPage} from "../pages/delivery-pedidos/delivery-pedidos";
+import {EncuestaClienteResultadosPage} from "../pages/encuesta-cliente-resultados/encuesta-cliente-resultados";
 
 
 @Component({
@@ -42,6 +44,7 @@ export class MyApp {
   cocineroPages: Array<{ title: string, component: any }>;
   bartenerPages: Array<{ title: string, component: any }>;
   commonPages: Array<{ title: string, component: any }>;
+  deliveryPages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               private paramsService: ParamsService, private messageHandler: MessageHandler, private authenticationService: AuthenticationService) {
@@ -52,10 +55,8 @@ export class MyApp {
     ];
     this.clientePages = [
       { title: "Inicio", component: PrincipalClientePage},
-      { title: "Hacer Pedido", component: AltaPedidoPage },
-      { title: "Pedir delivery", component:AltaPedidoPage },
       { title: "Hacer una reserva", component: ReservasAgendadasPage},
-      { title: "Encuesta de satisfacción", component: EncuestaClientePage}
+      { title: "Encuesta de satisfacción", component: EncuestaClienteResultadosPage}
 
     ];
     this.clienteAnonimoPages = [
@@ -89,8 +90,9 @@ export class MyApp {
     this.commonPages = [
       { title: 'Cerrar Sesión', component:IniciarsesionPage }
     ];
-
-
+    this.deliveryPages = [
+     // { title: 'Pedidos Delivery', component:DeliveryPedidosPage }
+    ];
   }
 
   initializeApp() {
