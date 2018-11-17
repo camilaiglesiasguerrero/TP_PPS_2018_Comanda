@@ -71,8 +71,10 @@ export class AltaPedidoPage {
     if(this.navParams.get("mesa")){
       if(this.navParams.get("mesa").split(':')[0]=='Mesa')
         this.reserva.idMesa = this.navParams.get("mesa").split(':')[1];
-      else
+      else{
         this.messageHandler.mostrarErrorLiteral(diccionario.errores.QR_invalido);
+        this.navCtrl.remove(1,1);
+      }
     }
     if(this.navParams.get('delivery')){
       this.isDelivery = true;
