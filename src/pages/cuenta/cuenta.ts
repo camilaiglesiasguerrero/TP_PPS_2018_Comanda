@@ -28,6 +28,7 @@ export class CuentaPage {
   suma:number;
   propina:any;
   pedidoSubs:any;
+  tieneDescuento = false
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -41,15 +42,23 @@ export class CuentaPage {
     this.propina = false;
 
     this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.navParams.get('pedido')+'/'+diccionario.apis.productos)
-      .valueChanges()
-      .subscribe(snapshots => {
-        this.aux = snapshots;
-        for (let i = 0; i < this.aux.length; i++) {
-          
+    .valueChanges()
+    .subscribe(snapshots => {
+      this.aux = snapshots;
+      for (let i = 0; i < this.aux.length; i++) {
+        if(this.aux[i].estado == 'Descuento'){
+          this.tieneDescuento = true;
+        }else{
           this.detalleCuenta.push({ item:this.aux[i].nombre, cantidad:this.aux[i].cantidad, valor:this.aux[i].precio * this.aux[i].cantidad }); 
           this.suma += this.aux[i].precio * this.aux[i].cantidad;  
         }
-     }); 
+      }
+      if(this.tieneDescuento){
+        this.detalleCuenta.push({ item:'¡Descuento del 10%!',cantidad:1,valor: this.suma * 0.1});
+        this.suma -= this.suma * 0.1;
+      }
+
+   }); 
   }
 
   ionViewDidLoad() {
