@@ -118,6 +118,7 @@ export class AltaPedidoPage {
           if(this.comidasTotal[index].nombre == auxProducto && this.comidasTotal[index].cantidad > 0){
             this.listadoAPedir.push(this.comidas[index]);
             flag = true;
+            this.messageHandler.mostrarMensajeCortoAbajo("Se agregó: "+this.comidas[index].nombre);
           }
           else if(this.comidasTotal[index].nombre == auxProducto && this.comidasTotal[index].cantidad == 0){
             this.messageHandler.mostrarErrorLiteral('No alcanza el stock');
@@ -128,6 +129,7 @@ export class AltaPedidoPage {
           if(this.bebidasTotal[index].nombre == auxProducto && this.bebidasTotal[index].cantidad > 0){
             this.listadoAPedir.push(this.bebidas[index]);
             flag = true;
+            this.messageHandler.mostrarMensajeCortoAbajo("Se agregó: "+this.bebidas[index].nombre);
           }
           else if(this.bebidas[index].nombre == auxProducto && this.bebidas[index].cantidad == 0){
             this.messageHandler.mostrarErrorLiteral('No alcanza el stock');
