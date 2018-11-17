@@ -36,7 +36,7 @@ export class OcuparMesaPage {
     let spinner = this.spinnerHandler.getAllPageSpinner();
     spinner.present();
     
-    if(this.navParams.get('mesa').split(':')[0] != 'Mesa' ||this.navParams.get('mesa').split(':')[1] == undefined ){
+    if(!this.navParams.get('mesa').includes('Mesa') || this.navParams.get('mesa').split(':')[1] == undefined ){
       this.messageHandler.mostrarErrorLiteral(diccionario.errores.QR_invalido);
       spinner.dismiss();
       this.navCtrl.remove(1,1);
