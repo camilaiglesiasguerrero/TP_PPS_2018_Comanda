@@ -58,6 +58,7 @@ export class CuentaPage {
         this.suma -= this.suma * 0.1;
       }
 
+      
    }); 
   }
 
