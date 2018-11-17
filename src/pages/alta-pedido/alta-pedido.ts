@@ -183,7 +183,6 @@ export class AltaPedidoPage {
       this.productoPedido.pop();
 
     let flag = false;
-    let cnt;
     let stock = true;
     if(this.listadoAPedir.length == 0){
       this.messageHandler.mostrarErrorLiteral("Seleccione al menos un producto");
@@ -487,17 +486,24 @@ export class AltaPedidoPage {
                 //mando push notification
                 if(pedidoASubir.estado == diccionario.estados_pedidos.solicitado){ //pedido hecho x cliente
                   this.notificationPushService.notificarPedidoMozo();
+                }else{
+                  if(pedidoASubir.estado == diccionario.estados_pedidos.en_preparacion){ //pedido hecho x mozo
+                    if(this.tieneBebidas)
+                      this.notificationPushService.notificarPedidoBartender();
+                    if(this.tieneComidas)
+                      this.notificationPushService.notificarPedidoCocinero();
+                  }
                 }
 
                 if(this.params.user.rol == 'cliente')
                   this.navCtrl.setRoot(PrincipalClientePage);
                 else
                   this.navCtrl.setRoot(PrincipalMozoPage);
+
               }
             });
           }
         });
-        this.enviarNotificaciones();
       });
     }
   }
@@ -556,7 +562,6 @@ export class AltaPedidoPage {
                   for (let p = 0; p < this.listadoAPedir.length; p++) {
                     this.restarProducto(this.listadoAPedir[p]);
                   }
-
                   if(i==this.productoPedido.length-1){
                     spinner.dismiss();
                     this.messageHandler.mostrarMensaje('El pedido fue encargado');

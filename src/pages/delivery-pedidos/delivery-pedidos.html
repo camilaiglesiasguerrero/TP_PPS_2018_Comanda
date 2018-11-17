@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle color="secondary">
+      <ion-icon color="secondary" name="menu"></ion-icon>
+    </button>
+    <ion-title>Listado Pedidos Delivery</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div *ngFor="let pedido of pedidosFinalizados">
+    <ion-list >
+      <ion-item style="margin-bottom: 1em;">
+        <h2>Direccion: {{pedido.direccion}}</h2>
+        <p>Información extra: {{pedido.infoDireccion}}</p>
+        <div class="flev-h end-horizontal">
+          <button ion-button (click)=tomarEntrega(pedido) clear>Tomar Entrega</button>
+          <button ion-button color="danger" (click)=cancelarReserva(reserva.key) clear>Borrar</button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="reservasAgendadas.length == 0">
+    <ion-item>
+      <p class="sin-resultados">No hay reservas agendadas</p>
+    </ion-item>
+  </div>
+</ion-content>
