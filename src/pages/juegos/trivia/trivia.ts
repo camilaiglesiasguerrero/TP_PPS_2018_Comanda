@@ -40,6 +40,7 @@ export class TriviaPage {
   yaSeMostro = true;
   subsPedido : any;
   pedido:any;
+  watchJuegos:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -55,7 +56,7 @@ export class TriviaPage {
     this.pedido = this.navParams.get('pedido');
     let spinner = spinnerH.getAllPageSpinner();
     spinner.present();
-    this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
+    this.watchJuegos = this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
         for (let index = 0; index < this.aux.length; index++) {
@@ -77,6 +78,12 @@ export class TriviaPage {
     this.cronoMili = '00';
   }
 
+
+  ionViewWillLeave(){
+    this.watchJuegos.unsubscribe();
+  }
+
+
   comenzar(){
     this.verifica = false;
     this.seRindio = false;
@@ -88,7 +95,7 @@ export class TriviaPage {
     this.yaSeMostro = true;
     while(this.yaSeMostro){
       var existe =_.find(this.preguntasMostradas, item => {
-        item == this.trivia.preguntaSecreta
+        return item == this.trivia.preguntaSecreta
       });
       if(existe){
         this.yaSeMostro = true;

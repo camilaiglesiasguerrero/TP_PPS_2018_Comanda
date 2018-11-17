@@ -30,7 +30,7 @@ export class CuentaPage {
   pedidoSubs:any;
   tieneDescuento = false
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private database: DatabaseService,
               private params:ParamsService,
@@ -42,24 +42,24 @@ export class CuentaPage {
     this.propina = false;
 
     this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.navParams.get('pedido')+'/'+diccionario.apis.productos)
-    .valueChanges()
-    .subscribe(snapshots => {
-      this.aux = snapshots;
-      for (let i = 0; i < this.aux.length; i++) {
-        if(this.aux[i].estado == 'Descuento'){
-          this.tieneDescuento = true;
-        }else{
-          this.detalleCuenta.push({ item:this.aux[i].nombre, cantidad:this.aux[i].cantidad, valor:this.aux[i].precio * this.aux[i].cantidad });
-          this.suma += this.aux[i].precio * this.aux[i].cantidad;
+      .valueChanges()
+      .subscribe(snapshots => {
+        this.aux = snapshots;
+        for (let i = 0; i < this.aux.length; i++) {
+          if(this.aux[i].estado == 'Descuento'){
+            this.tieneDescuento = true;
+          }else{
+            this.detalleCuenta.push({ item:this.aux[i].nombre, cantidad:this.aux[i].cantidad, valor:this.aux[i].precio * this.aux[i].cantidad });
+            this.suma += this.aux[i].precio * this.aux[i].cantidad;
+          }
         }
-      }
-      if(this.tieneDescuento){
-        this.detalleCuenta.push({ item:'¡Descuento del 10%!',cantidad:1,valor: this.suma * 0.1});
-        this.suma -= this.suma * 0.1;
-      }
+        if(this.tieneDescuento){
+          this.detalleCuenta.push({ item:'¡Descuento del 10%!',cantidad:1,valor: this.suma * 0.1});
+          this.suma -= this.suma * 0.1;
+        }
 
 
-   });
+      });
   }
 
   ionViewDidLoad() {
@@ -68,11 +68,11 @@ export class CuentaPage {
 
   dejarPropina(){
     this.propina = true;
-    this.navCtrl.push(PropinaPage,{cuenta:this.suma});    
+    this.navCtrl.push(PropinaPage,{cuenta:this.suma});
   }
 
   confirmar(){
-    
+
     this.pedidoSubs.unsubscribe();
     let spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
@@ -92,13 +92,13 @@ export class CuentaPage {
         .subscribe(snapshots => {
           let auxPedido = snapshots;
           auxPedido[0]['estado'] = diccionario.estados_pedidos.pagado;
-          this.database.jsonPackData = auxPedido[0]; 
+          this.database.jsonPackData = auxPedido[0];
           this.database.SubirDataBase(diccionario.apis.pedidos).then(e=>{
-          spinner.dismiss();
-          this.messageHandler.mostrarMensaje("¡Te esperamos la próxima!");
-          this.navCtrl.setRoot(EncuestaClientePage);
+            spinner.dismiss();
+            this.messageHandler.mostrarMensaje("¡Te esperamos la próxima!");
+            this.navCtrl.setRoot(EncuestaClientePage);
+          });
         });
-      });
     });
   }
 
