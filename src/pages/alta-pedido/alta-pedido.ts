@@ -16,6 +16,7 @@ import { Delivery } from '../../models/delivery';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import {ParserTypesService} from "../../services/parserTypesService";
+import { NotificationsPushService } from '../../services/notificationsPush.service';
 
 
 @IonicPage()
@@ -61,7 +62,8 @@ export class AltaPedidoPage {
               private spinnerH:SpinnerHandler,
               private params:ParamsService,
               private barcodeScanner:BarcodeScanner,
-              private parse: ParserTypesService) {
+              private parse: ParserTypesService,
+              private notificationPushService: NotificationsPushService) {
     //Entra por escaneo de QR desde cliente o desde mozo
     this.display = false;
     if(this.navParams.get("mesa")){
@@ -430,14 +432,23 @@ export class AltaPedidoPage {
         pedidoASubir.key = keyPedido;
         if(this.params.rol == 'cliente')
           pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
-        else
+        else{
           pedidoASubir.estado = diccionario.estados_pedidos.en_preparacion;
+        }
         pedidoASubir.productoPedido = null;
         this.database.jsonPackData = pedidoASubir;
         this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
 
+          let flagBebida=false;
+          let flagComida=false;
           //cargo los productos en el pedido
           for (let i = 0; i < this.productoPedido.length; i++) {
+            if(this.productoPedido[i].tipo == 'Bebida'){
+              flagBebida = true;
+            }else if(this.productoPedido[i].tipo == 'Comida'){
+              flagComida = true;
+            }
+
             aux = {
               key : this.productoPedido[i].idProducto,
               cantidad : this.productoPedido[i].cantidad,
@@ -459,6 +470,17 @@ export class AltaPedidoPage {
               if(i==this.productoPedido.length-1){
                 spinner.dismiss();
                 this.messageHandler.mostrarMensaje('El pedido fue encargado');
+                
+                //mando push notification
+              if(pedidoASubir.estado == diccionario.estados_pedidos.en_preparacion){ //pedido hecho x mozo
+                if(flagBebida)
+                  this.notificationPushService.notificarPedidoBartender();
+                if(flagComida)
+                  this.notificationPushService.notificarPedidoCocinero();
+              }else if(pedidoASubir.estado == diccionario.estados_pedidos.solicitado){ //pedido hecho x cliente
+                  this.notificationPushService.notificarPedidoMozo();
+              }
+                
                 if(this.params.user.rol == 'cliente')
                   this.navCtrl.setRoot(PrincipalClientePage);
                 else

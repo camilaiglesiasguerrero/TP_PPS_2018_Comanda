@@ -87,7 +87,67 @@ export class NotificationsPushService {
     })
   }
 
+  notificarPedidoCocinero(){
+    this.notification.title = "Pedido";
+    this.notification.body = "Hay pedidos pendientes de armar.";
+    this.notification.devices = [];
+    if(this.dispositivos.length){
+      for(var i=0; i < this.dispositivos.length; i++){
+        if(this.dispositivos[i].rol == 'cocinero'){
+          this.notification.devices.push(this.dispositivos[i].token)
+        }
+      }
+    }
+    if(this.notification.devices.length){
+      this.guardarNotificacion();
+    }
+  }
 
+  notificarPedidoBartender(){
+    this.notification.title = "Pedido";
+    this.notification.body = "Hay pedidos pendientes de armar.";
+    this.notification.devices = [];
+    if(this.dispositivos.length){
+      for(var i=0; i < this.dispositivos.length; i++){
+        if(this.dispositivos[i].rol == 'bartender'){
+          this.notification.devices.push(this.dispositivos[i].token)
+        }
+      }
+    }
+    if(this.notification.devices.length){
+      this.guardarNotificacion();
+    }
+  }
 
+  notificarPedidoMozo(){
+    this.notification.title = "Pedido";
+    this.notification.body = "Hay pedidos pendientes de aprobar.";
+    this.notification.devices = [];
+    if(this.dispositivos.length){
+      for(var i=0; i < this.dispositivos.length; i++){
+        if(this.dispositivos[i].rol == 'mozo'){
+          this.notification.devices.push(this.dispositivos[i].token)
+        }
+      }
+    }
+    if(this.notification.devices.length){
+      this.guardarNotificacion();
+    }
+  }
 
+  notificarMozoPedidoOk(){
+    this.notification.title = "Pedido";
+    this.notification.body = "Hay pedidos pendientes de entrega.";
+    this.notification.devices = [];
+    if(this.dispositivos.length){
+      for(var i=0; i < this.dispositivos.length; i++){
+        if(this.dispositivos[i].rol == 'mozo'){
+          this.notification.devices.push(this.dispositivos[i].token)
+        }
+      }
+    }
+    if(this.notification.devices.length){
+      this.guardarNotificacion();
+    }
+  }
 }

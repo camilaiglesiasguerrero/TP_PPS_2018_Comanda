@@ -7,6 +7,7 @@ import {diccionario} from "../../models/diccionario";
 import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { MessageHandler } from '../../services/messageHandler.service';
+import { NotificationsPushService } from '../../services/notificationsPush.service';
 
 @IonicPage()
 @Component({
@@ -36,7 +37,8 @@ export class ListadoPedidosPage {
               public params:ParamsService,
               private database:DatabaseService,
               private spinnerH:SpinnerHandler,
-              public messageHandler:MessageHandler) {
+              public messageHandler:MessageHandler,
+              private notificationPushService: NotificationsPushService) {
     
     //this.tipoEmpleado=this.navParams.get("tipoEmpleado");           
     /*this.pedidosList = new Array<any>();
@@ -115,7 +117,9 @@ export class ListadoPedidosPage {
             if(cont == this.productos[i].length){
                 this.pedidosList[i].estado = diccionario.estados_pedidos.listo;
                 this.database.jsonPackData = this.pedidosList[i];
-                this.database.SubirDataBase(diccionario.apis.pedidos);
+                this.database.SubirDataBase(diccionario.apis.pedidos).then(e=>{
+                  this.notificationPushService.notificarMozoPedidoOk();
+                });
               }
             }
             spinner.dismiss();
