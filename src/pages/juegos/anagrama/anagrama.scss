@@ -1,7 +1,41 @@
 page-anagrama {
 
-    .scroll-content{
-        background-color: $first-detail-color;
-     }
+  .scroll-content{
+    background-color: $first-detail-color;
+  }
+
+  .timer{
+    color: #51ff47;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .mili{
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .explicacion{
+    color: beige;
+    text-align: justify;
+    font-size: 2rem;
+  }
+  .pocoTiempo{
+    color:tomato !important;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .pregunta{
+
+    color: beige;
+    font-size: 2rem;
+  }
+  .txt{
+    font-size: 2rem;
+    width: 100%;
+  }
+
+
+
 
 }

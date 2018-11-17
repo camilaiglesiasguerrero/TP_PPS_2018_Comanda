@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocodingProvider } from '../../providers/geocoding';
 import { Platform } from 'ionic-angular';
@@ -107,6 +107,7 @@ export class UbicacionPage {
 
   private addMarker(lat, long){
     let latLng = new google.maps.LatLng(lat, long);
+    this.latLong = latLng;
     //Si existe otro punto en el mapa lo elimina
     if(this.marker){
       this.marker.setMap(null);
@@ -118,6 +119,9 @@ export class UbicacionPage {
     });
     let content = "<h5>" + this.direccion.value + "</h5>";
     this.addInfoWindow(this.marker, content);
+    if(this.showRuta){
+      this.obtenerRutaALocal();
+    }
   }
 
   private addInfoWindow(marker, content){
