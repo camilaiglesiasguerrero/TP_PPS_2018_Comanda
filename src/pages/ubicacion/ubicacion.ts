@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocodingProvider } from '../../providers/geocoding';
 import { Platform } from 'ionic-angular';
@@ -145,11 +145,9 @@ export class UbicacionPage {
       if (status == 'OK') {
         this.directionsDisplay.setDirections(result);
         this.tiempoArribo = result.routes[0].legs[0].duration_in_traffic.text;
+        this.direccion['tiempoArribo'] = result.routes[0].legs[0].duration_in_traffic.value / 59.9;
       }
     });
-
-
-
   }
 
   //este sirve para poner dos rutas de destino y te indica que camino tomar
