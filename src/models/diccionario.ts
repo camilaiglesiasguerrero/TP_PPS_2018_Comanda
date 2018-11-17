@@ -55,7 +55,6 @@ export const diccionario = {
   },
   errores:{
     QR_invalido: "Código QR inválido",
-    sin_reserva: "No existe reserva",
     sin_pedido: "No existe pedido"
   },
   direccion_local: {

@@ -88,6 +88,6 @@ export class PropinaPage {
 
   confirmarPropina(){
     this.params.propinaAux = this.codigoComprobado.id;
-    this.navCtrl.remove(2,1);
+    this.navCtrl.remove(1,1);
   }
 }

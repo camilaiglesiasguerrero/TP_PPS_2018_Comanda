@@ -120,6 +120,7 @@ export class AltaPedidoPage {
           if(this.comidasTotal[index].nombre == auxProducto && this.comidasTotal[index].cantidad > 0){
             this.listadoAPedir.push(this.comidas[index]);
             flag = true;
+            this.messageHandler.mostrarMensajeCortoAbajo("Se agregó: "+this.comidas[index].nombre);
           }
           else if(this.comidasTotal[index].nombre == auxProducto && this.comidasTotal[index].cantidad == 0){
             this.messageHandler.mostrarErrorLiteral('No alcanza el stock');
@@ -130,6 +131,7 @@ export class AltaPedidoPage {
           if(this.bebidasTotal[index].nombre == auxProducto && this.bebidasTotal[index].cantidad > 0){
             this.listadoAPedir.push(this.bebidas[index]);
             flag = true;
+            this.messageHandler.mostrarMensajeCortoAbajo("Se agregó: "+this.bebidas[index].nombre);
           }
           else if(this.bebidas[index].nombre == auxProducto && this.bebidas[index].cantidad == 0){
             this.messageHandler.mostrarErrorLiteral('No alcanza el stock');
@@ -307,8 +309,8 @@ export class AltaPedidoPage {
         let reservas = new Array<any>();
         reservas = snapshots;
         reservas = reservas.filter(f => f.estado == diccionario.estados_reservas.en_curso);
-        if(reservas.length == 0){
-          this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva);
+        if(reservas.length == 0 && this.params.rol == 'mozo'){
+          this.messageHandler.mostrarErrorLiteral("Esta mesa no está ocupada.");
           this.navCtrl.remove(1,1);
         }
         if(reservas.length == 1){
@@ -320,7 +322,7 @@ export class AltaPedidoPage {
           this.reserva.fecha = reservas[0].fecha;
         }
         if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
-          this.messageHandler.mostrarErrorLiteral(diccionario.errores.sin_reserva + ' para vos en esta mesa');
+          this.messageHandler.mostrarErrorLiteral("Esta no es tu mesa asignada.");
           this.watcherReservas.unsubscribe();
           this.navCtrl.remove(1,1);
         }else if(this.reserva.idPedido != undefined){
