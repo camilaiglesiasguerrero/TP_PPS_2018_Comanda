@@ -50,11 +50,11 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Código QR de la mesa` [ Mergeado 31/10 Commit [b3af296](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/b3af29681418925391e14a7bd0e4af8a1d642770) ]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Encuesta con estadística para los empleados`[ Mergeado 09/11 Commit [2ebbe13](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2ebbe138111437ea3b1e8de315541b1b625798fc) - Faltan las estadísticas ]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los empleados`[ Mergeado 09/11 Commit [2ebbe13](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2ebbe138111437ea3b1e8de315541b1b625798fc) ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Pedir platos y bebidas`[ Mergeado 09/11 Commit [2ebbe13](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/2ebbe138111437ea3b1e8de315541b1b625798fc)]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Push notification pedir mesa` [ Comenzado 31/10 - Falta implementar]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Push notification pedir mesa` [ Comenzado 31/10 ]
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego para bebida gratis -> juego elegido: anagrama` [ Mergeado 24/10 Commit  [f33a359](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/f33a359f9b90e39135fb82d72fbaaa5583225c69) ]
 
@@ -66,7 +66,6 @@ Branch: *branch_cami*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Ruteo de módulos asignados` [ Semana del 14/10 ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de animaciones`
 
 
 
@@ -87,18 +86,17 @@ Branch: *branch_fede*
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Encuesta con estadística para el supervisor`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Tomar pedido`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Tomar pedido`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification para pedido de platos y bebidas`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Push notification para pedido de platos y bebidas`
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Mapa de ruta hasta el domicilio de entrega`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Juego 10% de descuento`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego 10% de descuento`
 
 
 #### *Responsabilidades*
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de los sonidos de la app`
 
 
 
@@ -117,13 +115,13 @@ Branch: *branch_cari*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Encuesta con estadística para los clientes` [ Mergeado 11/11 [3354c5d](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/3354c5daf5ad046e884df4bfee295307fe644bba) ]
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Hacer reservas agendadas` [ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c) - En proceso]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Hacer reservas agendadas` [ Mergeado 9/11 [163f6e4](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/163f6e484c253f3802530447ac31ed00734bf98c) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Push notification de reservas agendadas`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Push notification de reservas agendadas`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Realizar pedido por GPS o dirección`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Realizar pedido por GPS o dirección`
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Juego para un postre gratis` [ En proceso]
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego para un postre gratis`
 
 
 #### *Responsabilidades*
@@ -136,6 +134,6 @@ Branch: *branch_cari*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Esquematización del menú por rol` [ Mergeado 21/10 Commit [45e833c](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/commit/45e833cfe6a5ccf7411bca0930af668120955868) ]
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Responsable de estilos`
+
 
 
