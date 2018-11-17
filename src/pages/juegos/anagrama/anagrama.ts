@@ -9,6 +9,7 @@ import { ParamsService } from '../../../services/params.service';
 import { diccionario } from "../../../models/diccionario";
 import { ParserTypesService } from '../../../services/parserTypesService';
 import {SpinnerHandler} from "../../../services/spinnerHandler.service";
+import {NotificationsPushService} from "../../../services/notificationsPush.service";
 
 
 @IonicPage()
@@ -48,8 +49,8 @@ export class AnagramaPage {
               public database:DatabaseService,
               public params: ParamsService,
               public parserType: ParserTypesService,
-              private alertCtrl: AlertController) {
-
+              private alertCtrl: AlertController,
+              private notificationsPushService: NotificationsPushService) {
     this.pedido = this.navParams.get('pedido');
     this.display = false;
     this.usuario = this.params.user;
@@ -160,6 +161,7 @@ export class AnagramaPage {
               //guardo el producto
               this.database.jsonPackData = productoGanado;
               this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
+                this.notificationsPushService.notificarPedidoBartender();
                 this.subsPedido.unsubscribe();
               });
             });

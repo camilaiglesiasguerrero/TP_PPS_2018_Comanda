@@ -54,6 +54,8 @@ export class AltaPedidoPage {
   display:boolean;
   tiempoEntrega = { hora: 0, minutos: 0};
   estadoPedido:string = "";
+  tieneBebidas:boolean = false;
+  tieneComidas:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -175,6 +177,8 @@ export class AltaPedidoPage {
 
   armarPedidoProducto():boolean{
     //vacío el array
+    this.tieneBebidas = false;
+    this.tieneComidas = false;
     while(this.productoPedido.length > 0)
       this.productoPedido.pop();
 
@@ -198,12 +202,20 @@ export class AltaPedidoPage {
             this.listadoAPedir[index].nombre,
             this.listadoAPedir[index].precio,
             this.listadoAPedir[index].tiempoElaboracion));
+          if(this.listadoAPedir[index].tipo == 'Bebida'){
+            this.tieneBebidas = true;
+          }
+          if(this.listadoAPedir[index].tipo == 'Comida'){
+            this.tieneComidas = true;
+          }
         }else{
           for (let i  = 0; i  < this.productoPedido.length; i ++) {
             if(this.productoPedido[i].idProducto == this.listadoAPedir[index].key){//si ya pedi este producto le agrego uno
               this.productoPedido[i].cantidad ++;
               flag = true;
-              if(this.listadoAPedir[index].tipo == 'Bebida'){                         //si el producto es bebida, verifico q me de el stock
+              if(this.listadoAPedir[index].tipo == 'Bebida'){
+                //si el producto es bebida, verifico q me de el stock
+                this.tieneBebidas = true;
                 for (let j = 0; j < this.bebidas.length; j++) {
                   if(this.bebidas[j].key == this.listadoAPedir[index].key && this.bebidas[j].cantidad < this.productoPedido[i].cantidad){
                     this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[j].nombre);
@@ -211,7 +223,9 @@ export class AltaPedidoPage {
                     stock = false;
                   }
                 }
-              }else{                                                                  //idem si es comida
+              }else{
+                //idem si es comida
+                this.tieneComidas = true;
                 for (let k = 0; k < this.comidas.length; k++) {
                   if(this.comidas[k].key == this.listadoAPedir[index].key && this.comidas[k].cantidad < this.productoPedido[i].cantidad){
                     this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[k].nombre);
@@ -222,7 +236,6 @@ export class AltaPedidoPage {
               }
               break;
             }
-
             if(!flag && i == this.productoPedido.length - 1){                            //nunca pedi este producto
               this.productoPedido.push(new ProductoPedido(this.listadoAPedir[index].key,
                 1,
@@ -232,6 +245,12 @@ export class AltaPedidoPage {
                 this.listadoAPedir[index].precio,
                 this.listadoAPedir[index].tiempoElaboracion)
               );
+              if(this.listadoAPedir[index].tipo == 'Bebida'){
+                this.tieneBebidas = true;
+              }
+              if(this.listadoAPedir[index].tipo == 'Comida'){
+                this.tieneComidas = true;
+              }
               break;
             }
           }
@@ -441,16 +460,8 @@ export class AltaPedidoPage {
         this.database.jsonPackData = pedidoASubir;
         this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
 
-          let flagBebida=false;
-          let flagComida=false;
           //cargo los productos en el pedido
           for (let i = 0; i < this.productoPedido.length; i++) {
-            if(this.productoPedido[i].tipo == 'Bebida'){
-              flagBebida = true;
-            }else if(this.productoPedido[i].tipo == 'Comida'){
-              flagComida = true;
-            }
-
             aux = {
               key : this.productoPedido[i].idProducto,
               cantidad : this.productoPedido[i].cantidad,
@@ -472,17 +483,12 @@ export class AltaPedidoPage {
               if(i==this.productoPedido.length-1){
                 spinner.dismiss();
                 this.messageHandler.mostrarMensaje('El pedido fue encargado');
-                
+
                 //mando push notification
-              if(pedidoASubir.estado == diccionario.estados_pedidos.en_preparacion){ //pedido hecho x mozo
-                if(flagBebida)
-                  this.notificationPushService.notificarPedidoBartender();
-                if(flagComida)
-                  this.notificationPushService.notificarPedidoCocinero();
-              }else if(pedidoASubir.estado == diccionario.estados_pedidos.solicitado){ //pedido hecho x cliente
+                if(pedidoASubir.estado == diccionario.estados_pedidos.solicitado){ //pedido hecho x cliente
                   this.notificationPushService.notificarPedidoMozo();
-              }
-                
+                }
+
                 if(this.params.user.rol == 'cliente')
                   this.navCtrl.setRoot(PrincipalClientePage);
                 else
@@ -491,6 +497,7 @@ export class AltaPedidoPage {
             });
           }
         });
+        this.enviarNotificaciones();
       });
     }
   }
@@ -538,7 +545,8 @@ export class AltaPedidoPage {
                   tipo : this.productoPedido[i].tipo,
                   estado: this.productoPedido[i].estado,
                   nombre: this.productoPedido[i].nombre,
-                  precio: this.productoPedido[i].precio
+                  precio: this.productoPedido[i].precio,
+                  pedido: pedidoASubir.key
                 };
 
                 this.database.jsonPackData = aux;
@@ -561,6 +569,7 @@ export class AltaPedidoPage {
               }
             });
           });
+          this.enviarNotificaciones();
         }
       }else{
         this.messageHandler.mostrarErrorLiteral("Debe seleccionar al menos un producto");
@@ -601,4 +610,12 @@ export class AltaPedidoPage {
   }
 
 
+  private enviarNotificaciones(){
+    if(this.tieneComidas){
+      this.notificationPushService.notificarPedidoCocinero();
+    }
+    if(this.tieneBebidas){
+      this.notificationPushService.notificarPedidoBartender();
+    }
+  }
 }

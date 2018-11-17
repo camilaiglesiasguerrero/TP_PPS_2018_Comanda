@@ -12,6 +12,7 @@ import {PrincipalClientePage} from "../../principal-cliente/principal-cliente";
 import * as _ from 'lodash';
 import {diccionario} from "../../../models/diccionario";
 import {ParserTypesService} from "../../../services/parserTypesService";
+import {NotificationsPushService} from "../../../services/notificationsPush.service";
 
 @Component({
   selector: 'page-trivia',
@@ -49,7 +50,8 @@ export class TriviaPage {
               public database:DatabaseService,
               public params: ParamsService,
               private alertCtrl: AlertController,
-              private parser: ParserTypesService) {
+              private parser: ParserTypesService,
+              private notificationsPushService: NotificationsPushService) {
     this.display = false;
     this.empiezaElJuego = false;
     this.usuario = this.params.user;
@@ -159,7 +161,7 @@ export class TriviaPage {
   private perdiste(correcta){
     let spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
-    this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.dni,false,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       spinner.dismiss();
       let alert = this.alertCtrl.create({
@@ -181,7 +183,7 @@ export class TriviaPage {
   private ganaste(){
     let spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
-    this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
+    this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
         .valueChanges()
@@ -206,6 +208,7 @@ export class TriviaPage {
                 {
                   text: 'Felicitaciones!',
                   handler: data => {
+                    this.notificationsPushService.notificarPedidoCocinero();
                     this.navCtrl.setRoot(PrincipalClientePage);
                   }
                 }

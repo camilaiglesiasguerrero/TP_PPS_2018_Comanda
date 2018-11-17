@@ -83,7 +83,6 @@ export class NotificationsPushService {
     this.notificationsCollections = this.afs.collection<any>(diccionario.firestore.notifications);
     var id = this.afs.createId();
     return this.notificationsCollections.doc(id).set(this.notification).then(response =>{
-      alert("se mando la notificacion");
     })
   }
 
