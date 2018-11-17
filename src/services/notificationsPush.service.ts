@@ -19,7 +19,6 @@ export class NotificationsPushService {
   dispositivos = [];
 
   constructor( private afs: AngularFirestore){
-    debugger;
     this.itemsCollection = afs.collection<any>(diccionario.firestore.devices);
     this.items = this.itemsCollection.valueChanges();
     this.items.subscribe(snapshots =>{

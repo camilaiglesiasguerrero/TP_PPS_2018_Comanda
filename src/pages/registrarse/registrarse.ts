@@ -93,10 +93,9 @@ export class RegistrarsePage {
     this.options = {prompt: "Escaneá el DNI", formats: "PDF_417"}
     this.barcodeScanner.scan(this.options).then((barcodeData) => {
       this.miScan = (barcodeData.text).split('@');
-      this.user.apellido = this.miScan[1];
-      this.user.nombre = this.miScan[2];
-      this.user.dni = this.miScan[4];
-
+      this.formGroup.controls.apellidoValidator.setValue(this.miScan[1]);
+      this.formGroup.controls.nombreValidator.setValue(this.miScan[2]);
+      this.formGroup.controls.dniValidator.setValue(this.miScan[4]);
     }, (error) => {
       this.messageHandler.mostrarErrorLiteral(error);
     });
