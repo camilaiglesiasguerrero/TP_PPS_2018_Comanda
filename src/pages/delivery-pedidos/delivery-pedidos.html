@@ -7,21 +7,38 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div *ngFor="let pedido of pedidosFinalizados">
+  <div *ngIf="!mostrarDelivery">
+    <div *ngFor="let pedido of pedidosFinalizados; let i = index">
+      <ion-list >
+        <ion-item style="margin-bottom: 1em;">
+          <h2>Pedido: {{i + 1}}</h2>
+          <p>Listo para entregar</p>
+          <div class="flev-h end-horizontal">
+            <button ion-button (click)=tomarEntrega(pedido) clear>Tomar Entrega</button>
+            <button ion-button color="danger" (click)=cancelarReserva(reserva.key) clear>Borrar</button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div *ngIf="mostrarDelivery">
     <ion-list >
       <ion-item style="margin-bottom: 1em;">
-        <h2>Direccion: {{pedido.direccion}}</h2>
-        <p>Información extra: {{pedido.infoDireccion}}</p>
+        <h2>Direccion: {{deliveryTomado.direccion}}</h2>
+        <p>Informacion Extra de direccion:</p>
+        <p>{{deliveryTomado.infoDireccion}}</p>
+        <page-ubicacion [direccion]="deliveryTomado.direccion" [show-ruta]="true"></page-ubicacion>
         <div class="flev-h end-horizontal">
-          <button ion-button (click)=tomarEntrega(pedido) clear>Tomar Entrega</button>
-          <button ion-button color="danger" (click)=cancelarReserva(reserva.key) clear>Borrar</button>
+          <button ion-button (click)=confirmar() clear>Confirmar</button>
         </div>
       </ion-item>
     </ion-list>
+
   </div>
-  <div *ngIf="reservasAgendadas.length == 0">
+  <div *ngIf="pedidosFinalizados.length == 0">
     <ion-item>
-      <p class="sin-resultados">No hay reservas agendadas</p>
+      <p class="sin-resultados">No hay pedidos para entregar</p>
     </ion-item>
   </div>
 </ion-content>

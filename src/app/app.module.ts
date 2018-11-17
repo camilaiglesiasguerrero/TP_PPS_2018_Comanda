@@ -205,7 +205,8 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
     ListadoEsperaPage,
-    DeliveryPedidosPage
+    DeliveryPedidosPage,
+    PropinaPage
   ],
   providers: [
     StatusBar,

@@ -28,7 +28,8 @@ export class CuentaPage {
   suma:number;
   propina:any;
   pedidoSubs:any;
-  tieneDescuento = false
+  tieneDescuento = false;
+  pedido:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -40,8 +41,10 @@ export class CuentaPage {
     this.aux = new Array<any>();
     this.detalleCuenta = new Array<any>();
     this.propina = false;
-
-    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.navParams.get('pedido')+'/'+diccionario.apis.productos)
+    let spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
+    this.pedido =this.navParams.get('pedido');
+    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
       .valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -57,8 +60,11 @@ export class CuentaPage {
           this.detalleCuenta.push({ item:'¡Descuento del 10%!',cantidad:1,valor: this.suma * 0.1});
           this.suma -= this.suma * 0.1;
         }
+        if(this.params.propinaAux != 0){
+          this.propina = true;
 
-
+        }
+        spinner.dismiss();
       });
   }
 
@@ -67,12 +73,12 @@ export class CuentaPage {
   }
 
   dejarPropina(){
+    this.params.propinaAux = 0;
     this.propina = true;
-    this.navCtrl.push(PropinaPage,{cuenta:this.suma});
+    this.navCtrl.setRoot(PropinaPage,{cuenta:this.suma, pedido: this.pedido});
   }
 
   confirmar(){
-
     this.pedidoSubs.unsubscribe();
     let spinner = this.spinnerH.getAllPageSpinner();
     spinner.present();
@@ -83,7 +89,7 @@ export class CuentaPage {
       cliente: this.params.user.uid,
       propinaPje: this.params.propinaAux,
       cuenta: this.suma
-    }
+    };
     this.database.jsonPackData = cuenta;
     this.database.SubirDataBase(diccionario.apis.cuentas).then(r=>{
       //leo y actualizo estado pedido

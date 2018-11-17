@@ -19,11 +19,16 @@ import {ReservarMesaPage} from "../reservar-mesa/reservar-mesa";
 export class DeliveryPedidosPage {
 
   watchPedidosDelivery:any;
+  watchDelivery:any;
   pedidosDelivery = [];
   pedidosFinalizados = [];
+  deliverys = []
   options:any;
   mesa:any;
   dic:any;
+  mostrarDelivery = false;
+  deliveryTomado:any;
+  direccion = {value: '', lat: '', long: ''};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -39,7 +44,7 @@ export class DeliveryPedidosPage {
   ionViewDidLoad(){
     var spinner = this.spinnerHandler.getAllPageSpinner();
     spinner.present();
-    this.watchPedidosDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('isDelivery').equalTo('true')).valueChanges()
+    this.watchPedidosDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('isDelivery').equalTo(true)).valueChanges()
       .subscribe(snapshots => {
         this.pedidosDelivery = snapshots;
         this.pedidosFinalizados = this.pedidosDelivery.filter(pedidoFirebase => {
@@ -54,7 +59,26 @@ export class DeliveryPedidosPage {
 
 
   tomarEntrega(pedido){
+    var spinner = this.spinnerHandler.getAllPageSpinner();
+    spinner.present();
+    this.watchDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('idPedido').equalTo(pedido.key)).valueChanges()
+      .subscribe(snapshots => {
+        this.mostrarDelivery = true;
+        this.deliverys = snapshots;
+        this.deliveryTomado = this.deliverys[0];
+        this.direccion['value'] = this.deliveryTomado.direccion;
+        this.direccion['lat'] = this.deliveryTomado.lat;
+        this.direccion['long'] = this.deliveryTomado.long;
+        spinner.dismiss();
+      });
+  }
 
+  confirmar(){
+    this.deliveryTomado.estado = diccionario.estados_delivery.en_camino;
+    this.database.jsonPackData = this.deliveryTomado;
+    this.database.SubirDataBase(diccionario.apis.delivery).then(r=>{
+
+    });
   }
 
 

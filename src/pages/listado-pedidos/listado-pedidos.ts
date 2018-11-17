@@ -33,6 +33,7 @@ export class ListadoPedidosPage {
   esMozo:boolean;
   dic:any;
   esCocineroBartender:boolean;
+  watchProductos:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -73,6 +74,15 @@ export class ListadoPedidosPage {
     //console.log('ionViewDidLoad ListadoPedidosPage');
   }
 
+  ionViewDidLeave(){
+    if(this.watchProductos){
+      this.watchProductos.unsubscribe();
+    }
+    if(this.subsPedido){
+      this.subsPedido.unsubscribe()
+    }
+  }
+
   irA(donde: string){
     switch(donde){
       case 'Nuevo':
@@ -89,9 +99,10 @@ export class ListadoPedidosPage {
    * Chequea y si están todos los productos listos marca el pedido completo como Listo
    */
   getProductos(spinner){
-    this.subsProducto = this.database.db.list<any>(this.dic.apis.pedidos,ref => ref.orderByChild('estado').equalTo(this.dic.estados_pedidos.en_preparacion))
+    this.watchProductos = this.subsProducto = this.database.db.list<any>(this.dic.apis.pedidos,ref => ref.orderByChild('estado').equalTo(this.dic.estados_pedidos.en_preparacion))
       .valueChanges()
       .subscribe(snapshots => {
+
         this.productos = [];
         this.pedidosList = snapshots;
         this.cambiarEstadoPedido = false;
@@ -171,7 +182,6 @@ export class ListadoPedidosPage {
     this.database.jsonPackData = aux;
     this.database.SubirDataBase(this.dic.apis.pedidos+aux.pedido+'/'+this.dic.apis.productos)
       .then(response =>{
-        alert("subio el producto");
         console.log("aux ",aux);
         console.log("response ",response);
       }).catch(error =>{
@@ -240,6 +250,8 @@ export class ListadoPedidosPage {
   }
 
   private actualizarPedido(pedidoId){
+    let spinner = this.spinnerH.getAllPageSpinner();
+    spinner.present();
     var pedidoAActualizar = _.find(this.pedidosList, pedido =>{
       if(pedido.key == pedidoId && pedido.estado == diccionario.estados_pedidos.en_preparacion){
         return pedido;
@@ -249,9 +261,8 @@ export class ListadoPedidosPage {
       pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
       this.database.jsonPackData = pedidoAActualizar;
       this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
-            debugger;
             this.notificationPushService.notificarMozoPedidoOk();
-            alert("se actualizo el estado del pedido a listo");
+            spinner.dismiss();
           });
     }
   }

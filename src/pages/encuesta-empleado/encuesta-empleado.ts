@@ -9,6 +9,7 @@ import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from '../../services/database.service';
 import {diccionario} from "../../models/diccionario";
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
+import {DeliveryPedidosPage} from "../delivery-pedidos/delivery-pedidos";
 
 @IonicPage()
 @Component({
@@ -104,6 +105,9 @@ export class EncuestaEmpleadoPage {
         break;
       case 'metre':
         this.navCtrl.setRoot(MesasPage);
+        break;
+      case 'delivery':
+        this.navCtrl.setRoot(DeliveryPedidosPage);
         break;
     }
     
