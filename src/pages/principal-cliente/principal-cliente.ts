@@ -122,7 +122,7 @@ export class PrincipalClientePage {
   }
 
   escanearQR(donde:string) {
-    this.options = { prompt : "Escaneá el código QR de la mesa" }
+    this.options = { prompt : "Escaneá el código QR de la mesa" };
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
         this.mesa = barcodeData.text;

@@ -17,7 +17,7 @@ export const diccionario = {
   },
   firestore:{
     devices: "devices",
-    notifications: "notifications"
+    notifications: "notifications2"
   },
   estados_mesas:{
     libre: "Libre",
