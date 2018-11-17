@@ -98,7 +98,7 @@ export class IniciarsesionPage {
     {
       this.messageHandler.mostrarErrorLiteral("Debe verificar su cuenta");
       this.paramsService.isLogged = false;
-      this.navCtrl.setRoot(IniciarsesionPage);
+      this.navCtrl.setRoot(IniciarsesionPage, { 'fromApp': true });
     }
     else{
       switch(this.paramsService.rol){
