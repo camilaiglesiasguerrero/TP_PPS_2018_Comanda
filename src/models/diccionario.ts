@@ -66,6 +66,11 @@ export const diccionario = {
     trivia: 'Trivia',
     adivinar: 'Adivinar',
     anagrama: 'Anagrama'
+  },
+  estados_delivery:{
+    en_curso: "En curso",
+    en_camino: "En camino",
+    entregado: "Entregado"
   }
   
 };

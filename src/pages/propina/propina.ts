@@ -33,6 +33,7 @@ export class PropinaPage {
   totalCuenta:number;
   totalPropina:number;
   codigo:string;
+  pedido:any;
 
   constructor(
     public navCtrl: NavController,
@@ -41,6 +42,7 @@ export class PropinaPage {
     public mensajes: MessageHandler,
     private params:ParamsService
   ) {
+    this.pedido =this.navParams.get('pedido');
     this.codigosBD = CodesPropina.slice(0);
     this.totalCuenta = this.navParams.get('cuenta');
   }
@@ -88,6 +90,6 @@ export class PropinaPage {
 
   confirmarPropina(){
     this.params.propinaAux = this.codigoComprobado.id;
-    this.navCtrl.remove(1,1);
+    this.navCtrl.setRoot(CuentaPage, {pedido: this.pedido});
   }
 }

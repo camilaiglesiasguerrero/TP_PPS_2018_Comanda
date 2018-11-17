@@ -91,7 +91,7 @@ export class MyApp {
       { title: 'Cerrar Sesión', component:IniciarsesionPage }
     ];
     this.deliveryPages = [
-     // { title: 'Pedidos Delivery', component:DeliveryPedidosPage }
+      { title: 'Pedidos Delivery', component:DeliveryPedidosPage }
     ];
   }
 
