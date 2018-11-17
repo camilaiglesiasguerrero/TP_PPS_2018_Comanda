@@ -165,7 +165,6 @@ export class TriviaPage {
   }
 
   private ganaste(){
-    debugger;
     let spinner = this.spinner.getAllPageSpinner();
     spinner.present();
     this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.dni,true,this.database.ObtenerKey(diccionario.apis.juegos));
