@@ -67,7 +67,9 @@ import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 //Juegos
 import { AnagramaPage } from '../pages/juegos/anagrama/anagrama';
+import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 import { TriviaPage } from '../pages/juegos/trivia/trivia';
+
 
 //Encuestas
 import { EncuestaEmpleadoPage } from '../pages/encuesta-empleado/encuesta-empleado';
@@ -106,8 +108,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
-import { AdivinarNumeroPage } from '../pages/juegos/adivinar-numero/adivinar-numero';
 import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
+
 
 @NgModule({
   declarations: [
@@ -144,7 +146,6 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     EncuestaEmpleadoResultadosPage,
     ReservasAgendadasPage,
     CuentaPage,
-    ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
     ListadoEsperaPage
@@ -223,6 +224,7 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     CameraService,
     DatabaseService,
     EncuestaClienteService,
+    AdivinarNumeroPage,
     GeocodingProvider,
     Geolocation,
     ParserTypesService,
