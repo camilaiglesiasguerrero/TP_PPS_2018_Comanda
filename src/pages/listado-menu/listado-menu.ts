@@ -19,6 +19,7 @@ export class ListadoMenuPage {
   menu:string;
   listado : any;
   producto:Producto;
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -26,6 +27,7 @@ export class ListadoMenuPage {
               private database: DatabaseService,
               private messageHandler:MessageHandler) {
 
+    this.mostrarSpinner = true;
     this.producto = new Producto();
     if(this.params.rol == 'bartender'){
       this.menu = 'bebidas';
@@ -39,7 +41,7 @@ export class ListadoMenuPage {
     this.database.db.list<any>(diccionario.apis.productos + this.menu).valueChanges()
       .subscribe(snapshots => {
           this.listado = snapshots;  
-
+          this.mostrarSpinner = false;
       });     
   }
 

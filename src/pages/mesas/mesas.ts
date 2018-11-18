@@ -4,8 +4,6 @@ import { AltaMesaPage } from '../alta-mesa/alta-mesa';
 import { DatabaseService } from '../../services/database.service';
 import { Mesa } from '../../models/mesa';
 import {diccionario} from "../../models/diccionario";
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
-
 
 @Component({
   selector: 'page-mesas',
@@ -16,12 +14,12 @@ export class MesasPage {
   mesas : any;
   ultimoId : number = 0;
 
-  constructor(public navCtrl: NavController,
-              private database: DatabaseService,
-              private spinnerH:SpinnerHandler) {
+  mostrarSpinner:boolean = false;
 
-    let spinner = spinnerH.getAllPageSpinner();
-    spinner.present();
+  constructor(public navCtrl: NavController,
+              private database: DatabaseService) {
+
+    this.mostrarSpinner = true;
 
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snapshots => {
@@ -29,7 +27,7 @@ export class MesasPage {
           if(this.mesas != undefined && this.mesas != null && this.mesas.length != 0){
             this.ultimoId = parseInt(this.mesas[this.mesas.length-1].id);
           }
-          spinner.dismiss();
+          this.mostrarSpinner = false;
       });
   }
 

@@ -5,9 +5,8 @@ import { diccionario } from '../../models/diccionario';
 import { PropinaPage } from '../propina/propina';
 import { ParamsService } from '../../services/params.service';
 import { MessageHandler } from '../../services/messageHandler.service';
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
-import { reduce } from 'rxjs/operators';
+
 
 /**
  * Generated class for the CuentaPage page.
@@ -31,18 +30,18 @@ export class CuentaPage {
   tieneDescuento = false;
   pedido:any;
 
+  mostrarSpinner:boolean = false;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private database: DatabaseService,
               private params:ParamsService,
-              private messageHandler: MessageHandler,
-              private spinnerH:SpinnerHandler) {
+              private messageHandler: MessageHandler) {
     this.suma = 0;
     this.aux = new Array<any>();
     this.detalleCuenta = new Array<any>();
     this.propina = false;
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.pedido =this.navParams.get('pedido');
     this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
       .valueChanges()
@@ -64,7 +63,7 @@ export class CuentaPage {
           this.propina = true;
 
         }
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       });
   }
 
@@ -80,8 +79,7 @@ export class CuentaPage {
 
   confirmar(){
     this.pedidoSubs.unsubscribe();
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
 
     //cargo cuenta
     let cuenta = {
@@ -100,7 +98,7 @@ export class CuentaPage {
           auxPedido[0]['estado'] = diccionario.estados_pedidos.pagado;
           this.database.jsonPackData = auxPedido[0];
           this.database.SubirDataBase(diccionario.apis.pedidos).then(e=>{
-            spinner.dismiss();
+            this.mostrarSpinner = false;
             this.messageHandler.mostrarMensaje("¡Te esperamos la próxima!");
             this.navCtrl.setRoot(EncuestaClientePage);
           });

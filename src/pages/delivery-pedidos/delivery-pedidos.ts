@@ -29,21 +29,20 @@ export class DeliveryPedidosPage {
   mostrarDelivery = false;
   deliveryTomado:any;
   direccion = {value: '', lat: '', long: ''};
+  mostrarSpinner : boolean= false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public params: ParamsService,
               private messageHandler: MessageHandler,
               private database: DatabaseService,
-              private spinnerHandler: SpinnerHandler,
               private parserTypesService: ParserTypesService,
               public barcodeScanner: BarcodeScanner,
   ) {
   }
 
   ionViewDidLoad(){
-    var spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.watchPedidosDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('isDelivery').equalTo(true)).valueChanges()
       .subscribe(snapshots => {
         this.pedidosDelivery = snapshots;
@@ -53,14 +52,13 @@ export class DeliveryPedidosPage {
         if(this.pedidosFinalizados.length){
 
         }
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       });
   }
 
 
   tomarEntrega(pedido){
-    var spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.watchDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('idPedido').equalTo(pedido.key)).valueChanges()
       .subscribe(snapshots => {
         this.mostrarDelivery = true;
@@ -69,7 +67,7 @@ export class DeliveryPedidosPage {
         this.direccion['value'] = this.deliveryTomado.direccion;
         this.direccion['lat'] = this.deliveryTomado.lat;
         this.direccion['long'] = this.deliveryTomado.long;
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       });
   }
 

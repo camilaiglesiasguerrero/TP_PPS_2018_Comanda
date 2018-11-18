@@ -7,8 +7,9 @@
   </ion-navbar>
 </ion-header>
 
+<ion-content padding >
 
-<ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <!--ALTA DE PEDIDO-->
   <div *ngIf="display" class="height-100">
     <ion-grid *ngIf="!mostrarParcial && !pedidoYaHecho && !mostrarDireccion">

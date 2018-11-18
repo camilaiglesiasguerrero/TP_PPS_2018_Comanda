@@ -140,8 +140,9 @@ export class EncuestaEmpleadoResultadosPage {
 
   notas : Array<any>;
 
+  mostrarSpinner:boolean = false;
+
   constructor(public navParams: NavParams,
-              private spinnerHandler: SpinnerHandler,
               public database:DatabaseService) {
   }
 
@@ -192,8 +193,7 @@ export class EncuestaEmpleadoResultadosPage {
 
   obtenerResultados(){
     this.initLabels();
-    let spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.db.list<any>(diccionario.apis.encuesta_empleado).valueChanges()
       .subscribe(snapshots => {
         this.display = false;
@@ -215,7 +215,7 @@ export class EncuestaEmpleadoResultadosPage {
         this.setCondiciones();
 
         this.display = true;
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       });
   }
 

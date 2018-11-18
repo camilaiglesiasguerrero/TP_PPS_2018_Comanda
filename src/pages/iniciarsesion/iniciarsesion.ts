@@ -5,7 +5,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 import { AuthenticationService } from './../../services/authentication.service';
 import { MessageHandler } from './../../services/messageHandler.service';
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { RegistrarsePage } from '../registrarse/registrarse';
 import { ParamsService } from './../../services/params.service';
 import { UsuariosService } from './../../services/usuarios.service';
@@ -25,18 +24,17 @@ export class IniciarsesionPage {
 
   splash = true;
   loading: boolean = false;
-  spiner: any = null;
   userSelect: string = "";
   selectUserOptions = { title: '' };
   allUsersData: any;
   userData: Observable<any[]>;
   formGroup: FormGroup;
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private autenticationService: AuthenticationService,
               private messageHandler: MessageHandler,
-              private spinnerHandler: SpinnerHandler,
               private usuariosService: UsuariosService,
               public paramsService: ParamsService,
               public popoverCtrl:PopoverController,
@@ -62,8 +60,7 @@ export class IniciarsesionPage {
 
   singIn() {
     if (this.validForm()) {
-      this.spiner = this.spinnerHandler.getAllPageSpinner();
-      this.spiner.present();
+      this.mostrarSpinner = true;
       this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass)
         .then(response => {
           this.autenticationService.logInFromDataBase();
@@ -81,7 +78,8 @@ export class IniciarsesionPage {
           }
         })
         .catch(error => {
-          this.spiner.dismiss();
+          //this.spiner.dismiss();
+          this.mostrarSpinner = false;
           this.messageHandler.mostrarError(error, "Error al iniciar sesión");
         })
     }
@@ -90,7 +88,8 @@ export class IniciarsesionPage {
   onLogged(user:any){
     this.paramsService.user = user;
     this.paramsService.rol = user.rol;
-    this.spiner.dismiss();
+    //this.spiner.dismiss();
+    this.mostrarSpinner = false;
     this.paramsService.isLogged = true;
 
     this.autenticationService.logInFromDataBase();

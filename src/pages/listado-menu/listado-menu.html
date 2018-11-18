@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+        <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
     <ion-list *ngFor="let p of listado">
         <ion-item>
           <div (click)="irA('Editar',p)">

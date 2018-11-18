@@ -76,8 +76,6 @@ export class AltaMesaPage {
   scannedCode = null;
   ultimoId : number = 0;
 
-  elSpinner = null;
-
   numero = new FormControl('',[
     Validators.required,
   ]);
@@ -96,6 +94,8 @@ export class AltaMesaPage {
     comensales: this.comensales,
     tipoOpc: this.tipoOpc
   });
+  
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -104,8 +104,8 @@ export class AltaMesaPage {
               private database:DatabaseService,
               private camara:CameraService,
               private messageHandler:MessageHandler,
-              public params: ParamsService,
-              private spinner: SpinnerHandler) {
+              public params: ParamsService){
+              
     
     this.camara.fotoSubir = '';
     if(this.navParams.get('mesa') != undefined)//Implica que estoy editando
@@ -153,13 +153,14 @@ export class AltaMesaPage {
 
         this.database.jsonPackData = this.mesa;
         
-        this.elSpinner = this.spinner.getAllPageSpinner();
-        this.elSpinner.present();
+        //this.elSpinner = this.spinner.getAllPageSpinner();
+        //this.elSpinner.present();
+        this.mostrarSpinner = true;
 
         this.database.SubirDataBase(diccionario.apis.mesas).then(r => {
           //this.messageHandler.mostrarMensaje("Mesa creada con éxito");
           this.createdCode = this.qr.createCode('Mesa:'+this.mesa.id.toString());
-          this.elSpinner.dismiss();
+          this.mostrarSpinner = false;
           this.navCtrl.pop();
           });
         

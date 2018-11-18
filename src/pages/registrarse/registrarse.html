@@ -9,6 +9,7 @@
 </ion-header>
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div class="flex-v center-horizontal">
     <div class="">
       <form [formGroup]="formGroup">

@@ -12,7 +12,6 @@ import { UsuariosService } from './../../services/usuarios.service';
 import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {EncuestaEmpleadoPage} from "../encuesta-empleado/encuesta-empleado";
 import {DashboardPage} from "../dashboard/dashboard";
 import {PrincipalMozoPage} from "../principal-mozo/principal-mozo";
 
@@ -31,12 +30,12 @@ export class RegistrarsePage {
   isEmpleado: boolean = false;
   allUsersData: any;
   userData: Observable<any[]>;
-
+  mostrarSpinner:boolean = false;
+  
   constructor(public navCtrl: NavController,
               private navParams: NavParams,
               private autenticationService: AuthenticationService,
               private messageHandler: MessageHandler,
-              private spinnerHandler: SpinnerHandler,
               private barcodeScanner: BarcodeScanner,
               private usuarioService: UsuariosService,
               public paramsService: ParamsService,
@@ -105,8 +104,7 @@ export class RegistrarsePage {
     if (this.formGroup.controls.nombreValidator.value && this.user.foto) {
       if(this.formGroup.controls.nombreValidator.valid){
         this.user.nombre = this.formGroup.controls.nombreValidator.value;
-        let spiner = this.spinnerHandler.getAllPageSpinner();
-        spiner.present();
+        this.mostrarSpinner = true;
         this.autenticationService.registerAnonymous()
           .then(response => {
             let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto, true);
@@ -114,13 +112,13 @@ export class RegistrarsePage {
             this.paramsService.user = cliente;
             this.paramsService.rol = cliente.rol;
             this.paramsService.isLogged = true;
-            spiner.dismiss();
+            this.mostrarSpinner = false;
             this.messageHandler.mostrarMensaje("Bienvenido!!");
             this.navCtrl.setRoot(PrincipalClientePage)
           })
           .catch(error => {
             console.log(error);
-            spiner.dismiss();
+            this.mostrarSpinner = false;
             this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
           })
       }else{
@@ -184,8 +182,7 @@ export class RegistrarsePage {
   }
 
   private registrarYLoguear() {
-    let spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
       .then(response => {
         let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto, false);
@@ -195,9 +192,9 @@ export class RegistrarsePage {
         this.usuarioService.guardar(cliente)
           .then(response => {
             if (this.isEmpleado) {
-              this.reLoguearEmpleado(spinner);
+              this.reLoguearEmpleado();
             } else {
-              spinner.dismiss();
+              this.mostrarSpinner = false;
               this.messageHandler.mostrarMensaje("Cuenta creada con exito. Debe verificar su correo electrónico!");
               this.autenticationService.logOut();
               this.navCtrl.setRoot(IniciarsesionPage, {'fromApp': true})
@@ -206,24 +203,24 @@ export class RegistrarsePage {
           }, error => {
             this.autenticationService.deleteUserLogged()
               .then(response => {
-                spinner.dismiss();
+                this.mostrarSpinner = false;
                 this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
                 //CHEQUEAR ESTO CUANDO ES ALTA POR EMPLEADO
                 this.navCtrl.setRoot(IniciarsesionPage)
               }, error => {
                 console.log("no se puedo eliminar el usuario logueado");
-                spinner.dismiss();
+                this.mostrarSpinner = false;
                 this.messageHandler.mostrarErrorLiteral("Hubo un error en el registro");
               });
           });
       })
       .catch(error => {
-        spinner.dismiss();
+        this.mostrarSpinner = false;
         this.messageHandler.mostrarError(error, "Error al registrarse");
       })
   }
 
-  private reLoguearEmpleado(spinner) {
+  private reLoguearEmpleado() {
     this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass)
       .then(response => {
         this.autenticationService.logInFromDataBase();
@@ -234,22 +231,22 @@ export class RegistrarsePage {
           }
           this.userData = this.allUsersData.snapshotChanges();
           this.userData.subscribe(response => {
-            this.onLogged(response[0].payload.val(), spinner);
+            this.onLogged(response[0].payload.val());
           })
         } else {
-          this.onLogged({email: this.paramsService.email, rol: 'admin'}, spinner);
+          this.onLogged({email: this.paramsService.email, rol: 'admin'});
         }
       })
       .catch(error => {
-        spinner.dismiss();
+        this.mostrarSpinner = false;
         this.messageHandler.mostrarError(error, "Error al iniciar sesión");
       })
   }
 
-  onLogged(user: any, spinner) {
+  onLogged(user: any) {
     this.paramsService.user = user;
     this.paramsService.rol = user.rol;
-    spinner.dismiss();
+    this.mostrarSpinner = false;
     this.paramsService.isLogged = true;
     this.messageHandler.mostrarMensaje("Cliente agregado con exito. Debe verificar el correo electrónico!");
     switch (this.paramsService.rol) {

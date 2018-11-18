@@ -14,6 +14,8 @@
 
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
+    
   <div *ngIf='mostrar'>
     <h1>Pedido {{pedido.estado}}</h1>
   </div>
