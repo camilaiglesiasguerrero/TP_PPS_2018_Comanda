@@ -46,9 +46,11 @@ export class CuentaPage {
     this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
       .valueChanges()
       .subscribe(snapshots => {
+        
+        
         this.aux = snapshots;
         for (let i = 0; i < this.aux.length; i++) {
-          if(this.aux[i].estado == 'Descuento'){
+          if(this.aux[i].tipo == 'Descuento'){
             this.tieneDescuento = true;
           }else{
             this.detalleCuenta.push({ item:this.aux[i].nombre, cantidad:this.aux[i].cantidad, valor:this.aux[i].precio * this.aux[i].cantidad });
