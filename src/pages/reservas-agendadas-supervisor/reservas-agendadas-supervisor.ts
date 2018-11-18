@@ -3,11 +3,8 @@ import { NavController, NavParams} from 'ionic-angular';
 import { ParamsService } from '../../services/params.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from "../../services/database.service";
-import { SpinnerHandler } from "../../services/spinnerHandler.service";
-import { PrincipalClientePage } from "../principal-cliente/principal-cliente";
 import { diccionario } from "../../models/diccionario";
 import {ParserTypesService} from "../../services/parserTypesService";
-import {OcuparMesaPage} from "../ocupar-mesa/ocupar-mesa";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ReservarMesaPage} from "../reservar-mesa/reservar-mesa";
 
@@ -23,30 +20,29 @@ export class ReservasAgendadasSupervisorPage {
   reservas = [];
   options:any;
   mesa:any;
-  dic:any;
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public params: ParamsService,
               private messageHandler: MessageHandler,
               private database: DatabaseService,
-              private spinnerHandler: SpinnerHandler,
+              
               private parserTypesService: ParserTypesService,
               public barcodeScanner: BarcodeScanner,
   ) {
-    this.dic = diccionario;
+    
   }
 
   ionViewDidLoad(){
-    var spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.watchReservasList = this.database.db.list<any>(diccionario.apis.reservas_agendadas).valueChanges()
       .subscribe(snapshots => {
         this.reservasAgendadas = snapshots;
         this.reservasAgendadas = this.reservasAgendadas.filter(f => {
           return  this.parserTypesService.compararFechayHoraMayorAHoy(f.fecha)
         });
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       });
   }
 
@@ -62,8 +58,7 @@ export class ReservasAgendadasSupervisorPage {
         this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
       }, (err) => {
         //datos hardcodeados para testear
-          this.mesa = "Mesa:1";
-           this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
+          
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

@@ -9,7 +9,6 @@ import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import {diccionario} from "../../models/diccionario";
 import { CuentaPage } from '../cuenta/cuenta';
-import { ProductoPedido } from '../../models/productoPedido';
 
 
 @IonicPage()
@@ -32,13 +31,13 @@ export class EstadoPedidoPage {
   cerrar:boolean;
   subsReserva:any;
   subsPedido:any;
+  mostrarSpinner : boolean = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private database:DatabaseService,
               private messageHandler: MessageHandler,
               public viewCtrl: ViewController,
-              private spinnerHandler:SpinnerHandler,
               public params: ParamsService) {
     
     this.user = this.params.user;
@@ -57,8 +56,7 @@ export class EstadoPedidoPage {
     this.pedido = new Pedido();
     this.pedido.key = '-1';
     this.mostrar = false;
-    let spinner = spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
                                                                                                             
     this.subsReserva = this.database.db.list<any>(diccionario.apis.reservas,ref => ref.orderByChild('idMesa').equalTo(this.mesa))
     .valueChanges()
@@ -88,7 +86,7 @@ export class EstadoPedidoPage {
                         console.log(this.pedido);
                       }*/
                       this.mostrar = true;
-                      spinner.dismiss();    
+                      this.mostrarSpinner = false;
                       //console.log(this.pedido);                  
                       break;
                     }
@@ -109,11 +107,11 @@ export class EstadoPedidoPage {
         }
         //si no tengo pedido es porque la mesa está libre o deshabilitada o porque aun no hice pedido
         if(this.pedido.key == '-1' && this.params.rol == 'mozo' ){
-          spinner.dismiss();
+          this.mostrarSpinner = false;
           messageHandler.mostrarErrorLiteral(diccionario.errores.sin_pedido);
           this.hacerPedido = true;
           }else if(this.pedido.key == '-1' && this.params.rol == 'cliente'){
-            spinner.dismiss();
+            this.mostrarSpinner = false;
             messageHandler.mostrarErrorLiteral(diccionario.errores.sin_pedido);
             this.navCtrl.remove(1,1);
           }
@@ -142,8 +140,7 @@ export class EstadoPedidoPage {
   }
 
   cerrarMesa(){
-    let spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.subsPedido.unsubscribe();
     this.subsReserva.unsubscribe();
     //traigo y actualizo los datos de la mesa
@@ -164,7 +161,7 @@ export class EstadoPedidoPage {
             this.database.jsonPackData = auxReserva[0]; 
             this.database.SubirDataBase(diccionario.apis.reservas).then(e=>{
             
-            spinner.dismiss();
+              this.mostrarSpinner = false;
             this.navCtrl.remove(1,1);
         });
       });    

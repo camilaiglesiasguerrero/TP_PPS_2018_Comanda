@@ -24,14 +24,13 @@ export class EncuestaEmpleadoPage {
   alegria:number;
   elementos = {limpios:false, ordenados:false,estado:false,listos:false};
   txtLibre:string;
-
+  mostrarSpinner:boolean=false;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public paramsService: ParamsService,
               public camara:CameraService,
               public messageHandler:MessageHandler,
               public database:DatabaseService,
-              public spinnerH:SpinnerHandler,
               private params:ParamsService) {
 
     this.preguntas = new Array<any>();
@@ -62,8 +61,7 @@ export class EncuestaEmpleadoPage {
   }
 
   Confirmar(){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     //if(this.camara.fotoSubir != ''){
 
       let paraSubir = {
@@ -82,7 +80,7 @@ export class EncuestaEmpleadoPage {
 
       this.database.jsonPackData = paraSubir;
       this.database.SubirDataBase(diccionario.apis.encuesta_empleado).then(e =>{
-        spinner.dismiss();
+        this.mostrarSpinner = false;
         this.irA();
       });
 

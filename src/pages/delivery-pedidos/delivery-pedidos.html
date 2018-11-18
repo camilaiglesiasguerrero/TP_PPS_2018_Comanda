@@ -7,6 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div *ngIf="!mostrarDelivery">
     <div *ngFor="let pedido of pedidosFinalizados; let i = index">
       <ion-list >

@@ -11,13 +11,9 @@ import { IniciarsesionPage } from './../pages/iniciarsesion/iniciarsesion';
 import { RegistrarsePage } from './../pages/registrarse/registrarse';
 import { AltaPedidoPage } from './../pages/alta-pedido/alta-pedido';
 import { MesasPage } from '../pages/mesas/mesas';
-import { BebidasPage } from '../pages/bebidas/bebidas';
-import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { EncuestaClientePage } from "../pages/encuesta-cliente/encuesta-cliente";
 import { DueñosPage } from '../pages/dueños/dueños';
-import { ProfilePage } from '../pages/profile/profile';
-import { PropinaPage } from '../pages/propina/propina';
 import { PrincipalClientePage } from '../pages/principal-cliente/principal-cliente';
 import {ReservasAgendadasPage} from "../pages/reservas-agendadas/reservas-agendadas";
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
@@ -25,6 +21,7 @@ import {DashboardPage} from "../pages/dashboard/dashboard";
 import {PrincipalMozoPage} from "../pages/principal-mozo/principal-mozo";
 import {DeliveryPedidosPage} from "../pages/delivery-pedidos/delivery-pedidos";
 import {EncuestaClienteResultadosPage} from "../pages/encuesta-cliente-resultados/encuesta-cliente-resultados";
+import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 
 
 @Component({
@@ -82,10 +79,10 @@ export class MyApp {
       { title: 'Mesas', component: MesasPage }
     ];
     this.bartenerPages = [
-      { title: 'Bebidas', component: BebidasPage }
+      { title: 'Inicio', component: ListadoPedidosPage }
     ];
     this.cocineroPages = [
-      { title: 'Comidas', component: ComidasPage },
+      { title: 'Inicio', component: ListadoPedidosPage },
     ];
     this.commonPages = [
       { title: 'Cerrar Sesión', component:IniciarsesionPage }

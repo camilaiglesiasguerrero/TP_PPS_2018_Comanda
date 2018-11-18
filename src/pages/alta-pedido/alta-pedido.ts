@@ -56,12 +56,13 @@ export class AltaPedidoPage {
   estadoPedido:string = "";
   tieneBebidas:boolean = false;
   tieneComidas:boolean = false;
+  
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private database: DatabaseService,
               private messageHandler:MessageHandler,
-              private spinnerH:SpinnerHandler,
               private params:ParamsService,
               private barcodeScanner:BarcodeScanner,
               private parse: ParserTypesService,
@@ -96,14 +97,15 @@ export class AltaPedidoPage {
     this.productoPedido = new Array<ProductoPedido>();
     this.listadoAPedir = new Array<any>();
     // this.isDelivery ? this.getDelivery() : this.getReservas();
-    var spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    
+    this.mostrarSpinner = true;
+
     this.getPlatos();
     this.getBebidas();
     this.arrayPromesas.push(this.promesaBebidas);
     this.arrayPromesas.push(this.promesaPlatos);
     Observable.forkJoin(this.arrayPromesas).subscribe(() => {
-      this.isDelivery ? this.getDelivery(spinner) : this.getReservas(spinner);
+      this.isDelivery ? this.getDelivery() : this.getReservas();
     });
     // this.arrayPromesas.subscribe(response =>{
     //
@@ -303,7 +305,7 @@ export class AltaPedidoPage {
     this.mostrarParcial = false;
   }
 
-  private getReservas(spinner){
+  private getReservas(){
     this.watcherReservas = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.reserva.idMesa))
       .valueChanges()
       .subscribe(snapshots => {
@@ -314,19 +316,19 @@ export class AltaPedidoPage {
         if(reservas.length == 0){
           this.messageHandler.mostrarErrorLiteral("Esta mesa no está ocupada.");
           this.watcherReservas.unsubscribe();
-          spinner.dismiss();
+          this.mostrarSpinner = false;
           this.navCtrl.remove(1,1);
         }
        
         if(this.params.rol == 'cliente' && this.reserva.cliente != this.params.user.uid){
           this.messageHandler.mostrarErrorLiteral("Esta no es tu mesa asignada.");
           this.watcherReservas.unsubscribe();
-          spinner.dismiss();
+          this.mostrarSpinner = false;
           this.navCtrl.remove(1,1);
         }else if(this.reserva.idPedido != undefined){
           this.messageHandler.mostrarErrorLiteral('Ya hay un pedido hecho para esta mesa.');
           this.watcherReservas.unsubscribe();
-          spinner.dismiss();
+          this.mostrarSpinner = false;
           this.navCtrl.remove(1,1);
         }
 
@@ -339,7 +341,7 @@ export class AltaPedidoPage {
           this.reserva.fecha = reservas[0].fecha;
         }
         
-        spinner.dismiss();
+        this.mostrarSpinner = false;
         this.display = true;
       });
   }
@@ -370,7 +372,7 @@ export class AltaPedidoPage {
     });
   }
 
-  private getDelivery(spinner){
+  private getDelivery(){
     this.watcherDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid)).valueChanges()
       .subscribe(snapshots =>{
         var deliverys:any = snapshots;
@@ -391,17 +393,17 @@ export class AltaPedidoPage {
             this.delivery.tiempoDemoraMinutos = deliverys[i].tiempoDemoraMinutos;
             this.tiempoEntrega.hora = this.delivery.tiempoDemoraHora;
             this.tiempoEntrega.minutos = this.delivery.tiempoDemoraMinutos;
-            this.getPedidoDelivery(spinner);
+            this.getPedidoDelivery();
           }
         }
         if(!this.pedidoYaHecho){
-          spinner.dismiss();
+          this.mostrarSpinner = false;
           this.display = true;
         }
       })
   }
 
-  private getPedidoDelivery(spinner){
+  private getPedidoDelivery(){
     //TODO: FALTA TIEMPO DE DEMORA!!!!!
     this.watcherDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.delivery.idPedido)).valueChanges()
       .subscribe(snapshots => {
@@ -435,15 +437,14 @@ export class AltaPedidoPage {
         }
         this.total = total.toString();
         this.display = true;
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       })
 
   }
 
   private guardarReserva(){
     this.watcherReservas.unsubscribe();
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
 
     if(this.armarPedidoProducto()){
       let pedidoASubir : Pedido = new Pedido();
@@ -490,7 +491,7 @@ export class AltaPedidoPage {
               }
 
               if(i==this.productoPedido.length-1){
-                spinner.dismiss();
+                this.mostrarSpinner = false;
                 this.messageHandler.mostrarMensaje('El pedido fue encargado');
 
                 //mando push notification
@@ -521,8 +522,7 @@ export class AltaPedidoPage {
   private guardarDelivery(){
     if(this.direccion.value){
       if(this.listadoAPedir.length){
-        let spinner = this.spinnerH.getAllPageSpinner();
-        spinner.present();
+        this.mostrarSpinner = true;
         if(this.armarPedidoProducto()){
           let pedidoASubir : Pedido = new Pedido();
           pedidoASubir.isDelivery = true;
@@ -573,7 +573,7 @@ export class AltaPedidoPage {
                     this.restarProducto(this.listadoAPedir[p]);
                   }
                   if(i==this.productoPedido.length-1){
-                    spinner.dismiss();
+                    this.mostrarSpinner = false;
                     this.messageHandler.mostrarMensaje('El pedido fue encargado');
                     if(this.params.user.rol == 'cliente')
                       this.navCtrl.setRoot(PrincipalClientePage);

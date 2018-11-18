@@ -19,7 +19,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding >
+<ion-content padding>
+  <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <form [formGroup]="formGroup">
     <ion-row>
       <ion-col>

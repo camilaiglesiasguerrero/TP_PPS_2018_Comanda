@@ -9,6 +9,7 @@
 
 
 <ion-content padding>
+  <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <page-encuesta-cliente-resultados [from-dashboard]="true"></page-encuesta-cliente-resultados>
   <page-encuesta-empleado-resultados [from-dashboard]="true"></page-encuesta-empleado-resultados>
 

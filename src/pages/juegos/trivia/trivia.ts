@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import { Anagrama } from '../../../models/Juegos/anagrama';
-import {TimerObservable} from "rxjs/observable/TimerObservable";
 import { MessageHandler } from '../../../services/messageHandler.service';
 import { DatabaseService } from '../../../services/database.service';
 import { Juego } from '../../../models/Juegos/juego';
 import { ParamsService } from '../../../services/params.service';
 import {Trivia} from "../../../models/Juegos/trivia";
-import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 import {PrincipalClientePage} from "../../principal-cliente/principal-cliente";
 import * as _ from 'lodash';
 import {diccionario} from "../../../models/diccionario";
@@ -42,11 +39,11 @@ export class TriviaPage {
   subsPedido : any;
   pedido:any;
   watchJuegos:any;
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
-              public spinnerH: SpinnerHandler,
               public database:DatabaseService,
               public params: ParamsService,
               private alertCtrl: AlertController,
@@ -56,8 +53,7 @@ export class TriviaPage {
     this.empiezaElJuego = false;
     this.usuario = this.params.user;
     this.pedido = this.navParams.get('pedido');
-    let spinner = spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.watchJuegos = this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -67,13 +63,13 @@ export class TriviaPage {
             if(this.empiezaElJuego){
             }else{
               messageH.mostrarErrorLiteral('Ya jugaste Trivia hoy');
-              spinner.dismiss();
+              this.mostrarSpinner = false;
               navCtrl.remove(1,1);
               return;
             }
           }
         }
-        spinner.dismiss();
+        this.mostrarSpinner = false;
         this.display = true;
       });
     this.cronometro = '00:10.';
@@ -159,11 +155,10 @@ export class TriviaPage {
   }
 
   private perdiste(correcta){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-      spinner.dismiss();
+      this.mostrarSpinner = false;
       let alert = this.alertCtrl.create({
         title: 'Perdiste...',
         subTitle: "La respuesta correcta era: " + correcta,
@@ -181,8 +176,7 @@ export class TriviaPage {
   }
 
   private ganaste(){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.jsonPackData = new Juego(diccionario.juegos.trivia,this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
@@ -200,7 +194,7 @@ export class TriviaPage {
           //guardo el producto
           this.database.jsonPackData = productoGanado;
           this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
-            spinner.dismiss();
+            this.mostrarSpinner = false;
             let alert = this.alertCtrl.create({
               title: 'Ganaste!!',
               subTitle: "Tenés un postre Tiramisú gratis",
@@ -222,8 +216,7 @@ export class TriviaPage {
   }
 
   private sinTiempo(){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.jsonPackData = new Juego(diccionario.juegos.trivia, this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       let alert = this.alertCtrl.create({
@@ -233,7 +226,7 @@ export class TriviaPage {
           {
             text: 'Intenta otro día...',
             handler: data => {
-              spinner.dismiss();
+              this.mostrarSpinner = false;
               this.navCtrl.setRoot(PrincipalClientePage);
             }
           }

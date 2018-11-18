@@ -35,13 +35,14 @@ export class AltaEmpleadoPage {
   tipoAlta:string;
   userMod:Usuario;
   key:string;
+  mostrarSpinner:boolean = false;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private autenticationService: AuthenticationService,
     private messageHandler: MessageHandler,
-    private spinnerHandler: SpinnerHandler,
+    //private spinnerHandler: SpinnerHandler,
     private barcodeScanner: BarcodeScanner,
     private usuarioService: UsuariosService,
     public paramsService: ParamsService,
@@ -121,15 +122,17 @@ export class AltaEmpleadoPage {
   }
 
   private crearUsuario() {
-    let spiner = this.spinnerHandler.getAllPageSpinner();
-    spiner.present();
+    //let spiner = this.spinnerHandler.getAllPageSpinner();
+    //spiner.present();
+    this.mostrarSpinner = true;
     this.autenticationService.registerUserAndLogin(this.user.email, this.user.pass)
         .then(response => {
             let usuario = new Usuario(this.user.nombre,this.user.apellido,this.user.dni,this.user.cuil,this.user.foto,this.user.email,this.user.rol);
             usuario.uid = this.autenticationService.getUID();
             this.usuarioService.guardar(usuario)
                 .then(response => {
-                    spiner.dismiss();
+                    //spiner.dismiss();
+                    this.mostrarSpinner = false;
                     this.messageHandler.mostrarMensaje("Carga Exitosa!!");
                     this.autenticationService.singIn(this.paramsService.email, this.paramsService.password);
                     if(this.tipoAlta==='dueño'){
@@ -141,18 +144,21 @@ export class AltaEmpleadoPage {
                 }, error => {
                     this.autenticationService.deleteUserLogged()
                         .then(response => {
-                            spiner.dismiss();
+                            //spiner.dismiss();
+                            this.mostrarSpinner = false;
                             this.messageHandler.mostrarErrorLiteral("Ocurrió un error al registrarse");
                             this.paramsService.isLogged = true;
                         }, error => {
                             console.log("no se puedo eliminar el usuario logueado");
-                            spiner.dismiss();
+                            //spiner.dismiss();
+                            this.mostrarSpinner = false;
                             this.messageHandler.mostrarErrorLiteral("Hubo un error en el registro");
                         });
                 });
         })
         .catch(error => {
-            spiner.dismiss();
+            //spiner.dismiss();
+            this.mostrarSpinner = false;
             this.messageHandler.mostrarError(error, "Error al registrarse");
         })
       }

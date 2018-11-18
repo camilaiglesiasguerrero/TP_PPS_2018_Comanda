@@ -8,6 +8,8 @@
 </ion-header>
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
+    
   <ion-fab center bottom *ngIf='puedeJugar'>
     <button ion-fab color="danger"><ion-icon name="game-controller-b"></ion-icon></button>
     <ion-fab-list side="top">
