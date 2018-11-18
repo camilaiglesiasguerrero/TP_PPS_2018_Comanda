@@ -33,7 +33,6 @@
   </ion-row>
 
   <ion-row *ngIf='puedeVerPedido'>
-
     <ion-col text-center>
       <button ion-button round color="light" (click)="escanearQR('verPedido')">
         <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
@@ -61,4 +60,23 @@
     </ion-col>
   </ion-row>
 
+  <ion-row *ngIf='esperandoAsignacion'>
+    <p> Enseguida se te asignará una mesa </p>
+      <div class="dots">
+        <div class="bounce1"><img src="../../assets/imgs/logoFondo (sin nombre).png" alt=""></div>
+        <div class="bounce2"><img src="../../assets/imgs/logoFondo (sin nombre).png" alt=""></div>
+        <div class="bounce3"><img src="../../assets/imgs/logoFondo (sin nombre).png" alt=""></div>
+      </div>
+    
+    <!--<div class="lds-css ng-scope">
+      <div style="width:50%;height:50%" class="lds-magnify">
+        <div>
+          <div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+  </ion-row>
 </ion-content>

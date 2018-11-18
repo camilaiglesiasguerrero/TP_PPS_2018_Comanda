@@ -32,6 +32,7 @@ export class PrincipalClientePage {
   puedeVerPedido = false;
   puedePedirDelivery = true;
   puedeSolicitarMesa = true;
+  esperandoAsignacion = false;
   auxPedido:any;
 
   mostrarSpinner:boolean = false;
@@ -48,6 +49,31 @@ export class PrincipalClientePage {
               private notificationPushService: NotificationsPushService) {
     this.user = this.params.user;
 
+    
+    this.database.db.list<any>(diccionario.apis.lista_espera, ref => ref.orderByChild('clienteId').equalTo(this.params.user.uid))
+    .valueChanges()
+    .subscribe(snapshots => {
+      let auxListaEspera = snapshots;
+      auxListaEspera = auxListaEspera.filter(le => le['estado'] == diccionario.estados_reservas_agendadas.sin_mesa)
+
+      if(auxListaEspera.length == 1){
+        this.puedePedirDelivery = false;
+        this.puedeSolicitarMesa = false;
+        this.puedeJugar = false;
+        this.puedeVerPedido = false;
+        this.puedeHacerPedido = false;
+        this.esperandoAsignacion = true;
+      }else if(auxListaEspera.length == 0){
+        this.puedePedirDelivery = true;
+        this.puedeSolicitarMesa = true;
+        this.puedeJugar = false;
+        this.puedeVerPedido = false;
+        this.puedeHacerPedido = false;
+        this.esperandoAsignacion = false;
+      }
+    });
+    
+    
     this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
       .valueChanges()
       .subscribe(snapshots => {
@@ -63,7 +89,9 @@ export class PrincipalClientePage {
               this.puedeHacerPedido = false;
               this.puedePedirDelivery = false;
               this.puedeSolicitarMesa = false;
+              this.esperandoAsignacion = false;
               flag = true;
+              break;
             }
 
             if(!flag && index == auxReserva.length-1){
@@ -72,28 +100,8 @@ export class PrincipalClientePage {
               this.puedeHacerPedido = true;
               this.puedePedirDelivery = false;
               this.puedeSolicitarMesa = false;
+              this.esperandoAsignacion = false;
             }
-          }else{
-            this.database.db.list<any>(diccionario.apis.lista_espera, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
-              .valueChanges()
-              .subscribe(snapshots => {
-                let auxListaEspera = snapshots;
-                auxListaEspera = auxListaEspera.filter(le => le['estado'] == diccionario.estados_reservas_agendadas.sin_mesa)
-                if(auxListaEspera.length == 1){
-                  this.puedePedirDelivery = false;
-                  this.puedeSolicitarMesa = false;
-                  this.puedeJugar = true;
-                  this.puedeVerPedido = false;
-                  this.puedeHacerPedido = false;
-                }else if(auxListaEspera.length == 0){
-                  this.puedePedirDelivery = true;
-                  this.puedeSolicitarMesa = true;
-                  this.puedeJugar = false;
-                  this.puedeVerPedido = false;
-                  this.puedeHacerPedido = false;
-                }
-              });
-          }
         }
         //Verifico estado del pedido
         if(this.auxPedido != undefined){
@@ -111,10 +119,11 @@ export class PrincipalClientePage {
                 this.puedeSolicitarMesa = false;
               }
             });
+          }
         }
       });
   }
-
+              
   ionViewDidLoad() {
     //console.log('ionViewDidLoad PrincipalClientePage');
   }
