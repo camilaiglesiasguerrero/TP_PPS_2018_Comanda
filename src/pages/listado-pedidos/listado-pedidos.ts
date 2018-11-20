@@ -5,7 +5,6 @@ import { ListadoMenuPage } from '../listado-menu/listado-menu';
 import { ParamsService } from '../../services/params.service';
 import {diccionario} from "../../models/diccionario";
 import { DatabaseService } from '../../services/database.service';
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { NotificationsPushService } from '../../services/notificationsPush.service';
 import * as _ from 'lodash';
@@ -35,37 +34,38 @@ export class ListadoPedidosPage {
   esCocineroBartender:boolean;
   watchProductos:any;
 
+  mostrarSpinner:boolean = false;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              //public db:AngularFireDatabase,
               public params:ParamsService,
               private database:DatabaseService,
-              private spinnerH:SpinnerHandler,
               public messageHandler:MessageHandler,
               private notificationPushService: NotificationsPushService) {
     this.dic = diccionario;
     this.pedidosMozo = new Array<any>();
     this.productos = new Array<any>();
     this.pedidosList = new Array<any>();
-    let spinner = spinnerH.getAllPageSpinner();
-    spinner.present();
+    
+    this.mostrarSpinner = true;
+
     switch(this.params.rol){
       case 'bartender':
         this.esCocineroBartender = true;
         this.tipo = 'Bebida';
         this.esMozo = false;
-        this.getProductos(spinner);
+        this.getProductos();
         break;
       case 'cocinero':
         this.esCocineroBartender = true;
         this.tipo = 'Comida';
         this.esMozo = false;
-        this.getProductos(spinner);
+        this.getProductos();
         break;
       case 'mozo':
         this.esCocineroBartender = false;
         this.esMozo = true;
-        this.getPedidoMozo(spinner);
+        this.getPedidoMozo();
         break;
     }
   }
@@ -98,7 +98,7 @@ export class ListadoPedidosPage {
    * Levanta los productos para cocinero o bartender.
    * Chequea y si están todos los productos listos marca el pedido completo como Listo
    */
-  getProductos(spinner){
+  getProductos(){
     this.watchProductos = this.subsProducto = this.database.db.list<any>(this.dic.apis.pedidos,ref => ref.orderByChild('estado').equalTo(this.dic.estados_pedidos.en_preparacion))
       .valueChanges()
       .subscribe(snapshots => {
@@ -112,14 +112,14 @@ export class ListadoPedidosPage {
             this.productos.push(aux);
           }
           this.chequearEstadoDeProductos();
-          spinner.dismiss();
+          this.mostrarSpinner = false;
 
         }
         if(this.pedidosList.length == 0){
           if(this.esCocineroBartender){
             this.messageHandler.mostrarMensaje('No hay pedidos pendientes');
           }
-          spinner.dismiss();
+          this.mostrarSpinner = false;
         }
       });
   }
@@ -127,7 +127,7 @@ export class ListadoPedidosPage {
   /**
    * Levanta el listado de pedidos listos para el mozo
    */
-  getPedidoMozo(spinner){
+  getPedidoMozo(){
     this.subsPedido = this.database.db.list<any>(this.dic.apis.pedidos)
       .valueChanges()
       .subscribe(snapshots => {
@@ -151,11 +151,11 @@ export class ListadoPedidosPage {
             }
 
             if(this.pedidosMozo.length == 0 || this.pedidosList.length == 0){
-              spinner.dismiss();
+              this.mostrarSpinner = false;
               this.messageHandler.mostrarMensaje("No hay pedidos pendientes");
               this.navCtrl.remove(1,1);
             }else{
-              spinner.dismiss();
+              this.mostrarSpinner = false;
             }
 
           });
@@ -192,8 +192,7 @@ export class ListadoPedidosPage {
 
   /**Cambia el estado del pedido a Entregado/Cerrado */
   AprobarEntregar(p){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     let auxPedido;
     this.subsUnPedido = this.database.db.list<any>(this.dic.apis.pedidos, ref => ref.orderByChild('key').equalTo(p.pedido))
       .valueChanges()
@@ -206,14 +205,13 @@ export class ListadoPedidosPage {
 
         this.database.jsonPackData = auxPedido[0];
         this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
-          spinner.dismiss();
+          this.mostrarSpinner = false;
         });
       });
   }
 
   cerrarMesa(p){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     //traigo y actualizo los datos de la mesa
     this.subsMesa = this.database.db.list<any>(this.dic.apis.mesas, ref => ref.orderByChild('id').equalTo(p.idMesa))
       .valueChanges()
@@ -231,7 +229,7 @@ export class ListadoPedidosPage {
               auxReserva[0]['estado'] = this.dic.estados_reservas.finalizada;
               this.database.jsonPackData = auxReserva[0];
               this.database.SubirDataBase(this.dic.apis.reservas).then(e=>{
-                spinner.dismiss();
+                this.mostrarSpinner = false;
               });
             });
         });
@@ -250,8 +248,7 @@ export class ListadoPedidosPage {
   }
 
   private actualizarPedido(pedidoId){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     var pedidoAActualizar = _.find(this.pedidosList, pedido =>{
       if(pedido.key == pedidoId && pedido.estado == diccionario.estados_pedidos.en_preparacion){
         return pedido;
@@ -262,7 +259,7 @@ export class ListadoPedidosPage {
       this.database.jsonPackData = pedidoAActualizar;
       this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
             this.notificationPushService.notificarMozoPedidoOk();
-            spinner.dismiss();
+            this.mostrarSpinner = false;
           });
     }
   }

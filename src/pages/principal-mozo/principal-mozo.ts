@@ -6,9 +6,6 @@ import { OcuparMesaPage } from '../ocupar-mesa/ocupar-mesa';
 import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
-import { diccionario } from "../../models/diccionario";
-import { SpinnerHandler } from "../../services/spinnerHandler.service";
-import { ParserTypesService } from "../../services/parserTypesService";
 import { ListadoPedidosPage } from '../listado-pedidos/listado-pedidos';
 
 

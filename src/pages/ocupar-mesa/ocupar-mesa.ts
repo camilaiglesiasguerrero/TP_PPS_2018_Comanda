@@ -5,7 +5,6 @@ import { Mesa } from '../../models/mesa';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { ParamsService } from '../../services/params.service';
 import { Reserva } from '../../models/reserva';
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
 import {diccionario} from "../../models/diccionario";
 import { ParserTypesService } from '../../services/parserTypesService';
 
@@ -24,21 +23,21 @@ export class OcuparMesaPage {
   display : boolean;
   mostrar:boolean=false;
   cliente:any;
+  
+  mostrarSpinner:boolean=false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public database:DatabaseService,
               public messageHandler:MessageHandler,
               public params: ParamsService,
-              private spinnerHandler: SpinnerHandler,
               private parserTypesService: ParserTypesService) {
     
-    let spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     
     if(!this.navParams.get('mesa').includes('Mesa') || this.navParams.get('mesa').split(':')[1] == undefined ){
       this.messageHandler.mostrarErrorLiteral(diccionario.errores.QR_invalido);
-      spinner.dismiss();
+      this.mostrarSpinner = false;
       this.navCtrl.remove(1,1);
     }
     else{
@@ -63,7 +62,7 @@ export class OcuparMesaPage {
               this.mostrar = true;
         }      
       }
-      spinner.dismiss();
+      this.mostrarSpinner = false;
       if(this.mesa.estado != 'Libre'){
         this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
         this.Cancelar();
@@ -82,8 +81,7 @@ export class OcuparMesaPage {
 
   Confirmar(){
     this.suscripcion.unsubscribe();
-    let spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     //Genero pedido pendiente para la mesa-cliente
     let reserva = new Reserva();
     reserva.key = this.database.ObtenerKey(diccionario.apis.reservas);
@@ -117,7 +115,7 @@ export class OcuparMesaPage {
         };
         this.database.jsonPackData = le;
         this.database.SubirDataBase(diccionario.apis.lista_espera).then(le=>{
-          spinner.dismiss();
+          this.mostrarSpinner = false;
           this.messageHandler.mostrarMensaje('Mesa asignada');
           this.navCtrl.remove(1,1);
         });

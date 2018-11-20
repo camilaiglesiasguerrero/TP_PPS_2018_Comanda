@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div *ngFor="let p of preguntas">
     <ion-row >
       <ion-col class="pregunta-titulo">

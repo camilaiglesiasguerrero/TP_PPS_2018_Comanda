@@ -27,16 +27,15 @@ export class ListadoEsperaPage {
   comensalesMax:number;
   clientesEspera:Array<any>;
   noHayMesasLibres:boolean;
-  
+  mostrarSpinner:boolean = false;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public database:DatabaseService,
-              private spinnerH: SpinnerHandler,
               private parserTypesService: ParserTypesService,
               private barcodeScanner: BarcodeScanner,
               private messageHandler:MessageHandler) {
     
-    
+    this.mostrarSpinner = true;
     this.database.db.list<any>(diccionario.apis.mesas).valueChanges()
       .subscribe(snp => {
         let aux:Array<any>;
@@ -60,7 +59,7 @@ export class ListadoEsperaPage {
               return f.estado == diccionario.estados_reservas_agendadas.sin_mesa && this.parserTypesService.compararFechayHoraMayorAHoy(f.fecha)
             });
             this.clientesEspera.sort((a,b) => a.fecha.localeCompare(b.fecha));
-    
+            this.mostrarSpinner = false;
           });
       });
   }
@@ -77,8 +76,6 @@ export class ListadoEsperaPage {
         this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
       }, (err) => {
         //console.log('Error: ', err);
-        this.mesa = 'Mesa:2';
-        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

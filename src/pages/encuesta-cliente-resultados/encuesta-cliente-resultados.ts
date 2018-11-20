@@ -1,10 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MessageHandler } from './../../services/messageHandler.service';
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
-import { ParamsService } from '../../services/params.service';
-import { EncuestaClienteService } from '../../services/encuestasCliente.service';
-import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import {DatabaseService} from "../../services/database.service";
 import {diccionario} from "../../models/diccionario";
 
@@ -179,8 +174,9 @@ export class EncuestaClienteResultadosPage implements OnInit{
   countRecomendarSi:number;
   countRecomendarNo:number;
 
+  mostrarSpinner:boolean = false;
+
   constructor(public navParams: NavParams,
-              private spinnerHandler: SpinnerHandler,
               public database:DatabaseService,) {
   }
 
@@ -190,8 +186,7 @@ export class EncuestaClienteResultadosPage implements OnInit{
 
   obtenerResultados(){
     this.initLabels();
-    let spinner = this.spinnerHandler.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.db.list<any>(diccionario.apis.encuesta_cliente).valueChanges()
       .subscribe(snapshots => {
         this.display = false;
@@ -223,7 +218,7 @@ export class EncuestaClienteResultadosPage implements OnInit{
         this.setVelocidad();
         this.setRecomendar();
         this.display = true;
-        spinner.dismiss();
+        this.mostrarSpinner = false;
       });
   }
 

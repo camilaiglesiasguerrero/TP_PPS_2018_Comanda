@@ -14,8 +14,10 @@
 -->
 
 
+
     <ion-card>
     <ion-card-header><b>Clientes en lista de espera</b></ion-card-header>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
       <ion-row *ngFor="let c of clientesEspera">
         <ion-col>{{c.nombre}} <br> ({{c.comensales}} comensales)</ion-col>
         <ion-col *ngIf="c.comensales <= comensalesMax"  text-center>

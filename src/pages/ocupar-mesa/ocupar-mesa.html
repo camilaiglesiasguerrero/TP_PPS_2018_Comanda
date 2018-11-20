@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
     <ion-card *ngIf="mostrar" style="text-align: center">
       <ion-card-content>
         Se asignará la mesa {{mesa.id}} ({{mesa.tipo}} - {{mesa.comensales}} comensales) a nombre de {{cliente.nombre}} para {{cliente.comensales}} comensales.

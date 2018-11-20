@@ -3,7 +3,6 @@ import { NavController, NavParams} from 'ionic-angular';
 import { ParamsService } from '../../services/params.service';
 import { MessageHandler } from '../../services/messageHandler.service';
 import { DatabaseService } from "../../services/database.service";
-import { SpinnerHandler } from "../../services/spinnerHandler.service";
 import { PrincipalClientePage } from "../principal-cliente/principal-cliente";
 import { diccionario } from "../../models/diccionario";
 import {ParserTypesService} from "../../services/parserTypesService";
@@ -27,12 +26,13 @@ export class ReservasAgendadasPage {
   minTime:string;
   maxTime:string;
 
+  mostrarSpinner :boolean= false;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public params: ParamsService,
               private messageHandler: MessageHandler,
               private database: DatabaseService,
-              private spinnerHandler: SpinnerHandler,
               private parserTypesService: ParserTypesService,
               private notificationPushService: NotificationsPushService
   ) {
@@ -49,15 +49,14 @@ export class ReservasAgendadasPage {
     var dateaux = new Date(concatFecha);
     var fechaReserva = this.parserTypesService.parseDateTimeToStringDateTime(dateaux);
     if(this.parserTypesService.compararFechayHoraMayorAHoy(fechaReserva)){
-      let elSpinner = this.spinnerHandler.getAllPageSpinner();
-      elSpinner.present();
+      this.mostrarSpinner = true;
       var reservaAgendada = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fechaReserva,
         clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
       this.database.jsonPackData = reservaAgendada;
       this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.reservas_agendadas);
       this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
         this.messageHandler.mostrarMensaje("Su reserva ha sido agendada");
-        elSpinner.dismiss();
+        this.mostrarSpinner = false;
         this.notificationPushService.altaReservaAgendada(this.params.user.nombre);
         //TODO: ENVIAR NOTIFICACION PUSH A SUPERVISORES DE QUE HAY UN CLIENTE CON RESERVA
         this.navCtrl.setRoot(PrincipalClientePage);

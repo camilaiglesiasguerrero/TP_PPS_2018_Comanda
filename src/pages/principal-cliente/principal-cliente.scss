@@ -4,4 +4,129 @@ page-principal-cliente {
         background-color: $first-detail-color;
      }
 
-}
+    @keyframes lds-magnify {
+        0% {
+          -webkit-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+        }
+        33.33% {
+          -webkit-transform: translate(102px, 2px);
+          transform: translate(102px, 2px);
+        }
+        66.66% {
+          -webkit-transform: translate(42px, 102px);
+          transform: translate(42px, 102px);
+        }
+        100% {
+          -webkit-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+        }
+      }
+      @-webkit-keyframes lds-magnify {
+        0% {
+          -webkit-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+        }
+        33.33% {
+          -webkit-transform: translate(102px, 2px);
+          transform: translate(102px, 2px);
+        }
+        66.66% {
+          -webkit-transform: translate(42px, 102px);
+          transform: translate(42px, 102px);
+        }
+        100% {
+          -webkit-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+        }
+      }
+
+      .lds-magnify {
+        position: relative;
+      }
+      .lds-magnify > div {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        -webkit-transform-origin: 100px 100px;
+        transform-origin: 100px 100px;
+      }
+      .lds-magnify > div > div {
+        -webkit-animation: lds-magnify 1s linear infinite;
+        animation: lds-magnify 1s linear infinite;
+        position: absolute;
+      }
+      .lds-magnify > div > div div:nth-child(1) {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 12px solid #000000;
+        background: #85a2b6;
+      }
+      .lds-magnify > div > div div:nth-child(2) {
+        width: 17px;
+        height: 51px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        background: #000000;
+        border-radius: 0 0 8px 8px;
+        position: absolute;
+        top: 68px;
+        left: 85px;
+      }
+      .lds-magnify {
+        width: 200px !important;
+        height: 200px !important;
+        position: relative;
+        -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+        transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+      }
+      
+      .dots {
+        margin: 100px auto 0;
+        width: 70px;
+        text-align: center;
+      }
+      
+      .dots > div {
+        width: 20px;
+        height: 20x;
+        //background-color: #333;
+      
+        border-radius: 100%;
+        display: inline-block;
+        -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+      }
+      
+      .dots .bounce1 {
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+      
+      .dots .bounce2 {
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+      
+      @-webkit-keyframes sk-bouncedelay {
+        0%, 80%, 100% { -webkit-transform: scale(0) }
+        40% { -webkit-transform: scale(1.0) }
+      }
+      
+      @keyframes sk-bouncedelay {
+        0%, 80%, 100% { 
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        } 40% { 
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+        }
+      }
+
+      p{
+          font-size: 2em;
+          text-align: center;
+          color:beige;
+      }
+
+    }

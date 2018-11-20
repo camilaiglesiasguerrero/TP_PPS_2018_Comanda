@@ -7,6 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div *ngFor="let reserva of reservasAgendadas">
     <ion-list >
       <ion-item style="margin-bottom: 1em;">

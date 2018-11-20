@@ -6,6 +6,7 @@
 
 </ion-header>
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div *ngIf="display">
     <ion-row *ngIf="!empiezaElJuego" style="margin-top: 5em;">
       <ion-col>

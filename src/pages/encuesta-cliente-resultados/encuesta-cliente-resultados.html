@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div *ngIf="encuestas.length == 0">
     <ion-item>
       <p class="sin-resultados">No hay encuestas respondidas</p>

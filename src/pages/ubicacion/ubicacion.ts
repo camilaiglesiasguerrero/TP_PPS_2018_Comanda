@@ -42,7 +42,6 @@ export class UbicacionPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private messageHandler:MessageHandler,
-              private spinnerH:SpinnerHandler,
               private params:ParamsService,
               public geolocation: Geolocation,
               private geocodingProvider: GeocodingProvider,

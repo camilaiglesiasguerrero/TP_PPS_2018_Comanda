@@ -8,6 +8,7 @@
 
 
   <ion-content padding >
+      <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
     <div *ngIf="display" style="margin-top: 4em;">
   
       <!-- Mostramos el número total de intentos -->

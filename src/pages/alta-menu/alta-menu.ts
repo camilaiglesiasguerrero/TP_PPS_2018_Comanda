@@ -36,8 +36,7 @@ export class AltaMenuPage {
   createdCode = false;
   scannedCode = null;
 
-
-  elSpinner = null;
+  mostrarSpinner:boolean = false;
 
   nombre = new FormControl('',[
     Validators.required,
@@ -78,7 +77,7 @@ export class AltaMenuPage {
               public navParams: NavParams,
               public params: ParamsService,
               public camara: CameraService,
-              public spinner:SpinnerHandler,
+              //public spinner:SpinnerHandler,
               public database:DatabaseService,
               public qr:QrService,
               public messageHandler:MessageHandler,
@@ -143,12 +142,13 @@ export class AltaMenuPage {
 
     this.database.jsonPackData = this.producto;
         
-    this.elSpinner = this.spinner.getAllPageSpinner();
-    this.elSpinner.present();
+    //this.elSpinner = this.spinner.getAllPageSpinner();
+    //this.elSpinner.present();
+    this.mostrarSpinner = true;
       this.database.SubirDataBase(diccionario.apis.productos + this.menu +'/').then(r => {
         this.messageHandler.mostrarMensaje("Operación exitosa");
         this.createdCode = this.qr.createCode(this.producto.tipo+':'+this.producto.nombre);
-          this.elSpinner.dismiss();
+          this.mostrarSpinner = false;
           this.navCtrl.pop();
         });
   }

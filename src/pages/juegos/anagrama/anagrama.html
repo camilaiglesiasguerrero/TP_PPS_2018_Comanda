@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
   <div *ngIf="display">
     <p class="explicacion">Reordená las letras para formar una palabra. ¡Apurate, que sólo tenés 30 segundos!</p>
     <p id='timer' class="timer" readonly >{{cronometro}}<i class="mili">{{cronoMili}}</i></p>

@@ -2,14 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CameraPreviewPictureOptions } from '@ionic-native/camera-preview';
 import { IonicMultiCamera, Picture, CameraTranslations } from 'ionic-multi-camera';
-//import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, ConfigurationData } from '@ionic-native/media-capture';
-
 import { AuthenticationService } from './../../services/authentication.service';
 import { MessageHandler } from './../../services/messageHandler.service';
-import { SpinnerHandler } from '../../services/spinnerHandler.service';
-import { ParamsService } from '../../services/params.service';
 import { EncuestaClienteService } from '../../services/encuestasCliente.service';
-import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import {EncuestaClienteResultadosPage} from "../encuesta-cliente-resultados/encuesta-cliente-resultados";
 
 @IonicPage()

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { PrincipalClientePage } from '../../principal-cliente/principal-cliente';
 import {MessageHandler} from "../../../services/messageHandler.service";
-import {SpinnerHandler} from "../../../services/spinnerHandler.service";
 import {DatabaseService} from "../../../services/database.service";
 import {ParamsService} from "../../../services/params.service";
 import {ParserTypesService} from "../../../services/parserTypesService";
@@ -29,13 +28,14 @@ export class AdivinarNumeroPage {
   subsPedido : any;
   pedido:any;
 
+  mostrarSpinner:boolean = false;
+
   // Definimos la variable numSecret de tipo number
   numSecret: number = this.numAleatorio(0,100);
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public messageH:MessageHandler,
-              public spinnerH: SpinnerHandler,
               public database:DatabaseService,
               public params: ParamsService,
               private alertCtrl: AlertController,
@@ -46,8 +46,8 @@ export class AdivinarNumeroPage {
     this.yaJugo = false;
     this.empiezaElJuego = false;
     this.pedido = this.navParams.get('pedido');
-    let spinner = spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
+    
     this.watchJuegos =  this.database.db.list<any>(diccionario.apis.juegos).valueChanges()
       .subscribe(snapshots => {
         this.aux = snapshots;
@@ -57,13 +57,13 @@ export class AdivinarNumeroPage {
             if(this.empiezaElJuego){
             }else{
               messageH.mostrarErrorLiteral('Ya jugaste a adivinar el número hoy');
-              spinner.dismiss();
+              this.mostrarSpinner = false;
               navCtrl.remove(1,1);
               return;
             }
           }
         }
-        spinner.dismiss();
+        this.mostrarSpinner = false;
         this.display = true;
       });
   }
@@ -107,8 +107,7 @@ export class AdivinarNumeroPage {
   }
 
   gano(){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.jsonPackData = new Juego(diccionario.juegos.adivinar, this.usuario.uid,true,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
       this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.pedido))
@@ -126,7 +125,7 @@ export class AdivinarNumeroPage {
           //guardo el producto
           this.database.jsonPackData = productoGanado;
           this.database.SubirDataBase(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos).then(r=>{
-            spinner.dismiss();
+            this.mostrarSpinner = false;
             let alert = this.alertCtrl.create({
               title: 'Ganaste!!',
               subTitle: "Tienes un 10% de descuento",
@@ -147,11 +146,10 @@ export class AdivinarNumeroPage {
   }
 
   perdio(){
-    let spinner = this.spinnerH.getAllPageSpinner();
-    spinner.present();
+    this.mostrarSpinner = true;
     this.database.jsonPackData = new Juego(diccionario.juegos.adivinar, this.usuario.uid,false,this.database.ObtenerKey(diccionario.apis.juegos), this.parser.parseDateTimeToStringDateTime(new Date()));
     this.database.SubirDataBase(diccionario.apis.juegos).then(e=>{
-      spinner.dismiss();
+      this.mostrarSpinner = false;
       let alert = this.alertCtrl.create({
         title: 'Perdiste...',
         subTitle: "El número secreto era: " + this.numSecret,
