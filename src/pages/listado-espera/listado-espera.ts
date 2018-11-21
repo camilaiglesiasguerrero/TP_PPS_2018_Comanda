@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseService } from '../../services/database.service';
 import { SpinnerHandler } from '../../services/spinnerHandler.service';
@@ -27,7 +27,8 @@ export class ListadoEsperaPage {
   comensalesMax:number;
   clientesEspera:Array<any>;
   noHayMesasLibres:boolean;
-  mostrarSpinner:boolean = false;
+  @Input ('mostrar-spinner') mostrarSpinner:boolean;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public database:DatabaseService,
@@ -75,7 +76,9 @@ export class ListadoEsperaPage {
         this.mesa = barcodeData.text;
         this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
       }, (err) => {
-        //console.log('Error: ', err);
+        //datos hardcodeados
+        this.mesa = 'Mesa:1';
+        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

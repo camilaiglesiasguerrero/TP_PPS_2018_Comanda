@@ -39,8 +39,8 @@ export class ReservasAgendadasPage {
     var hoy = new Date();
     this.minDate = hoy.getFullYear() + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
     this.maxDate = '2020' + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
-    this.minTime = '18:00';
-    this.maxTime = '23:59';
+   // this.minTime = '18:00';
+   // this.maxTime = '23:59';
 
   }
 
@@ -51,7 +51,7 @@ export class ReservasAgendadasPage {
     if(this.parserTypesService.compararFechayHoraMayorAHoy(fechaReserva)){
       this.mostrarSpinner = true;
       var reservaAgendada = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fechaReserva,
-        clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre };
+        clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre, mesa: '' };
       this.database.jsonPackData = reservaAgendada;
       this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.reservas_agendadas);
       this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {

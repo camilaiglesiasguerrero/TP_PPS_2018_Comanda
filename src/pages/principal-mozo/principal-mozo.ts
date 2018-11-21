@@ -7,6 +7,10 @@ import { EstadoPedidoPage } from '../estado-pedido/estado-pedido';
 import { DatabaseService } from '../../services/database.service';
 import { AltaPedidoPage } from '../alta-pedido/alta-pedido';
 import { ListadoPedidosPage } from '../listado-pedidos/listado-pedidos';
+import {diccionario} from "../../models/diccionario";
+import {ParserTypesService} from "../../services/parserTypesService";
+import {Reserva} from "../../models/reserva";
+import {Mesa} from "../../models/mesa";
 
 
 @IonicPage()
@@ -22,17 +26,21 @@ export class PrincipalMozoPage {
   comensalesMax:number;
   clientesEspera:Array<any>;
   noHayMesasLibres:boolean;
+  mostrarSpinner:boolean;
+  reservasAgendadas = [];
+  cargaListaEspera:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public barcodeScanner: BarcodeScanner,
               public popoverCtrl: PopoverController,
               public database:DatabaseService,
-              private messageHandler: MessageHandler) {
+              private messageHandler: MessageHandler,
+              private parser: ParserTypesService) {
   }
 
   ionViewDidLoad() {
-
+    this.obtenerReservasAgendadas();
   }
 
   escanearQR(caso:string,cliente?:any) {
@@ -76,4 +84,54 @@ export class PrincipalMozoPage {
         break;
     }
   }
+
+  confirmarReserva(reservaAgendada){
+    debugger;
+    this.mostrarSpinner = true;
+    var suscripcion: any;
+    let reserva = new Reserva();
+    reserva.key = this.database.ObtenerKey(diccionario.apis.reservas);
+    reserva.cliente = reservaAgendada.clienteId;
+    reserva.estado = diccionario.estados_reservas.en_curso;
+    reserva.fecha = reservaAgendada.fecha;
+    reserva.idMesa = reservaAgendada.mesa;
+    reserva.idPedido = null;
+    this.database.jsonPackData = reserva;
+    this.database.SubirDataBase(diccionario.apis.reservas).then(r=>{
+      //Actualizo estado de la mesa
+      suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(reservaAgendada.mesa))
+        .valueChanges()
+        .subscribe(snapshots => {
+          var mesa = snapshots[0];
+          mesa['estado'] = diccionario.estados_mesas.ocupada;
+          this.database.jsonPackData = mesa;
+          this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
+            this.mostrarSpinner = false;
+            this.obtenerReservasAgendadas();
+            suscripcion.unsubscribe();
+          });
+        });
+    });
+    reservaAgendada.estado = diccionario.estados_reservas_agendadas.confirmada;
+    this.database.jsonPackData = reservaAgendada;
+    this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(r=>{
+    });
+  }
+
+  private obtenerReservasAgendadas(){
+    this.mostrarSpinner = true;
+    this.database.db.list<any>(diccionario.apis.reservas_agendadas, ref => ref.orderByChild('estado').equalTo(diccionario.estados_reservas_agendadas.con_mesa)).valueChanges()
+      .subscribe(snp => {
+        this.reservasAgendadas = [];
+        var reservas = snp;
+        for(var i=0; i < reservas.length; i++){
+          if(this.parser.compararFechaIgualAHoy(snp[i]['fecha'])){
+            this.reservasAgendadas.push(snp[i]);
+          }
+        }
+        this.mostrarSpinner = false;
+      });
+  }
+
+
 }

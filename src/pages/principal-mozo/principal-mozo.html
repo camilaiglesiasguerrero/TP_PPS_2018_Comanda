@@ -9,9 +9,29 @@
 
 
 <ion-content padding>
-  <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
-  <page-listado-espera></page-listado-espera>
-  
+  <page-spinner [hidden]="!mostrarSpinner && !cargaListaEspera"></page-spinner>
+  <page-listado-espera [mostrar-spinner]="cargaListaEspera"></page-listado-espera>
+  <ion-row *ngIf="reservasAgendadas.length > 0" >
+    <ion-col>
+      <ion-card>
+        <ion-card-header><b>Reservas Agendadas</b></ion-card-header>
+        <ion-row *ngFor="let c of reservasAgendadas">
+          <ion-col>{{c.nombre}} <br> ({{c.comensales}} comensales)</ion-col>
+          <ion-col text-center>
+            <button ion-button round color="light" (click)="confirmarReserva(c)">
+              Asignar
+            </button>
+          </ion-col>
+          <ion-col *ngIf="c.comensales > comensalesMax || noHayMesasLibres" text-center>
+            <button  ion-button round color="light" disabled>
+              <ion-icon color="secondary" name="qr-scanner" style="margin-right:5px;"></ion-icon>
+              Asignar
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+  </ion-row>
   <ion-row>
     <ion-col text-center>
       <button ion-button round color="light" (click)="escanearQR('hacerPedido')">
