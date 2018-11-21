@@ -63,9 +63,9 @@ export class NotificationsPushService {
     }
   }
 
-  asignacionMesaReservaAgendad(clienteId){
+  asignacionMesaReservaAgendad(clienteId, nroMesa){
     this.notification.title = "Confirmación de reserva";
-    this.notification.body = "Se confirmó tu reserva. Ya tenés una mesa asignada.";
+    this.notification.body = "Se confirmó tu reserva. Tenés la mesa Nro " + nroMesa + " asignada.";
     this.notification.devices = [];
     if(this.dispositivos.length){
       for(var i=0; i < this.dispositivos.length; i++){
