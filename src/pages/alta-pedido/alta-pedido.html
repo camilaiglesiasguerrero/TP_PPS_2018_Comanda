@@ -42,9 +42,12 @@
                 </div>
               </div>
               <div class="flex-h">
-                <div class="flex-v width-80">
+                <div class="flex-v width-40">
                   <div>{{comida.nombre}}</div>
                   <div class="under-div">{{comida.precio | precio}}</div>
+                </div>
+                <div class="flex-v width-40">
+                  <div class="center-horizontal">Ordenado: {{comida.cantidadPedida}}</div>
                 </div>
                 <div class="flex-v width-20">
                   <ion-icon class="center-horizontal action-icons" name=add color="secondary" (click)="addClick($event, comida)"></ion-icon>
@@ -84,9 +87,12 @@
                 </div>
               </div>
               <div class="flex-h">
-                <div class="flex-v width-80">
+                <div class="flex-v width-40">
                   <div>{{bebida.nombre}}</div>
                   <div class="under-div">{{bebida.precio | precio}}</div>
+                </div>
+                <div class="flex-v width-40">
+                  <div class="center-horizontal">Ordenado: {{bebida.cantidadPedida}}</div>
                 </div>
                 <div class="flex-v width-20">
                   <ion-icon class="center-horizontal action-icons" name=add color="secondary" (click)="addClick($event, bebida)"></ion-icon>
