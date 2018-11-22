@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Camera } from '@ionic-native/camera';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 import { MessageHandler } from "./messageHandler.service";
 import { ParamsService } from "./params.service";
 import { AngularFireDatabase } from "angularfire2/database";
@@ -33,12 +33,17 @@ export class CameraService{
     }
 
     SacarFoto(){
-        this.Camera.getPicture({
-            quality: 30,
-            destinationType: this.Camera.DestinationType.DATA_URL,
-            sourceType: this.Camera.PictureSourceType.CAMERA,
-            saveToPhotoAlbum: true
-          }).then(imageData => {
+      let options: CameraOptions = {
+        quality: 50,
+        encodingType: this.Camera.EncodingType.JPEG,
+        targetWidth: 400,
+        targetHeight: 200,
+        destinationType: this.Camera.DestinationType.DATA_URL,
+        sourceType: this.Camera.PictureSourceType.CAMERA,
+        correctOrientation: true,
+        saveToPhotoAlbum: true
+      };
+        this.Camera.getPicture(options).then(imageData => {
             this.fotoSubir = imageData;
             this.fotoMostrar = 'data:image/jpeg;base64,' + imageData;
           }, error => {

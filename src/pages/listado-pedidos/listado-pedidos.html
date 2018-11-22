@@ -15,21 +15,30 @@
 
 <ion-content padding *ngIf=!esMozo>
     <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
-  <ion-row>
+  <ion-row class="header">
     <ion-col >Pedido</ion-col>
     <ion-col >Cantidad</ion-col>
     <ion-col >Estimado</ion-col>
     <ion-col >Listo</ion-col>
+    <ion-col ></ion-col>
   </ion-row>
 
-  <ion-card >
+  <ion-card class="producto-row">
     <div *ngFor="let pr of productos">
-      <ion-row>
-        <ion-col *ngIf="pr.tipo == tipo">{{ pr.nombre }}</ion-col>
-        <ion-col *ngIf="pr.tipo == tipo">{{ pr.cantidad }}</ion-col>
-        <ion-col *ngIf="pr.tipo == tipo"><ion-input type="number" [(ngModel)]='pr.tiempoElaboracion' (focusout)=cambiarTiempo(pr)></ion-input></ion-col>
-        <ion-col *ngIf="pr.tipo == tipo"><ion-checkbox [(ngModel)]='pr.estado' (ionChange)="cambiarEstado(pr,p)"></ion-checkbox></ion-col>
+      <ion-row *ngIf="pr.tipo == tipo">
+        <ion-col class="center-horizontal center-vertical">{{ pr.nombre }}</ion-col>
+        <ion-col class="center-horizontal center-vertical">{{ pr.cantidad }}</ion-col>
+        <ion-col class="center-horizontal center-vertical"><ion-input type="number" [(ngModel)]='pr.tiempoElaboracion'></ion-input></ion-col>
+        <ion-col class="center-horizontal center-vertical"><ion-checkbox [(ngModel)]='pr.estado'></ion-checkbox></ion-col>
+        <ion-col>
+          <ion-icon name="checkmark" class="mi-fab-icon" (click)="confirmarProducto(pr)"></ion-icon>
+        </ion-col>
       </ion-row>
+    </div>
+    <div *ngIf="productos.length == 0">
+      <ion-item>
+        <p class="sin-resultados">No hay pedidos pendientes</p>
+      </ion-item>
     </div>
   </ion-card>
 
