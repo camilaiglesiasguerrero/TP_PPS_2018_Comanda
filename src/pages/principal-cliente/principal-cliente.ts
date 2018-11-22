@@ -136,8 +136,9 @@ export class PrincipalClientePage {
         donde == 'hacerPedido' ? this.irA('hacerPedido') : this.irA('verPedido');
 
       }, (err) => {
-        //console.log('Error: ', err);
-        
+        //datos hardcodeados
+        //this.mesa = 'Mesa:2';
+        //this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

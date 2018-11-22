@@ -17,7 +17,6 @@
         <p>{{reserva.estado == 'sin_mesa' ? 'Sin mesa asignada': 'Con mesa asignada'}}</p>
         <div class="flev-h end-horizontal">
           <button ion-button *ngIf="reserva.estado == dic.estados_reservas_agendadas.sin_mesa" (click)=asignarMesa(reserva) clear>Asignar Mesa</button>
-          <button ion-button color="danger" (click)=cancelarReserva(reserva.key) clear>Borrar</button>
         </div>
       </ion-item>
     </ion-list>

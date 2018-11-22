@@ -18,64 +18,68 @@ export class OcuparMesaPage {
 
   suscripcion:any;
   id:string;
-  mesa: Mesa;
-  aux : Array<any>;
+  mesa: any;
   display : boolean;
   mostrar:boolean=false;
   cliente:any;
-  
-  mostrarSpinner:boolean=false;
 
-  constructor(public navCtrl: NavController, 
+  mostrarSpinner:boolean=false;
+  watchReservasAgendadas:any;
+
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public database:DatabaseService,
               public messageHandler:MessageHandler,
               public params: ParamsService,
               private parserTypesService: ParserTypesService) {
-    
+
     this.mostrarSpinner = true;
-    
+
     if(!this.navParams.get('mesa').includes('Mesa') || this.navParams.get('mesa').split(':')[1] == undefined ){
       this.messageHandler.mostrarErrorLiteral(diccionario.errores.QR_invalido);
       this.mostrarSpinner = false;
       this.navCtrl.remove(1,1);
+      return;
     }
     else{
       this.id = this.navParams.get('mesa').split(':')[1];
       this.cliente = this.navParams.get('cliente');
     }
     this.mesa = new Mesa();
-    
+
     this.suscripcion = this.database.db.list<any>(diccionario.apis.mesas, ref => ref.orderByChild('id').equalTo(this.id))
-              .valueChanges()
-              .subscribe(snapshots => {
-        this.aux = snapshots;
-        for (let index = 0; index < this.aux.length; index++) {
-          if(this.aux[index].id.toString() == this.id.toString()){
-              this.mesa = new Mesa(this.id,
-                                  this.aux[index].comensales,
-                                  this.aux[index].tipo,
-                                  this.aux[index].foto,
-                                  this.aux[index].estado);
-              
-              this.mesa.key = this.aux[index].key;
-              this.mostrar = true;
-        }      
-      }
-      this.mostrarSpinner = false;
-      if(this.mesa.estado != 'Libre'){
-        this.messageHandler.mostrarErrorLiteral("Mesa "+this.mesa.estado);
-        this.Cancelar();
-      }
-    });
+      .valueChanges()
+      .subscribe(snapshots => {
+        this.mesa = snapshots[0];
+        if (this.mesa.estado == diccionario.estados_mesas.ocupada) {
+          this.messageHandler.mostrarErrorLiteral("Mesa " + this.mesa.estado);
+          this.Cancelar();
+          return;
+        }
+
+       this.watchReservasAgendadas = this.database.db.list<any>(diccionario.apis.reservas_agendadas, ref => ref.orderByChild('mesa').equalTo(this.id)).valueChanges()
+          .subscribe(snapshots =>{
+            for(var i=0; i < snapshots.length; i++){
+              if(snapshots[i]['estado'] == diccionario.estados_reservas_agendadas.con_mesa || snapshots[i]['estado'] == diccionario.estados_reservas_agendadas.confirmada){
+                if(!this.parserTypesService.hayDiferenciaDe40Minutos(this.parserTypesService.parseDateTimeToStringDateTime(new Date()), snapshots[i]['fecha'])){
+                  this.mostrarSpinner = false;
+                  this.messageHandler.mostrarErrorLiteral("Mesa ocupada");
+                  this.Cancelar();
+                  return;
+                }
+              }
+            }
+            this.mostrar = true;
+          });
+      });
   }
 
   ionViewDidLoad() {
-    
   }
 
   Cancelar(){
     this.suscripcion.unsubscribe();
+    this.watchReservasAgendadas ? this.watchReservasAgendadas.unsubscribe() : '';
     this.navCtrl.remove(1,1);
   }
 
@@ -93,13 +97,13 @@ export class OcuparMesaPage {
     reserva.fecha = this.parserTypesService.parseDateTimeToStringDateTime(new Date());
     this.database.jsonPackData = reserva;
     this.database.SubirDataBase(diccionario.apis.reservas).then(r=>{
-    
+
       //Actualizo estado de la mesa
       let aux = new Mesa(this.mesa.id,
-                          this.mesa.comensales,
-                          this.mesa.tipo,
-                          this.mesa.foto,
-                          diccionario.estados_mesas.reservada);
+        this.mesa.comensales,
+        this.mesa.tipo,
+        this.mesa.foto,
+        diccionario.estados_mesas.reservada);
       aux.key = this.mesa.key;
       this.database.jsonPackData = aux;
       this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
@@ -119,7 +123,7 @@ export class OcuparMesaPage {
           this.messageHandler.mostrarMensaje('Mesa asignada');
           this.navCtrl.remove(1,1);
         });
-      });      
+      });
     });
   }
 }

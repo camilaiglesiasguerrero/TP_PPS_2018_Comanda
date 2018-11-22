@@ -21,17 +21,18 @@ export class ReservasAgendadasSupervisorPage {
   options:any;
   mesa:any;
   mostrarSpinner:boolean = false;
+  dic:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public params: ParamsService,
               private messageHandler: MessageHandler,
               private database: DatabaseService,
-              
+
               private parserTypesService: ParserTypesService,
               public barcodeScanner: BarcodeScanner,
   ) {
-    
+    this.dic  = diccionario;
   }
 
   ionViewDidLoad(){
@@ -46,10 +47,6 @@ export class ReservasAgendadasSupervisorPage {
       });
   }
 
-  ionViewCanLeave(){
-    //  this.watchReservasList.unsubscribe();
-  }
-
   asignarMesa(reserva){
     this.options = { prompt : "Escaneá el código QR de la mesa" }
     this.barcodeScanner.scan(this.options)
@@ -58,14 +55,12 @@ export class ReservasAgendadasSupervisorPage {
         this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
       }, (err) => {
         //datos hardcodeados para testear
-          
+        //this.mesa = "Mesa:1";
+        //this.navCtrl.push(ReservarMesaPage,{ mesa:this.mesa, reserva:reserva });
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
 
-  cancelarReserva(){
-
-  }
 
 
 }
