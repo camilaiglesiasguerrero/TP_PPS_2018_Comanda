@@ -22,6 +22,7 @@ import {PrincipalMozoPage} from "../pages/principal-mozo/principal-mozo";
 import {DeliveryPedidosPage} from "../pages/delivery-pedidos/delivery-pedidos";
 import {EncuestaClienteResultadosPage} from "../pages/encuesta-cliente-resultados/encuesta-cliente-resultados";
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
+import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
 
 
 @Component({
@@ -74,9 +75,9 @@ export class MyApp {
       { title: 'Mesas', component: MesasPage }
     ];
     this.metrePages = [
-      { title: "Inicio", component: PrincipalMozoPage},
+      { title: "Inicio", component: MesasPage},
       { title: 'Agregar cliente', component: RegistrarsePage },
-      { title: 'Mesas', component: MesasPage }
+      { title: 'Nueva Mesa', component: AltaMesaPage }
     ];
     this.bartenerPages = [
       { title: 'Inicio', component: ListadoPedidosPage }

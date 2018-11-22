@@ -43,7 +43,8 @@ export class CuentaPage {
     this.propina = false;
     this.mostrarSpinner = true;
     this.pedido =this.navParams.get('pedido');
-    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
+    //this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
+    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+'-LRWp9M66_CU6u0azpLR/'+diccionario.apis.productos)
       .valueChanges()
       .subscribe(snapshots => {
         
@@ -58,7 +59,7 @@ export class CuentaPage {
           }
         }
         if(this.tieneDescuento){
-          this.detalleCuenta.push({ item:'¡Descuento del 10%!',cantidad:1,valor: this.suma * 0.1});
+          this.detalleCuenta.push({ item:'¡Descuento del 10%!',cantidad:1,valor: this.suma * -0.1});
           this.suma -= this.suma * 0.1;
         }
         if(this.params.propinaAux != 0){

@@ -34,7 +34,7 @@ export class CameraService{
 
     SacarFoto(){
         this.Camera.getPicture({
-            quality: 100,
+            quality: 30,
             destinationType: this.Camera.DestinationType.DATA_URL,
             sourceType: this.Camera.PictureSourceType.CAMERA,
             saveToPhotoAlbum: true

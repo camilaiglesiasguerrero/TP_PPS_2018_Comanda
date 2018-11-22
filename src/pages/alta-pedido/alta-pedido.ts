@@ -204,7 +204,9 @@ export class AltaPedidoPage {
             diccionario.estados_productos.en_preparacion,
             this.listadoAPedir[index].nombre,
             this.listadoAPedir[index].precio,
-            this.listadoAPedir[index].tiempoElaboracion));
+            this.listadoAPedir[index].tiempoElaboracion,
+            (Date.now() + (this.listadoAPedir[index].tiempoElaboracion * 60000))
+            ));
           if(this.listadoAPedir[index].tipo == 'Bebida'){
             this.tieneBebidas = true;
           }
@@ -246,7 +248,9 @@ export class AltaPedidoPage {
                 diccionario.estados_productos.en_preparacion,
                 this.listadoAPedir[index].nombre,
                 this.listadoAPedir[index].precio,
-                this.listadoAPedir[index].tiempoElaboracion)
+                this.listadoAPedir[index].tiempoElaboracion,
+                (Date.now() + (this.listadoAPedir[index].tiempoElaboracion * 60000))
+                )
               );
               if(this.listadoAPedir[index].tipo == 'Bebida'){
                 this.tieneBebidas = true;
@@ -479,7 +483,9 @@ export class AltaPedidoPage {
               estado: this.productoPedido[i].estado,
               nombre: this.productoPedido[i].nombre,
               precio: this.productoPedido[i].precio,
-              pedido: pedidoASubir.key
+              pedido: pedidoASubir.key,
+              tiempoElaboracion: this.productoPedido[i].tiempoElaboracion,
+              entrega: (Date.now() + (parseFloat(this.productoPedido[i].tiempoElaboracion) * 60000))
             };
 
             this.database.jsonPackData = aux;
@@ -562,7 +568,8 @@ export class AltaPedidoPage {
                   estado: this.productoPedido[i].estado,
                   nombre: this.productoPedido[i].nombre,
                   precio: this.productoPedido[i].precio,
-                  pedido: pedidoASubir.key
+                  pedido: pedidoASubir.key,
+                  tiempoElaboracion: this.productoPedido[i].tiempoElaboracion
                 };
 
                 this.database.jsonPackData = aux;
