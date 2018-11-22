@@ -120,19 +120,21 @@ export class AltaPedidoPage {
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
         auxProducto  = barcodeData.text;
-        for (let index = 0; index < this.comidasTotal.length; index++) {
-          if(this.comidasTotal[index].nombre == auxProducto && this.comidasTotal[index].cantidad > 0){
+        for (let index = 0; index < this.comidas.length; index++) {
+          if(this.comidas[index].nombre == auxProducto && this.comidas[index].cantidad > 0){
+            this.comidas.cantidadPedida++;
             this.listadoAPedir.push(this.comidas[index]);
             flag = true;
             this.messageHandler.mostrarMensajeCortoAbajo("Se agregó: "+this.comidas[index].nombre);
           }
-          else if(this.comidasTotal[index].nombre == auxProducto && this.comidasTotal[index].cantidad == 0){
+          else if(this.comidas[index].nombre == auxProducto && this.comidas[index].cantidad == 0){
             this.messageHandler.mostrarErrorLiteral('No alcanza el stock');
             flag = true;
           }
         }
-        for (let index = 0; index < this.bebidasTotal.length; index++) {
-          if(this.bebidasTotal[index].nombre == auxProducto && this.bebidasTotal[index].cantidad > 0){
+        for (let index = 0; index < this.bebidas.length; index++) {
+          if(this.bebidas[index].nombre == auxProducto && this.bebidas[index].cantidad > 0){
+            this.bebidas.cantidadPedida++;
             this.listadoAPedir.push(this.bebidas[index]);
             flag = true;
             this.messageHandler.mostrarMensajeCortoAbajo("Se agregó: "+this.bebidas[index].nombre);
@@ -151,12 +153,38 @@ export class AltaPedidoPage {
   }
 
   addClick(event,producto){
+    if(producto.tipo == 'Comida'){
+      for (let i = 0; i < this.comidas.length; i++) {
+        if(this.comidas[i].nombre == producto.nombre && this.comidas[i].cantidadPedida <= this.comidas[i].cantidad){
+          this.comidas[i].cantidadPedida++;      
+          break;
+        }
+      }
+    }else{
+      for (let i = 0; i < this.bebidas.length; i++) {
+        if(this.bebidas[i].nombre == producto.nombre && this.bebidas[i].cantidadPedida <= this.bebidas[i].cantidad){
+          this.bebidas[i].cantidadPedida++;      
+          break;
+        }
+      }
+    }
     this.listadoAPedir.push(producto);
     this.messageHandler.mostrarMensajeCortoAbajo("Se agrego: " + producto.descripcion);
   }
 
   removeCLick(event, producto){
     var eliminado = false;
+    if(producto.tipo == 'Comida'){
+      for (let i = 0; i < this.comidas.length; i++) {
+        if(this.comidas[i].nombre == producto.nombre && this.comidas[i].cantidadPedida > 0)
+          this.comidas[i].cantidadPedida--;      
+      }
+    }else{
+      for (let i = 0; i < this.bebidas.length; i++) {
+        if(this.bebidas[i].nombre == producto.nombre && this.bebidas[i].cantidadPedida > 0)
+          this.bebidas[i].cantidadPedida--;      
+      }
+    }
     _.remove(this.listadoAPedir, item =>{
       if(item == producto){
         if(!eliminado){
@@ -223,7 +251,7 @@ export class AltaPedidoPage {
                 this.tieneBebidas = true;
                 for (let j = 0; j < this.bebidas.length; j++) {
                   if(this.bebidas[j].key == this.listadoAPedir[index].key && this.bebidas[j].cantidad < this.productoPedido[i].cantidad){
-                    this.messageHandler.mostrarError('No hay stock suficiente de '+this.bebidas[j].nombre);
+                    this.messageHandler.mostrarErrorLiteral('No hay stock suficiente de '+this.bebidas[j].nombre);
                     this.productoPedido[i].cantidad --;
                     stock = false;
                   }
@@ -233,7 +261,7 @@ export class AltaPedidoPage {
                 this.tieneComidas = true;
                 for (let k = 0; k < this.comidas.length; k++) {
                   if(this.comidas[k].key == this.listadoAPedir[index].key && this.comidas[k].cantidad < this.productoPedido[i].cantidad){
-                    this.messageHandler.mostrarError('No hay stock suficiente de '+this.comidas[k].nombre);
+                    this.messageHandler.mostrarErrorLiteral('No hay stock suficiente de '+this.comidas[k].nombre);
                     this.productoPedido[i].cantidad --;
                     stock = false;
                   }
@@ -351,12 +379,26 @@ export class AltaPedidoPage {
   }
 
   private getPlatos(){
+    this.comidas = new Array<any>();
     this.promesaPlatos = new Promise(resolve =>{
       setTimeout(() => {
         this.watcherPlatos = this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
           .subscribe(snapshots => {
             this.comidasTotal = snapshots;
-            this.comidas = this.comidasTotal.filter(f => f.cantidad > 0 );
+            let aux = this.comidasTotal.filter(f => f.cantidad > 0 );
+            for (let i = 0; i < aux.length; i++) {
+              this.comidas.push({ foto1:aux[i].foto1,
+                                  foto2:aux[i].foto2,
+                                  foto3:aux[i].foto3,
+                                  precio:aux[i].precio,
+                                  nombre:aux[i].nombre,
+                                  descripcion:aux[i].descripcion,
+                                  cantidad:aux[i].cantidad,
+                                  tipo:aux[i].tipo,
+                                  key:aux[i].key,
+                                  tiempoElaboracion:aux[i].tiempoElaboracion,
+                                  cantidadPedida:0});
+            }
             resolve();
           });
       }, 0)
@@ -364,12 +406,27 @@ export class AltaPedidoPage {
   }
 
   private getBebidas(){
+    this.bebidas = new Array<any>();
     this.promesaBebidas = new Promise(resolve =>{
       setTimeout(() => {
         this.watcherBebidas = this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
           .subscribe(snapshots => {
             this.bebidasTotal = snapshots;
-            this.bebidas = this.bebidasTotal.filter(f => f.cantidad > 0 );
+            let aux = this.bebidasTotal.filter(f => f.cantidad > 0 );
+            console.log(aux);
+            for (let i = 0; i < aux.length; i++) {
+              this.bebidas.push({ foto1:aux[i].foto1,
+                                  foto2:aux[i].foto2,
+                                  foto3:aux[i].foto3,
+                                  precio:aux[i].precio,
+                                  nombre:aux[i].nombre,
+                                  descripcion:aux[i].descripcion,
+                                  cantidad:aux[i].cantidad,
+                                  tipo:aux[i].tipo,
+                                  key:aux[i].key,
+                                  tiempoElaboracion:aux[i].tiempoElaboracion,
+                                  cantidadPedida:0});
+            }
             resolve();
           });
       }, 0)
@@ -465,6 +522,7 @@ export class AltaPedidoPage {
 
         //Creo el pedido
         pedidoASubir.key = keyPedido;
+        console.log('pedido a subir' + pedidoASubir.key);
         if(this.params.rol == 'cliente')
           pedidoASubir.estado = diccionario.estados_pedidos.solicitado;
         else{
