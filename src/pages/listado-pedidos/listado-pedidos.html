@@ -18,6 +18,7 @@
   <ion-row>
     <ion-col >Pedido</ion-col>
     <ion-col >Cantidad</ion-col>
+    <ion-col >Estimado</ion-col>
     <ion-col >Listo</ion-col>
   </ion-row>
 
@@ -26,6 +27,7 @@
       <ion-row>
         <ion-col *ngIf="pr.tipo == tipo">{{ pr.nombre }}</ion-col>
         <ion-col *ngIf="pr.tipo == tipo">{{ pr.cantidad }}</ion-col>
+        <ion-col *ngIf="pr.tipo == tipo"><ion-input type="number" [(ngModel)]='pr.tiempoElaboracion' (focusout)=cambiarTiempo(pr)></ion-input></ion-col>
         <ion-col *ngIf="pr.tipo == tipo"><ion-checkbox [(ngModel)]='pr.estado' (ionChange)="cambiarEstado(pr,p)"></ion-checkbox></ion-col>
       </ion-row>
     </div>

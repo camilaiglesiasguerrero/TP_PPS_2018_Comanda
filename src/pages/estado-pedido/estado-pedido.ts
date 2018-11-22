@@ -22,6 +22,7 @@ export class EstadoPedidoPage {
   aux:any;
   pedido:Pedido;
   mostrar:boolean;
+  mostrarDetallePedido:boolean;
   encuesta:boolean;
   cuenta:boolean;
   user:any;
@@ -32,6 +33,7 @@ export class EstadoPedidoPage {
   subsReserva:any;
   subsPedido:any;
   mostrarSpinner : boolean = false;
+  productosPedidos:any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -73,30 +75,30 @@ export class EstadoPedidoPage {
               .valueChanges()
               .subscribe(snp => {
                   this.aux = snp;
-                  for (let i = 0; i < this.aux.length; i++) {
-                    if(this.aux[i].key == this.pedido.key){
-                      this.pedido.estado = this.aux[i].estado;
-                      /*for (let j = 0; j < this.aux[i].productos.length; j++) {
-                        this.pedido.productoPedido.push(new ProductoPedido(this.aux[i].productos[j].key,
-                                                                          this.aux[i].productos[j].cantidad,
-                                                                          this.aux[i].productos[j].tipo,
-                                                                          this.aux[i].productos[j].estado,
-                                                                          this.aux[i].productos[j].nombre,
-                                                                          this.aux[i].productos[j].precio));
-                        console.log(this.pedido);
-                      }*/
-                      this.mostrar = true;
-                      this.mostrarSpinner = false;
-                      //console.log(this.pedido);                  
-                      break;
+                  this.pedido.estado = this.aux[0].estado;
+                  this.mostrar = true;
+                  
+                  if(this.pedido.estado == diccionario.estados_pedidos.en_preparacion 
+                    || this.pedido.estado == diccionario.estados_pedidos.listo ){
+                      this.productosPedidos = [];
+                      
+                      for (let i = 0; i < this.aux.length; i++) {
+                        for(let keyProducto in this.aux[i].productos){
+                          //console.log(keyProducto);
+                          //console.log(this.aux[i])
+                          let pr = this.aux[i].productos[keyProducto];
+                          this.productosPedidos.push(pr);
+                          this.mostrarDetallePedido  =true;
+                        }
+                      }
                     }
-                  }
-
+                
                   if(this.pedido.estado == diccionario.estados_pedidos.entregado && this.params.rol == 'cliente'){
                     this.cuenta = true;
                   }else if(this.pedido.estado == diccionario.estados_pedidos.pagado && this.params.rol == 'mozo'){
                     this.cerrar = true;
                   }
+                  this.mostrarSpinner = false;     
               });
             break;
           }else if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == diccionario.estados_reservas.en_curso){

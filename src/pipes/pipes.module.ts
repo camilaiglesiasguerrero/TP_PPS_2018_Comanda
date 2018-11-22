@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PrecioPipe } from './precio/precio';
+import { TiempoDesdeAhoraPipe } from './tiempo-desde-ahora/tiempo-desde-ahora';
 @NgModule({
-	declarations: [PrecioPipe],
+	declarations: [PrecioPipe,
+    TiempoDesdeAhoraPipe],
 	imports: [],
-	exports: [PrecioPipe]
+	exports: [PrecioPipe,
+    TiempoDesdeAhoraPipe]
 })
 export class PipesModule {}

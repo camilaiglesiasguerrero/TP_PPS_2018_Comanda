@@ -53,8 +53,7 @@ export class PrincipalMozoPage {
         }
       }, (err) => {
         //console.log('Error: ', err);
-        //this.mesa = 'Mesa:2';
-        //this.irA('reserva');
+        
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
