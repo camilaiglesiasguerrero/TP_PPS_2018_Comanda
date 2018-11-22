@@ -47,7 +47,7 @@ export class ReservarMesaPage {
             if(!this.parser.hayDiferenciaDe40Minutos(this.reservaAgendada.fecha, reservasAgendadas[i]['fecha'])){
               this.mostrarSpinner = false;
               this.messageHandler.mostrarErrorLiteral("Mesa ocupada");
-              this.navCtrl.remove(1,1);
+              this.salir();
               return;
             }
           }
@@ -60,7 +60,7 @@ export class ReservarMesaPage {
                 if(!this.parser.hayDiferenciaDe40Minutos(this.reservaAgendada.fecha, snapshots[i]['fecha'])){
                   this.mostrarSpinner = false;
                   this.messageHandler.mostrarErrorLiteral("Mesa ocupada");
-                  this.navCtrl.remove(1,1);
+                  this.salir();
                   return;
                 }
               }
@@ -76,14 +76,9 @@ export class ReservarMesaPage {
       });
   }
 
-  ionViewCanLeave(){
-    alert("ionc can leave");
-    this.watchMesasList.unsubscribe();
-    this.watchReservasList.unsubscribe();
-  }
-
-
   salir(){
+    this.watchMesasList ? this.watchMesasList.unsubscribe(): '';
+    this.watchReservasList ? this.watchReservasList.unsubscribe() : '';
     this.navCtrl.remove(1,1);
   }
 

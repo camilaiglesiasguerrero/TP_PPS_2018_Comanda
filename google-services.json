@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "144088168430",
-    "firebase_url": "https://appcomanda-2db93.firebaseio.com",
-    "project_id": "appcomanda-2db93",
-    "storage_bucket": "appcomanda-2db93.appspot.com"
+    "project_number": "147175256636",
+    "firebase_url": "https://appcomanda-75a1b.firebaseio.com",
+    "project_id": "appcomanda-75a1b",
+    "storage_bucket": "appcomanda-75a1b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:144088168430:android:95d8f9d56da50c0b",
+        "mobilesdk_app_id": "1:147175256636:android:95d8f9d56da50c0b",
         "android_client_info": {
           "package_name": "appcomanda.camifedecari"
         }
       },
       "oauth_client": [
         {
-          "client_id": "144088168430-mtauvjqfl1e2qs79t8hj7mc3vb6u5hin.apps.googleusercontent.com",
+          "client_id": "147175256636-lejqkq1kdnmqd74nd4n7l8ggluhvr8he.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyACdYa-VGqeM5CIQbVlKwmCWA8ZOyV8bzk"
+          "current_key": "AIzaSyD3jCS8Mq1ThGfgJR0QPHaXcLe5s8ndzmc"
         }
       ],
       "services": {

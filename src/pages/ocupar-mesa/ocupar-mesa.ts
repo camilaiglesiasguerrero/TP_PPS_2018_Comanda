@@ -69,6 +69,7 @@ export class OcuparMesaPage {
                 }
               }
             }
+            this.mostrarSpinner = false;
             this.mostrar = true;
           });
       });
@@ -103,11 +104,11 @@ export class OcuparMesaPage {
         this.mesa.comensales,
         this.mesa.tipo,
         this.mesa.foto,
-        diccionario.estados_mesas.reservada);
+        diccionario.estados_mesas.ocupada);
       aux.key = this.mesa.key;
       this.database.jsonPackData = aux;
       this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
-        this.mesa.estado = diccionario.estados_mesas.reservada;
+        this.mesa.estado = diccionario.estados_mesas.ocupada;
         //Actualizo lista-espera
         let le = {
           clienteId: this.cliente.clienteId,

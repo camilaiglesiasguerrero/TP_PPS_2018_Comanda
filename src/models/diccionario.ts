@@ -21,7 +21,6 @@ export const diccionario = {
   },
   estados_mesas:{
     libre: "Libre",
-    reservada: "Reservada",
     ocupada: "Ocupada"
   },
   estados_pedidos:{

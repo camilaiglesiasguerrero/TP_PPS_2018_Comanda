@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "appcomanda-2db93"
+    "default": "appcomanda-75a1b",
+    "appcomanda": "appcomanda-75a1b"
   }
 }

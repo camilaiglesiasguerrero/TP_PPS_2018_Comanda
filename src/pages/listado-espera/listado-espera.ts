@@ -77,8 +77,8 @@ export class ListadoEsperaPage {
         this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
       }, (err) => {
         //datos hardcodeados
-        this.mesa = 'Mesa:1';
-        this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
+        //this.mesa = 'Mesa:1';
+       // this.navCtrl.push(OcuparMesaPage,{mesa:this.mesa, cliente:cliente});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }
