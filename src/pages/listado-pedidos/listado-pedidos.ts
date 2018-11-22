@@ -279,7 +279,7 @@ export class ListadoPedidosPage {
       if(pedido.key == pedidoId && pedido.estado == diccionario.estados_pedidos.en_preparacion){
         return pedido;
       }
-    })
+    });
     if(pedidoAActualizar){
       pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
       this.database.jsonPackData = pedidoAActualizar;
