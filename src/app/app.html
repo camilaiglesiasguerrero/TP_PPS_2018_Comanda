@@ -31,6 +31,11 @@
         {{p.title}}
       </button>
     </ion-list>
+    <ion-list *ngIf="paramsService.rol == 'cocinero' || paramsService.rol == 'bartender'  ">
+        <button menuClose ion-button block color="third" *ngFor="let p of cocineroPages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+      </ion-list>
     <ion-list>
       <button menuClose ion-button block color="third" *ngFor="let p of commonPages" (click)="openPage(p)">
         {{p.title}}

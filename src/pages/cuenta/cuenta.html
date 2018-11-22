@@ -40,8 +40,10 @@
           </button>
         </ion-col>
 
-        <ion-col justify-content-end>Total {{suma | precio}}</ion-col>
-        <ion-col *ngIf=propina justify-content-end>Propina {{ suma / params.propinaAux | precio}}</ion-col>
+        <ion-col justify-content-end>
+          <ion-row> Total {{suma | precio}} </ion-row>
+          <ion-row *ngIf=propina> Propina {{ suma / params.propinaAux | precio}} </ion-row>
+        </ion-col>
       </ion-row>
     </ion-row>
 

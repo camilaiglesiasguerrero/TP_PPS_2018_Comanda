@@ -33,7 +33,7 @@ export class ListadoPedidosPage {
   dic:any;
   esCocineroBartender:boolean;
   watchProductos:any;
-
+  
   mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -167,6 +167,7 @@ export class ListadoPedidosPage {
    * @param pr producto
    */
   cambiarEstado(pr){
+    
     let aux = {
       key : pr.key,
       cantidad : pr.cantidad,
@@ -174,7 +175,9 @@ export class ListadoPedidosPage {
       estado: pr.estado,//cambia con el ngModel
       nombre: pr.nombre,
       precio: pr.precio,
-      pedido: pr.pedido
+      pedido: pr.pedido,
+      tiempoElaboracion: pr.tiempoElaboracion,
+      entrega: pr.estado ? 0 : pr.entrega
     }
 
     console.log("pedido a subir", aux);
@@ -190,6 +193,29 @@ export class ListadoPedidosPage {
     })
   }
 
+  cambiarTiempo(pr){
+    this.mostrarSpinner = true;
+    let fecha = Date.now();
+
+    let aux = {
+      key : pr.key,
+      cantidad : pr.cantidad,
+      tipo : pr.tipo,
+      estado: pr.estado,
+      nombre: pr.nombre,
+      precio: pr.precio,
+      pedido: pr.pedido,
+      tiempoElaboracion: pr.tiempoElaboracion,
+      entrega: (fecha + (pr.tiempoElaboracion * 60000))
+    }
+    
+    this.database.jsonPackData = aux;
+    this.database.SubirDataBase(this.dic.apis.pedidos+aux.pedido+'/'+this.dic.apis.productos)
+    .then(response =>{
+        this.mostrarSpinner = false;
+    });
+    
+  }
   /**Cambia el estado del pedido a Entregado/Cerrado */
   AprobarEntregar(p){
     this.mostrarSpinner = true;
