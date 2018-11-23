@@ -387,6 +387,10 @@ export class AltaPedidoPage {
           .subscribe(snapshots => {
             this.comidasTotal = snapshots;
             let aux = this.comidasTotal.filter(f => f.cantidad > 0 );
+            
+            while(this.comidas.length > 0)
+              this.comidas.pop();
+
             for (let i = 0; i < aux.length; i++) {
               this.comidas.push({ foto1:aux[i].foto1,
                 foto2:aux[i].foto2,
@@ -414,7 +418,10 @@ export class AltaPedidoPage {
           .subscribe(snapshots => {
             this.bebidasTotal = snapshots;
             let aux = this.bebidasTotal.filter(f => f.cantidad > 0 );
-            console.log(aux);
+            
+            while(this.bebidas.length > 0)
+              this.bebidas.pop();
+
             for (let i = 0; i < aux.length; i++) {
               this.bebidas.push({ foto1:aux[i].foto1,
                 foto2:aux[i].foto2,
