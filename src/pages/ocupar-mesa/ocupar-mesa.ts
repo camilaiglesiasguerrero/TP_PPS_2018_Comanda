@@ -98,7 +98,6 @@ export class OcuparMesaPage {
     reserva.fecha = this.parserTypesService.parseDateTimeToStringDateTime(new Date());
     this.database.jsonPackData = reserva;
     this.database.SubirDataBase(diccionario.apis.reservas).then(r=>{
-
       //Actualizo estado de la mesa
       let aux = new Mesa(this.mesa.id,
         this.mesa.comensales,
@@ -108,7 +107,7 @@ export class OcuparMesaPage {
       aux.key = this.mesa.key;
       this.database.jsonPackData = aux;
       this.database.SubirDataBase(diccionario.apis.mesas).then(m=>{
-        this.mesa.estado = diccionario.estados_mesas.ocupada;
+        //this.mesa.estado = diccionario.estados_mesas.ocupada;
         //Actualizo lista-espera
         let le = {
           clienteId: this.cliente.clienteId,
@@ -123,7 +122,11 @@ export class OcuparMesaPage {
           this.mostrarSpinner = false;
           this.messageHandler.mostrarMensaje('Mesa asignada');
           this.navCtrl.remove(1,1);
+        }).catch(error =>{
+          this.messageHandler.mostrarErrorLiteral("Ocurrio un error al cambiar el estado de lista de espera");
         });
+      }).catch(error=>{
+        this.messageHandler.mostrarErrorLiteral("Ocurrio un error al actualizar la mesa");
       });
     });
   }
