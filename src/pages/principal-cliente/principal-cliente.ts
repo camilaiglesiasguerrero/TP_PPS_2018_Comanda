@@ -127,8 +127,8 @@ export class PrincipalClientePage {
                       this.puedePedirDelivery = false;
                       this.puedeSolicitarMesa = false;
                       this.esperandoAsignacion = false;
-                      this.mostrarSpinner = false;
                     }
+                    this.mostrarSpinner = false;
                   });
               }else{
                 this.mostrarSpinner = false;

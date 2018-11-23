@@ -277,7 +277,7 @@ export class ListadoPedidosPage {
       nombre: pr.nombre,
       precio: pr.precio,
       pedido: pr.pedido,
-      tiempoElaboracion: pr.tiempoElaboracion,
+      tiempoElaboracion: pr.tiempoElaboracion ? pr.tiempoElaboracion : 0,
       entrega: pr.estado ? 0 : (fecha + (pr.tiempoElaboracion * 60000))
     };
 
