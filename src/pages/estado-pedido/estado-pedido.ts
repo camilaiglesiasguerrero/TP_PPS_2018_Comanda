@@ -68,7 +68,7 @@ export class EstadoPedidoPage {
           this.aux = this.aux.filter(a => a.cliente == this.user.uid);
         for (let index = 0; index < this.aux.length; index++) {
           //tengo la mesa con pedido => busco el pedido
-          if(this.aux[index].idMesa == this.mesa.toString()){
+          if(this.aux[index].idMesa == this.mesa.toString() && this.aux[index].estado == diccionario.estados_reservas.en_curso){
             this.pedido.key = this.aux[index].idPedido;
             this.reservaKey = this.aux[index].key;
             this.subsPedido = this.database.db.list<any>(diccionario.apis.pedidos,ref => ref.orderByChild('key').equalTo(this.pedido.key))
@@ -77,7 +77,6 @@ export class EstadoPedidoPage {
                   this.aux = snp;
                   this.pedido.estado = this.aux[0].estado;
                   this.mostrar = true;
-                  
                   if(this.pedido.estado == diccionario.estados_pedidos.en_preparacion 
                     || this.pedido.estado == diccionario.estados_pedidos.listo ){
                       this.productosPedidos = [];
