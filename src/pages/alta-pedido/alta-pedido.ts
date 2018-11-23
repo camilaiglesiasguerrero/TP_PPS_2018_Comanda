@@ -380,7 +380,7 @@ export class AltaPedidoPage {
   }
 
   private getPlatos(){
-    this.comidas = new Array<any>();
+    
     this.promesaPlatos = new Promise(resolve =>{
       setTimeout(() => {
         this.watcherPlatos = this.database.db.list<any>(diccionario.apis.productos_platos).valueChanges()
@@ -388,8 +388,7 @@ export class AltaPedidoPage {
             this.comidasTotal = snapshots;
             let aux = this.comidasTotal.filter(f => f.cantidad > 0 );
             
-            while(this.comidas.length > 0)
-              this.comidas.pop();
+            this.comidas = new Array<any>();
 
             for (let i = 0; i < aux.length; i++) {
               this.comidas.push({ foto1:aux[i].foto1,
@@ -411,7 +410,7 @@ export class AltaPedidoPage {
   }
 
   private getBebidas(){
-    this.bebidas = new Array<any>();
+    
     this.promesaBebidas = new Promise(resolve =>{
       setTimeout(() => {
         this.watcherBebidas = this.database.db.list<any>(diccionario.apis.productos_bebidas).valueChanges()
@@ -419,8 +418,7 @@ export class AltaPedidoPage {
             this.bebidasTotal = snapshots;
             let aux = this.bebidasTotal.filter(f => f.cantidad > 0 );
             
-            while(this.bebidas.length > 0)
-              this.bebidas.pop();
+            this.bebidas = new Array<any>();
 
             for (let i = 0; i < aux.length; i++) {
               this.bebidas.push({ foto1:aux[i].foto1,
