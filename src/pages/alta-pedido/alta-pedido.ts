@@ -364,13 +364,15 @@ export class AltaPedidoPage {
           this.navCtrl.remove(1,1);
         }
 
-        if(reservas.length == 1){
-          this.reserva.key = reservas[0].key;
-          this.reserva.idMesa = reservas[0].idMesa;
-          this.reserva.estado = reservas[0].estado;
-          this.reserva.cliente = reservas[0].cliente;
-          reservas[0].idPedido ? this.reserva.idPedido = reservas[0].idPedido : null;
-          this.reserva.fecha = reservas[0].fecha;
+        for(var i=0; i < reservas.length; i++){
+          if(this.reserva.cliente == reservas[i].cliente && reservas[i].estado == diccionario.estados_reservas.en_curso){
+            this.reserva.key = reservas[i].key;
+            this.reserva.idMesa = reservas[i].idMesa;
+            this.reserva.estado = reservas[i].estado;
+            this.reserva.cliente = reservas[i].cliente;
+            reservas[0].idPedido ? this.reserva.idPedido = reservas[i].idPedido : null;
+            this.reserva.fecha = reservas[i].fecha;
+          }
         }
         this.mostrarSpinner = false;
         this.display = true;

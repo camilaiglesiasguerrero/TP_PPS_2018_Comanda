@@ -127,8 +127,8 @@ export class PrincipalClientePage {
                       this.puedePedirDelivery = false;
                       this.puedeSolicitarMesa = false;
                       this.esperandoAsignacion = false;
-                      this.mostrarSpinner = false;
                     }
+                    this.mostrarSpinner = false;
                   });
               }else{
                 this.mostrarSpinner = false;
@@ -151,8 +151,9 @@ export class PrincipalClientePage {
 
       }, (err) => {
         //datos hardcodeados
-       // this.mesa = 'Mesa:2';
+        //this.mesa = 'Mesa:1';
        // this.irA('verPedido');
+        //donde == 'hacerPedido' ? this.irA('hacerPedido') : this.irA('verPedido');
         //this.navCtrl.push(AltaPedidoPage,{mesa:this.mesa});
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });

@@ -17,7 +17,6 @@ import * as _ from 'lodash';
 export class ListadoPedidosPage {
 
   //suscripciones
-  subsProducto:any;
   subsPedido:any;
   subsUnPedido:any;
   subsReserva:any;
@@ -100,7 +99,7 @@ export class ListadoPedidosPage {
    * Chequea y si están todos los productos listos marca el pedido completo como Listo
    */
   getProductos(){
-    this.watchProductos = this.subsProducto = this.database.db.list<any>(this.dic.apis.pedidos,ref => ref.orderByChild('estado').equalTo(this.dic.estados_pedidos.en_preparacion))
+    this.watchProductos = this.database.db.list<any>(this.dic.apis.pedidos,ref => ref.orderByChild('estado').equalTo(this.dic.estados_pedidos.en_preparacion))
       .valueChanges()
       .subscribe(snapshots => {
 
@@ -277,7 +276,7 @@ export class ListadoPedidosPage {
       nombre: pr.nombre,
       precio: pr.precio,
       pedido: pr.pedido,
-      tiempoElaboracion: pr.tiempoElaboracion,
+      tiempoElaboracion: pr.tiempoElaboracion ? pr.tiempoElaboracion : 0,
       entrega: pr.estado ? 0 : (fecha + (pr.tiempoElaboracion * 60000))
     };
 
@@ -317,7 +316,10 @@ export class ListadoPedidosPage {
         this.notificationPushService.notificarMozoPedidoOk();
       }
       this.mostrarSpinner = false;
+    }).catch(error =>{
+      this.messageHandler.mostrarErrorLiteral("No se actualizo el estado del pedido");
     });
+    this.watchProductos ? this.watchProductos.unsubscribe(): '';
 
   }
 

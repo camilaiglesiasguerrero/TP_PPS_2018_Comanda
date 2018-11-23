@@ -107,6 +107,7 @@ export class AdivinarNumeroPage {
         this.perdio();
       }
     }
+    alert("numero secreto " + this.numSecret);
   }
 
   gano(){
