@@ -42,9 +42,10 @@ export class PropinaPage {
     public mensajes: MessageHandler,
     private params:ParamsService
   ) {
-    this.pedido =this.navParams.get('pedido');
-    this.codigosBD = CodesPropina.slice(0);
-    this.totalCuenta = this.navParams.get('cuenta');
+    //this.pedido =this.navParams.get('pedido');
+    //this.codigosBD = CodesPropina.slice(0);
+    //this.totalCuenta = this.navParams.get('cuenta');
+    this.totalPropina = 456,66;
   }
 
   ionViewDidLoad() {
