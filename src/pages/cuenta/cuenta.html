@@ -42,7 +42,7 @@
 
         <ion-col justify-content-end>
           <ion-row> Total {{suma | precio}} </ion-row>
-          <ion-row *ngIf=propina> Propina {{ suma / params.propinaAux | precio}} </ion-row>
+          <ion-row *ngIf=propina> Propina {{ suma * params.propinaAux | precio}} </ion-row>
         </ion-col>
       </ion-row>
     </ion-row>

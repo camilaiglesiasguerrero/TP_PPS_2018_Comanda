@@ -89,7 +89,7 @@ export class PropinaPage {
   }
 
   confirmarPropina(){
-    this.params.propinaAux = this.codigoComprobado.id;
+    this.params.propinaAux = this.codigoComprobado.id/100;
     this.navCtrl.setRoot(CuentaPage, {pedido: this.pedido});
   }
 }
