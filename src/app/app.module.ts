@@ -50,13 +50,10 @@ import { PrincipalMozoPage } from '../pages/principal-mozo/principal-mozo';
 
 //Listados
 import { MesasPage } from '../pages/mesas/mesas';
-import { BebidasPage } from '../pages/bebidas/bebidas';
-import { ComidasPage } from '../pages/comidas/comidas';
 import { EmpeladosPage } from '../pages/empleados/empleados';
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { ListadoMenuPage } from '../pages/listado-menu/listado-menu';
 import { DueñosPage } from '../pages/dueños/dueños';
-import { ProfilePage } from '../pages/profile/profile';
 import { PropinaPage } from '../pages/propina/propina';
 
 //ABM
@@ -86,6 +83,7 @@ import { CuentaPage } from '../pages/cuenta/cuenta';
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
 import {ReservarMesaPage} from "../pages/reservar-mesa/reservar-mesa";
 import {ChatPage} from "../pages/chat/chat";
+import {DeliveryPedidosPage} from "../pages/delivery-pedidos/delivery-pedidos";
 
 
 //Pedido
@@ -110,6 +108,7 @@ import { from } from 'rxjs/observable/from';
 import { IniciarsesionmenuPage } from '../pages/iniciarsesionmenu/iniciarsesionmenu';
 
 import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
+import { SpinnerPage } from '../pages/spinner/spinner';
 
 
 @NgModule({
@@ -119,8 +118,6 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     IniciarsesionmenuPage,
     RegistrarsePage,
     MesasPage,
-    BebidasPage,
-    ComidasPage,
     EmpeladosPage,
     EncuestaEmpleadoPage,
     ListadoPedidosPage,
@@ -137,7 +134,6 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     EncuestaClientePage,
     PrincipalClientePage,
     PrincipalMozoPage,
-    ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
     AdivinarNumeroPage,
@@ -150,7 +146,9 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
     ListadoEsperaPage,
-    ChatPage
+    ChatPage,
+    DeliveryPedidosPage,
+    SpinnerPage
   ],
   imports: [
     BrowserModule,
@@ -173,8 +171,6 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     IniciarsesionmenuPage,
     RegistrarsePage,
     MesasPage,
-    BebidasPage,
-    ComidasPage,
     EmpeladosPage,
     EncuestaEmpleadoPage,
     ListadoPedidosPage,
@@ -191,7 +187,6 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     EncuestaClientePage,
     PrincipalClientePage,
     PrincipalMozoPage,
-    ProfilePage,
     PropinaPage,
     EncuestaClienteResultadosPage,
     AdivinarNumeroPage,
@@ -205,7 +200,10 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
     ListadoEsperaPage,
-    ChatPage
+    ChatPage,
+    DeliveryPedidosPage,
+    PropinaPage,
+    SpinnerPage
   ],
   providers: [
     StatusBar,
