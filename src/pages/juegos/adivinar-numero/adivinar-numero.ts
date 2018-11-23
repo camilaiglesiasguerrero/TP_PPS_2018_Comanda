@@ -74,7 +74,10 @@ export class AdivinarNumeroPage {
 
   // Creamos la función numAleatorio que nos devolverá un número aleatorio
   numAleatorio(a,b){
-    return Math.round(Math.random()*(b-a)+parseInt(a));
+    
+    let aux = Math.round(Math.random()*(b-a)+parseInt(a));
+    alert(aux);
+    return aux;
   }
 
   // Comprobamos si el número indicado es el correcto
