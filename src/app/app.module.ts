@@ -85,6 +85,7 @@ import { ReservasAgendadasPage } from '../pages/reservas-agendadas/reservas-agen
 import { CuentaPage } from '../pages/cuenta/cuenta';
 import {ReservasAgendadasSupervisorPage} from "../pages/reservas-agendadas-supervisor/reservas-agendadas-supervisor";
 import {ReservarMesaPage} from "../pages/reservar-mesa/reservar-mesa";
+import {ChatPage} from "../pages/chat/chat";
 
 
 //Pedido
@@ -148,7 +149,8 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     CuentaPage,
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
-    ListadoEsperaPage
+    ListadoEsperaPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -202,7 +204,8 @@ import { ListadoEsperaPage } from '../pages/listado-espera/listado-espera';
     ReservasAgendadasPage,
     ReservasAgendadasSupervisorPage,
     ReservarMesaPage,
-    ListadoEsperaPage
+    ListadoEsperaPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
