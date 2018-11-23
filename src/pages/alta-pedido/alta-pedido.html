@@ -9,7 +9,7 @@
 
 <ion-content padding >
 
-    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
+  <page-spinner [hidden]="!mostrarSpinner"></page-spinner>
   <!--ALTA DE PEDIDO-->
   <div *ngIf="display" class="height-100">
     <ion-grid *ngIf="!mostrarParcial && !pedidoYaHecho && !mostrarDireccion">
@@ -143,9 +143,9 @@
               </div>
             </ion-col>
           </ion-row>
-          <ion-row>
+          <ion-row style="margin-top: 1em;">
             <ion-col>
-              <div class="title flex-v" *ngIf="estadoPedido" style="margin-top: 1em;">
+              <div class="title flex-v" *ngIf="estadoPedido">
                 <div class="tiempo-entrega color-beige">
                   Estado:
                 </div>
@@ -153,6 +153,9 @@
                   {{estadoPedido}}
                 </div>
               </div>
+            </ion-col>
+            <ion-col class="end-horizontal" *ngIf="delivery.estado == dic.estados_delivery.en_camino">
+              <button ion-fab style="color: #007c96; background-color: #f4f4f4" (click)="chatear()"><ion-icon name="chatbubbles"></ion-icon></button>
             </ion-col>
           </ion-row>
           <ion-row style="margin-top: 1em;">
@@ -169,7 +172,6 @@
           </ion-row>
         </ion-col>
       </ion-row>
-
     </div>
 
     <!--VISUALIZACION DE UBICACION-->

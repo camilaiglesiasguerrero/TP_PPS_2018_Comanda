@@ -22,7 +22,8 @@ export class DeliveryPedidosPage {
   watchDelivery:any;
   pedidosDelivery = [];
   pedidosFinalizados = [];
-  deliverys = []
+  misDeliverys = [];
+  deliverys = [];
   options:any;
   mesa:any;
   dic:any;
@@ -30,6 +31,7 @@ export class DeliveryPedidosPage {
   deliveryTomado:any;
   direccion = {value: '', lat: '', long: ''};
   mostrarSpinner : boolean= false;
+  pedidoSeleccionado:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -43,42 +45,86 @@ export class DeliveryPedidosPage {
 
   ionViewDidLoad(){
     this.mostrarSpinner = true;
-    this.watchPedidosDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('isDelivery').equalTo(true)).valueChanges()
-      .subscribe(snapshots => {
-        this.pedidosDelivery = snapshots;
-        this.pedidosFinalizados = this.pedidosDelivery.filter(pedidoFirebase => {
-          return  pedidoFirebase.estado == diccionario.estados_pedidos.listo
-        });
-        if(this.pedidosFinalizados.length){
+    this.getPedidosParaEntregar();
+    this.getMisPedidos();
 
-        }
-        this.mostrarSpinner = false;
-      });
   }
 
-
   tomarEntrega(pedido){
+    this.pedidoSeleccionado = pedido;
     this.mostrarSpinner = true;
     this.watchDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('idPedido').equalTo(pedido.key)).valueChanges()
       .subscribe(snapshots => {
-        this.mostrarDelivery = true;
         this.deliverys = snapshots;
         this.deliveryTomado = this.deliverys[0];
         this.direccion['value'] = this.deliveryTomado.direccion;
         this.direccion['lat'] = this.deliveryTomado.lat;
         this.direccion['long'] = this.deliveryTomado.long;
         this.mostrarSpinner = false;
+        this.mostrarDelivery = true;
       });
   }
 
   confirmar(){
+    this.mostrarSpinner = true;
     this.deliveryTomado.estado = diccionario.estados_delivery.en_camino;
+    this.deliveryTomado['idEmpleado'] = this.params.user.uid;
     this.database.jsonPackData = this.deliveryTomado;
     this.database.SubirDataBase(diccionario.apis.delivery).then(r=>{
+      this.pedidoSeleccionado.estado = diccionario.estados_pedidos.en_camino;
+      this.database.jsonPackData = this.pedidoSeleccionado;
+      this.database.SubirDataBase(diccionario.apis.pedidos).then(r=>{
+      });
+      var chat = {
+        key: this.database.ObtenerKey(diccionario.apis.chats),
+        idDelivery: this.deliveryTomado.key
+      };
+      this.database.jsonPackData = chat;
+      this.database.SubirDataBase(diccionario.apis.chats).then(r=>{
+        this.mostrarDelivery = false;
+        this.mostrarSpinner = false;
+        this.deliveryTomado = {};
+        this.messageHandler.mostrarMensaje("Datos guardados, puedes comunicarte con el cliente por chat");
+      });
+    });
+  }
+
+  confirmarEntrega(delivery){
+    this.mostrarSpinner = true;
+    delivery.estado = diccionario.estados_delivery.entregado;
+    this.database.jsonPackData = delivery;
+    this.database.SubirDataBase(diccionario.apis.delivery).then(r=>{
+      this.mostrarDelivery = false;
+      this.mostrarSpinner = false;
+      this.deliveryTomado = {};
+      this.messageHandler.mostrarMensaje("Datos guardados, pedido cerrado");
 
     });
   }
 
+  chatearCliente(delivery){
+
+  }
+
+  private getPedidosParaEntregar(){
+    this.watchPedidosDelivery = this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('isDelivery').equalTo(true)).valueChanges()
+      .subscribe(snapshots => {
+        this.pedidosDelivery = snapshots;
+        this.pedidosFinalizados = this.pedidosDelivery.filter(pedidoFirebase => {
+          return  pedidoFirebase.estado == diccionario.estados_pedidos.listo
+        });
+        this.mostrarSpinner = false;
+      });
+  }
+
+  private getMisPedidos(){
+    this.watchPedidosDelivery = this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('idEmpleado').equalTo(this.params.user.uid)).valueChanges()
+      .subscribe(snapshots => {
+        this.misDeliverys= snapshots.filter(pedidoFirebase => {
+          return  pedidoFirebase['estado'] == diccionario.estados_delivery.en_camino
+        });
+      });
+  }
 
 
 }

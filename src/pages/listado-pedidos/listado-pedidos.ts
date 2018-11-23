@@ -308,15 +308,14 @@ export class ListadoPedidosPage {
 
   private actualizarPedido(pedidoAActualizar){
     this.mostrarSpinner = true;
-    // var pedidoAActualizar = _.find(this.pedidosList, pedido =>{
-    //   if(pedido.key == pedidoId && pedido.estado == diccionario.estados_pedidos.en_preparacion){
-    //     return pedido;
-    //   }
-    // });
     pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
     this.database.jsonPackData = pedidoAActualizar;
     this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
-      this.notificationPushService.notificarMozoPedidoOk();
+      if(pedidoAActualizar.isDelivery){
+        this.notificationPushService.notificarDeliveryOk();
+      }else{
+        this.notificationPushService.notificarMozoPedidoOk();
+      }
       this.mostrarSpinner = false;
     });
 

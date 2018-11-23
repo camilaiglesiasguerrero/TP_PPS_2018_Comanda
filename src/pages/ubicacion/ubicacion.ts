@@ -28,6 +28,7 @@ export class UbicacionPage {
   @Input('direccion') direccion:any;
   @Input('show-ruta') showRuta:any;
   @Input('show-detalles') showDetalles:any;
+  @Input('ocultar-ingresar-direccion') hiddenInputDir:any;
 
   map: any;
   marker:any;
@@ -75,6 +76,10 @@ export class UbicacionPage {
   private cargarMapa(lat, long) {
     this.directionsService = new google.maps.DirectionsService();
     this.directionsDisplay = new google.maps.DirectionsRenderer();
+    if(this.direccion && this.direccion.lat && this.direccion.long ){
+      lat = this.direccion.lat;
+      long = this.direccion.long;
+    }
     this.latLong = new google.maps.LatLng(lat, long);
     let mapOptions = {
       center: this.latLong,
