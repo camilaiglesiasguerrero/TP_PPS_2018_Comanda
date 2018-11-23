@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
+  <page-spinner [hidden]="!mostrarSpinner"></page-spinner>
   <div *ngIf="!mostrarDelivery">
     <div *ngFor="let pedido of pedidosFinalizados; let i = index">
       <ion-list >
@@ -16,24 +16,62 @@
           <p>Listo para entregar</p>
           <div class="flev-h end-horizontal">
             <button ion-button (click)=tomarEntrega(pedido) clear>Tomar Entrega</button>
-            <button ion-button color="danger" (click)=cancelarReserva(reserva.key) clear>Borrar</button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngFor="let pedido of misDeliverys; let i = index">
+      <ion-list >
+        <ion-item style="margin-bottom: 1em;">
+          <h2>Pedido: {{i + 1}}</h2>
+          <p>En camino</p>
+          <div class="flev-h end-horizontal">
+            <button ion-button (click)=confirmarEntrega(pedido) clear>Confirmar Entrega</button>
+            <button ion-button (click)=chatearCliente(pedido) clear>
+              <ion-icon name="chatbubbles" style="margin-right: 5px;"></ion-icon>
+              Chat
+            </button>
           </div>
         </ion-item>
       </ion-list>
     </div>
   </div>
 
-  <div *ngIf="mostrarDelivery">
-    <ion-list >
-      <ion-item style="margin-bottom: 1em;">
-        <h2>Direccion: {{deliveryTomado.direccion}}</h2>
-        <p>Informacion Extra de direccion:</p>
-        <p>{{deliveryTomado.infoDireccion}}</p>
-        <page-ubicacion [direccion]="deliveryTomado.direccion" [show-ruta]="true"></page-ubicacion>
-        <div class="flev-h end-horizontal">
-          <button ion-button (click)=confirmar() clear>Confirmar</button>
-        </div>
-      </ion-item>
+  <div *ngIf="mostrarDelivery" style="height: 80%">
+    <ion-list style="height: 100%;margin-bottom: 1em;">
+      <ion-row>
+        <ion-col>
+          <div class="direccion">Direccion: {{deliveryTomado.direccion}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="deliveryTomado.infoDireccion">
+        <ion-col>
+          <ion-row>
+            <ion-col>
+              <p class="infoExtra">Informacion Extra de direccion:</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p class="infoExtra">{{deliveryTomado.infoDireccion}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row style="height: 70%;">
+        <ion-col>
+          <page-ubicacion [direccion]="direccion" [show-ruta]="true" [ocultar-ingresar-direccion]="true"></page-ubicacion>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="flev-h end-horizontal">
+            <button ion-button round color="light" (click)='confirmar()'>
+              Confirmar
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
     </ion-list>
 
   </div>

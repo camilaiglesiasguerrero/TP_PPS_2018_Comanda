@@ -63,6 +63,30 @@ page-listado-pedidos {
   .color-beige{
     color: $fourth-detail-color;
   }
+
+  .header{
+    color: white;
+  }
+
+  .mi-fab-icon{
+    background-color: #007c96;
+    padding: 10px;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 900;
+    font-size: 2rem;
+  }
+
+  .producto-row{
+    margin-right: 0;
+    margin-left: 0px;
+    width: 100%;
+  }
 }
 
 

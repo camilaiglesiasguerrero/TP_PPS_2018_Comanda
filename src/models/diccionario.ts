@@ -14,6 +14,7 @@ export const diccionario = {
     encuesta_empleado: "encuesta-empleado/",
     cuentas: "cuentas/",
     delivery: "delivery/",
+    chats: "chats/"
   },
   firestore:{
     devices: "devices",
@@ -29,7 +30,8 @@ export const diccionario = {
     listo: "Listo",
     entregado: "Entregado",
     cuenta: "Cuenta",
-    pagado: "Pagado"
+    pagado: "Pagado",
+    en_camino: "En camino"
   },
   estados_productos:{
     en_preparacion: false,

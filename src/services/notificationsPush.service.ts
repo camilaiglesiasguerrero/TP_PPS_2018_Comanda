@@ -149,4 +149,20 @@ export class NotificationsPushService {
       this.guardarNotificacion();
     }
   }
+
+  notificarDeliveryOk(){
+    this.notification.title = "Pedido";
+    this.notification.body = "Hay pedidos pendientes de entrega.";
+    this.notification.devices = [];
+    if(this.dispositivos.length){
+      for(var i=0; i < this.dispositivos.length; i++){
+        if(this.dispositivos[i].rol == 'delivery'){
+          this.notification.devices.push(this.dispositivos[i].token)
+        }
+      }
+    }
+    if(this.notification.devices.length){
+      this.guardarNotificacion();
+    }
+  }
 }

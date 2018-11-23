@@ -33,7 +33,7 @@ export class ListadoPedidosPage {
   dic:any;
   esCocineroBartender:boolean;
   watchProductos:any;
-  
+
   mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -46,7 +46,7 @@ export class ListadoPedidosPage {
     this.pedidosMozo = new Array<any>();
     this.productos = new Array<any>();
     this.pedidosList = new Array<any>();
-    
+
     this.mostrarSpinner = true;
 
     switch(this.params.rol){
@@ -75,6 +75,7 @@ export class ListadoPedidosPage {
   }
 
   ionViewDidLeave(){
+    alert("entro al ionviewdidleave");
     if(this.watchProductos){
       this.watchProductos.unsubscribe();
     }
@@ -108,8 +109,10 @@ export class ListadoPedidosPage {
         this.cambiarEstadoPedido = false;
         for (let i = 0; i < this.pedidosList.length; i++) {
           for(let keyProducto in this.pedidosList[i].productos){
-            let aux = this.pedidosList[i].productos[keyProducto];
-            this.productos.push(aux);
+            if((!this.pedidosList[i].productos[keyProducto].estado) && this.pedidosList[i].productos[keyProducto].tipo == this.tipo){
+              let aux = this.pedidosList[i].productos[keyProducto];
+              this.productos.push(aux);
+            }
           }
           this.chequearEstadoDeProductos();
           this.mostrarSpinner = false;
@@ -167,7 +170,7 @@ export class ListadoPedidosPage {
    * @param pr producto
    */
   cambiarEstado(pr){
-    
+
     let aux = {
       key : pr.key,
       cantidad : pr.cantidad,
@@ -208,13 +211,13 @@ export class ListadoPedidosPage {
       tiempoElaboracion: pr.tiempoElaboracion,
       entrega: (fecha + (pr.tiempoElaboracion * 60000))
     }
-    
+
     this.database.jsonPackData = aux;
     this.database.SubirDataBase(this.dic.apis.pedidos+aux.pedido+'/'+this.dic.apis.productos)
-    .then(response =>{
+      .then(response =>{
         this.mostrarSpinner = false;
-    });
-    
+      });
+
   }
   /**Cambia el estado del pedido a Entregado/Cerrado */
   AprobarEntregar(p){
@@ -262,32 +265,60 @@ export class ListadoPedidosPage {
       });
   }
 
+  confirmarProducto(pr){
+    this.mostrarSpinner = true;
+    let fecha = Date.now();
+
+    let aux = {
+      key : pr.key,
+      cantidad : pr.cantidad,
+      tipo : pr.tipo,
+      estado: pr.estado,
+      nombre: pr.nombre,
+      precio: pr.precio,
+      pedido: pr.pedido,
+      tiempoElaboracion: pr.tiempoElaboracion,
+      entrega: pr.estado ? 0 : (fecha + (pr.tiempoElaboracion * 60000))
+    };
+
+    this.database.jsonPackData = aux;
+    this.database.SubirDataBase(this.dic.apis.pedidos+aux.pedido+'/'+this.dic.apis.productos)
+      .then(response =>{
+        this.mostrarSpinner = false;
+      });
+
+  }
+
   private chequearEstadoDeProductos(){
-    let cont = 0;
-    for (let j = 0; j < this.productos.length; j++) {
-      if(this.productos[j].estado)
-        cont++;
-      if(cont == this.productos.length){
-        this.actualizarPedido(this.productos[j].pedido);
+    var todosListos:boolean = true;
+    for (let i = 0; i < this.pedidosList.length; i++) {
+      if(this.pedidosList[i].estado == diccionario.estados_pedidos.en_preparacion){
+        todosListos = true;
+        for(let keyProducto in this.pedidosList[i].productos){
+          if((!this.pedidosList[i].productos[keyProducto].estado)){
+            todosListos = false;
+          }
+        }
+        if(todosListos){
+          this.actualizarPedido(this.pedidosList[i]);
+        }
       }
     }
   }
 
-  private actualizarPedido(pedidoId){
+  private actualizarPedido(pedidoAActualizar){
     this.mostrarSpinner = true;
-    var pedidoAActualizar = _.find(this.pedidosList, pedido =>{
-      if(pedido.key == pedidoId && pedido.estado == diccionario.estados_pedidos.en_preparacion){
-        return pedido;
+    pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
+    this.database.jsonPackData = pedidoAActualizar;
+    this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
+      if(pedidoAActualizar.isDelivery){
+        this.notificationPushService.notificarDeliveryOk();
+      }else{
+        this.notificationPushService.notificarMozoPedidoOk();
       }
+      this.mostrarSpinner = false;
     });
-    if(pedidoAActualizar){
-      pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
-      this.database.jsonPackData = pedidoAActualizar;
-      this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
-            this.notificationPushService.notificarMozoPedidoOk();
-            this.mostrarSpinner = false;
-          });
-    }
+
   }
 
 }

@@ -43,8 +43,8 @@ export class CuentaPage {
     this.propina = false;
     this.mostrarSpinner = true;
     this.pedido =this.navParams.get('pedido');
-    //this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
-    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+'-LRWp9M66_CU6u0azpLR/'+diccionario.apis.productos)
+    //this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+'-LRWp9M66_CU6u0azpLR/'+diccionario.apis.productos)
+    this.pedidoSubs = this.database.db.list<any>(diccionario.apis.pedidos+this.pedido+'/'+diccionario.apis.productos)
       .valueChanges()
       .subscribe(snapshots => {
         
