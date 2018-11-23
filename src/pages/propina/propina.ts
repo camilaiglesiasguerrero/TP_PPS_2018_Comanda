@@ -45,6 +45,7 @@ export class PropinaPage {
     this.pedido =this.navParams.get('pedido');
     this.codigosBD = CodesPropina.slice(0);
     this.totalCuenta = this.navParams.get('cuenta');
+    
   }
 
   ionViewDidLoad() {
