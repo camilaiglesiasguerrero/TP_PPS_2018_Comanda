@@ -81,6 +81,15 @@ export class ListadoPedidosPage {
     if(this.subsPedido){
       this.subsPedido.unsubscribe()
     }
+    if(this.subsUnPedido){
+      this.subsUnPedido.unsubscribe()
+    }
+    if(this.subsReserva){
+      this.subsReserva.unsubscribe()
+    }
+    if(this.subsMesa){
+      this.subsMesa.unsubscribe()
+    }
   }
 
   irA(donde: string){
@@ -234,6 +243,7 @@ export class ListadoPedidosPage {
         this.database.jsonPackData = auxPedido[0];
         this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
           this.mostrarSpinner = false;
+          p = {};
         });
       });
   }
@@ -310,6 +320,7 @@ export class ListadoPedidosPage {
     pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
     this.database.jsonPackData = pedidoAActualizar;
     this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
+      debugger;
       if(pedidoAActualizar.isDelivery){
         this.notificationPushService.notificarDeliveryOk();
       }else{
