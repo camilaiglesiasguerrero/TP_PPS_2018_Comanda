@@ -189,7 +189,9 @@ export class TriviaPage {
             cantidad: 1,
             estado: diccionario.estados_productos.en_preparacion,
             tipo: 'Comida',
-            pedido: this.pedido
+            pedido: this.pedido,
+            tiempoElaboracion: 30,
+            entrega: (Date.now() + (30 * 60000))
           };
           //guardo el producto
           this.database.jsonPackData = productoGanado;

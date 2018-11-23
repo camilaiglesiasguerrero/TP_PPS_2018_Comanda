@@ -155,7 +155,9 @@ export class AnagramaPage {
                 cantidad: 1,
                 estado: diccionario.estados_productos.en_preparacion,
                 tipo: 'Bebida',
-                pedido: this.pedido
+                pedido: this.pedido,
+                tiempoElaboracion: 20,
+                entrega: (Date.now() + (20 * 60000))
               }
               //guardo el producto
               this.database.jsonPackData = productoGanado;
