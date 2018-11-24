@@ -61,7 +61,7 @@ export class OcuparMesaPage {
           .subscribe(snapshots =>{
             for(var i=0; i < snapshots.length; i++){
               if(snapshots[i]['estado'] == diccionario.estados_reservas_agendadas.con_mesa || snapshots[i]['estado'] == diccionario.estados_reservas_agendadas.confirmada){
-                if(!this.parserTypesService.hayDiferenciaDe40Minutos(this.parserTypesService.parseDateTimeToStringDateTime(new Date()), snapshots[i]['fecha'])){
+                if(!this.parserTypesService.hayDiferenciaDe40Minutos(snapshots[i]['fecha'], this.parserTypesService.parseDateTimeToStringDateTime(new Date()))){
                   this.mostrarSpinner = false;
                   this.messageHandler.mostrarErrorLiteral("Mesa ocupada");
                   this.Cancelar();
