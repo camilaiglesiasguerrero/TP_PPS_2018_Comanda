@@ -40,7 +40,7 @@ export class AltaPedidoPage {
   delivery: Delivery = new Delivery();
   productoPedido : Array<ProductoPedido>;
   clienteTieneReserva:boolean;
-  direccion:any = {value:""};
+  direccion:any = {value:"", lat: "", long: "", infoDireccion: ""};
   options:any;
   listadoAPedir:Array<any>;
   mostrarParcial:boolean = false;

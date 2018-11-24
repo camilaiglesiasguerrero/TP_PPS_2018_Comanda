@@ -37,7 +37,7 @@ export class ChatPage {
     public database: DatabaseService,
     public params: ParamsService,
     private parser: ParserTypesService){
-
+    this.userActual = this.params.user.nombre;
     this.idDelivery=this.navParams.get('idDelivery');
     this.watcherChat = this.database.db.list<any>(diccionario.apis.chats, ref => ref.orderByChild('idDelivery').equalTo(this.idDelivery)).valueChanges()
       .subscribe(snp=>{
