@@ -288,10 +288,14 @@ export class ListadoPedidosPage {
     for (let i = 0; i < this.pedidosList.length; i++) {
       if(this.pedidosList[i].estado == diccionario.estados_pedidos.en_preparacion){
         todosListos = true;
-        for(let keyProducto in this.pedidosList[i].productos){
-          if((!this.pedidosList[i].productos[keyProducto].estado)){
-            todosListos = false;
+        if(this.pedidosList[i].productos){
+          for(let keyProducto in this.pedidosList[i].productos){
+            if((!this.pedidosList[i].productos[keyProducto].estado)){
+              todosListos = false;
+            }
           }
+        }else{
+          todosListos = false;
         }
         if(todosListos){
           this.actualizarPedido(this.pedidosList[i]);
@@ -314,7 +318,7 @@ export class ListadoPedidosPage {
     }).catch(error =>{
       this.messageHandler.mostrarErrorLiteral("No se actualizo el estado del pedido");
     });
-    this.watchProductos ? this.watchProductos.unsubscribe(): '';
+    //this.watchProductos ? this.watchProductos.unsubscribe(): '';
 
   }
 

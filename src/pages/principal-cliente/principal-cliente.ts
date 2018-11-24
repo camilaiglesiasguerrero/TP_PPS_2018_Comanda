@@ -51,7 +51,7 @@ export class PrincipalClientePage {
 
     this.mostrarSpinner = true;
 
-    this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('Cliente').equalTo(this.params.user.uid))
+    this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
       .valueChanges()
       .subscribe(snpDelivery => {
         //veo la lista de delivery con este cliente
@@ -72,93 +72,93 @@ export class PrincipalClientePage {
           }
         }
 
-    this.database.db.list<any>(diccionario.apis.lista_espera, ref => ref.orderByChild('clienteId').equalTo(this.params.user.uid))
-      .valueChanges()
-      .subscribe(snapshots => {
-        //veo la lista de espera con este cliente
-        //si no esta en lista de espera se pone el estado inicial, puede solicitar mesa o delivery
-        if(snapshots.length == 0){
-          this.puedePedirDelivery = true;
-          this.puedeSolicitarMesa = true;
-          this.puedeJugar = false;
-          this.puedeVerPedido = false;
-          this.puedeHacerPedido = false;
-          this.esperandoAsignacion = false;
-          this.mostrarSpinner = false;
-          return;
-        }
-        //el cliente esta en lista de espera
-        let auxListaEspera = snapshots;
-        auxListaEspera = auxListaEspera.filter(le => le['estado'] == diccionario.estados_reservas_agendadas.sin_mesa);
-        //esta lista de espera sin mesa: se le muestra que ya se le va a asignar mesa
-        if (auxListaEspera.length == 1) {
-          this.puedePedirDelivery = false;
-          this.puedeSolicitarMesa = false;
-          this.puedeJugar = false;
-          this.puedeVerPedido = false;
-          this.puedeHacerPedido = false;
-          this.esperandoAsignacion = true;
-          this.mostrarSpinner = false;
-        }
-        //esta en lista de espera con mesa asignada, se consulta la reserva
-        else {
-          this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
-            .valueChanges()
-            .subscribe(snapshots => {
-              let auxReserva = new Array<any>();
-              auxReserva = snapshots;
-              let flag = false;
-              for (let index = 0; index < auxReserva.length; index++) {
-                if (auxReserva[index].estado == diccionario.estados_reservas.en_curso) {
-                  //tiene una reserva en curso
-                  if (auxReserva[index].idPedido != undefined) {
-                    //tiene un pedido hecho la reserva
-                    this.auxPedido = auxReserva[index].idPedido;
-                    this.puedeJugar = true;
-                    this.puedeVerPedido = true;
-                    this.puedeHacerPedido = false;
-                    this.puedePedirDelivery = false;
-                    this.puedeSolicitarMesa = false;
-                    this.esperandoAsignacion = false;
-                    flag = true;
-                    break;
-                  }
-                  //no tiene un pedido hecho
-                  if (!flag && index == auxReserva.length - 1) {
-                    this.puedeJugar = false;
-                    this.puedeVerPedido = false;
-                    this.puedeHacerPedido = true;
-                    this.puedePedirDelivery = false;
-                    this.puedeSolicitarMesa = false;
-                    this.esperandoAsignacion = false;
-                  }
-                }
-              }
-              //Verifico estado del pedido
-              if (this.auxPedido != undefined) {
-                this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.auxPedido))
-                  .valueChanges()
-                  .subscribe(snp => {
-                    let auxPedido: any = snp;
-                    if (auxPedido[0].estado == diccionario.estados_pedidos.cuenta ||
-                      auxPedido[0].estado == diccionario.estados_pedidos.pagado ||
-                      auxPedido[0].estado == diccionario.estados_pedidos.entregado) {
-                      this.puedeJugar = false;
-                      this.puedeVerPedido = true;
-                      this.puedeHacerPedido = false;
-                      this.puedePedirDelivery = false;
-                      this.puedeSolicitarMesa = false;
-                      this.esperandoAsignacion = false;
+        this.database.db.list<any>(diccionario.apis.lista_espera, ref => ref.orderByChild('clienteId').equalTo(this.params.user.uid))
+          .valueChanges()
+          .subscribe(snapshots => {
+            //veo la lista de espera con este cliente
+            //si no esta en lista de espera se pone el estado inicial, puede solicitar mesa o delivery
+            if(snapshots.length == 0){
+              this.puedePedirDelivery = true;
+              this.puedeSolicitarMesa = true;
+              this.puedeJugar = false;
+              this.puedeVerPedido = false;
+              this.puedeHacerPedido = false;
+              this.esperandoAsignacion = false;
+              this.mostrarSpinner = false;
+              return;
+            }
+            //el cliente esta en lista de espera
+            let auxListaEspera = snapshots;
+            auxListaEspera = auxListaEspera.filter(le => le['estado'] == diccionario.estados_reservas_agendadas.sin_mesa);
+            //esta lista de espera sin mesa: se le muestra que ya se le va a asignar mesa
+            if (auxListaEspera.length == 1) {
+              this.puedePedirDelivery = false;
+              this.puedeSolicitarMesa = false;
+              this.puedeJugar = false;
+              this.puedeVerPedido = false;
+              this.puedeHacerPedido = false;
+              this.esperandoAsignacion = true;
+              this.mostrarSpinner = false;
+            }
+            //esta en lista de espera con mesa asignada, se consulta la reserva
+            else {
+              this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('cliente').equalTo(this.params.user.uid))
+                .valueChanges()
+                .subscribe(snapshots => {
+                  let auxReserva = new Array<any>();
+                  auxReserva = snapshots;
+                  let flag = false;
+                  for (let index = 0; index < auxReserva.length; index++) {
+                    if (auxReserva[index].estado == diccionario.estados_reservas.en_curso) {
+                      //tiene una reserva en curso
+                      if (auxReserva[index].idPedido != undefined) {
+                        //tiene un pedido hecho la reserva
+                        this.auxPedido = auxReserva[index].idPedido;
+                        this.puedeJugar = true;
+                        this.puedeVerPedido = true;
+                        this.puedeHacerPedido = false;
+                        this.puedePedirDelivery = false;
+                        this.puedeSolicitarMesa = false;
+                        this.esperandoAsignacion = false;
+                        flag = true;
+                        break;
+                      }
+                      //no tiene un pedido hecho
+                      if (!flag && index == auxReserva.length - 1) {
+                        this.puedeJugar = false;
+                        this.puedeVerPedido = false;
+                        this.puedeHacerPedido = true;
+                        this.puedePedirDelivery = false;
+                        this.puedeSolicitarMesa = false;
+                        this.esperandoAsignacion = false;
+                      }
                     }
+                  }
+                  //Verifico estado del pedido
+                  if (this.auxPedido != undefined) {
+                    this.database.db.list<any>(diccionario.apis.pedidos, ref => ref.orderByChild('key').equalTo(this.auxPedido))
+                      .valueChanges()
+                      .subscribe(snp => {
+                        let auxPedido: any = snp;
+                        if (auxPedido[0].estado == diccionario.estados_pedidos.cuenta ||
+                          auxPedido[0].estado == diccionario.estados_pedidos.pagado ||
+                          auxPedido[0].estado == diccionario.estados_pedidos.entregado) {
+                          this.puedeJugar = false;
+                          this.puedeVerPedido = true;
+                          this.puedeHacerPedido = false;
+                          this.puedePedirDelivery = false;
+                          this.puedeSolicitarMesa = false;
+                          this.esperandoAsignacion = false;
+                        }
+                        this.mostrarSpinner = false;
+                      });
+                  }else{
                     this.mostrarSpinner = false;
-                  });
-              }else{
-                this.mostrarSpinner = false;
-              }
-            });
-        }
+                  }
+                });
+            }
+          });
       });
-    });
   }
 
   ionViewDidLoad() {
