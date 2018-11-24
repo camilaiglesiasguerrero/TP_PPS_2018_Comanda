@@ -13,7 +13,7 @@ import { DashboardPage } from '../dashboard/dashboard';
 import { PrincipalClientePage } from '../principal-cliente/principal-cliente';
 import { IniciarsesionmenuPage } from '../iniciarsesionmenu/iniciarsesionmenu';
 import {FcmProvider} from "../../providers/fcm";
-
+import {AltaEmpleadoPage} from '../alta-empleado/alta-empleado';
 
 
 @Component({
@@ -107,7 +107,6 @@ export class IniciarsesionPage {
         case 'delivery':
         case 'metre':
         case '':
-
           this.navCtrl.setRoot(EncuestaEmpleadoPage);
           break;
         case 'cliente':
@@ -118,6 +117,9 @@ export class IniciarsesionPage {
           break;
         case 'supervisor':
           this.navCtrl.setRoot(DashboardPage);
+          break;
+        case 'admin':
+          this.navCtrl.setRoot(AltaEmpleadoPage, {tipoAlta:'dueño'});
           break;
       }
       this.fcmProvider.getToken(this.paramsService.user.uid, this.paramsService.user.rol);

@@ -60,7 +60,7 @@ export class PrincipalMozoPage {
             this.irA('hacerPedido');
             break;
         }
-      }
+        }
       }, (err) => {
         //console.log('Error: ', err);
         alert(err);
