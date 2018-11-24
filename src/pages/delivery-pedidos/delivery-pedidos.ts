@@ -10,6 +10,7 @@ import {ParserTypesService} from "../../services/parserTypesService";
 import {OcuparMesaPage} from "../ocupar-mesa/ocupar-mesa";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ReservarMesaPage} from "../reservar-mesa/reservar-mesa";
+import {ChatPage} from "../chat/chat";
 
 
 @Component({
@@ -103,7 +104,8 @@ export class DeliveryPedidosPage {
   }
 
   chatearCliente(delivery){
-    
+    debugger;
+    this.navCtrl.push(ChatPage,{idDelivery: delivery.key});
   }
 
   private getPedidosParaEntregar(){
