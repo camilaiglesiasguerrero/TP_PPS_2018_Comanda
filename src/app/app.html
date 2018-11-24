@@ -40,6 +40,12 @@
         <button menuClose ion-button block color="third" *ngFor="let p of cocineroPages" (click)="openPage(p)">
           {{p.title}}
         </button>
+    </ion-list>
+
+    <ion-list *ngIf="paramsService.rol == 'admin'">
+        <button menuClose ion-button block color="third" *ngFor="let p of adminPages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
       </ion-list>
     <ion-list>
       <button menuClose ion-button block color="third" *ngFor="let p of commonPages" (click)="openPage(p)">

@@ -49,7 +49,7 @@ export class EstadoPedidoPage {
     this.cerrar = false;
 
     if(this.navParams.get('mesa').split(':')[0] != 'Mesa'){
-      this.messageHandler.mostrarError(diccionario.errores.QR_invalido);
+      this.messageHandler.mostrarErrorLiteral(diccionario.errores.QR_invalido);
       this.irA('cerrar');
     }
     else

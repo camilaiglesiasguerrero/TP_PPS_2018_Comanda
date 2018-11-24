@@ -47,6 +47,7 @@ export class PrincipalMozoPage {
     this.options = { prompt : "Escaneá el código QR de la mesa" }
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
+        if(barcodeData.text != '' && barcodeData.text != null && barcodeData.text != undefined){
         this.mesa = barcodeData.text;
         switch(caso){
           case 'Reservar':
@@ -59,10 +60,8 @@ export class PrincipalMozoPage {
             this.irA('hacerPedido');
             break;
         }
+        }
       }, (err) => {
-        //console.log('Error: ', err);
-      //  this.mesa = "Mesa:3";
-       // this.irA('reserva',cliente);
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

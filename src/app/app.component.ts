@@ -23,6 +23,7 @@ import {DeliveryPedidosPage} from "../pages/delivery-pedidos/delivery-pedidos";
 import {EncuestaClienteResultadosPage} from "../pages/encuesta-cliente-resultados/encuesta-cliente-resultados";
 import { ListadoPedidosPage } from '../pages/listado-pedidos/listado-pedidos';
 import { AltaMesaPage } from '../pages/alta-mesa/alta-mesa';
+import { AltaEmpleadoPage } from '../pages/alta-empleado/alta-empleado';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class MyApp {
   bartenerPages: Array<{ title: string, component: any }>;
   commonPages: Array<{ title: string, component: any }>;
   deliveryPages: Array<{ title: string, component: any }>;
+  adminPages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               private paramsService: ParamsService, private messageHandler: MessageHandler, private authenticationService: AuthenticationService) {
@@ -90,6 +92,9 @@ export class MyApp {
     ];
     this.deliveryPages = [
       { title: 'Pedidos Delivery', component:DeliveryPedidosPage }
+    ];
+    this.adminPages = [
+      { title: 'Inicio', component:AltaEmpleadoPage }
     ];
   }
 

@@ -51,8 +51,15 @@ export class OcuparMesaPage {
       .valueChanges()
       .subscribe(snapshots => {
         this.mesa = snapshots[0];
+
         if (this.mesa.estado == diccionario.estados_mesas.ocupada) {
           this.messageHandler.mostrarErrorLiteral("Mesa " + this.mesa.estado);
+          this.Cancelar();
+          return;
+        }
+
+        if(parseInt(this.mesa.comensales) < parseInt(this.cliente.comensales)){
+          this.messageHandler.mostrarErrorLiteral("Mesa demasiado pequeña");
           this.Cancelar();
           return;
         }
@@ -85,6 +92,8 @@ export class OcuparMesaPage {
   }
 
   Confirmar(){
+
+    
     this.suscripcion.unsubscribe();
     this.mostrarSpinner = true;
     //Genero pedido pendiente para la mesa-cliente
