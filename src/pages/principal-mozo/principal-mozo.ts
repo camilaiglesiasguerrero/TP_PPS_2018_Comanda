@@ -85,7 +85,6 @@ export class PrincipalMozoPage {
   }
 
   confirmarReserva(reservaAgendada){
-    debugger;
     this.mostrarSpinner = true;
     var suscripcion: any;
     let reserva = new Reserva();
