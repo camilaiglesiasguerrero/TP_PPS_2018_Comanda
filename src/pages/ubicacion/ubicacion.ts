@@ -36,7 +36,6 @@ export class UbicacionPage {
   directionsService:any;
   directionsDisplay:any;
   tiempoArribo:string = "";
-  infoDireccion:string = "";
 
 
 
@@ -66,8 +65,10 @@ export class UbicacionPage {
 
   buscarCoordenadas(){
     this.geocodingProvider.obtenerCoordenadas(this.direccion.value).then(response =>{
-      this.cargarMapa(response.lat, response.long);
       this.direccion['value'] = response.direccion;
+      this.direccion['lat'] = response.lat;
+      this.direccion['long'] = response.long;
+      this.cargarMapa(response.lat, response.long);
     }, error =>{
       this.messageHandler.mostrarErrorLiteral("Error al obtener la ubicación");
     })
@@ -103,7 +104,6 @@ export class UbicacionPage {
       this.direccion['value'] = response;
       this.direccion['lat'] = lat;
       this.direccion['long'] = long
-      this.direccion['infoDireccion'] = this.infoDireccion;
     }, error => {
       console.log(error);
     });
