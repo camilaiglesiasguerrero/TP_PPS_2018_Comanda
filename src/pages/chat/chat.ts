@@ -25,6 +25,7 @@ export class ChatPage {
   idDelivery:string;
   userActual:string
   fecha:string;
+  auxUser:any;
 
   constructor(
     public navCtrl: NavController,

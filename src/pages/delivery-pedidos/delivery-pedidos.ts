@@ -10,7 +10,6 @@ import {ParserTypesService} from "../../services/parserTypesService";
 import {OcuparMesaPage} from "../ocupar-mesa/ocupar-mesa";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ReservarMesaPage} from "../reservar-mesa/reservar-mesa";
-import {AltaMesaPage} from "../alta-mesa/alta-mesa";
 import {ChatPage} from "../chat/chat";
 
 
