@@ -9,7 +9,7 @@
 
 <ion-content padding>
     <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
-  <div>
+  <div *ngIf="!miReserva">
     <ion-row>
       <ion-col>
         <ion-item>
@@ -37,19 +37,49 @@
       </ion-col>
     </ion-row>
   </div>
+  <div *ngIf="miReserva">
+    <ion-row>
+      <ion-col class="reserva-title">
+        Tu reserva:
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Cantidad de comensales</ion-label>
+          <ion-input type="number" name="comensales" [(ngModel)]="miReserva.comensales" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Fecha</ion-label>
+          <ion-input type="text" name="comensales" [(ngModel)]="miReserva.fecha" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Estado</ion-label>
+          <ion-input type="text" name="estado" [(ngModel)]="miEstado" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
 
-  <div class="height-60">
+  <div class="height-60" *ngIf="!miReserva">
     <ion-row class="height-100">
       <ion-col>
         <page-ubicacion [direccion]="direccion" [show-ruta]="true"></page-ubicacion>
       </ion-col>
     </ion-row>
   </div>
-
 </ion-content>
 
-<ion-footer>
-  <button ion-button color="light" block type="button"  (click)="confirmarReserva()"><ion-icon name="check-mark" ></ion-icon>Confirmar Reserva</button>
+<ion-footer >
+  <button *ngIf="!miReserva" ion-button color="light" block type="button"  (click)="confirmarReserva()"><ion-icon name="check-mark" ></ion-icon>Confirmar Reserva</button>
 </ion-footer>
 
 

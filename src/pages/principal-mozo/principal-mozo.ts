@@ -91,7 +91,7 @@ export class PrincipalMozoPage {
     reserva.key = this.database.ObtenerKey(diccionario.apis.reservas);
     reserva.cliente = reservaAgendada.clienteId;
     reserva.estado = diccionario.estados_reservas.en_curso;
-    reserva.fecha = reservaAgendada.fecha;
+    reserva.fecha = this.parser.parseDateTimeToStringDateTime(new Date());//reservaAgendada.fecha;
     reserva.idMesa = reservaAgendada.mesa;
     reserva.idPedido = null;
     this.database.jsonPackData = reserva;

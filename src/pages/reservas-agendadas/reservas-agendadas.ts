@@ -28,6 +28,10 @@ export class ReservasAgendadasPage {
 
   mostrarSpinner :boolean= false;
 
+  watchReservasList:any;
+  miReserva:any;
+  miEstado:string  = "";
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public params: ParamsService,
@@ -39,9 +43,13 @@ export class ReservasAgendadasPage {
     var hoy = new Date();
     this.minDate = hoy.getFullYear() + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
     this.maxDate = '2020' + '-' + (hoy.getMonth() + 1 ) + '-' + hoy.getDate();
-   // this.minTime = '18:00';
-   // this.maxTime = '23:59';
+    this.obtenerReservasDeUsuario();
+  }
 
+  ionViewDidLeave(){
+    if(this.watchReservasList){
+      this.watchReservasList.unsubscribe();
+    }
   }
 
   confirmarReserva(){
@@ -50,8 +58,13 @@ export class ReservasAgendadasPage {
     var fechaReserva = this.parserTypesService.parseDateTimeToStringDateTime(dateaux);
     if(this.parserTypesService.compararFechayHoraMayorAHoy(fechaReserva)){
       this.mostrarSpinner = true;
-      var reservaAgendada = { estado: diccionario.estados_reservas_agendadas.sin_mesa, fecha: fechaReserva,
-        clienteId: this.params.user.uid, comensales: this.comensales, nombre: this.params.user.nombre, mesa: '' };
+      var reservaAgendada = {
+        estado: diccionario.estados_reservas_agendadas.sin_mesa,
+        fecha: fechaReserva,
+        clienteId: this.params.user.uid,
+        comensales: this.comensales,
+        nombre: this.params.user.nombre,
+        mesa: '' };
       this.database.jsonPackData = reservaAgendada;
       this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.reservas_agendadas);
       this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(response => {
@@ -64,5 +77,24 @@ export class ReservasAgendadasPage {
     }else{
       this.messageHandler.mostrarErrorLiteral("La fecha no puede ser menor a la actual");
     }
+  }
+
+  private obtenerReservasDeUsuario(){
+    this.mostrarSpinner = true;
+
+    this.watchReservasList = this.database.db.list<any>(diccionario.apis.reservas_agendadas, ref => ref.orderByChild('clienteId').equalTo(this.params.user.uid)).valueChanges()
+      .subscribe(snapshots => {
+        let reservasAgendadas = snapshots;
+        reservasAgendadas = reservasAgendadas.filter(f => {
+          return  f['estado'] != diccionario.estados_reservas_agendadas.confirmada
+        });
+        if(reservasAgendadas.length > 0){
+          this.miReserva = reservasAgendadas[0];
+          this.miEstado = this.miReserva['estado'] == diccionario.estados_reservas_agendadas.sin_mesa ? 'Sin mesa asignada'
+            : this.miReserva['estado'] == diccionario.estados_reservas_agendadas.con_mesa ? 'Con mesa Nro: ' + this.miReserva.mesa + ' asignada'
+              : 'Ya te encuentras en la mesa'
+        }
+        this.mostrarSpinner = false;
+      });
   }
 }
