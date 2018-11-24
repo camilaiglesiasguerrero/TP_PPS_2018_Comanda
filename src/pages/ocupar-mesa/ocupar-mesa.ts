@@ -56,6 +56,11 @@ export class OcuparMesaPage {
           this.Cancelar();
           return;
         }
+        if(this.mesa.comensales < this.cliente.comensales){
+          this.messageHandler.mostrarErrorLiteral("Mesa demasiado pequeña");
+          this.Cancelar();
+          return;
+        }
 
        this.watchReservasAgendadas = this.database.db.list<any>(diccionario.apis.reservas_agendadas, ref => ref.orderByChild('mesa').equalTo(this.id)).valueChanges()
           .subscribe(snapshots =>{
