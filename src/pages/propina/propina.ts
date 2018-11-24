@@ -90,7 +90,7 @@ export class PropinaPage {
   }
 
   confirmarPropina(){
-    this.params.propinaAux = this.codigoComprobado.id/100;
+    this.params.propinaAux = this.codigoComprobado.id != 0 ? this.codigoComprobado.id /100 : 0;
     this.navCtrl.setRoot(CuentaPage, {pedido: this.pedido});
   }
 }
