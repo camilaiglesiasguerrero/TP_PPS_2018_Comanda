@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import {ParserTypesService} from "../../services/parserTypesService";
 import { NotificationsPushService } from '../../services/notificationsPush.service';
+import {ChatPage} from "../chat/chat";
 
 
 @IonicPage()
@@ -334,7 +335,8 @@ export class AltaPedidoPage {
   }
 
   chatear(){
-
+    debugger;
+    this.navCtrl.push(ChatPage,{idDelivery: this.delivery.key});
   }
 
   private getReservas(){
