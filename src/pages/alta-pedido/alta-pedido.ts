@@ -340,6 +340,7 @@ export class AltaPedidoPage {
   }
 
   private getReservas(){
+    
     this.watcherReservas = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.reserva.idMesa))
       .valueChanges()
       .subscribe(snapshots => {
@@ -367,7 +368,7 @@ export class AltaPedidoPage {
         }
 
         for(var i=0; i < reservas.length; i++){
-          if(this.reserva.cliente == reservas[i].cliente && reservas[i].estado == diccionario.estados_reservas.en_curso){
+          if(this.reserva.idMesa == reservas[i].idMesa && reservas[i].estado == diccionario.estados_reservas.en_curso){
             this.reserva.key = reservas[i].key;
             this.reserva.idMesa = reservas[i].idMesa;
             this.reserva.estado = reservas[i].estado;
