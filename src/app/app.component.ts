@@ -61,7 +61,6 @@ export class MyApp {
     ];
     this.clienteAnonimoPages = [
       { title: "Inicio", component: PrincipalClientePage},
-      { title: "Hacer Pedido", component: AltaPedidoPage },
       { title: "Encuesta de satisfacción", component: EncuestaClientePage}
     ];
     this.supervisorPages = [
