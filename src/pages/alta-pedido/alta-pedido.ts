@@ -335,7 +335,6 @@ export class AltaPedidoPage {
   }
 
   chatear(){
-    debugger;
     this.navCtrl.push(ChatPage,{idDelivery: this.delivery.key});
   }
 

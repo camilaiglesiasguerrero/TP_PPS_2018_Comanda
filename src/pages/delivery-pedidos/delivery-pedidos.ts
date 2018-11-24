@@ -104,7 +104,6 @@ export class DeliveryPedidosPage {
   }
 
   chatearCliente(delivery){
-    debugger;
     this.navCtrl.push(ChatPage,{idDelivery: delivery.key});
   }
 

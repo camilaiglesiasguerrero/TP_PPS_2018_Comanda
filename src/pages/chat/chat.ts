@@ -61,7 +61,6 @@ export class ChatPage {
     }
     this.database.jsonPackData = this.chat;
     this.database.SubirDataBase(diccionario.apis.chats).then(r=>{
-      debugger;
       var lala = r;
       this.mensaje="";
     });
