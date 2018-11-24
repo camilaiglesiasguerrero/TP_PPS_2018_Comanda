@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ParamsService } from '../../services/params.service';
 import { DatabaseService } from '../../services/database.service';
 import { diccionario } from '../../models/diccionario';
+import {ParserTypesService} from "../../services/parserTypesService";
 
 /**
  * Generated class for the ChatPage page.
@@ -19,39 +20,52 @@ import { diccionario } from '../../models/diccionario';
 })
 export class ChatPage {
 
-  chats: Observable<any[]>;
+  chat:any = {'conversaciones': [] };
   usuario:string;
   mensaje:string;
   idDelivery:string;
-  userActual:string
+  userActual:string;
   fecha:string;
   auxUser:any;
+  watcherChat:any;
+  chatKey:any;
 
   constructor(
     public navCtrl: NavController,
-    public navPav: NavParams, 
+    public navPav: NavParams,
     public navParams: NavParams,
     public database: DatabaseService,
-    public params: ParamsService){
-      this.userActual == this.params.name;
-      this.idDelivery=this.navParams.get('idDelivery');
-      this.chats = this.database.db.list<any>(this.idDelivery.toString()+'/conversasiones').valueChanges();
-    }
+    public params: ParamsService,
+    private parser: ParserTypesService){
 
-  horaNow(){
-    var hoy = new Date();
-    var fecha:string = hoy.getHours() + ':' + hoy.getMinutes() + ":" + hoy.getSeconds();
-    return fecha;
+    this.idDelivery=this.navParams.get('idDelivery');
+    this.watcherChat = this.database.db.list<any>(diccionario.apis.chats, ref => ref.orderByChild('idDelivery').equalTo(this.idDelivery)).valueChanges()
+      .subscribe(snp=>{
+        if(snp.length){
+          this.chat = snp[0];
+        }
+      });
   }
 
-  Push()
-  {
-    this.database.db.list(this.idDelivery.toString()+'/conversaciones').push({
-    usuario:this.params.name,
-    mensaje:this.mensaje,
-    hora: this.horaNow()
-  });
-    this.mensaje="";
+  Push() {
+    var chat ={
+      usuario:this.params.user.nombre,
+      mensaje:this.mensaje,
+      fecha: this.parser.parseDateTimeToStringDateTime(new Date())
+    };
+    if(this.chat.conversaciones){
+      this.chat['conversaciones'].push(chat);
+    }else{
+      this.chat['conversaciones'] = [];
+      this.chat['conversaciones'].push(chat);
+    }
+    this.database.jsonPackData = this.chat;
+    this.database.SubirDataBase(diccionario.apis.chats).then(r=>{
+      var lala = r;
+      this.mensaje="";
+    });
+
+
   }
 
 }
