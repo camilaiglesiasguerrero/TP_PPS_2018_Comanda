@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon color="dark" name="menu"></ion-icon>
+    </button>
+    <ion-title>Chat delivery</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+    <ion-list *ngFor="let item of chats | async">
+        <ion-item class="itemmsj" >
+        <p  *ngIf="item.usuario!=userActual">{{item.usuario}}:</p>
+        <h2 *ngIf="item.usuario!=userActual" >{{item.mensaje}}</h2>           
+        <ion-note item-end *ngIf="item.usuario!=userActual">{{item.hora}}</ion-note>
+        
+        <p class="yo" *ngIf="item.usuario==userActual">Yo:</p>
+        <h2 class="yo" *ngIf="item.usuario==userActual" >{{item.mensaje}}</h2>           
+        <ion-note class="yo" item-start *ngIf="item.usuario==userActual">{{item.hora}}</ion-note>
+
+        <hr style="margin:0%; background-color:rgb(0, 183, 255)">
+      </ion-item>
+      </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <!-- <ion-title>Su Mensaje</ion-title> -->
+    <!-- <ion-input [(ngModel)]="chatBox" type="text" aria-placeholder="Escriba su mensaje aqui..." value=""></ion-input> -->
+  <!-- </div> -->
+  <table border="0">
+    <tr >
+        <td class="tdinput">
+          <ion-item class="textbox">
+            <ion-input maxlength="21" id="msg" [(ngModel)]="mensaje" type="text" name="msg" placeholder="Escriba su mensaje aqui..."></ion-input>
+          </ion-item></td>
+        <td><button class="btsend" ion-button (click)="Push()"><ion-icon name="md-send"></ion-icon></button></td>
+      </tr>
+</table>
+  </ion-toolbar>
+</ion-footer>
