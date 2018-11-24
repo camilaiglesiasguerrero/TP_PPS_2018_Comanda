@@ -62,8 +62,6 @@ export class PrincipalMozoPage {
         }
         }
       }, (err) => {
-        //console.log('Error: ', err);
-        alert(err);
         this.messageHandler.mostrarError(err, 'Ocurrió un error');
       });
   }

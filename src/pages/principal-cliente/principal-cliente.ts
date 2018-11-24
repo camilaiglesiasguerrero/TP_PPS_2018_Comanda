@@ -86,7 +86,6 @@ export class PrincipalClientePage {
               this.puedeHacerPedido = false;
               this.esperandoAsignacion = false;
               this.mostrarSpinner = false;
-              return;
             }
             //el cliente esta en lista de espera
             let auxListaEspera = snapshots;
@@ -154,6 +153,9 @@ export class PrincipalClientePage {
                           this.puedeSolicitarMesa = false;
                           this.esperandoAsignacion = false;
                           this.flagEstaActivo = true;
+                        }
+                        if(auxPedido[0].estado == diccionario.estados_pedidos.listo){
+                          this.puedeJugar = false;
                         }
                         this.mostrarSpinner = false;
                       });
