@@ -16,11 +16,23 @@
       <ion-card>
         <ion-card-header><b>Reservas Agendadas</b></ion-card-header>
         <ion-row *ngFor="let c of reservasAgendadas">
-          <ion-col>{{c.nombre}} <br> ({{c.comensales}} comensales)</ion-col>
+          <ion-col>
+            <ion-row>
+              <ion-col style="padding-bottom: 0px;">
+                {{c.nombre}}
+              </ion-col>
+              <ion-col style="padding-bottom: 0px;">
+                ({{c.comensales}} comensales)
+              </ion-col>
+            </ion-row>
+          </ion-col>
           <ion-col text-center>
             <button ion-button round color="light" (click)="confirmarReserva(c)">
-              Asignar
+              Confirmar
             </button>
+          </ion-col>
+          <ion-col>
+            Fecha: {{c.fecha}}
           </ion-col>
           <ion-col *ngIf="c.comensales > comensalesMax || noHayMesasLibres" text-center>
             <button  ion-button round color="light" disabled>
