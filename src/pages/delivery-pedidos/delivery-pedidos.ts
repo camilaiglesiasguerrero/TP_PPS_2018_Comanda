@@ -103,7 +103,7 @@ export class DeliveryPedidosPage {
   }
 
   chatearCliente(delivery){
-
+    
   }
 
   private getPedidosParaEntregar(){
