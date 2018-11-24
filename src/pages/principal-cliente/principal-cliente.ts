@@ -50,6 +50,28 @@ export class PrincipalClientePage {
     this.user = this.params.user;
 
     this.mostrarSpinner = true;
+
+    this.database.db.list<any>(diccionario.apis.delivery, ref => ref.orderByChild('Cliente').equalTo(this.params.user.uid))
+      .valueChanges()
+      .subscribe(snpDelivery => {
+        //veo la lista de delivery con este cliente
+        //si no esta en delivery se pone el estado inicial, puede solicitar mesa o delivery
+        if(snpDelivery.length != 0){
+          let auxDelivery = snpDelivery;
+          auxDelivery = auxDelivery.filter(ad => ad['estado'] != diccionario.estados_delivery.entregado)
+          if(auxDelivery.length > 0 ){
+            this.puedePedirDelivery = false;
+            this.puedeSolicitarMesa = false;
+            this.puedeJugar = false;
+            this.puedeVerPedido = false;
+            this.puedeHacerPedido = false;
+            this.esperandoAsignacion = false;
+            this.mostrarSpinner = false;
+            this.puedePedirDelivery = true;
+            return;
+          }
+        }
+
     this.database.db.list<any>(diccionario.apis.lista_espera, ref => ref.orderByChild('clienteId').equalTo(this.params.user.uid))
       .valueChanges()
       .subscribe(snapshots => {
@@ -136,6 +158,7 @@ export class PrincipalClientePage {
             });
         }
       });
+    });
   }
 
   ionViewDidLoad() {
@@ -233,7 +256,7 @@ export class PrincipalClientePage {
     this.database.jsonPackData = listaEspera;
     this.database.jsonPackData['key'] = this.database.ObtenerKey(diccionario.apis.lista_espera);
     this.database.SubirDataBase(diccionario.apis.lista_espera).then(response => {
-      this.messageHandler.mostrarMensaje("Enseguida se le asignará una mesa");
+      this.messageHandler.mostrarMensaje("Enseguida se te asignará una mesa");
       this.mostrarSpinner = false;
       this.notificationPushService.solicitudDeMesa(this.params.user.nombre);
       //TODO: ENVIAR NOTIFICACION PUSH A LOS MOZOS Y SUPERVISORES DE QUE HAY UN CLIENTE ESPERANDO MESA
