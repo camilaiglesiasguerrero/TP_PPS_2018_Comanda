@@ -34,7 +34,7 @@ export class PrincipalClientePage {
   puedeSolicitarMesa = true;
   esperandoAsignacion = false;
   auxPedido:any;
-
+  flagEstaActivo = false;
   mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -68,6 +68,7 @@ export class PrincipalClientePage {
             this.esperandoAsignacion = false;
             this.mostrarSpinner = false;
             this.puedePedirDelivery = true;
+            this.flagEstaActivo = true;
             return;
           }
         }
@@ -99,6 +100,7 @@ export class PrincipalClientePage {
               this.puedeHacerPedido = false;
               this.esperandoAsignacion = true;
               this.mostrarSpinner = false;
+              this.flagEstaActivo = true;
             }
             //esta en lista de espera con mesa asignada, se consulta la reserva
             else {
@@ -120,6 +122,7 @@ export class PrincipalClientePage {
                         this.puedePedirDelivery = false;
                         this.puedeSolicitarMesa = false;
                         this.esperandoAsignacion = false;
+                        this.flagEstaActivo = true;
                         flag = true;
                         break;
                       }
@@ -131,6 +134,7 @@ export class PrincipalClientePage {
                         this.puedePedirDelivery = false;
                         this.puedeSolicitarMesa = false;
                         this.esperandoAsignacion = false;
+                        this.flagEstaActivo = true;
                       }
                     }
                   }
@@ -149,11 +153,21 @@ export class PrincipalClientePage {
                           this.puedePedirDelivery = false;
                           this.puedeSolicitarMesa = false;
                           this.esperandoAsignacion = false;
+                          this.flagEstaActivo = true;
                         }
                         this.mostrarSpinner = false;
                       });
                   }else{
                     this.mostrarSpinner = false;
+                  }
+
+                  if(!this.flagEstaActivo){
+                    this.puedeJugar = false;
+                    this.puedeVerPedido = false;
+                    this.puedeHacerPedido = false;
+                    this.puedePedirDelivery = true;
+                    this.puedeSolicitarMesa = true;
+                    this.esperandoAsignacion = false;
                   }
                 });
             }
