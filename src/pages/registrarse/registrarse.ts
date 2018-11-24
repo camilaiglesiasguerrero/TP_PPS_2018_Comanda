@@ -109,6 +109,7 @@ export class RegistrarsePage {
           .then(response => {
             let cliente = new Cliente(this.user.nombre, this.user.apellido, this.user.dni, this.user.foto, true);
             cliente.uid = this.autenticationService.getUID();
+            this.autenticationService.logInFromDataBase();
             this.paramsService.user = cliente;
             this.paramsService.rol = cliente.rol;
             this.paramsService.isLogged = true;
