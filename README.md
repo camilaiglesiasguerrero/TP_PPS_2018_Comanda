@@ -90,7 +90,7 @@ Branch: *branch_fede*
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Push notification para pedido de platos y bebidas`
 
-![#ff8000](https://placehold.it/15/ff8000/000000?text=+) `Mapa de ruta hasta el domicilio de entrega`
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Mapa de ruta hasta el domicilio de entrega`
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Juego 10% de descuento`
 
