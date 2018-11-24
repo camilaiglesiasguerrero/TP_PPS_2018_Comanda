@@ -21,7 +21,8 @@ export class ReservarMesaPage {
   mesa:any;
   mostrar:boolean;
   watchMesasList:any;
-  watchReservasList:any
+  watchReservasList:any;
+  watchReservasIdMesaList:any;
 
   mostrarSpinner:boolean = false;
 
@@ -52,7 +53,7 @@ export class ReservarMesaPage {
             }
           }
         }
-        this.watchMesasList = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.idMesa)).valueChanges()
+        this.watchReservasIdMesaList = this.database.db.list<any>(diccionario.apis.reservas, ref => ref.orderByChild('idMesa').equalTo(this.idMesa)).valueChanges()
           .subscribe(snapshots => {
             var aux:any = snapshots;
             for(var i=0; i < snapshots.length; i++){
@@ -79,6 +80,7 @@ export class ReservarMesaPage {
   salir(){
     this.watchMesasList ? this.watchMesasList.unsubscribe(): '';
     this.watchReservasList ? this.watchReservasList.unsubscribe() : '';
+    this.watchReservasIdMesaList ? this.watchReservasIdMesaList.unsubscribe() : '';
     this.navCtrl.remove(1,1);
   }
 
@@ -88,6 +90,7 @@ export class ReservarMesaPage {
       clienteId: this.reservaAgendada.clienteId, comensales: this.reservaAgendada.comensales, nombre: this.reservaAgendada.nombre, key: this.reservaAgendada.key, mesa: this.mesa.id };
     this.database.jsonPackData = reservaAgendada;
     //dar de alta una reserva y modificar el estado de la reserva;
+    this.watchReservasList ? this.watchReservasList.unsubscribe() : '';
     this.database.SubirDataBase(diccionario.apis.reservas_agendadas).then(e=>{
       this.notificationPushService.asignacionMesaReservaAgendad(reservaAgendada.clienteId, this.mesa.id);
       this.messageHandler.mostrarMensaje("Mesa asignada con éxito");
