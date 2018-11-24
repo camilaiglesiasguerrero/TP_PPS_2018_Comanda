@@ -15,8 +15,8 @@
 
 <ion-content padding>
         <page-spinner [hidden]="!mostrarSpinner"></page-spinner> 
-    <ion-list *ngFor="let p of listado">
-        <ion-item>
+    <ion-list *ngFor="let p of listado; let i = index" style="margin-bottom: 1em;">
+        <ion-item [ngClass]="{'ultimo-item': i == (listado.length - 1)}">
           <div (click)="irA('Editar',p)">
             <ion-row>
                 <div class="app flex-row align-items-center">   
