@@ -76,7 +76,6 @@ export class AdivinarNumeroPage {
   numAleatorio(a,b){
     
     let aux = Math.round(Math.random()*(b-a)+parseInt(a));
-    alert(aux);
     return aux;
   }
 
@@ -107,7 +106,6 @@ export class AdivinarNumeroPage {
         this.perdio();
       }
     }
-    alert("numero secreto " + this.numSecret);
   }
 
   gano(){

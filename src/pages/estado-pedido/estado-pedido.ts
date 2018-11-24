@@ -77,7 +77,6 @@ export class EstadoPedidoPage {
                   this.aux = snp;
                   this.pedido.estado = this.aux[0].estado;
                   this.mostrar = true;
-                  
                   if(this.pedido.estado == diccionario.estados_pedidos.en_preparacion 
                     || this.pedido.estado == diccionario.estados_pedidos.listo ){
                       this.productosPedidos = [];

@@ -74,7 +74,6 @@ export class ListadoPedidosPage {
   }
 
   ionViewDidLeave(){
-    alert("entro al ionviewdidleave");
     if(this.watchProductos){
       this.watchProductos.unsubscribe();
     }
@@ -111,7 +110,6 @@ export class ListadoPedidosPage {
     this.watchProductos = this.database.db.list<any>(this.dic.apis.pedidos,ref => ref.orderByChild('estado').equalTo(this.dic.estados_pedidos.en_preparacion))
       .valueChanges()
       .subscribe(snapshots => {
-
         this.productos = [];
         this.pedidosList = snapshots;
         this.cambiarEstadoPedido = false;
@@ -123,15 +121,8 @@ export class ListadoPedidosPage {
             }
           }
           this.chequearEstadoDeProductos();
-          this.mostrarSpinner = false;
-
         }
-        if(this.pedidosList.length == 0){
-          if(this.esCocineroBartender){
-            this.messageHandler.mostrarMensaje('No hay pedidos pendientes');
-          }
-          this.mostrarSpinner = false;
-        }
+        this.mostrarSpinner = false;
       });
   }
 
@@ -160,15 +151,7 @@ export class ListadoPedidosPage {
                 }
               }
             }
-
-            if(this.pedidosMozo.length == 0 || this.pedidosList.length == 0){
-              this.mostrarSpinner = false;
-              this.messageHandler.mostrarMensaje("No hay pedidos pendientes");
-              this.navCtrl.remove(1,1);
-            }else{
-              this.mostrarSpinner = false;
-            }
-
+            this.mostrarSpinner = false;
           });
       });
   }
@@ -198,10 +181,10 @@ export class ListadoPedidosPage {
       .then(response =>{
         console.log("aux ",aux);
         console.log("response ",response);
-      }).catch(error =>{
-      alert("error al subir el producto");
-      console.log(aux);
-    })
+      })
+      .catch(error =>{
+        this.messageHandler.mostrarErrorLiteral("Error al subir el producto");
+      })
   }
 
   cambiarTiempo(pr){
@@ -227,6 +210,7 @@ export class ListadoPedidosPage {
       });
 
   }
+
   /**Cambia el estado del pedido a Entregado/Cerrado */
   AprobarEntregar(p){
     this.mostrarSpinner = true;
@@ -278,16 +262,18 @@ export class ListadoPedidosPage {
     this.mostrarSpinner = true;
     let fecha = Date.now();
 
+    let auxTiempoElaboracion = pr.tiempoElaboracion ? pr.tiempoElaboracion : 0;
+
     let aux = {
       key : pr.key,
       cantidad : pr.cantidad,
       tipo : pr.tipo,
-      estado: pr.estado,
+      estado: pr.estado ? true : false,
       nombre: pr.nombre,
       precio: pr.precio,
       pedido: pr.pedido,
-      tiempoElaboracion: pr.tiempoElaboracion ? pr.tiempoElaboracion : 0,
-      entrega: pr.estado ? 0 : (fecha + (pr.tiempoElaboracion * 60000))
+      tiempoElaboracion: auxTiempoElaboracion,
+      entrega: pr.estado ? 0 : (fecha + (auxTiempoElaboracion * 60000))
     };
 
     this.database.jsonPackData = aux;
@@ -295,7 +281,6 @@ export class ListadoPedidosPage {
       .then(response =>{
         this.mostrarSpinner = false;
       });
-
   }
 
   private chequearEstadoDeProductos(){
@@ -320,7 +305,6 @@ export class ListadoPedidosPage {
     pedidoAActualizar.estado = diccionario.estados_pedidos.listo;
     this.database.jsonPackData = pedidoAActualizar;
     this.database.SubirDataBase(this.dic.apis.pedidos).then(e=>{
-      debugger;
       if(pedidoAActualizar.isDelivery){
         this.notificationPushService.notificarDeliveryOk();
       }else{

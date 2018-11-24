@@ -37,13 +37,17 @@
       <ion-row class=fle *ngFor="let pr of productosPedidos">
         <ion-col>
           <ion-item style="padding-left: 5px;">
-            <div class="flex-h">
-              <div class="width-40">{{pr.nombre}}</div>
-              <div *ngIf="pedido.estado == 'En preparación' || pedido.estado == 'Solicitado' "  class="width-60">
-                  {{pr.entrega | tiempoDesdeAhora}}
-                </div>
-              <div *ngIf="pedido.estado == 'Listo'"  class="width-60">Listo para ser entregado</div>
-            </div>
+            <ion-row>
+              <ion-col>
+                {{pr.nombre}}
+              </ion-col>
+              <ion-col class="end-horizontal" *ngIf="pedido.estado == 'En preparación' || pedido.estado == 'Solicitado' " >
+                {{pr.entrega | tiempoDesdeAhora}}
+              </ion-col>
+              <ion-col class="end-horizontal" *ngIf="pedido.estado == 'Listo'">
+                Listo para ser entregado
+              </ion-col>
+            </ion-row>
           </ion-item>
         </ion-col>
       </ion-row>
