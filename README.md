@@ -34,6 +34,10 @@ La aplicación permitirá la gestión de las comandas de un restaurante. Fundame
 
 El usuario debe ingresar en la aplicación e iniciar sesión. Eso le habilitará diversos módulos acorde al alcance de su usuario, tal lo descripto en el punto *"Perfiles de usuario"*.
 
+**Videos**
+
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://github.com/camilaiglesiasguerrero/TP_PPS_2018_Comanda/blob/master/Videos%20tutoriales/Cliente%20-%20ingresa%20y%20hace%20pedido.mp4)
+
 
 ## **Módulos y objetivos**
 ### :fork_and_knife: __**Camila Iglesias Guerrero**__  
